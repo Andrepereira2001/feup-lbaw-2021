@@ -1,3 +1,3 @@
 Hello world!
 
-[a1]
+[a1](A1)
