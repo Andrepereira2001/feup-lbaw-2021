@@ -1,4 +1,4 @@
-# ProductName
+# ProductName (e.g. MediaLibrary 2018)
 
 ## Project
 
