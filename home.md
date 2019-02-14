@@ -1,4 +1,4 @@
-[raw index.md](uploads/1b6a2df365270b709b1e5b6b77a0d012/index.md)
+[Download raw index.md](uploads/1b6a2df365270b709b1e5b6b77a0d012/index.md)
 
 # ProductName (e.g. MediaLibrary 2018)
 
