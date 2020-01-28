@@ -20,11 +20,10 @@
 * Database specification
   * [A4: Conceptual Data Model](a4)
   * [A5: Relational schema, validation and schema refinement](a5)
-  * [A6: Integrity constraints. Indexes, triggers, user functions and database populated with data](a6)
+  * [A6: Integrity constraints. Indexes, triggers, user functions, transactions and database populated with data](a6)
 * Architecture specification and Prototype
   * [A7: High-level architecture. Privileges. Web resources specification](a7)
   * [A8: Vertical Prototype](a8)
-  * [A9: Main Accesses to the database and transactions](a9)
 * Product and Presentation
   * [A10: Product](a10)
   * [A11: Presentation and discussion](a11)
