@@ -25,8 +25,8 @@
   * [A7: High-level architecture. Privileges. Web resources specification](a7)
   * [A8: Vertical Prototype](a8)
 * Product and Presentation
-  * [A10: Product](a10)
-  * [A11: Presentation and discussion](a11)
+  * [A9: Product](a9)
+  * [A10: Presentation and discussion](a10)
 
 ***
-GROUP18GG, DD/MM/2019
+GROUP20gg, DD/MM/2020
