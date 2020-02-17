@@ -2,7 +2,7 @@
 
 > [Download raw home.md](uploads/924dae108b113a90953fc458ed8f944e/home.md)
 
-# ProductName (e.g. MediaLibrary 2018)
+# ProductName (e.g. MediaLibrary)
 
 ## Project Artefacts
 
