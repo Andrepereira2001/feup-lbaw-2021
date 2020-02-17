@@ -1,4 +1,6 @@
-> [Download raw home.md](uploads/b06b6bdacfba58a40bd1fab3d1cd051c/home.md)
+> [Download raw home.md](uploads/b06b6bdacfba58a40bd1fab3d1cd051c/home.md) 
+> 
+> and edit the **groups' home wiki** page at https://git.fe.up.pt/lbaw/lbaw1920/lbaw20gg/-/wikis/home ("gg" is the group number).
 
 # ProductName (e.g. MediaLibrary 2018)
 
