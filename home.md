@@ -1,19 +1,10 @@
-> [Download raw home.md](uploads/b06b6bdacfba58a40bd1fab3d1cd051c/home.md) 
-> 
-> and edit the **groups' home wiki** page at https://git.fe.up.pt/lbaw/lbaw1920/lbaw20gg/-/wikis/home ("gg" is the group number).
+> [Download the raw README.md example](uploads/27ddb20b396448e73379fcb14a8c0242/readme.md)
+
+> [Download raw home.md](uploads/924dae108b113a90953fc458ed8f944e/home.md)
 
 # ProductName (e.g. MediaLibrary 2018)
 
-## Project
-
-### Team
-
-* Group member 1 name, email
-* Group member 2 name, email
-* Group member 3 name, email
-* Group member 4 name, email
-
-### Artefacts
+## Project Artefacts
 
 * User Requirements specification
   * [A1: Project presentation](a1)
@@ -29,6 +20,17 @@
 * Product and Presentation
   * [A9: Product](a9)
   * [A10: Presentation and discussion](a10)
+
+## Artefacts Checklist
+
+* The artefacts checklist is available at: <url-to-g.uporto-sheet>
+
+## Team
+
+* Group member 1 name, email
+* Group member 2 name, email
+* Group member 3 name, email
+* Group member 4 name, email
 
 ***
 GROUP20gg, DD/MM/2020
