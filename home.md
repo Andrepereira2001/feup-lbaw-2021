@@ -1,29 +1,29 @@
-> [Download the raw README.md example](uploads/70fd2818fb6b5dd6dac01cc9f749bb96/readme.md)
+> [Download the raw README.md example](uploads/8cc4354515203dc5d6806712797c0cdf/readme.md)
 
-> [Download raw home.md](uploads/0d9ecc86de0f007bb18c9179e6bbd4d2/home.md)
+> [Download raw home.md](uploads/4822ac647dcdfc6ac44d5a1aa8cf54f6/home.md)
 
-# ProductName (e.g. MediaLibrary)
+# Product name (e.g. MediaLibrary)
 
 ## Project Artefacts
 
 * User Requirements specification
-  * [A1: Project presentation](a1)
-  * [A2: Actors and User stories](a2)
-  * [A3: User Interfaces Prototype](a3)
+  * [A1: Project presentation](a01)
+  * [A2: Actors and User stories](a02)
+  * [A3: User Interfaces Prototype](a03)
 * Database specification
-  * [A4: Conceptual Data Model](a4)
-  * [A5: Relational schema, validation and schema refinement](a5)
-  * [A6: Integrity constraints. Indexes, triggers, user functions, transactions and database populated with data](a6)
+  * [A4: Conceptual Data Model](a04)
+  * [A5: Relational schema, validation and schema refinement](a05)
+  * [A6: Integrity constraints. Indexes, triggers, user functions, transactions and database populated with data](a06)
 * Architecture specification and Prototype
-  * [A7: High-level architecture. Privileges. Web resources specification](a7)
-  * [A8: Vertical Prototype](a8)
+  * [A7: High-level architecture. Privileges. Web resources specification](a07)
+  * [A8: Vertical Prototype](a08)
 * Product and Presentation
-  * [A9: Product](a9)
+  * [A9: Product](a09)
   * [A10: Presentation and discussion](a10)
 
 ## Artefacts Checklist
 
-* The artefacts checklist is available at: <url-to-g.uporto-sheet>
+* The artefacts checklist is available at: <docs.google.com/spreadsheets @ g.uporto>
 
 ## Team
 
