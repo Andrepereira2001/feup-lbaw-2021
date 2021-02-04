@@ -5,12 +5,12 @@
 
 ## Project Components
 
-* [Requirements Specification](er)
-* [Database Specification](ebd)
-* [Architecture Specification and Prototype](eap)
+* [ER: Requirements Specification](er)
+* [EBD: Database Specification](ebd)
+* [EAP: Architecture Specification and Prototype](eap)
   * [A7: High-level architecture. Privileges. Web resources specification](a07)
   * [A8: Vertical Prototype](a08)
-* [Product and Presentation](pa)
+* [PA: Product and Presentation](pa)
   * [A9: Product](a09)
   * [A10: Presentation and discussion](a10)
 
