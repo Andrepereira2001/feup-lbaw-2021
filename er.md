@@ -2,7 +2,7 @@
 
 # ER: Requirements Specification Component
 
-## A1: project name
+## A1: Project Name
 
 > Goals, business context and environment.  
 > Motivation.  
@@ -37,16 +37,16 @@
 #### 2.N. Actor n
 
 
-### A2. Annex: Supplementary requirements
+### 3. Supplementary Requirements
 
 > Annex including business rules, technical requirements, and restrictions.  
 > For each subsection, a table containing identifiers, names, and descriptions for each requirement.
 
-### A2.1. Business rules
+#### 3.1. Business rules
 
-### A2.2. Technical requirements
+#### 3.2. Technical requirements
 
-### A2.3. Restrictions
+#### 3.3. Restrictions
 
 
 ---
@@ -85,7 +85,7 @@
 #### UI02: About
 
 
-### A3. Annex: Hand-made materials
+### 4. Hand-made materials
 
 > Include digitization of the hand-made materials, particularly the wireflows. 
 
