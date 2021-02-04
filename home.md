@@ -3,20 +3,17 @@
 
 # Product name (e.g. MediaLibrary)
 
-## Project Artefacts
+## Project Components
 
-* User Requirements specification
-  * [A1: Project presentation](a01)
-  * [A2: Actors and User stories](a02)
-  * [A3: User Interfaces Prototype](a03)
-* Database specification
+* [Requirements Specification Component](er)
+* [Database Specification Component](ebd)
   * [A4: Conceptual Data Model](a04)
   * [A5: Relational schema, validation and schema refinement](a05)
   * [A6: Integrity constraints. Indexes, triggers, user functions, transactions and database populated with data](a06)
-* Architecture specification and Prototype
+* [Architecture Specification and Prototype Component](eap)
   * [A7: High-level architecture. Privileges. Web resources specification](a07)
   * [A8: Vertical Prototype](a08)
-* Product and Presentation
+* [Product and Presentation](pa)
   * [A9: Product](a09)
   * [A10: Presentation and discussion](a10)
 
