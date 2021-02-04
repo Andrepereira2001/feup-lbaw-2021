@@ -9,8 +9,6 @@
 * [EBD: Database Specification](ebd)
 * [EAP: Architecture Specification and Prototype](eap)
 * [PA: Product and Presentation](pa)
-  * [A9: Product](a09)
-  * [A10: Presentation and discussion](a10)
 
 ## Artefacts Checklist
 
