@@ -1,5 +1,3 @@
-[Download raw er.md](xxx)
-
 # ER: Requirements Specification Component
 
 ## A1: Project Name
@@ -100,7 +98,7 @@ Changes made to the first submission:
 1. ...
 
 ***
-GROUP21gg, DD/MM/2020
+GROUP21gg, DD/MM/2021
 
 * Group member 1 name, email (Editor)
 * Group member 2 name, email
