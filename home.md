@@ -1,6 +1,3 @@
-[Download the raw README.md example](uploads/8cc4354515203dc5d6806712797c0cdf/readme.md)  
-[Download raw home.md](uploads/4822ac647dcdfc6ac44d5a1aa8cf54f6/home.md)
-
 # Product name (e.g. MediaLibrary)
 
 ## Project Components
