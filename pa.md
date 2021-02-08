@@ -1,7 +1,6 @@
-[Download raw a09.md](xxx)
-
 # PA: Product and Presentation
 
+> Project vision
 
 ## A9: Product
 
