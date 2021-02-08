@@ -1,6 +1,6 @@
-[Download raw a07.md](xxx)
-
 # EAP: Architecture Specification and Prototype
+
+> Project vision
 
 ## A7: High-level architecture. Privileges. Web resources specification
 
