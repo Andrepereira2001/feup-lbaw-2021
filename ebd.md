@@ -1,6 +1,6 @@
-[Download raw a04.md](xxx)
-
 # EBD: Database Specification Component
+
+> Project vision
 
 ## A4: Conceptual Data Model
 
