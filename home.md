@@ -1,5 +1,7 @@
 # Product name (e.g. MediaLibrary)
 
+> Project vision
+
 ## Project Components
 
 * [ER: Requirements Specification](er)
