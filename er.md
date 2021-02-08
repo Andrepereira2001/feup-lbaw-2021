@@ -1,5 +1,7 @@
 # ER: Requirements Specification Component
 
+> Project vision
+
 ## A1: Project Name
 
 > Goals, business context and environment.  
