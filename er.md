@@ -70,9 +70,9 @@
 > Multiple pages of the same screen (e.g. student profile in SIGARRA) are presented as page stacks.
 
 
-### 3. Storyboards
+### 3. Wireflows
 
-> Storyboards for the main use cases of the system.  
+> Wireflows for the main use cases of the system.  
 > Do not include trivial use cases.
 
 
