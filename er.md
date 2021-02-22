@@ -15,7 +15,6 @@
 
 ## A2: Actors and User stories
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 
@@ -54,7 +53,6 @@
 
 ## A3: User Interface Prototype
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 
@@ -72,8 +70,9 @@
 
 ### 3. Wireflows
 
-> Wireflows for the main use cases of the system.  
+> Single image containing wireflows for the main use cases of the system.  
 > Do not include trivial use cases.
+> Link to the InVision project.
 
 
 ### 4. Interfaces
@@ -83,11 +82,6 @@
 #### UI01: Home
 
 #### UI02: About
-
-
-### 4. Hand-made materials
-
-> Include digitization of the hand-made materials, particularly the wireflows. 
 
 
 ---
