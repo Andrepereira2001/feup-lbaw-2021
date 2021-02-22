@@ -4,7 +4,6 @@
 
 ## A7: High-level architecture. Privileges. Web resources specification
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 ### 1. Overview
@@ -65,7 +64,6 @@
 
 ## A8: Vertical prototype
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 ### 1. Implemented Features
