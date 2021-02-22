@@ -4,7 +4,6 @@
 
 ## A4: Conceptual Data Model
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 ### 1. Class diagram
@@ -22,7 +21,6 @@
 
 ## A5: Relational Schema, validation and schema refinement
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 ### 1. Relational Schema
@@ -73,7 +71,6 @@
 
 ## A6: Indexes, triggers, user functions, transactions and population
 
-> Brief presentation of the product.  
 > Brief presentation of the artefact goals.
 
 ### 1. Database Workload
