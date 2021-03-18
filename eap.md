@@ -18,8 +18,23 @@
 
 > Web resources organized by module  
 > Document and describe the web resources associated with each module, indicating the URL, HTTP method, request parameters and response.  
-> Follow the RESTful resource naming  
-> At the end of this page is presented some usual descriptors to document the web resources.
+> Adopt a RESTful design in naming resource.  
+> Use and adapt the provided template for each resource.
+> Below is a list of typical descriptors used to document web resources.
+
+#### Web resources descriptors (Note: **NOT to be included on the final artefact**)
+
+* URL - Resource identifier, following the RESTful resource naming conventions 
+* Description - Describe the resource, when it's used and why
+* UI - Reference to the A3 user interface used by the resource
+* SUBMIT - Reference to the actions/requests integrated with the resource
+* Method - HTTP request Method
+* Parameters - Information that is sent through the URL, by a query string or path
+* Request Body - Data associated and transmitted with each request
+* Returns - HTTP code returned from a request
+* Response Body - Data sent from the server, in response to a given request
+* Permissions - Required permissions to access the resource
+
 
 #### 3.1 Module 1
 
@@ -43,20 +58,7 @@
 
 ### 4. JSON/XML Types
 
-> Document the JSON or XML responses that will be used by the web resources.  
-
-### Web resources descriptors (Note: **NOT to be included on the final artefact**)
-
-* URL - Resource identifier, following the RESTful resource naming conventions 
-* Description - Describe the resource, when it's used and why
-* UI - Reference to the A3 user interface used by the resource
-* SUBMIT - Reference to the actions/requests integrated with the resource
-* Method - HTTP request Method
-* Parameters - Information that is sent through the URL, by a query string or path
-* Request Body - Data associated and transmitted with each request
-* Returns - HTTP code returned from a request
-* Response Body - Data sent from the server, in response to a given request
-* Permissions - Required permissions to access the resource
+> Document the JSON or XML responses that will be used by the web resources.
 
 
 ---
