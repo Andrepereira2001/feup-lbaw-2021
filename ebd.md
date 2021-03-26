@@ -154,9 +154,7 @@
 | `Complete SQL Code`                                   ||
 
 
-## Annex A. Complete SQL Code
-
-### 4. SQL Code
+## Annex A. SQL Code
 
 > The database scripts are included in this annex to the EBD component.
 > 
