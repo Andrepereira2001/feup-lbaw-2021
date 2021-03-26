@@ -160,8 +160,9 @@
 > 
 > The database creation script and the population script should be presented as separate elements.
 > The creation script includes the code necessary to build (and rebuild) the database.
-> The population script includes an amount of tuples suitable for testing and with plausible values for the fields of the database.  
-> This code should also be included in the group's git repository and links included here.
+> The population script includes an amount of tuples suitable for testing and with plausible values for the fields of the database.
+>
+> This code should also be included in the group's git repository and links added here.
 
 ### A.1. Database schema
 
