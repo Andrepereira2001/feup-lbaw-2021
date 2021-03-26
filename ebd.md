@@ -60,11 +60,6 @@
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
 > Justification of the BCNF.  
 
-### 4. SQL Code
-
-> SQL code necessary to build (and rebuild) the database.  
-> This code should also be included in the group's git repository as an SQL script, and a link include here.  
-
 
 ---
 
@@ -158,14 +153,21 @@
 | Isolation level | Isolation level of the transaction. |
 | `Complete SQL Code`                                   ||
 
-### 5. Complete SQL Code
- 
-> The database script must also include the SQL to populate a database with test data with an amount of tuples suitable for testing and with plausible values for the fields of the database.  
-> This code should also be included in the group's git repository as an SQL script, and a link include here.  
 
-#### 5.1. Database schema
+## Annex A. Complete SQL Code
 
-#### 5.2. Database population
+### 4. SQL Code
+
+> The database scripts are included in this annex to the EBD component.
+> 
+> The database creation script and the population script should be presented as separate elements.
+> The creation script includes the code necessary to build (and rebuild) the database.
+> The population script includes an amount of tuples suitable for testing and with plausible values for the fields of the database.  
+> This code should also be included in the group's git repository and links included here.
+
+### A.1. Database schema
+
+### A.2. Database population
 
 
 ---
