@@ -4,7 +4,7 @@
 
 ## A7: High-level architecture. Privileges. Web resources specification
 
-> Brief presentation of the artefact goals.
+> Brief presentation of the artefact's goals.
 
 ### 1. Overview
 
@@ -14,52 +14,19 @@
 
 > Define the permissions used by each module, necessary to access its data and features.  
 
-### 3. Modules
+### 3. OpenAPI Specification
 
-> Web resources organized by module  
-> Document and describe the web resources associated with each module, indicating the URL, HTTP method, request parameters and response.  
-> Adopt a RESTful design in naming resource.  
-> Use and adapt the provided template for each resource.
-> Below is a list of typical descriptors used to document web resources.
+OpenAPI specification in YAML format to describe the web application's web resources.
 
-#### Web resources descriptors (Note: **NOT to be included on the final artefact**)
+Link to the `.yaml` file in the group's repository.
 
-* URL - Resource identifier, following the RESTful resource naming conventions 
-* Description - Describe the resource, when it's used and why
-* UI - Reference to the A3 user interface used by the resource
-* SUBMIT - Reference to the actions/requests integrated with the resource
-* Method - HTTP request Method
-* Parameters - Information that is sent through the URL, by a query string or path
-* Request Body - Data associated and transmitted with each request
-* Returns - HTTP code returned from a request
-* Response Body - Data sent from the server, in response to a given request
-* Permissions - Required permissions to access the resource
+Link to the Swagger generated documentation (e.g. `https://app.swaggerhub.com/apis-docs/...`).
 
+```yaml
+openapi: 3.0.0
 
-#### 3.1 Module 1
-
-##### R105: Register Action
-
-|   |   |   |
-|---|---|---|
-| **URL**          | `/register` ||
-| **Description**  | This web resource... ||
-| **Method**       | POST ||
-| **Request Body** | +name: string | Name  |
-|   | +email: string | Email  |
-|   | +password: string | Password  |
-|   | ?picture: file | Profile picture  |
-| **Redirects**    | [R106](#r106) | Success |
-|   | [R104](#r104) | Error |
-| **AJAX Calls** | [R110](#r110) ||
-| **Permissions** | PUB ||
-
-#### 3.2 Module 2
-
-### 4. JSON/XML Types
-
-> Document the JSON or XML responses that will be used by the web resources.
-
+...
+```
 
 ---
 
