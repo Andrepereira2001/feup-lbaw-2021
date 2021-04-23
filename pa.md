@@ -87,9 +87,9 @@
 
 ### 2. Video presentation
 
-> Screenshot of the video plus the link to the lbaw20gg.mp4 file  
+> Screenshot of the video plus the link to the lbaw21gg.mp4 file  
 
-> - Upload the lbaw20gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/open?id=1C8ZAcqh6HRPsQEVpTRDeNNPwzKWXLPh4 "Videos folder")  
+> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/open?id=1C8ZAcqh6HRPsQEVpTRDeNNPwzKWXLPh4 "Videos folder")  
 > - The video must not exceed 2 minutes.  
 
 ### 4. Overall Group Self-Evaluation
