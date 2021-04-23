@@ -92,20 +92,6 @@
 > - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
 > - The video must not exceed 2 minutes.  
 
-### 4. Overall Group Self-Evaluation
-
-> Group members that have quit should not be included in the list below.
->
-> Keep the text below in your final delivery, it works as a statement from all group members.
-
-All group members have worked in all the components.
-
-The individual contribution of each member to the LBAW project, and considering all artefacts, is expressed in the following list:
-
-* Group member 1 name, _contribution level_ [A to F]
-* Group member 2 name, _contribution level_ [A to F]
-* ...
-
 
 ---
 
