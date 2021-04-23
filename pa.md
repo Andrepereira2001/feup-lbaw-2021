@@ -89,7 +89,7 @@
 
 > Screenshot of the video plus the link to the lbaw21gg.mp4 file  
 
-> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/open?id=1C8ZAcqh6HRPsQEVpTRDeNNPwzKWXLPh4 "Videos folder")  
+> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
 > - The video must not exceed 2 minutes.  
 
 ### 4. Overall Group Self-Evaluation
