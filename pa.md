@@ -66,9 +66,9 @@
 > Detail the status of the implementation of each user story.  
 > Also include the new user stories that were created during the project.  
 
-| US Identifier | Name    | Priority                       | Team members               | State  |
+| US Identifier | Name    | Priority                       | Owner               | State  |
 | ------------- | ------- | ------------------------------ | -------------------------- | ------ |
-| US01          | US Name 1 | Mandatory | **John Silva**, Ana Sousa   |  100%  |
+| US01          | US Name 1 | Mandatory | John Silva   |  100%  |
 | US02          | US Name 2 | Important; | John Silva                 |   75%  | 
 | US03          | US Name 3 | Optional | Francisco Alves                 |   5%  | 
 | US04          | US Name 4 | Optional | -                 |   0%  | 
