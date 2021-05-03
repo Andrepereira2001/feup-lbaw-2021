@@ -71,6 +71,7 @@
 | US01          | US Name | Mandatory | John Silva, Ana Sousa   |  100%  |
 | US02          | US Name | Important; | John Silva                 |   75%  | 
 | US03          | US Name | Optional | Francisco Alves                 |   5%  | 
+| US04          | US Name | Optional | -                 |   0%  | 
 
 
 ---
