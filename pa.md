@@ -64,7 +64,8 @@
 #### 8.2 User Stories
 
 > Detail the status of the implementation of each user story.  
-> Also include the new user stories that were created during the project. The owner of the user story should have the name in **bold**.
+> Also include the new user stories that were created during the project. 
+> The owner of the user story should have the name in **bold**.
 
 | US Identifier | Name    | Priority                       | Team Members               | State  |
 | ------------- | ------- | ------------------------------ | -------------------------- | ------ |
