@@ -69,7 +69,7 @@
 | US Identifier | Name    | Priority                       | Owner               | State  |
 | ------------- | ------- | ------------------------------ | -------------------------- | ------ |
 | US01          | US Name 1 | Mandatory | John Silva   |  100%  |
-| US02          | US Name 2 | Important; | John Silva                 |   75%  | 
+| US02          | US Name 2 | Important | John Silva                 |   75%  | 
 | US03          | US Name 3 | Optional | Francisco Alves                 |   5%  | 
 | US04          | US Name 4 | Optional | -                 |   0%  | 
 
