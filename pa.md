@@ -68,10 +68,10 @@
 
 | US Identifier | Name    | Priority                       | Team members               | State  |
 | ------------- | ------- | ------------------------------ | -------------------------- | ------ |
-| US01          | US Name | Mandatory | John Silva, Ana Sousa   |  100%  |
-| US02          | US Name | Important; | John Silva                 |   75%  | 
-| US03          | US Name | Optional | Francisco Alves                 |   5%  | 
-| US04          | US Name | Optional | -                 |   0%  | 
+| US01          | US Name 1 | Mandatory | John Silva, Ana Sousa   |  100%  |
+| US02          | US Name 2 | Important; | John Silva                 |   75%  | 
+| US03          | US Name 3 | Optional | Francisco Alves                 |   5%  | 
+| US04          | US Name 4 | Optional | -                 |   0%  | 
 
 
 ---
