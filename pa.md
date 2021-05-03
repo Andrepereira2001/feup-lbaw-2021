@@ -68,8 +68,9 @@
 
 | US Identifier | Name    | Priority                       | Team members               | State  |
 | ------------- | ------- | ------------------------------ | -------------------------- | ------ |
-| US01          | US Name | Mandatory; Important; Optional | John Silva, Ana Sousa ...  |  100%  |
-| US02          | US Name | Mandatory; Important; Optional | John Silva                 |   75%  | 
+| US01          | US Name | Mandatory | John Silva, Ana Sousa ...  |  100%  |
+| US02          | US Name | Important; | John Silva                 |   75%  | 
+| US03          | US Name | Optional | John Silva                 |   5%  | 
 
 
 ---
