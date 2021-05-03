@@ -59,7 +59,7 @@
 #### 8.1. Libraries Used
 
 > Include reference to all the libraries and frameworks used in the product.  
-> Include library name and reference, description of the use, and link to example where it's used in the product.  
+> Include library name and reference, description of the use, and link to the example where it's used in the product.  
 
 #### 8.2 User Stories
 
