@@ -71,10 +71,10 @@
 
 | US Identifier | Name    | Module | Priority                       | Team Members               | State  |
 | ------------- | ------- | ------ | ------------------------------ | -------------------------- | ------ |
-|  US01          | US Name 1 | Module A | Mandatory | **John Silva**, Ana Alice   |  100%  |
-|  US02          | US Name 2 | Module A | Important | **Ana Alice**, John Silva                 |   75%  | 
-|  US03          | US Name 3 | Module B | Optional | **Francisco Alves**                 |   5%  | 
-|  US04          | US Name 4 | Module A | Optional | -                 |   0%  | 
+|  US01          | US Name 1 | Module A | High/Mandatory | **John Silva**, Ana Alice   |  100%  |
+|  US02          | US Name 2 | Module A | Medium/Important | **Ana Alice**, John Silva                 |   75%  | 
+|  US03          | US Name 3 | Module B | Low/Optional | **Francisco Alves**                 |   5%  | 
+|  US04          | US Name 4 | Module A | Low/Optional | -                 |   0%  | 
 
 
 ---
