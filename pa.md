@@ -42,8 +42,8 @@
 
 > Provide the results of accessibility and usability tests using the following checklists. Include the results as PDF files in the group's repository. Add individual links to those files here.
 >
-> https://ux.sapo.pt/checklists/acessibilidade/  
-> https://ux.sapo.pt/checklists/usabilidade/  
+> Accessibility: https://ux.sapo.pt/checklists/acessibilidade/  
+> Usability: https://ux.sapo.pt/checklists/usabilidade/  
 
 ### 6. HTML & CSS Validation
 
