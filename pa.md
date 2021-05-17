@@ -40,13 +40,15 @@
 
 ### 5. Check Accessibility and Usability
 
-> Provide the results of accessibility and usability tests (as PDF files included in the submitted ZIP file on Moodle), using respectively the following checklists:  
+> Provide the results of accessibility and usability tests using the following checklists. Include the results as PDF files in the group's repository. Add individual links to those files here.
+>
 > https://ux.sapo.pt/checklists/acessibilidade/  
 > https://ux.sapo.pt/checklists/usabilidade/  
 
 ### 6. HTML & CSS Validation
 
-> Provide the results (as PDF files included in the submitted ZIP file on Moodle) of the validation of the HTML and CSS code using the following tools:  
+> Provide the results of the validation of the HTML and CSS code using the following tools. Include the results as PDF files in the group's repository. Add individual links to those files here.
+>   
 > HTML: https://validator.w3.org/nu/  
 > CSS: https://jigsaw.w3.org/css-validator/  
 
@@ -82,20 +84,24 @@
 
 ## A10: Presentation
  
-> This artefact (A10 - Product Presentation) must be submitted as a PDF on Moodle.
+> This artefact corresponds to the presentation of the product.
 
 ### 1. Product presentation
 
 > Brief presentation of the product and its main features (2 paragraphs max).  
-
+>
 > URL to the product: http://lbaw21gg.lbaw-prod.fe.up.pt  
+>
+> Slides used during the presentation should be added, as a PDF file, to the group's repository and linked to here.
+
 
 ### 2. Video presentation
 
 > Screenshot of the video plus the link to the lbaw21gg.mp4 file  
 
 > - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
-> - The video must not exceed 2 minutes.  
+> - The video must not exceed 2 minutes.
+> - Include a link to the video on the Google Drive folder.
 
 
 ---
