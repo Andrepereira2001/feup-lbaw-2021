@@ -36,7 +36,7 @@
 
 ### 4. Input Validation
 
-> Describe how input data was validated, and provide examples to scenarios using HTML validation and server-side validation.  
+> Describe how input data was validated, and provide examples to scenarios using both client-side and server-side validation.  
 
 ### 5. Check Accessibility and Usability
 
