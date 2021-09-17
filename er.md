@@ -51,37 +51,27 @@
 ---
 
 
-## A3: User Interface Prototype
+## A3: Information Architecture
 
 > Brief presentation of the artefact goals.
 
 
-### 1. Interface and common features
-
-> Screenshots highlighting the main elements of the interface, for desktop and mobile.
-
-
-### 2. Sitemap
+### 1. Sitemap
 
 > Sitemap presenting the overall structure of the web application.  
-> Each screen must be identified in the sitemap.  
-> Multiple pages of the same screen (e.g. student profile in SIGARRA) are presented as page stacks.
+> Each page must be identified in the sitemap.  
+> Multiple instances of the same page (e.g. student profile in SIGARRA) are presented as page stacks.
 
 
-### 3. Wireflows
+### 2. Wireframes
 
-> Single image containing wireflows for the main use cases of the system.  
+> Wireframes for, at least, two main pages of the web application.
 > Do not include trivial use cases.
-> Link to the InVision project.
 
 
-### 4. Interfaces
+#### UIxx: Page Name
 
-> Screenshots, structured in subsections, including a reference, a description and a URL to the working version.
-
-#### UI01: Home
-
-#### UI02: About
+#### UIxx: Page Name
 
 
 ---
