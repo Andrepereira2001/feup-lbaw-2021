@@ -1,6 +1,6 @@
 # Product name (e.g. MediaLibrary)
 
-> Project vision
+> Project vision.
 
 ## Project Components
 

@@ -1,6 +1,6 @@
 # EAP: Architecture Specification and Prototype
 
-> Project vision
+> Project vision.
 
 ## A7: High-level architecture. Privileges. Web resources specification
 

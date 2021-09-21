@@ -1,6 +1,6 @@
 # EBD: Database Specification Component
 
-> Project vision
+> Project vision.
 
 ## A4: Conceptual Data Model
 

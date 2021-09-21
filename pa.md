@@ -1,6 +1,6 @@
 # PA: Product and Presentation
 
-> Project vision
+> Project vision.
 
 ## A9: Product
 

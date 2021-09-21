@@ -1,6 +1,6 @@
 # ER: Requirements Specification Component
 
-> Project vision
+> Project vision.
 
 ## A1: Project Name
 
