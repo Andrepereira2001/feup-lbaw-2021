@@ -70,11 +70,8 @@
 
 ### 1. Database Workload
  
-> A study of the predicted system load (database load), organized in subsections.  
- 
-#### 1.1. Tuple Estimation
- 
-> Estimate of tuples at each relation.  
+> A study of the predicted system load (database load).
+> Estimate of tuples at each relation.
 
 | **Relation reference** | **Relation Name** | **Order of magnitude**        | **Estimated growth** |
 | ------------------ | ------------- | ------------------------- | -------- |
@@ -83,31 +80,20 @@
 | R03                | Table3        | units|dozens|hundreds|etc | hundreds per day |
 | R04                | Table4        | units|dozens|hundreds|etc | no growth |
 
-#### 1.2. Frequent Queries
- 
-> Most important queries (SELECT) and their frequency.  
-
-| **Query**       | SELECT01                               |
-| ---             | ---                                    |
-| **Description** | One sentence describing the query goal |
-| **Frequency**   | magnitude per time                     |
-| `SQL code`                                              ||
-
-#### 1.3. Frequent Updates
-
-> Most important updates (INSERT, UPDATE, DELETE) and their frequency.  
-
-| **Query**       | UPDATE01                               |
-| ---             | ---                                    |
-| **Description** | One sentence describing the query goal |
-| **Frequency**   | magnitude per time                     |
-| `SQL code`                                              ||
 
 ### 2. Proposed Indices
 
 #### 2.1. Performance Indices
+ 
+> Include two core and frequently used queries.
 
-> Indices proposed to improve performance of the identified queries.  
+| **Query**       | SELECT01                               |
+| ---             | ---                                    |
+| **Description** | One sentence describing the query goal |
+| `SQL code`                                              ||
+
+
+> Indices proposed to improve performance of the identified queries.
 
 | **Index**           | IDX01                                  |
 | ---                 | ---                                    |
@@ -119,7 +105,12 @@
 | **Clustering**      | Clustering of the index                |
 | **Justification**   | Justification for the proposed index   |
 | `SQL code`                                                  ||
- 
+
+
+> Analysis of the impact of the performance indices on the queries.
+> Include the execution plan before and after the use of indices.
+
+
 #### 2.2. Full-text Search Indices 
 
 > The system being developed must provide full-text search features supported by PostgreSQL. Thus, it is necessary to specify the fields where full-text search will be available and the associated setup, namely all necessary configurations, indexes definitions and other relevant details.  
@@ -133,6 +124,7 @@
 | **Clustering**      | Clustering of the index                |
 | **Justification**   | Justification for the proposed index   |
 | `SQL code`                                                  ||
+
 
 ### 3. Triggers
  
