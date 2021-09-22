@@ -64,7 +64,7 @@
 ---
 
 
-## A6: Indexes, triggers, user functions, transactions and population
+## A6: Indexes, triggers, transactions and database population
 
 > Brief presentation of the artefact goals.
 
