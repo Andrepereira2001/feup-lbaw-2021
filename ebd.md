@@ -85,19 +85,10 @@
 
 #### 2.1. Performance Indices
  
-> Include two core and frequently used queries.
-
-| **Query**       | SELECT01                               |
-| ---             | ---                                    |
-| **Description** | One sentence describing the query goal |
-| `SQL code`                                              ||
-
-
 > Indices proposed to improve performance of the identified queries.
 
 | **Index**           | IDX01                                  |
 | ---                 | ---                                    |
-| **Related queries** | SELECT01, ...                          |
 | **Relation**        | Relation where the index is applied    |
 | **Attribute**       | Attribute where the index is applied   |
 | **Type**            | B-tree, Hash, GiST or GIN              |
@@ -106,9 +97,17 @@
 | **Justification**   | Justification for the proposed index   |
 | `SQL code`                                                  ||
 
-
-> Analysis of the impact of the performance indices on the queries.
+> Analysis of the impact of the performance indices on specific queries.
 > Include the execution plan before and after the use of indices.
+
+| **Query**       | SELECT01                               |
+| ---             | ---                                    |
+| **Description** | One sentence describing the query goal |
+| `SQL code`                                              ||
+| **Execution Plan without indices**                      ||
+| `Execution plan`                                        ||
+| **Execution Plan with indices**                         ||
+| `Execution plan`                                        ||
 
 
 #### 2.2. Full-text Search Indices 
@@ -117,7 +116,6 @@
 
 | **Index**           | IDX01                                  |
 | ---                 | ---                                    |
-| **Related queries** | SELECT01, ...                          |
 | **Relation**        | Relation where the index is applied    |
 | **Attribute**       | Attribute where the index is applied   |
 | **Type**            | B-tree, Hash, GiST or GIN              |
