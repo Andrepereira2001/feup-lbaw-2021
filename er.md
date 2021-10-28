@@ -99,9 +99,13 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | US3.4 | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
 | US3.6 | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
-| US3.7 |  | high |  |
-| US3.8 |  | high |  |
-| US3.9 |  | high |  |
+| US3.7 | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
+| US3.8 | Browse the Project Forum | high | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
+| US3.9 | Post messages to Project Forum | high | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
+| US3.10 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
+| US3.11 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
+| US3.12 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
+| US3.13 |  | high | As a Member, I want , so that |
 
 
 #### 2.N. Actor n
