@@ -34,13 +34,30 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 
 > Table identifying actors, including a brief description.
 
+| Identifier | Description |
+| - | - |
+| User | Generic user that has access to public information |
+| Visitor | Unauthenticated user that can register itself (sign-up) or sign-in in the system |
+| AuthUser | Authenticated user that can manage project invitation, create new projects as well as view them |
+| Member | Authenticated user that is assigned to projects. Has access to all the project information, can manage tasks inside the project and is able to discuss in the forum
+| Coordinator | Project member responsible for the project with permissions to choose other coordinator and deal with member’s permissions |
+| PostAuthor | Project member that has already sent a message to the discussion forum and is now able to delete it or edit it |
+| Admin | Authenticated user that is responsible for the management of the platform being able to browse projects and see their information |
+
 
 ### 2. User Stories
 
 > User stories organized by actor.  
 > For each actor, a table containing a line for each user story, and for each user story: an identifier, a name, a priority, and a description (following the recommended pattern).
 
-#### 2.1. Actor 1
+#### 2.1. User
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US01 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website |
+| US02 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
+| US03 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
+| US04 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
 
 #### 2.2. Actor 2
 
