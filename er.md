@@ -29,7 +29,9 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 ### 1. Actors
 
 > Diagram identifying actors and their relationships.  
+
 ![Actors Diagram](./Docs/ActorsDiagram.png)
+
 > Table identifying actors, including a brief description.
 
 
