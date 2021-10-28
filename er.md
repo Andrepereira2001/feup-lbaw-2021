@@ -43,6 +43,7 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | Coordinator | Project member responsible for the project with permissions to choose other coordinator and deal with member’s permissions |
 | PostAuthor | Project member that has already sent a message to the discussion forum and is now able to delete it or edit it |
 | Admin | Authenticated user that is responsible for the management of the platform being able to browse projects and see their information |
+| OAuth API | External OAuth API that can be used to register or authenticate into the system |
 
 
 ### 2. User Stories
@@ -50,16 +51,58 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 > User stories organized by actor.  
 > For each actor, a table containing a line for each user story, and for each user story: an identifier, a name, a priority, and a description (following the recommended pattern).
 
-#### 2.1. User
+#### 2.0. User
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| US01 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website |
-| US02 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
-| US03 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
-| US04 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
+| US0.1 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website |
+| US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
+| US0.3 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
+| US0.4 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
 
-#### 2.2. Actor 2
+#### 2.1. Visitor
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US1.1 | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
+| US1.2 | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
+| US1.3 | OAuth API Sign-up | very low | As a Visitor, I want to register a new account linked to my Google account, so that I do not need to create a whole new account to use the platform  |
+| US1.4 | OAuth API Sign-in | very low | As a Visitor, I want to sign-in through my Google account, so that I can authenticate myself into the system |
+
+
+#### 2.3. AuthUser
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US2.1 | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
+| US2.2 | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
+| US2.3 | Project Invitation | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
+| US2.4 | Project Invitation | high | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
+| US2.5 | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
+| US2.6 | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
+| US2.7 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
+| US2.8 | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
+| US2.9 | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
+| US2.10 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
+| US2.11 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
+| US2.12 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
+| US2.13 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
+
+
+#### 2.4. Member
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US3.1 | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
+| US3.2 | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date |
+| US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
+| US3.4 | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
+| US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
+| US3.6 | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
+| US3.7 |  | high |  |
+| US3.8 |  | high |  |
+| US3.9 |  | high |  |
+
 
 #### 2.N. Actor n
 
