@@ -70,7 +70,7 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | US1.4 | OAuth API Sign-in | very low | As a Visitor, I want to sign-in through my Google account, so that I can authenticate myself into the system |
 
 
-#### 2.3. AuthUser
+#### 2.2. AuthUser
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
@@ -89,13 +89,13 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | US2.13 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
 
 
-#### 2.4. Member
+#### 2.3. Member
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
 | US3.1 | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
 | US3.2 | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date |
-| US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
+| US3.3 | Assign Tasks (User) ?????  | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
 | US3.4 | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
 | US3.6 | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
@@ -105,7 +105,28 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | US3.10 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
 | US3.11 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
 | US3.12 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
-| US3.13 |  | high | As a Member, I want , so that |
+
+
+#### 2.4. Coordinator
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US4.1 | Invite Users | high | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
+| US4.2 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
+| US4.3 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
+| US4.4 | Assign Tasks (Members) ?????  | high | As a Coordinator, I want to assign tasks to members of the project, so that everyone knows what to do | 
+| US4.5 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
+| US4.6 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
+| US4.7 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
+
+
+#### 2.4. PostAuthor
+
+| Identifier | Name | Priority | Description |
+| - | - | - | - |
+| US5.1 | Edit Post | high | As a PostAuthor, I want to edit the post that I had made , so that I can rectify what I had wrote before|
+| US5.1 | Delete Post | high | As a PostAuthor, I want to delete post that I had made , so that I can erase some mistaken post |
+| US5.1 |  | high | As a PostAuthor, I want , so that |
 
 
 #### 2.N. Actor n
