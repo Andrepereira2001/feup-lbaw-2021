@@ -16,19 +16,16 @@ Users are only able to see the projects wich they are allocated to. On the other
 
 toEaseManage will provide easy navigation and a great user experience to boost your projects results. 
   
-
-
 ---
 
 
 ## A2: Actors and User stories
 
-> Brief presentation of the artefact goals.
-
+This artefact specifies the content of the actors and user stories of the project: toEaseManage.
 
 ### 1. Actors
 
-> Diagram identifying actors and their relationships.  
+The actors for toEaseManage are presented below (Image 1) and described in Table 1. 
 
 ![Actors Diagram](./Docs/ActorsDiagram.png)
 > Image 1: toEaseManage Actors
@@ -49,8 +46,7 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 
 ### 2. User Stories
 
-> User stories organized by actor.  
-> For each actor, a table containing a line for each user story, and for each user story: an identifier, a name, a priority, and a description (following the recommended pattern).
+In the following tables we present the user stories for the actors described above. 
 
 #### 2.0. User
 
@@ -155,11 +151,12 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 
 ### 3. Supplementary Requirements
 
-> Section including business rules, technical requirements, and restrictions.  
-> For each subsection, a table containing identifiers, names, and descriptions for each requirement.
+This section contains the Business Rules, Technical Requirements and Restrictions for the system we are developing. 
 
 
 #### 3.1. Business rules
+
+A business rule defines actions the website may follow to function properly.
 
 | Identifier | Name | Description |
 | - | - | - | 
@@ -168,17 +165,21 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | BR03 | Notifications target | Notifications must only be delivered to those who are related to them. If a User is not in a project he must not receive any of it notifications |
 | BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
 | BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done |
-| BR06 | User Block | Upon being blocked a User is removed from all his projects |
+| BR06 | User Block | Upon being blocked a User is removed from all his projects ?? |
 
 
 > Table 10: toEaseManage business rules
 
 #### 3.2. Technical requirements
 
+The technical requirements listed below are the necessary aspects the system needs to operate. 
+
 | Identifier | Name | Description |
 | - | - | - | 
 
 #### 3.3. Restrictions
+
+A restriction limits the freedom of how the project website is developed.
 
 
 ---
@@ -209,16 +210,12 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 
 ---
 
-
 ## Revision history
 
-Changes made to the first submission:
-1. Item 1
-1. ...
+---
+GROUP2102, 08/11/2021
 
-***
-GROUP21gg, DD/MM/2021
-
-* Group member 1 name, email (Editor)
-* Group member 2 name, email
-* ...
+* André Pereira, up201905650@up.pt
+* Beatriz Lopes dos Santos, up201906888@up.pt
+* Matilde Oliveira, up201906954@up.pt
+* Ricardo Ferreira, up201907835@up.pt
