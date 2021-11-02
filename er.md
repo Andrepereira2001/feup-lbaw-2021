@@ -167,11 +167,16 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | BR02 | Admin accounts access | Administrator accounts are independent from the User accounts, so that they can not create neither participate in projects |
 | BR03 | Notifications target | Notifications must only be delivered to those who are related to them. If a User is not in a project he must not receive any of it notifications |
 | BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
-| BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done | 
+| BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done |
+| BR06 | User Block | Upon being blocked a User is removed from all his projects |
+
 
 > Table 10: toEaseManage business rules
 
 #### 3.2. Technical requirements
+
+| Identifier | Name | Description |
+| - | - | - | 
 
 #### 3.3. Restrictions
 
