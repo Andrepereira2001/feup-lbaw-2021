@@ -176,6 +176,18 @@ The technical requirements listed below are the necessary aspects the system nee
 
 | Identifier | Name | Description |
 | - | - | - | 
+|TR01 | Availability | The system must be available 99 percent of the time in each 24-hour period |
+|TR02 | Accessibility | The system must ensure that everyone can access the pages, regardless of whether they have any handicap or not, or the Web browser they use |
+|TR03 | Usability | The system should be simple and easy to use. The toEaseManage website is designed to help the Users manage their projects so its mandatory that every one can easely navigate in it |
+|TR04 | Performance | The system should have response times shorter than 2 s to ensure the user's attention |
+|TR05 | Web application | The system should be implemented as a web application with dynamic and static pages (HTML5, JavaScript, CSS3 and PHP or Node.js). Users that use toEaseManage must not have the need to install new applications |
+|TR06 | Portability | The server-side system should work across multiple platforms (Linux, Mac OS, etc.). The toEaseManage website is destined to all kind of Users regardless of the platform that they are using |
+|TR07 | Database | The PostgreSQL database management system must be used, with a version of 11 or higher. |
+|TR08 | Security | The system shall protect information from unauthorised access through the use of an authentication and verification system |
+|TR09 | Robustness | The system must be prepared to handle and continue operating when runtime errors occur |
+|TR010 | Scalability | The system must be prepared to deal with the growth in the number of users and their actions |
+|TR011 | Ethics | The system must respect the ethical principles in software development |
+
 > Table 11: toEaseManage technical requirements rules
 
 #### 3.3. Restrictions
