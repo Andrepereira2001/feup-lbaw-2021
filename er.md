@@ -90,6 +90,8 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 | US2.11 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
 | US2.12 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
 | US2.13 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
+| US2.14 | Receive Notifications | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
+| US2.15 | Accept project invitations | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
 > Table 4: AuthUser user stories
 
 #### 2.3. Member
@@ -147,7 +149,7 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 #### 2.7. OAuth API
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| US7.1 | Get Information | high | As a OAuth API, I want to get information related to User, so that all the information is updated |
+| US7.1 | Get Information | high | As a OAuth API, I want to get information related to the User, so that all the information is updated |
 > Table 9: OAuth API user stories
 
 
@@ -156,7 +158,18 @@ toEaseManage will provide easy navigation and a great user experience to boost y
 > Section including business rules, technical requirements, and restrictions.  
 > For each subsection, a table containing identifiers, names, and descriptions for each requirement.
 
+
 #### 3.1. Business rules
+
+| Identifier | Name | Description |
+| - | - | - | 
+| BR01 | Account deletion | Upon account deletion, all the shared social data must be kept as anonymous author |
+| BR02 | Admin accounts access | Administrator accounts are independent from the User accounts, so that they can not create neither participate in projects |
+| BR03 | Notifications target | Notifications must only be delivered to those who are related to them. If a User is not in a project he must not receive any of it notifications |
+| BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
+| BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done | 
+
+> Table 10: toEaseManage business rules
 
 #### 3.2. Technical requirements
 
