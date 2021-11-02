@@ -176,11 +176,16 @@ The technical requirements listed below are the necessary aspects the system nee
 
 | Identifier | Name | Description |
 | - | - | - | 
+> Table 11: toEaseManage technical requirements rules
 
 #### 3.3. Restrictions
 
 A restriction limits the freedom of how the project website is developed.
 
+| Identifier | Name | Description |
+| - | - | - | 
+| C01 | Deadline | The systems should be ready to be used at the end of the semester, to be able to be evaluated |
+> Table 12: toEaseManage project restrictions
 
 ---
 
