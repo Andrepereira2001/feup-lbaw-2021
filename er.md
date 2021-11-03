@@ -4,20 +4,19 @@
 
 ## A1: Project Name
 
-> Goals, business context and environment.  
-> Motivation.  
-> Main features.  
-> User profiles.
+The main goal of toEaseManage is to create a web application to help with project development management. This is a tool that can be used by work teams in every project areas, by allowing the creation of a project, assigning teams and tasks and enabling discussion in as forum.
 
-The main goal of toEaseManage is to create a web application to help with project development management. This is a tool that can be used by work teams in every project areas, by allowing the creation of a project, assigning teams and task and enabling discussion in the forum.
 A project is formed by a project coordinator and a group of project members. The coordinator is responsible for inviting members to his project as well as assigning a new coordinator. Every team member is able to create, assign and complete tasks, as well as, to usufruit of the project discussion forum.
 
-Users are only able to see the projects wich they are allocated to. On the other hand, the team of administrators can browse and view details of every project, however they can not create or participate in them.
+Users are only able to see the projects which they are allocated to. On the other hand, the team of administrators can browse and view details of every project, however they can not create or participate in them.
+
+This plataform will allow multiple project work, since you can work simultaneously in different projects and be either member ou project coordinator in different ones. Each project will have a variety of tasks with its main goal, description, due-to date, comments and members assigned to it, that can check the task when done. Futhermore, each project will also have a specific discussion forum to discuss project ideas. 
+
+To be a toEaseManage user you can authenticate yourself in the login page linked from the Home page. The last one has all information about the platform and website: services, contacts and about and for users not authenticated it is the only information available. Only after being authenticated you can browse inside your profile and project. 
 
 toEaseManage will provide easy navigation and a great user experience to boost your projects results. 
   
 ---
-
 
 ## A2: Actors and User stories
 
@@ -42,7 +41,7 @@ The actors for toEaseManage are presented below (Image 1) and described in Table
 | PostAuthor | Project member that has already sent a message to the discussion forum and is now able to delete it or edit it |
 | Admin | Authenticated user that is responsible for the management of the platform being able to browse projects and see their information |
 | OAuth API | External OAuth API that can be used to register or authenticate into the system |
-> Table 1: toEaseManage actors description
+> Table 1: toEaseManage Actors description
 
 ### 2. User Stories
 
@@ -56,7 +55,7 @@ In the following tables we present the user stories for the actors described abo
 | US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
 | US0.3 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
 | US0.4 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
-> Table 2: User user stories
+> Table 2: User User Stories
 
 
 #### 2.1. Visitor
@@ -67,7 +66,7 @@ In the following tables we present the user stories for the actors described abo
 | US1.2 | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
 | US1.3 | OAuth API Sign-up | very low | As a Visitor, I want to register a new account linked to my Google account, so that I do not need to create a whole new account to use the platform  |
 | US1.4 | OAuth API Sign-in | very low | As a Visitor, I want to sign-in through my Google account, so that I can authenticate myself into the system |
-> Table 3: Visitor user stories
+> Table 3: Visitor User Stories
 
 #### 2.2. AuthUser
 
@@ -88,7 +87,7 @@ In the following tables we present the user stories for the actors described abo
 | US2.13 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
 | US2.14 | Receive Notifications | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
 | US2.15 | Accept project invitations | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
-> Table 4: AuthUser user stories
+> Table 4: AuthUser User Stories
 
 #### 2.3. Member
 
@@ -106,7 +105,7 @@ In the following tables we present the user stories for the actors described abo
 | US3.10 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
 | US3.11 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
 | US3.12 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
-> Table 5: Member user stories
+> Table 5: Member User Stories
 
 #### 2.4. Coordinator
 
@@ -119,7 +118,7 @@ In the following tables we present the user stories for the actors described abo
 | US4.5 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
 | US4.6 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
 | US4.7 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
-> Table 6: Coordinator user stories
+> Table 6: Coordinator User Stories
 
 #### 2.5. PostAuthor
 
@@ -127,7 +126,7 @@ In the following tables we present the user stories for the actors described abo
 | - | - | - | - |
 | US5.1 | Edit Post | high | As a PostAuthor, I want to edit the post that I had made , so that I can rectify what I had wrote before|
 | US5.2 | Delete Post | high | As a PostAuthor, I want to delete post that I had made , so that I can erase some mistaken post |
-> Table 7: PostAuthor user stories
+> Table 7: PostAuthor User Stories
 
 #### 2.6. Admin
 
@@ -140,13 +139,13 @@ In the following tables we present the user stories for the actors described abo
 | US6.5 | Delete User | high | As a Admin, I want erase User accounts, so that I can remove there working history from the website|
 | US6.6 | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects |
 | US6.7 | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features|
-> Table 8: Admin user stories
+> Table 8: Admin User Stories
 
 #### 2.7. OAuth API
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
 | US7.1 | Get Information | high | As a OAuth API, I want to get information related to the User, so that all the information is updated |
-> Table 9: OAuth API user stories
+> Table 9: OAuth API User Stories
 
 
 ### 3. Supplementary Requirements
@@ -166,9 +165,7 @@ A business rule defines actions the website may follow to function properly.
 | BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
 | BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done |
 | BR06 | User Block | Upon being blocked a User is removed from all his projects ?? |
-
-
-> Table 10: toEaseManage business rules
+> Table 10: toEaseManage Business Rules
 
 #### 3.2. Technical requirements
 
@@ -178,8 +175,8 @@ The technical requirements listed below are the necessary aspects the system nee
 | - | - | - | 
 |TR01 | Availability | The system must be available 99 percent of the time in each 24-hour period |
 |TR02 | Accessibility | The system must ensure that everyone can access the pages, regardless of whether they have any handicap or not, or the Web browser they use |
-|TR03 | Usability | The system should be simple and easy to use. The toEaseManage website is designed to help the Users manage their projects so its mandatory that every one can easely navigate in it |
-|TR04 | Performance | The system should have response times shorter than 2 s to ensure the user's attention |
+|TR03 | Usability | The system should be simple and easy to use. The toEaseManage website is designed to help the Users manage their projects so its mandatory that every one can easily navigate through it |
+|TR04 | Performance | The system should have response times shorter than 2s to ensure the user's attention |
 |TR05 | Web application | The system should be implemented as a web application with dynamic and static pages (HTML5, JavaScript, CSS3 and PHP or Node.js). Users that use toEaseManage must not have the need to install new applications |
 |TR06 | Portability | The server-side system should work across multiple platforms (Linux, Mac OS, etc.). The toEaseManage website is destined to all kind of Users regardless of the platform that they are using |
 |TR07 | Database | The PostgreSQL database management system must be used, with a version of 11 or higher. |
@@ -187,8 +184,7 @@ The technical requirements listed below are the necessary aspects the system nee
 |TR09 | Robustness | The system must be prepared to handle and continue operating when runtime errors occur |
 |TR010 | Scalability | The system must be prepared to deal with the growth in the number of users and their actions |
 |TR011 | Ethics | The system must respect the ethical principles in software development |
-
-> Table 11: toEaseManage technical requirements rules
+> Table 11: toEaseManage Technical Requirements
 
 #### 3.3. Restrictions
 
@@ -197,23 +193,20 @@ A restriction limits the freedom of how the project website is developed.
 | Identifier | Name | Description |
 | - | - | - | 
 | C01 | Deadline | The systems should be ready to be used at the end of the semester, to be able to be evaluated |
-> Table 12: toEaseManage project restrictions
+> Table 12: toEaseManage project Restrictions
 
 ---
-
 
 ## A3: Information Architecture
 
 > Brief presentation of the artefact goals.
-
 
 ### 1. Sitemap
 
 > Sitemap presenting the overall structure of the web application.  
 > Each page must be identified in the sitemap.  
 > Multiple instances of the same page (e.g. student profile in SIGARRA) are presented as page stacks.
-
-
+s
 ### 2. Wireframes
 
 > Wireframes for, at least, two main pages of the web application.
@@ -223,7 +216,6 @@ A restriction limits the freedom of how the project website is developed.
 #### UIxx: Page Name
 
 #### UIxx: Page Name
-
 
 ---
 
