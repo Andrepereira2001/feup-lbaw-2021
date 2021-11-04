@@ -203,19 +203,27 @@ A restriction limits the freedom of how the project website is developed.
 
 ### 1. Sitemap
 
-> Sitemap presenting the overall structure of the web application.  
-> Each page must be identified in the sitemap.  
-> Multiple instances of the same page (e.g. student profile in SIGARRA) are presented as page stacks.
-s
+The toEaseManage system is organized in six main areas, the static pages that provide general information about the system (Static Pages),the pages used to authenticate in the system (Authentication), the individual user pages that provide information related to the User (User Pages), the pages with administration features (Admin Pages), the pages used to explore and access the Project collection (Project Area) and the pages that provide information related to the tasks (Task Area).
+
+![toEaseManage sitemap](./Docs/sitemap.png)
+> Figure 2: toEaseManage sitemap
+
+
 ### 2. Wireframes
 
-> Wireframes for, at least, two main pages of the web application.
-> Do not include trivial use cases.
+For the toEaseManage system, the wireframes for the home page (UI1), the user page (UI2) and the project page (UI3) are presented in Figures 3, 4 and 5, respectively.
 
+#### UI1: Home Page
+![Home Page](./Docs/HomePage.png)
+> Figure 3: Home Page (UI1) wireframe
 
-#### UIxx: Page Name
+#### UI2: User Page
+![User Page](./Docs/UserPage.png)
+> Figure 4: User Page (UI2) wireframe
 
-#### UIxx: Page Name
+#### UI3: Project Page
+![Project Page](./Docs/ProjectPage.png)
+> Figure 5: Project Page (UI3) wireframe
 
 ---
 
