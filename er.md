@@ -213,15 +213,15 @@ The toEaseManage system is organized in six main areas, the static pages that pr
 For the toEaseManage system, the wireframes for the home page (UI1), the user page (UI2) and the project page (UI3) are presented in Figures 3, 4 and 5, respectively.
 
 #### UI1: Home Page
-![Home Page](./Docs/HomePage.png)
+![Home Page](./Docs/Front_page_description.png)
 > Figure 3: Home Page (UI1) wireframe
 
 #### UI2: User Page
-![User Page](./Docs/UserPage.png)
+![User Page](./Docs/Project_page_description.png)
 > Figure 4: User Page (UI2) wireframe
 
 #### UI3: Project Page
-![Project Page](./Docs/ProjectPage.png)
+![Project Page](./Docs/Inside_project_page_description.png)
 > Figure 5: Project Page (UI3) wireframe
 
 ---
