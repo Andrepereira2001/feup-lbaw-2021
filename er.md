@@ -4,7 +4,7 @@
 
 ## A1: Project Name
 
-The main goal of toEaseManage is to create a web application to help with project development management. This is a tool that can be used by work teams in every project areas, by allowing the creation of a project, assigning teams and tasks and enabling discussion in as forum.
+The main goal of toEaseManage is to create a web application to help with project development management. This is a tool that can be used by work teams in every project areas, by allowing the creation of a project, assigning teams and tasks and enabling discussion in a forum.
 
 A project is formed by a project coordinator and a group of project members. The coordinator is responsible for inviting members to his project as well as assigning a new coordinator. Every team member is able to create, assign and complete tasks, as well as, to usufruit of the project discussion forum.
 
@@ -12,7 +12,7 @@ Users are only able to see the projects which they are allocated to. On the othe
 
 This plataform will allow multiple project work, since you can work simultaneously in different projects and be either member ou project coordinator in different ones. Each project will have a variety of tasks with its main goal, description, due-to date, comments and members assigned to it, that can check the task when done. Futhermore, each project will also have a specific discussion forum to discuss project ideas. 
 
-To be a toEaseManage user you can authenticate yourself in the login page linked from the Home page. The last one has all information about the platform and website: services, contacts and about and for users not authenticated it is the only information available. Only after being authenticated you can browse inside your profile and project. 
+To be a toEaseManage user you can authenticate yourself in the login page linked from the Home page. The Home page has all information about the platform and website: our services, contacts to reach when there is a problema and information about toEaseManage. This is the only information available for users not authenticated. Only after being authenticated you can browse inside your profile and project. 
 
 toEaseManage will provide easy navigation and a great user experience to boost your projects results. 
   
@@ -74,19 +74,18 @@ In the following tables we present the user stories for the actors described abo
 | - | - | - | - |
 | US2.1 | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
 | US2.2 | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
-| US2.3 | Project Invitation | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
-| US2.4 | Project Invitation | high | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
-| US2.5 | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
-| US2.6 | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
-| US2.7 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
-| US2.8 | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
-| US2.9 | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
-| US2.10 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
-| US2.11 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
-| US2.12 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
-| US2.13 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
-| US2.14 | Receive Notifications | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
-| US2.15 | Accept project invitations | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
+| US2.3 | Project Invitation | low | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
+| US2.4 | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
+| US2.5 | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
+| US2.6 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
+| US2.7 | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
+| US2.8 | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
+| US2.9 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
+| US2.10 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
+| US2.11 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
+| US2.12 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
+| US2.13 | Receive Notifications | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
+| US2.14 | Accept project invitations | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
 > Table 4: AuthUser User Stories
 
 #### 2.3. Member
@@ -95,37 +94,37 @@ In the following tables we present the user stories for the actors described abo
 | - | - | - | - |
 | US3.1 | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
 | US3.2 | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date |
-| US3.3 | Assign Tasks (User) ?????  | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
+| US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
 | US3.4 | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
 | US3.6 | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
 | US3.7 | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
-| US3.8 | Browse the Project Forum | high | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
-| US3.9 | Post messages to Project Forum | high | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
+| US3.8 | Browse the Project Forum | medium | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
+| US3.9 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
 | US3.10 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
 | US3.11 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
 | US3.12 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
+| US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
 > Table 5: Member User Stories
 
 #### 2.4. Coordinator
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| US4.1 | Invite Users | high | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
+| US4.1 | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
 | US4.2 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
 | US4.3 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
-| US4.4 | Assign Tasks (Members) ?????  | high | As a Coordinator, I want to assign tasks to members of the project, so that everyone knows what to do | 
-| US4.5 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
-| US4.6 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
-| US4.7 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
+| US4.4 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
+| US4.5 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
+| US4.6 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
 > Table 6: Coordinator User Stories
 
 #### 2.5. PostAuthor
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| US5.1 | Edit Post | high | As a PostAuthor, I want to edit the post that I had made , so that I can rectify what I had wrote before|
-| US5.2 | Delete Post | high | As a PostAuthor, I want to delete post that I had made , so that I can erase some mistaken post |
+| US5.1 | Edit Post | low | As a PostAuthor, I want to edit the post that I had made , so that I can rectify what I had wrote before|
+| US5.2 | Delete Post | low | As a PostAuthor, I want to delete post that I had made , so that I can erase some mistaken post |
 > Table 7: PostAuthor User Stories
 
 #### 2.6. Admin
