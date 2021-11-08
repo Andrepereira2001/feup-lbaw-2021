@@ -85,8 +85,8 @@ In the following tables we present the user stories for the actors described abo
 | US2.10 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
 | US2.11 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
 | US2.12 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
-| US2.13 | Receive Notifications | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
-| US2.14 | Accept project invitations | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
+| US2.13 | Receive Notifications | high | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
+| US2.14 | Accept project invitations | high | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
 > Table 4: AuthUser User Stories
 
 #### 2.3. Member
