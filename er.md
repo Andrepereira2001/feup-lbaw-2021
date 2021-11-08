@@ -160,26 +160,25 @@ A business rule defines actions the website may follow to function properly.
 | BR03 | Notifications target | Notifications must only be delivered to those who are related to them. If a User is not in a project he must not receive any of it notifications |
 | BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
 | BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done |
-| BR06 | User Block | Upon being blocked a User is removed from all his projects ?? |
+| BR06 | User Block | Upon being blocked a User is removed from all his projects |
+| BR07 | Task Dates | The task completion date must be greater than the task creation date |
+| BR07 | Member Comments | A project member can comment on its own assigned or created tasks |
 > Table 10: toEaseManage Business Rules
 
 #### 3.2. Technical requirements
 
-The technical requirements listed below are the necessary aspects the system needs to operate. 
+The technical requirements listed below are the necessary aspects the system needs to operate. The three most critical requirements are marked in bold. 
 
 | Identifier | Name | Description |
 | - | - | - | 
-|TR01 | Availability | The system must be available 99 percent of the time in each 24-hour period |
-|TR02 | Accessibility | The system must ensure that everyone can access the pages, regardless of whether they have any handicap or not, or the Web browser they use |
-|TR03 | Usability | The system should be simple and easy to use. The toEaseManage website is designed to help the Users manage their projects so its mandatory that every one can easily navigate through it |
-|TR04 | Performance | The system should have response times shorter than 2s to ensure the user's attention |
-|TR05 | Web application | The system should be implemented as a web application with dynamic and static pages (HTML5, JavaScript, CSS3 and PHP or Node.js). Users that use toEaseManage must not have the need to install new applications |
-|TR06 | Portability | The server-side system should work across multiple platforms (Linux, Mac OS, etc.). The toEaseManage website is destined to all kind of Users regardless of the platform that they are using |
-|TR07 | Database | The PostgreSQL database management system must be used, with a version of 11 or higher. |
-|TR08 | Security | The system shall protect information from unauthorised access through the use of an authentication and verification system |
-|TR09 | Robustness | The system must be prepared to handle and continue operating when runtime errors occur |
-|TR010 | Scalability | The system must be prepared to deal with the growth in the number of users and their actions |
-|TR011 | Ethics | The system must respect the ethical principles in software development |
+|TR01 | **Accessibility** | The system must ensure that everyone can access the pages no matter when and where they are reaching out for the website |
+|TR02 | **Usability** | toEaseManage website is designed to help the users manage their projects so its a requirement that every one can easily navigate and work in it |
+|TR03 | Performance | The website should have response times shorter than 2s to be appealing to its users |
+|TR04 | Web application | The system should be implemented as a web application with dynamic and static pages so that users of toEaseManage must not have the need to install new applications |
+|TR05 | Portability | The toEaseManage website is meant to all users regardless of the platform or operating system they are using |
+|TR06 | Security | The platform must protect information from unauthorised access through the use of an authentication system |
+|TR07 | **Robustness** | The system continue operating when runtime errors occur |
+|TR08 | Ethics | The system must respect the ethical principles of software development |
 > Table 11: toEaseManage Technical Requirements
 
 #### 3.3. Restrictions
@@ -229,6 +228,13 @@ For the toEaseManage system, the wireframes for the home page (UI1), the user pa
 08/11/2021 - First Version
 
 ---
+
+## Editors
+
+This component, ER, was completed by every member of the group and each one of us contributed to diferent parts of the three Artifacts. Therefore, everyone edited the present document. 
+
+---
+
 GROUP2102, 08/11/2021
 
 * André Pereira, up201905650@up.pt
