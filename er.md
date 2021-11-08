@@ -1,8 +1,8 @@
 # ER: Requirements Specification Component
 
-> Project vision.
+With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. 
 
-## A1: Project Name
+## A1: toEaseManage
 
 The main goal of toEaseManage is to create a web application to help with project development management. This is a tool that can be used by work teams in every project areas, by allowing the creation of a project, assigning teams and tasks and enabling discussion in a forum.
 
@@ -28,8 +28,6 @@ The actors for toEaseManage are presented below (Image 1) and described in Table
 
 ![Actors Diagram](./Docs/ActorsDiagram.png)
 > Image 1: toEaseManage Actors
-
-> Table identifying actors, including a brief description.
 
 | Identifier | Description |
 | - | - |
@@ -151,7 +149,6 @@ In the following tables we present the user stories for the actors described abo
 
 This section contains the Business Rules, Technical Requirements and Restrictions for the system we are developing. 
 
-
 #### 3.1. Business rules
 
 A business rule defines actions the website may follow to function properly.
@@ -198,7 +195,9 @@ A restriction limits the freedom of how the project website is developed.
 
 ## A3: Information Architecture
 
-> Brief presentation of the artefact goals.
+toEaseManage is a project managing platform that helps users to organize their projects.
+
+This artefact includes an overview of the user interface and some features, an overview about the Sitemap and a description of the main interactions with the web application.
 
 ### 1. Sitemap
 
@@ -206,7 +205,6 @@ The toEaseManage system is organized in six main areas, the static pages that pr
 
 ![toEaseManage sitemap](./Docs/sitemap.png)
 > Figure 2: toEaseManage sitemap
-
 
 ### 2. Wireframes
 
@@ -227,6 +225,8 @@ For the toEaseManage system, the wireframes for the home page (UI1), the user pa
 ---
 
 ## Revision history
+
+08/11/2021 - First Version
 
 ---
 GROUP2102, 08/11/2021
