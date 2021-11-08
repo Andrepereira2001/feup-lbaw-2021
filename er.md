@@ -15,6 +15,9 @@ This plataform will allow multiple project work, since you can work simultaneous
 To be a toEaseManage user you can authenticate yourself in the login page linked from the Home page. The Home page has all information about the platform and website: our services, contacts to reach when there is a problema and information about toEaseManage. This is the only information available for users not authenticated. Only after being authenticated you can browse inside your profile and project. 
 
 toEaseManage will provide easy navigation and a great user experience to boost your projects results. 
+
+### Editor
+Matilde Oliveira
   
 ---
 
@@ -190,6 +193,9 @@ A restriction limits the freedom of how the project website is developed.
 | C01 | Deadline | The systems should be ready to be used at the end of the semester, to be able to be evaluated |
 > Table 12: toEaseManage project Restrictions
 
+### Editor
+André Pereira
+
 ---
 
 ## A3: Information Architecture
@@ -221,6 +227,9 @@ For the toEaseManage system, the wireframes for the home page (UI1), the user pa
 ![Project Page](./Docs/Inside_project_page_description.png)
 > Figure 5: Project Page (UI3) wireframe
 
+### Editor
+Beatriz Lopes dos Santos
+
 ---
 
 ## Revision history
@@ -228,8 +237,6 @@ For the toEaseManage system, the wireframes for the home page (UI1), the user pa
 08/11/2021 - First Version
 
 ---
-
-## Editors
 
 This component, ER, was completed by every member of the group and each one of us contributed to diferent parts of the three Artifacts. Therefore, everyone edited the present document. 
 
