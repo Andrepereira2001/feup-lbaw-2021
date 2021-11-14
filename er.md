@@ -165,7 +165,7 @@ A business rule defines actions the website may follow to function properly.
 | BR05 | Task ending | When a task is closed it must be kept as finished, so that project members can know the work has already been done |
 | BR06 | User Block | Upon being blocked a User is removed from all his projects |
 | BR07 | Task Dates | The task completion date must be greater than the task creation date |
-| BR07 | Member Comments | A project member can comment on its own assigned or created tasks |
+| BR08 | Member Comments | A project member can comment on its own assigned or created tasks |
 > Table 10: toEaseManage Business Rules
 
 #### 3.2. Technical requirements

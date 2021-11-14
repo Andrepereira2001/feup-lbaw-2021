@@ -1,6 +1,6 @@
 # EBD: Database Specification Component
 
-> Project vision.
+With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. 
 
 ## A4: Conceptual Data Model
 
@@ -15,6 +15,14 @@
  
 > Business rules can be included in the UML diagram as UML notes or in a table in this section.
 
+A business rule defines actions the website may follow to function properly.
+
+| Identifier | Name | Description |
+| - | - | - | 
+| BR01 | Account deletion | Upon account deletion, all the shared social data must be kept as anonymous author |
+| BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
+| BR06 | User Block | Upon being blocked a User is removed from all his projects |
+| BR08 | Member Comments | A project member can comment on its own assigned or created tasks |
 
 ---
 
