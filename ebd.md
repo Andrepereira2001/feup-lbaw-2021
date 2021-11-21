@@ -20,7 +20,7 @@ A business rule defines actions the website may follow to function properly.
 | Identifier | Name | Description |
 | - | - | - | 
 | BR01 | Account deletion | Upon account deletion, all the shared social data must be kept as anonymous author |
-| BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments related to the member must be deleted |
+| BR04 | Leave project with task | Upon being removed from a project, all the tasks assignments not finished assigned to the member must be deleted |
 | BR06 | User Block | Upon being blocked a User is removed from all his projects |
 | BR08 | Member Comments | A project member can comment on its own assigned or created tasks |
 
@@ -38,11 +38,27 @@ A business rule defines actions the website may follow to function properly.
 
 | Relation reference | Relation Compact Notation                        |
 | ------------------ | ------------------------------------------------ |
-| R01                | Table1(__id__, attribute NN)                     |
-| R02                | Table2(__id__, attribute → Table1 NN)            |
-| R03                | Table3(__id1__, id2 → Table2, attribute UK NN)   |
-| R04                | Table4((__id1__, __id2__) → Table3, id3, attribute CK attribute > 0) |
+|R01 | User(<u>id</u>, email __UK NN__, password __NN__, name, imagePath __NN DF__ img/default, blocked __NN DF__ false)             |
+|R02 | Admin(<u>id</u>, email __UK NN__, password __NN__, name, imagePath __NN DF__ img/default)                                     |
+|R03 | Project(<u>id</u>, name __NN__, description, color, created_at __NN DF__ today, archived_at __CK__ archived_at > created_at)  |
+|R04 | Participation(<u>id</u>, favourite __NN__, role __NN__ __CK__ role __IN__ Roles, id_project → Project __NN__, id_user → User __NN__)                                                                                                                              |
+|R05 | Task (<u>id</u>, name __NN__, description, priority __CK__ priority>=1 AND priority<=5, created_at __NN DF__ Today, finished_at __CK__ finished_at > created_at, id_project → Project __NN__, id_user → User __NN__)                                                 |
+|R06 | Label(<u>id</u>, name __UK NN__)                                                                                              |
+|R07 | TaskLabel(<u>id</u>, id_label → Label, id_task →Task) |
+|R08 | TaskComment(<u>id</u>, content __NN__, created_at __NN DF__ Today, id_task →Task __NN__, id_user → User)                      |
+|R09 | ForumMessage(<u>id</u>, content __NN__, created_at __NN DF__ Today, id_project → Project __NN__, id_user → User)              |
+|R010| Invite(<u>id</u>, created_at __NN DF__ Today, id_user → User __NN__, id_project → Project __NN__)                             |
+|R011| Notification(<u>id</u>, content __NN__, created_at __NN DF__ Today, id_project → Project __NN__)                              |
+|R012| Seen(<u>id</u>, id_user → User __NN__, id_notification → Notification __NN__, seen __NN DF__ FALSE)                           |
 
+nota: uid e nid são uk em conjunto
+
+Legend:
+* UK = UNIQUE KEY
+* NN = NOT NULL
+* DF = DEFAULT
+* CK = CHECK
+ 
 ### 2. Domains
 
 > The specification of additional domains can also be made in a compact form, using the notation:  
@@ -50,25 +66,130 @@ A business rule defines actions the website may follow to function properly.
 | Domain Name | Domain Specification           |
 | ----------- | ------------------------------ |
 | Today	      | DATE DEFAULT CURRENT_DATE      |
-| Priority    | ENUM ('High', 'Medium', 'Low') |
+| Roles       | ENUM ('Member', 'Coordinator') |
 
 ### 3. Schema validation
 
 > To validate the Relational Schema obtained from the Conceptual Model, all functional dependencies are identified and the normalization of all relation schemas is accomplished. Should it be necessary, in case the scheme is not in the Boyce–Codd Normal Form (BCNF), the relational schema is refined using normalization.  
 
+
 | **TABLE R01**   | User               |
 | --------------  | ---                |
 | **Keys**        | { id }, { email }  |
 | **Functional Dependencies:** |       |
-| FD0101          | id → {email, name} |
-| FD0102          | email → {id, name} |
-| ...             | ...                |
+| FD0101          | { id } → {email, password, name, imagePath, blocked} |
+| FD0102          | { email } → {id, password, name, imagePath, blocked} |
 | **NORMAL FORM** | BCNF               |
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
-> Justification of the BCNF.  
+> Justification of the BCNF. 
+
+| **TABLE R02**   | Admin               |
+| --------------  | ---                |
+| **Keys**        | { id }, { email }  |
+| **Functional Dependencies:** |       |
+| FD0101          | { id } → {email, password, name, imagePath} |
+| FD0102          | { email } → {id, password, name, imagePath} |
+| **NORMAL FORM** | BCNF               |
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF. 
 
 
+| **TABLE R03**   | Project               |
+| --------------  | ---                |
+| **Keys**        | { id }             |
+| **Functional Dependencies:** |       |
+| FD0101          | { id } → {name, description, color, created_atr, archived_at} |
+| **NORMAL FORM** | BCNF               |
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF. 
+
+
+| **TABLE R04**   | Participation               |
+| --------------  | ---                |
+| **Keys**        | { id } , { id_project, id_user }            |
+| **Functional Dependencies:** |       |
+| FD0101          | { id } → {favourite, role, id_project, id_user} |
+| FD0102          | { id_project, id_user } → {id, favourite, role } |
+| **NORMAL FORM** | BCNF    
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF.            |
+
+
+| **TABLE R05**   | Task               |
+| --------------  | ---                |
+| **Keys**        | { id }, { id_project, id_user }  |
+| **Functional Dependencies:** |       |
+| FD0501          | { id } → {name, description, priority, created_at, finished_at, id_project, id_user} |
+| FD0502          | { id_project, id_user } → {id, name, description, priority, created_at, finished_at} |
+| **NORMAL FORM** | BCNF               |
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF. 
+
+
+| **TABLE R06**   | Label               |
+| --------------  | ---                |
+| **Keys**        | { id } |
+| **Functional Dependencies:** |       |
+| FD0601          | { id } → {name} |
+| **NORMAL FORM** | BCNF   
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF. 
+
+| **TABLE R06**   | TaskLable |
+| --------------  | ---                |
+| **Keys**        | { id }, { id_label, id_task }|
+| **Functional Dependencies:** |       |
+| FD0601          | { id } → {id_lable, id_task} |
+| FD0601          | { id_lable, id_task } → {id} |
+| **NORMAL FORM** | BCNF   
+
+> If necessary, description of the changes necessary to convert the schema to BCNF.  
+> Justification of the BCNF. 
+
+| **TABLE R06**   | TaskComment |
+| --------------  | ---                |
+| **Keys**        | { id } |
+| **Functional Dependencies:** |       |
+| FD0601          | { id } → {content , created_at, id_task, id_user } |
+| **NORMAL FORM** | BCNF  
+
+
+| **TABLE R06**   | ForumMessage    |
+| --------------  | ---                |
+| **Keys**        | { id } |
+| **Functional Dependencies:** |       |
+| FD0601          | { id } → { content, created_at, id_project, id_user} |
+| **NORMAL FORM** | BCNF |  
+
+| **TABLE R06**   | Invite               |
+| --------------  | ---                |
+| **Keys**        | { id } , {id_project, id_user}|
+| **Functional Dependencies:** ||
+| FD0601          | { id } → { created_at, id_project, id_user} |
+| FD0601          | {id_project, id_user} → { id, created_at} |
+| **NORMAL FORM** | BCNF 
+
+| **TABLE R06**   | Notification       |
+| --------------  | ---                |
+| **Keys**        | { id } |
+| **Functional Dependencies:** |       |
+| FD0601          | { id } → { content, created_at, id_project, id_user} |
+| **NORMAL FORM** | BCNF |  
+
+
+| **TABLE R12**   | Seen  |
+| --------------  | ---                |
+| **Keys**        | { id } , { id_user, id_notification} |
+| **Functional Dependencies:** |       |
+| FD1201          | { id } → { id_user, id_notification, seen} |
+| FD1202          | { id_user, id_notification } → {id, seen}  |  
+| **NORMAL FORM** | BCNF |  
 ---
 
 
