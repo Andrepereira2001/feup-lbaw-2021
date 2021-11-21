@@ -8,6 +8,7 @@ With the development of toEaseManage we intend to create a useful and acessible 
 
 ### 1. Class diagram
 
+![UML Diagram](./Docs/uml_diagram.png)
 > UML class diagram containing the classes, associations, multiplicity and roles.  
 > For each class, the attributes, associations and constraints are included in the class diagram.
 
@@ -38,13 +39,13 @@ A business rule defines actions the website may follow to function properly.
 
 | Relation reference | Relation Compact Notation                        |
 | ------------------ | ------------------------------------------------ |
-|R01 | User(<u>id</u>, email __UK NN__, password __NN__, name, imagePath __NN DF__ img/default, blocked __NN DF__ false)             |
-|R02 | Admin(<u>id</u>, email __UK NN__, password __NN__, name, imagePath __NN DF__ img/default)                                     |
+|R01 | User(<u>id</u>, email __UK NN__, password __NN__, name __NN__, image_path __NN DF__ img/default, blocked __NN DF__ false)             |
+|R02 | Admin(<u>id</u>, email __UK NN__, password __NN__, name __NN__, image_path __NN DF__ img/default)                                     |
 |R03 | Project(<u>id</u>, name __NN__, description, color, created_at __NN DF__ today, archived_at __CK__ archived_at > created_at)  |
-|R04 | Participation(<u>id</u>, favourite __NN__, role __NN__ __CK__ role __IN__ Roles, id_project → Project __NN__, id_user → User __NN__)                                                                                                                              |
-|R05 | Task (<u>id</u>, name __NN__, description, priority __CK__ priority>=1 AND priority<=5, created_at __NN DF__ Today, finished_at __CK__ finished_at > created_at, id_project → Project __NN__, id_user → User __NN__)                                                 |
+|R04 | Participation(<u>id</u>, favourite __NN__, role __NN__ __CK__ role __IN__ Role, id_project → Project __NN__, id_user → User __NN__)                                                                                                                              |
+|R05 | Task (<u>id</u>, name __NN__, description, priority __CK__ priority>=1 AND priority<=5, created_at __NN DF__ Today, finished_at __CK__ finished_at > created_at, id_project → Project __NN__, id_user → User)                                                 |
 |R06 | Label(<u>id</u>, name __UK NN__)                                                                                              |
-|R07 | TaskLabel(<u>id</u>, id_label → Label, id_task →Task) |
+|R07 | TaskLabel(<u>id</u>, id_label → Label __NN__, id_task →Task __NN__) |
 |R08 | TaskComment(<u>id</u>, content __NN__, created_at __NN DF__ Today, id_task →Task __NN__, id_user → User)                      |
 |R09 | ForumMessage(<u>id</u>, content __NN__, created_at __NN DF__ Today, id_project → Project __NN__, id_user → User)              |
 |R010| Invite(<u>id</u>, created_at __NN DF__ Today, id_user → User __NN__, id_project → Project __NN__)                             |
@@ -66,7 +67,7 @@ Legend:
 | Domain Name | Domain Specification           |
 | ----------- | ------------------------------ |
 | Today	      | DATE DEFAULT CURRENT_DATE      |
-| Roles       | ENUM ('Member', 'Coordinator') |
+| Role        | ENUM ('Member', 'Coordinator') |
 
 ### 3. Schema validation
 
@@ -77,8 +78,8 @@ Legend:
 | --------------  | ---                |
 | **Keys**        | { id }, { email }  |
 | **Functional Dependencies:** |       |
-| FD0101          | { id } → {email, password, name, imagePath, blocked} |
-| FD0102          | { email } → {id, password, name, imagePath, blocked} |
+| FD0101          | { id } → {email, password, name, image_path, blocked} |
+| FD0102          | { email } → {id, password, name, image_path, blocked} |
 | **NORMAL FORM** | BCNF               |
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
@@ -88,8 +89,8 @@ Legend:
 | --------------  | ---                |
 | **Keys**        | { id }, { email }  |
 | **Functional Dependencies:** |       |
-| FD0101          | { id } → {email, password, name, imagePath} |
-| FD0102          | { email } → {id, password, name, imagePath} |
+| FD0101          | { id } → {email, password, name, image_path} |
+| FD0102          | { email } → {id, password, name, image_path} |
 | **NORMAL FORM** | BCNF               |
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
@@ -100,7 +101,7 @@ Legend:
 | --------------  | ---                |
 | **Keys**        | { id }             |
 | **Functional Dependencies:** |       |
-| FD0101          | { id } → {name, description, color, created_atr, archived_at} |
+| FD0101          | { id } → {name, description, color, created_at, archived_at} |
 | **NORMAL FORM** | BCNF               |
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
@@ -121,10 +122,9 @@ Legend:
 
 | **TABLE R05**   | Task               |
 | --------------  | ---                |
-| **Keys**        | { id }, { id_project, id_user }  |
+| **Keys**        | { id }             |
 | **Functional Dependencies:** |       |
 | FD0501          | { id } → {name, description, priority, created_at, finished_at, id_project, id_user} |
-| FD0502          | { id_project, id_user } → {id, name, description, priority, created_at, finished_at} |
 | **NORMAL FORM** | BCNF               |
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
@@ -133,15 +133,16 @@ Legend:
 
 | **TABLE R06**   | Label               |
 | --------------  | ---                |
-| **Keys**        | { id } |
+| **Keys**        | { id } {name} |
 | **Functional Dependencies:** |       |
 | FD0601          | { id } → {name} |
+| FD0601          | { name } → {id} |
 | **NORMAL FORM** | BCNF   
 
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
 > Justification of the BCNF. 
 
-| **TABLE R06**   | TaskLable |
+| **TABLE R07**   | TaskLabel |
 | --------------  | ---                |
 | **Keys**        | { id }, { id_label, id_task }|
 | **Functional Dependencies:** |       |
@@ -152,7 +153,7 @@ Legend:
 > If necessary, description of the changes necessary to convert the schema to BCNF.  
 > Justification of the BCNF. 
 
-| **TABLE R06**   | TaskComment |
+| **TABLE R08**   | TaskComment |
 | --------------  | ---                |
 | **Keys**        | { id } |
 | **Functional Dependencies:** |       |
@@ -160,26 +161,26 @@ Legend:
 | **NORMAL FORM** | BCNF  
 
 
-| **TABLE R06**   | ForumMessage    |
+| **TABLE R09**   | ForumMessage    |
 | --------------  | ---                |
 | **Keys**        | { id } |
 | **Functional Dependencies:** |       |
 | FD0601          | { id } → { content, created_at, id_project, id_user} |
 | **NORMAL FORM** | BCNF |  
 
-| **TABLE R06**   | Invite               |
+| **TABLE R10**   | Invite               |
 | --------------  | ---                |
 | **Keys**        | { id } , {id_project, id_user}|
-| **Functional Dependencies:** ||
+| **Functional Dependencies:** |
 | FD0601          | { id } → { created_at, id_project, id_user} |
 | FD0601          | {id_project, id_user} → { id, created_at} |
 | **NORMAL FORM** | BCNF 
 
-| **TABLE R06**   | Notification       |
+| **TABLE R11**   | Notification       |
 | --------------  | ---                |
 | **Keys**        | { id } |
 | **Functional Dependencies:** |       |
-| FD0601          | { id } → { content, created_at, id_project, id_user} |
+| FD0601          | { id } → { content, created_at, id_project} |
 | **NORMAL FORM** | BCNF |  
 
 
