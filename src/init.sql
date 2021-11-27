@@ -11,14 +11,14 @@ DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Admin CASCADE;
 DROP TABLE IF EXISTS Project CASCADE;
 
-DROP TYPE IF EXISTS role CASCADE;
+DROP TYPE IF EXISTS Role CASCADE;
 
 
 -----------------------------------------
 -- Types
 -----------------------------------------
 
-CREATE TYPE role AS ENUM ('Member', 'Coordinator') ;
+CREATE TYPE Role AS ENUM ('Member', 'Coordinator') ;
 
 -----------------------------------------
 -- Tables
@@ -33,10 +33,9 @@ CREATE TABLE Users (
                            CONSTRAINT user_email_uk UNIQUE,
     password               TEXT NOT NULL,
     name                   TEXT NOT NULL,
-    image_path              TEXT NOT NULL DEFAULT './img/default' 
+    image_path             TEXT NOT NULL DEFAULT './img/default' 
                            CONSTRAINT u_image_path_uk UNIQUE,
-    blocked                BOOLEAN NOT NULL
-                           CONSTRAINT blocked_uk UNIQUE
+    blocked                BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE Admin (
@@ -45,7 +44,7 @@ CREATE TABLE Admin (
                            CONSTRAINT admin_email_uk UNIQUE,
     password               TEXT NOT NULL,
     name                   TEXT NOT NULL,
-    image_path              TEXT NOT NULL DEFAULT 'img/default' 
+    image_path             TEXT NOT NULL DEFAULT 'img/default' 
                            CONSTRAINT a_image_path_uk UNIQUE
 );
 
@@ -61,9 +60,11 @@ CREATE TABLE Project (
 
 CREATE TABLE Participation (
     id                     SERIAL PRIMARY KEY,
-    favourite BOOL         NOT NULL,
+    favourite              BOOL NOT NULL,
+    role                   Role NOT NULL,
     id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE, 
-    id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE 
+    id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+    CONSTRAINT participation_uk UNIQUE (id_user,id_project) 
 );
 
 CREATE TABLE Task (
@@ -73,21 +74,25 @@ CREATE TABLE Task (
     priority               INTEGER, 
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     finished_at            TIMESTAMP,
+    task_number            INT NOT NULL,
     id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE, 
     id_user                INTEGER REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE, 
     CONSTRAINT task_dates CHECK ((finished_at IS NULL) OR (finished_at > created_at)),
-    CONSTRAINT priority_range CHECK ((priority > 0) AND (priority < 6))
+    CONSTRAINT priority_range CHECK ((priority > 0) AND (priority < 6)),
+    CONSTRAINT project_task_number UNIQUE (id_project, task_number)
 );
 
 CREATE TABLE Label (
     id                     SERIAL PRIMARY KEY,
-    name                   TEXT NOT NULL CONSTRAINT label_name_uk UNIQUE 
+    name                   TEXT NOT NULL,
+    id_project             INTEGER REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE TaskLabel (
     id                     SERIAL PRIMARY KEY,
     id_task                INTEGER NOT NULL REFERENCES Task(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    id_label               INTEGER NOT NULL REFERENCES Label(id) ON DELETE CASCADE ON UPDATE CASCADE 
+    id_label               INTEGER NOT NULL REFERENCES Label(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT task_label UNIQUE (id_task, id_label) 
 );
 
 CREATE TABLE TaskComment (
@@ -95,7 +100,7 @@ CREATE TABLE TaskComment (
     content                TEXT NOT NULL,
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     id_task                INTEGER NOT NULL REFERENCES Task(id) ON DELETE CASCADE ON UPDATE CASCADE, 
-    id_user                INTEGER REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE 
+    id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE 
 );
 
 CREATE TABLE ForumMessage (
@@ -110,7 +115,8 @@ CREATE TABLE Invite (
     id                     SERIAL PRIMARY KEY,
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE
+    id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT invite_uk UNIQUE (id_user,id_project) 
 );
 
 CREATE TABLE Notification (
@@ -124,5 +130,357 @@ CREATE TABLE Seen (
     id                     SERIAL PRIMARY KEY,
     seen                   BOOLEAN DEFAULT False,
     id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    id_notification        INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE
+    id_notification        INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT seen_uk UNIQUE (id_user,id_notification) 
 );
+
+
+-----------------------------------------
+-- INDEXES
+-----------------------------------------
+DROP FUNCTION IF EXISTS user_search_update();
+DROP FUNCTION IF EXISTS project_search_update();
+DROP FUNCTION IF EXISTS task_search_update();
+
+-- Index 1
+CREATE INDEX user_seen ON Seen USING btree (id_user, seen);
+
+-- Index 2
+CREATE INDEX task_taskComment ON TaskComment USING hash (id_task);
+
+-- Index 3
+CREATE INDEX project_message ON ForumMessage USING hash (id_project);
+
+-- Index 4
+CREATE INDEX project_task ON Task USING hash (id_project);
+
+-- Index 5
+CREATE INDEX user_participation ON Participation USING hash (id_user);
+
+-- FTS INDEXES
+
+-- Index 6
+ALTER TABLE Users
+ADD COLUMN tsvectors TSVECTOR;
+
+CREATE FUNCTION user_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('english', NEW.name), 'A')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('english', NEW.name), 'A') 
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER user_search_update
+BEFORE INSERT OR UPDATE ON Users
+FOR EACH ROW
+EXECUTE PROCEDURE user_search_update();
+
+CREATE INDEX search_name ON Users USING GIN (tsvectors);
+
+-- Index 7
+ALTER TABLE Project
+ADD COLUMN tsvectors TSVECTOR;
+
+CREATE FUNCTION project_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('english', NEW.name), 'A') ||
+         setweight(to_tsvector('english', NEW.description), 'C')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.description <> OLD.description) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('english', NEW.name), 'A') ||
+             setweight(to_tsvector('english', NEW.description), 'C')
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER project_search_update
+ BEFORE INSERT OR UPDATE ON Project
+ FOR EACH ROW
+ EXECUTE PROCEDURE project_search_update();
+
+CREATE INDEX search_project ON Project USING GIN (tsvectors);
+
+-- Index 8
+ALTER TABLE Task
+ADD COLUMN tsvectors TSVECTOR;
+
+CREATE FUNCTION task_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('english', NEW.name), 'A') ||
+         setweight(to_tsvector('english', NEW.description), 'C')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.description <> OLD.description) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('english', NEW.name), 'A') ||
+             setweight(to_tsvector('english', NEW.description), 'C')
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER task_search_update
+ BEFORE INSERT OR UPDATE ON Task
+ FOR EACH ROW
+ EXECUTE PROCEDURE task_search_update();
+
+CREATE INDEX search_task ON Task USING GIN (tsvectors);
+
+
+-----------------------------------------
+-- TRIGGERS and UDFs
+-----------------------------------------
+
+DROP FUNCTION IF EXISTS task_number();
+DROP FUNCTION IF EXISTS user_anonymous();
+DROP FUNCTION IF EXISTS remove_task();
+DROP FUNCTION IF EXISTS block_user();
+DROP FUNCTION IF EXISTS finished_task();
+DROP FUNCTION IF EXISTS assign_task();
+DROP FUNCTION IF EXISTS accept_invite();
+DROP FUNCTION IF EXISTS notify_invitation();
+DROP FUNCTION IF EXISTS coordinator_change();
+
+-- Trigger 1
+
+CREATE FUNCTION task_number() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        UPDATE NEW 
+        SET NEW.task_number = (SELECT count(*) 
+                               FROM Task 
+                               WHERE Task.id_project = NEW.id_project);
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER task_number
+        AFTER INSERT ON Task
+        FOR EACH ROW
+        EXECUTE PROCEDURE task_number();
+
+
+-- Trigger 2
+
+CREATE FUNCTION user_anonymous() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        UPDATE Users
+        SET OLD.name = "Anonymous",
+            OLD.email = "anonymous@anonymous.pt"
+        WHERE OLD.id = Users.id;
+
+        RETURN NULL; -- check if this rely dont delete user
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER user_anonymous
+        BEFORE DELETE ON Users
+        FOR EACH ROW
+        EXECUTE PROCEDURE user_anonymous();
+
+
+-- Trigger 3
+
+CREATE FUNCTION remove_task() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+
+        UPDATE Task
+        SET Task.id_user = NULL
+        WHERE OLD.id_user = Task.id_user AND Task.finished_at = NULL;
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER remove_task
+        AFTER DELETE ON Participation
+        FOR EACH ROW
+        EXECUTE PROCEDURE remove_task();
+
+
+-- Trigger 4
+
+CREATE FUNCTION block_user() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        DELETE FROM Participation
+        WHERE Participation.id_user = OLD.id; 
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER blocked
+        AFTER UPDATE OF blocked
+        ON Users
+        FOR EACH ROW
+        WHEN (OLD.blocked = FALSE)
+        EXECUTE PROCEDURE block_user();
+
+
+-- Trigger 5
+
+CREATE FUNCTION finished_task() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        
+        INSERT INTO Notification (content, id_project)
+        VALUES ('Task ' || OLD.task_number || ' completed!', OLD.id_project)
+        RETURNING id AS notification_id;
+
+        IF (OLD.id_user IS NOT NULL) THEN 
+            INSERT INTO Seen (seen, id_user, id_notification)
+            VALUES (False, OLD.id_user,notification_id);  -- (SELECT id 
+                                            -- FROM Notification 
+                                            -- WHERE content LIKE '%' || OLD.task_number || '%' 
+                                            --    AND OLD.id_project = id_project))
+        END IF;
+        
+        INSERT INTO Seen (seen, id_user, id_notification)
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
+           
+        RETURN VOID;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER notification_finished_task
+        AFTER UPDATE OF finished_at 
+        ON Task
+        FOR EACH ROW
+        WHEN (OLD.finished_at = NULL)
+        EXECUTE PROCEDURE finished_task();
+
+-- Trigger 6
+
+CREATE FUNCTION assign_task() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        WITH notification_id AS (INSERT INTO Notification (content, id_project)
+        VALUES ('New task ' || NEW.task_number || ' assigned to you!', NEW.id_project)
+        RETURNING id)
+        
+        INSERT INTO Seen (seen, id_user, id_notification)
+        VALUES (False, NEW.id_user, notification_id);
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER blocked
+        AFTER INSERT OR UPDATE
+        ON Task
+        FOR EACH ROW
+        WHEN (NEW.id_user <> NULL)
+        EXECUTE PROCEDURE assign_task();
+
+-- Trigger 7
+
+CREATE FUNCTION accept_invite() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+
+        WITH notification_id AS (INSERT INTO Notification (content, id_project)
+        VALUES ('New ' || NEW.role || ' in your project!', NEW.id_project)
+        RETURNING id)
+
+        INSERT INTO Seen (seen, id_user, id_notification)
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = NEW.id_project AND Participation.role = 'Coordinator';
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER notification_accept_invite
+        AFTER INSERT 
+        ON Participation
+        FOR EACH ROW
+        EXECUTE PROCEDURE accept_invite();
+
+-- Trigger 8
+
+CREATE FUNCTION notify_invitation() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        WITH notification_id AS (INSERT INTO Notification (content, id_project)
+        VALUES ('Invite to a new project!', NEW.id_project)
+        RETURNING id)
+        
+        INSERT INTO Seen (seen, id_user, id_notification)
+        VALUES (False, NEW.id_user, notification_id);
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER invite_notification
+        AFTER INSERT
+        ON Invite
+        FOR EACH ROW
+        EXECUTE PROCEDURE notify_invitation();
+
+-- Trigger 9
+
+CREATE FUNCTION coordinator_change() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        WITH notification_id AS (INSERT INTO Notification (content, id_project)
+        VALUES ('Your project has a new Coordinator!', NEW.id_project)
+        RETURNING id)
+        
+        INSERT INTO Seen (seen, id_user, id_notification)
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = NEW.id_project;
+           
+        RETURN VOID;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER coordinator_change
+        AFTER UPDATE
+        ON Participation
+        FOR EACH ROW
+        WHEN (NEW.role = 'Coordinator' AND OLD.role = 'Member')
+        EXECUTE PROCEDURE coordinator_change();
+
+-- Trigger 10
