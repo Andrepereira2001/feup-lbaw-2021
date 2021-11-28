@@ -33,8 +33,7 @@ CREATE TABLE Users (
                            CONSTRAINT user_email_uk UNIQUE,
     password               TEXT NOT NULL,
     name                   TEXT NOT NULL,
-    image_path             TEXT NOT NULL DEFAULT './img/default' 
-                           CONSTRAINT u_image_path_uk UNIQUE,
+    image_path             TEXT NOT NULL DEFAULT './img/default',
     blocked                BOOLEAN NOT NULL DEFAULT false
 );
 
@@ -60,7 +59,7 @@ CREATE TABLE Project (
 
 CREATE TABLE Participation (
     id                     SERIAL PRIMARY KEY,
-    favourite              BOOL NOT NULL,
+    favourite              BOOL NOT NULL DEFAULT False,
     role                   Role NOT NULL,
     id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE, 
     id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE, 
@@ -128,9 +127,9 @@ CREATE TABLE Notification (
 
 CREATE TABLE Seen (
     id                     SERIAL PRIMARY KEY,
-    seen                   BOOLEAN DEFAULT False,
+    seen                   BOOLEAN NOT NULL DEFAULT False,
     id_user                INTEGER NOT NULL REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    id_notification        INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    id_notification        INTEGER NOT NULL REFERENCES Notification(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT seen_uk UNIQUE (id_user,id_notification) 
 );
 
@@ -138,6 +137,21 @@ CREATE TABLE Seen (
 -----------------------------------------
 -- INDEXES
 -----------------------------------------
+
+DROP INDEX IF EXISTS user_seen;
+DROP INDEX IF EXISTS task_taskComment;
+DROP INDEX IF EXISTS project_message;
+DROP INDEX IF EXISTS project_task;
+DROP INDEX IF EXISTS user_participation;
+
+DROP INDEX IF EXISTS search_name;
+DROP INDEX IF EXISTS search_project;
+DROP INDEX IF EXISTS search_task;
+
+DROP TRIGGER IF EXISTS user_search_update ON Users;
+DROP TRIGGER IF EXISTS project_search_update ON Project;
+DROP TRIGGER IF EXISTS task_search_update ON Task; 
+
 DROP FUNCTION IF EXISTS user_search_update();
 DROP FUNCTION IF EXISTS project_search_update();
 DROP FUNCTION IF EXISTS task_search_update();
@@ -264,6 +278,18 @@ DROP FUNCTION IF EXISTS assign_task();
 DROP FUNCTION IF EXISTS accept_invite();
 DROP FUNCTION IF EXISTS notify_invitation();
 DROP FUNCTION IF EXISTS coordinator_change();
+DROP FUNCTION IF EXISTS no_delete_coordinator();
+
+DROP TRIGGER IF EXISTS task_number ON Task;
+DROP TRIGGER IF EXISTS user_anonymous ON Users;
+DROP TRIGGER IF EXISTS remove_task ON Participation;
+DROP TRIGGER IF EXISTS block_user ON Users;
+DROP TRIGGER IF EXISTS notification_finished_task ON Task;
+DROP TRIGGER IF EXISTS assign_task ON Task;
+DROP TRIGGER IF EXISTS notification_accept_invite ON Participation;
+DROP TRIGGER IF EXISTS invite_notification ON Invite;
+DROP TRIGGER IF EXISTS coordinator_change ON Participation;
+DROP TRIGGER IF EXISTS no_delete_coordinator ON Participation;
 
 -- Trigger 1
 
@@ -340,7 +366,7 @@ END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER blocked
+CREATE TRIGGER block_user
         AFTER UPDATE OF blocked
         ON Users
         FOR EACH ROW
@@ -360,14 +386,12 @@ BEGIN
 
         IF (OLD.id_user IS NOT NULL) THEN 
             INSERT INTO Seen (seen, id_user, id_notification)
-            VALUES (False, OLD.id_user,notification_id);  -- (SELECT id 
-                                            -- FROM Notification 
-                                            -- WHERE content LIKE '%' || OLD.task_number || '%' 
-                                            --    AND OLD.id_project = id_project))
+            Select False, OLD.id_user, notification_id.id
+            FROM notification_id;
         END IF;
         
         INSERT INTO Seen (seen, id_user, id_notification)
-		SELECT (False, id_user, notification_id)
+		SELECT (False, id_user, notificationid_notification)
 		FROM Participation 
 		WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
            
@@ -394,14 +418,14 @@ BEGIN
         RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES (False, NEW.id_user, notification_id);
+        VALUES (False, NEW.id_user, notification_id.id);
            
         RETURN VOID;
 END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER blocked
+CREATE TRIGGER assign_task
         AFTER INSERT OR UPDATE
         ON Task
         FOR EACH ROW
@@ -419,11 +443,11 @@ BEGIN
         RETURNING id)
 
         INSERT INTO Seen (seen, id_user, id_notification)
-		SELECT (False, id_user, notification_id)
-		FROM Participation 
+		SELECT False, Participation.id_user, notification_id.id
+		FROM Participation, notification_id
 		WHERE Participation.id_project = NEW.id_project AND Participation.role = 'Coordinator';
            
-        RETURN VOID;
+        RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -444,7 +468,7 @@ BEGIN
         RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES (False, NEW.id_user, notification_id);
+        VALUES (False, NEW.id_user, notification_id.id);
            
         RETURN VOID;
 END
@@ -467,8 +491,8 @@ BEGIN
         RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-		SELECT (False, id_user, notification_id)
-		FROM Participation 
+		SELECT False, id_user, notification_id.id
+		FROM Participation, notification_id
 		WHERE Participation.id_project = NEW.id_project;
            
         RETURN VOID;
@@ -484,3 +508,26 @@ CREATE TRIGGER coordinator_change
         EXECUTE PROCEDURE coordinator_change();
 
 -- Trigger 10
+
+CREATE FUNCTION no_delete_coordinator() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF EXISTS(SELECT *
+                   FROM Participation 
+                   WHERE Participation.role = 'Coordinator' 
+				  		 AND Participation.id_project = OLD.id_project
+				 		 AND Participation.id_user <> OLD.id_user) 
+		THEN RAISE EXCEPTION 'You can not have a project without a coordinator';
+        END IF;
+        RETURN VOID;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER no_delete_coordinator
+        BEFORE DELETE
+        ON Participation
+        FOR EACH ROW
+        WHEN (OLD.role = 'Coordinator')
+        EXECUTE PROCEDURE notify_invitation();

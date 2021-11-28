@@ -334,7 +334,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE user_search_update();
 
 CREATE INDEX search_name ON Users USING GIN (tsvectors);
-
 ```
 
 
@@ -346,6 +345,7 @@ CREATE INDEX search_name ON Users USING GIN (tsvectors);
 | **Clustering**      | No                                     |
 | **Justification**   | To provide full-text search features to search for projects based on matching names or related description content we created an index, with type GIN, since the indexed fields (name and description) are not expected to change too often.         |
 | `SQL code`     
+
 ```
 ALTER TABLE Project
 ADD COLUMN tsvectors TSVECTOR;
@@ -378,6 +378,7 @@ CREATE TRIGGER project_search_update
 CREATE INDEX search_project ON Project USING GIN (tsvectors);
 ```                                              
 
+
 | **Index**           | IDX08                                  |
 | ---                 | ---                                    |
 | **Relation**        | Task                                   |
@@ -386,6 +387,7 @@ CREATE INDEX search_project ON Project USING GIN (tsvectors);
 | **Clustering**      | No                                     |
 | **Justification**   | Searching tasks for its name and description is easier with full-text search features with an index type GIN, since this atributtes are not expected to change often.   |
 | `SQL code`     
+
 ```
 ALTER TABLE Task
 ADD COLUMN tsvectors TSVECTOR;
@@ -418,15 +420,15 @@ CREATE TRIGGER task_search_update
 CREATE INDEX search_task ON Task USING GIN (tsvectors);
 ```  
 
+
 ### 3. Triggers
  
 > User-defined functions and trigger procedures that add control structures to the SQL language or perform complex computations, are identified and described to be trusted by the database server. Every kind of function (SQL functions, Stored procedures, Trigger procedures) can take base types, composite types, or combinations of these as arguments (parameters). In addition, every kind of function can return a base type or a composite type. Functions can also be defined to return sets of base or composite values.  
 
-| **Trigger**      | TRIGGER01                                                                                 |
-| ---              | ---------                                                                                 |
-| **Description**  | Update task number when adding                                                            |
+| **Trigger**      | TRIGGER01                        |
+| ---              | ---------                        |
+| **Description**  | Update task number when adding   |
 | `SQL code`                                                                                                  
-
 ```
 CREATE FUNCTION task_number() RETURNS TRIGGER AS
 $BODY$
@@ -434,7 +436,7 @@ BEGIN
         UPDATE NEW 
         SET NEW.task_number = (SELECT count(*) 
                                FROM Task 
-                               WHERE Task.id_project = NEW.id_project)
+                               WHERE Task.id_project = NEW.id_project);
         RETURN VOID;
 END
 $BODY$
@@ -444,7 +446,9 @@ CREATE TRIGGER task_number
         AFTER INSERT ON Task
         FOR EACH ROW
         EXECUTE PROCEDURE task_number();
+
 ```
+
 
 | **Trigger**      | TRIGGER02                                                                                 |
 | ---              | ---------                                                                                 |
@@ -456,20 +460,21 @@ CREATE FUNCTION user_anonymous() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         UPDATE Users
-        SET OLD.name = "Anonymous"
+        SET OLD.name = "Anonymous",
             OLD.email = "anonymous@anonymous.pt"
-        WHERE OLD.id = Users.id
+        WHERE OLD.id = Users.id;
 
-        RETURN VOID;
+        RETURN NULL; -- check if this rely dont delete user
 END
 $BODY$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER user_anonymous
-        INSTEAD OF DELETE ON Users
+        BEFORE DELETE ON Users
         FOR EACH ROW
         EXECUTE PROCEDURE user_anonymous();
 ```
+
 
 | **Trigger**      | TRIGGER03                                                                                 |
 | ---              | ---                                                                                       |
@@ -482,7 +487,7 @@ $BODY$
 BEGIN
 
         UPDATE Task
-        SET Task.id_user = NULL,
+        SET Task.id_user = NULL
         WHERE OLD.id_user = Task.id_user AND Task.finished_at = NULL;
            
         RETURN VOID;
@@ -496,13 +501,14 @@ CREATE TRIGGER remove_task
         EXECUTE PROCEDURE remove_task();
 ```
 
-| **Trigger**      | TRIGGER04                                                                                 |
-| ---              | ---                                                                                       |
-| **Description**  | Remove user from project when he is blocked, reference to business rule BR06              |
-| `SQL code`       |                                                                                           |
+
+| **Trigger**      | TRIGGER04                                                                    |
+| ---              | ---                                                                          |
+| **Description**  | Remove user from project when he is blocked, reference to business rule BR06 |
+| `SQL code`       |                                                                              |
 
 ```
-CREATE FUNCTION block_user() RETURNS TRIGGER AS
+REATE FUNCTION block_user() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         DELETE FROM Participation
@@ -513,7 +519,7 @@ END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER blocked
+CREATE TRIGGER block_user
         AFTER UPDATE OF blocked
         ON Users
         FOR EACH ROW
@@ -538,17 +544,16 @@ BEGIN
 
         IF (OLD.id_user IS NOT NULL) THEN 
             INSERT INTO Seen (seen, id_user, id_notification)
-            VALUES (False, OLD.id_user,notification_id)  -- (SELECT id 
+            VALUES (False, OLD.id_user,notification_id);  -- (SELECT id 
                                             -- FROM Notification 
                                             -- WHERE content LIKE '%' || OLD.task_number || '%' 
                                             --    AND OLD.id_project = id_project))
         END IF;
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES
-            SELECT (False, id_user, notification_id)
-            FROM Participation 
-            WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
            
         RETURN VOID;
 
@@ -564,10 +569,11 @@ CREATE TRIGGER notification_finished_task
         EXECUTE PROCEDURE finished_task();
 ```
 
-| **Trigger**      | TRIGGER06                                                                                 |
-| ---              | ---                                                                                       |
-| **Description**  | Notification creation on task assignment                                                  |
-| `SQL code`       |                                                                                           |
+
+| **Trigger**      | TRIGGER06                                  |
+| ---              | ---                                        |
+| **Description**  | Notification creation on task assignment   |
+| `SQL code`       |                                            |
 
 ```
 CREATE FUNCTION assign_task() RETURNS TRIGGER AS
@@ -575,7 +581,7 @@ $BODY$
 BEGIN
         WITH notification_id AS (INSERT INTO Notification (content, id_project)
         VALUES ('New task ' || NEW.task_number || ' assigned to you!', NEW.id_project)
-        RETURNING id);
+        RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
         VALUES (False, NEW.id_user, notification_id);
@@ -585,18 +591,19 @@ END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER blocked
+CREATE TRIGGER assign_task
         AFTER INSERT OR UPDATE
         ON Task
         FOR EACH ROW
-        WHEN (NEW.id_user <> NULL AND NEW.id_user <> OLD.id_user)
+        WHEN (NEW.id_user <> NULL)
         EXECUTE PROCEDURE assign_task();
 ```
 
-| **Trigger**      | TRIGGER07                                                                                 |
-| ---              | ---                                                                                       |
-| **Description**  | Member accepted invitation to project notify                                              |
-| `SQL code`       |                                                                                           |
+
+| **Trigger**      | TRIGGER07                                        |
+| ---              | ---                                              |
+| **Description**  | Member accepted invitation to project notify     |
+| `SQL code`       |                                                  |
 
 ```
 CREATE FUNCTION accept_invite() RETURNS TRIGGER AS
@@ -605,13 +612,12 @@ BEGIN
 
         WITH notification_id AS (INSERT INTO Notification (content, id_project)
         VALUES ('New ' || NEW.role || ' in your project!', NEW.id_project)
-        RETURNING id);
+        RETURNING id)
 
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES
-            SELECT (False, id_user, notification_id)
-            FROM Participation 
-            WHERE Participation.id_project = NEW.id_project AND Participation.role = 'Coordinator';
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = NEW.id_project AND Participation.role = 'Coordinator';
            
         RETURN VOID;
 END
@@ -625,10 +631,11 @@ CREATE TRIGGER notification_accept_invite
         EXECUTE PROCEDURE accept_invite();
 ```
 
-| **Trigger**      | TRIGGER08                                                                                 |
-| ---              | ---                                                                                       |
-| **Description**  | After inviting member to project he receives notification                                 |
-| `SQL code`       |                                                                                           |
+
+| **Trigger**      | TRIGGER08                                                  |
+| ---              | ---                                                        |
+| **Description**  | After inviting member to project he receives notification  |
+| `SQL code`       |                                                            |
 
 ```
 CREATE FUNCTION notify_invitation() RETURNS TRIGGER AS
@@ -639,7 +646,7 @@ BEGIN
         RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES (False, NEW.id_user, notification_id)
+        VALUES (False, NEW.id_user, notification_id);
            
         RETURN VOID;
 END
@@ -654,10 +661,10 @@ CREATE TRIGGER invite_notification
 ```
 
 
-| **Trigger**      | TRIGGER09                                                                                 |
-| ---              | ---                                                                                       |
-| **Description**  | Change in project coordinator                                                             |
-| `SQL code`       |                                                                                           |
+| **Trigger**      | TRIGGER09                          |
+| ---              | ---                                |
+| **Description**  | Change in project coordinator      |
+| `SQL code`       |                                    |
 
 ```
 CREATE FUNCTION coordinator_change() RETURNS TRIGGER AS
@@ -665,13 +672,12 @@ $BODY$
 BEGIN
         WITH notification_id AS (INSERT INTO Notification (content, id_project)
         VALUES ('Your project has a new Coordinator!', NEW.id_project)
-        RETURNING id);
+        RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES
-            SELECT (False, id_user, notification_id)
-            FROM Participation 
-            WHERE Participation.id_project = NEW.id_project;
+		SELECT (False, id_user, notification_id)
+		FROM Participation 
+		WHERE Participation.id_project = NEW.id_project;
            
         RETURN VOID;
 END
@@ -682,8 +688,39 @@ CREATE TRIGGER coordinator_change
         AFTER UPDATE
         ON Participation
         FOR EACH ROW
-        WHEN (NEW.role = 'Coordinator' AND OLD.role = 'Member)
+        WHEN (NEW.role = 'Coordinator' AND OLD.role = 'Member')
         EXECUTE PROCEDURE coordinator_change();
+```
+
+
+| **Trigger**      | TRIGGER10                                                                      |
+| ---              | ---                                                                            |
+| **Description**  | Restrict deletion of a Coordinator of a project if he is the only Coordinator  |
+| `SQL code`       |                                                                                |
+
+```
+CREATE FUNCTION no_delete_coordinator() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF EXISTS(SELECT *
+                   FROM Participation 
+                   WHERE Participation.role = 'Coordinator' 
+				  		 AND Participation.id_project = OLD.id_project
+				 		 AND Participation.id_user <> OLD.id_user) 
+		THEN RAISE EXCEPTION 'You can not have a project without a coordinator';
+        END IF;
+        RETURN VOID;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER no_delete_coordinator
+        BEFORE DELETE
+        ON Participation
+        FOR EACH ROW
+        WHEN (OLD.role = 'Coordinator')
+        EXECUTE PROCEDURE notify_invitation();
 ```
 
 ### 4. Transactions
@@ -692,9 +729,21 @@ CREATE TRIGGER coordinator_change
 
 | SQL Reference   | Transaction Name                    |
 | --------------- | ----------------------------------- |
-| Justification   | Justification for the transaction.  |
-| Isolation level | Isolation level of the transaction. |
-| `Complete SQL Code`                                   ||
+| Justification   | We must turn a member into a coordinator inside a transaction not allowing him to leave the project in the middle of it, only beeing able to leave at the end, if there is another coordinator allocated to the project|
+| Isolation level | READ COMMITED                       |
+| `Complete SQL Code`  ||
+
+```
+BEGIN TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITED
+
+UPDATE Participation 
+SET Participation.role = 'Coordinator'
+WHERE Participation.id_user = $user_id
+
+END TRANSACTION;
+```
 
 
 ## Annex A. SQL Code
@@ -722,8 +771,9 @@ Changes made to the first submission:
 1. ..
 
 ***
-GROUP21gg, DD/MM/2021
+GROUP21gg, 28/11/2021
  
-* Group member 1 André Pereira, up2019@up.pt (Editor -- what's this?)
+* Group member 1 André Pereira, up201905650@up.pt (Editor -- what's this?)
 * Group member 2 Beatriz Lopes dos Santos, up201906888@up.pt
-* Group member 3 Matilde Oliveira, up201906888@up.pt
+* Group member 3 Matilde Oliveira, up2019@up.pt
+* Group member 4 Ricardo Ferreira, up2019@up.pt
