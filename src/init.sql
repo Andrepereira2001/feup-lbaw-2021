@@ -280,6 +280,8 @@ DROP FUNCTION IF EXISTS notify_invitation();
 DROP FUNCTION IF EXISTS coordinator_change();
 DROP FUNCTION IF EXISTS no_delete_coordinator();
 DROP FUNCTION IF EXISTS no_invite_participant();
+DROP FUNCTION IF EXISTS task_if_participating();
+DROP FUNCTION IF EXISTS comment_if_participating();
 
 DROP TRIGGER IF EXISTS task_number ON Task;
 DROP TRIGGER IF EXISTS user_anonymous ON Users;
@@ -292,6 +294,8 @@ DROP TRIGGER IF EXISTS invite_notification ON Invite;
 DROP TRIGGER IF EXISTS coordinator_change ON Participation;
 DROP TRIGGER IF EXISTS no_delete_coordinator ON Participation;
 DROP TRIGGER IF EXISTS no_invite_participant ON Invite;
+DROP TRIGGER IF EXISTS task_if_participating ON Task;
+DROP TRIGGER IF EXISTS comment_if_participating ON TaskComment;
 
 -- Trigger 1
 
@@ -557,3 +561,50 @@ CREATE TRIGGER no_invite_participant
         ON Invite
         FOR EACH ROW
         EXECUTE PROCEDURE no_invite_participant();
+
+
+-- Trigger 12
+
+CREATE FUNCTION task_if_participating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF NOT EXISTS(SELECT *
+                   FROM Participation 
+                   WHERE Participation.id_project = NEW.id_project
+			 AND Participation.id_user = NEW.id_user) 
+		THEN RAISE EXCEPTION 'User(%) not in the project(%)',NEW.id_user, NEW.id_project ;
+        END IF;
+        RETURN NEW;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER task_if_participating
+        BEFORE INSERT
+        ON Task
+        FOR EACH ROW
+        EXECUTE PROCEDURE task_if_participating();
+
+-- Trigger 13
+
+CREATE FUNCTION comment_if_participating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF NOT EXISTS(SELECT *
+                        FROM Participation 
+                        WHERE Participation.id_project = NEW.id_project
+			      AND Participation.id_user = NEW.id_user) 
+		THEN RAISE EXCEPTION 'User(%) can not comment in the project(%)',NEW.id_user, NEW.id_project ;
+        END IF;
+        RETURN NEW;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER comment_if_participating
+        BEFORE INSERT
+        ON TaskComment
+        FOR EACH ROW
+        EXECUTE PROCEDURE comment_if_participating();
