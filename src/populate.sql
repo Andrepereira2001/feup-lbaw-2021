@@ -760,7 +760,7 @@ insert into Label (id, name, id_project) values (98, 'Soft Flooring and Base', 4
 insert into Label (id, name, id_project) values (99, 'EIFS', 49);
 insert into Label (id, name, id_project) values (100, 'Ornamental Railings', 50);
 
-
+-- CONTINUE HERE VERIFICATION ________________________________________________________________________________________
 insert into TaskLabel (id, id_task, id_label) values (1, 6, 1);
 insert into TaskLabel (id, id_task, id_label) values (2, 7, 2);
 insert into TaskLabel (id, id_task, id_label) values (3, 11, 3);

@@ -296,17 +296,16 @@ DROP TRIGGER IF EXISTS no_delete_coordinator ON Participation;
 CREATE FUNCTION task_number() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-        UPDATE NEW 
-        SET NEW.task_number = (SELECT count(*) 
+        NEW.task_number := (SELECT count(*) 
                                FROM Task 
                                WHERE Task.id_project = NEW.id_project);
-        RETURN VOID;
+        RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER task_number
-        AFTER INSERT ON Task
+        BEFORE INSERT ON Task
         FOR EACH ROW
         EXECUTE PROCEDURE task_number();
 
