@@ -1,6 +1,6 @@
 # ER: Requirements Specification Component
 
-With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. 
+With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. The website is for everyone, it can be used personally, for business, school, or even among friends.
 
 ## A1: toEaseManage
 
@@ -75,18 +75,18 @@ In the following tables we present the user stories for the actors described abo
 | - | - | - | - |
 | US2.1 | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
 | US2.2 | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
-| US2.3 | Project Invitation | low | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
-| US2.4 | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
-| US2.5 | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
-| US2.6 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
-| US2.7 | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
-| US2.8 | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
-| US2.9 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
-| US2.10 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
-| US2.11 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
-| US2.12 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
-| US2.13 | Receive Notifications | high | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
-| US2.14 | Accept project invitations | high | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
+| US2.3 | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
+| US2.4 | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
+| US2.5 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
+| US2.6 | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
+| US2.7 | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
+| US2.8 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
+| US2.9 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
+| US2.10 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
+| US2.11 | Receive Notifications | high | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
+| US2.12 | Accept project invitations | high | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
+| US2.13 | Project Invitation | low | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
+| US2.14 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
 > Table 4: AuthUser User Stories
 
 #### 2.3. Member
@@ -100,11 +100,11 @@ In the following tables we present the user stories for the actors described abo
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
 | US3.6 | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
 | US3.7 | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
-| US3.8 | Browse the Project Forum | medium | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
-| US3.9 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
-| US3.10 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
-| US3.11 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
-| US3.12 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
+| US3.8 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
+| US3.9 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
+| US3.10 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
+| US3.11 | Browse the Project Forum | medium | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
+| US3.12 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
 | US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
 > Table 5: Member User Stories
 
@@ -112,11 +112,11 @@ In the following tables we present the user stories for the actors described abo
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| US4.1 | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
-| US4.2 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
-| US4.3 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
-| US4.4 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
-| US4.5 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
+| US4.1 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
+| US4.2 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
+| US4.3 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
+| US4.4 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
+| US4.5 | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
 | US4.6 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
 > Table 6: Coordinator User Stories
 
@@ -176,13 +176,15 @@ The technical requirements listed below are the necessary aspects the system nee
 | - | - | - | 
 |TR01 | **Accessibility** | The system must ensure that everyone can access the pages no matter when and where they are reaching out for the website |
 |TR02 | **Usability** | toEaseManage website is designed to help the users manage their projects so its a requirement that every one can easily navigate and work in it |
-|TR03 | Performance | The website should have response times shorter than 2s to be appealing to its users |
-|TR04 | Web application | The system should be implemented as a web application with dynamic and static pages so that users of toEaseManage must not have the need to install new applications |
-|TR05 | Portability | The toEaseManage website is meant to all users regardless of the platform or operating system they are using |
-|TR06 | Security | The platform must protect information from unauthorised access through the use of an authentication system |
-|TR07 | **Robustness** | The system continue operating when runtime errors occur |
+|TR03 | **Robustness** | The system continue operating when runtime errors occur |
+|TR04 | Performance | The website should have response times shorter than 2s to be appealing to its users |
+|TR05 | Web application | The system should be implemented as a web application with dynamic and static pages so that users of toEaseManage must not have the need to install new applications |
+|TR06 | Portability | The toEaseManage website is meant to all users regardless of the platform or operating system they are using |
+|TR07 | Security | The platform must protect information from unauthorised access through the use of an authentication system |
 |TR08 | Ethics | The system must respect the ethical principles of software development |
 > Table 11: toEaseManage Technical Requirements
+
+Due to the short time for the development of the website, we consider that the technical requires highlighted are the most important, since they guarantee that for a user, toEaseManage will work properly and no unexpected errors will occur.
 
 #### 3.3. Restrictions
 
