@@ -727,9 +727,9 @@ CREATE TRIGGER no_delete_coordinator
  
 > Transactions needed to assure the integrity of the data.  
 
-| SQL Reference   | Transaction Name                    |
+| SQL Reference   | Coordinator assignement             |
 | --------------- | ----------------------------------- |
-| Justification   | We must turn a member into a coordinator inside a transaction not allowing him to leave the project in the middle of it, only beeing able to leave at the end, if there is another coordinator allocated to the project|
+| Justification   | We must turn a member into a coordinator inside a transaction not allowing him to leave the project in the middle of it, only beeing able to leave at the end, if there is another coordinator allocated to the project            |
 | Isolation level | READ COMMITED                       |
 | `Complete SQL Code`  ||
 
@@ -741,6 +741,27 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITED
 UPDATE Participation 
 SET Participation.role = 'Coordinator'
 WHERE Participation.id_user = $user_id
+
+END TRANSACTION;
+```
+
+| SQL Reference   | Accept invite                       |
+| --------------- | ----------------------------------- |
+| Justification   | When a invite is accepted it bust be deleted and a participation row must be created without any interruption |
+| Isolation level | REATABLE READ                       |
+| `Complete SQL Code`  ||
+
+```
+BEGIN TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL REATABLE READ
+
+DELETE FROM Invite
+WHERE Invite.id_user = $user_id
+      AND Invite.id_project = $project_id
+
+INSERT INTO Participation (role,id_project,id_user)
+VALUES ('Member',$project_id,$user_id)
 
 END TRANSACTION;
 ```

@@ -279,6 +279,7 @@ DROP FUNCTION IF EXISTS accept_invite();
 DROP FUNCTION IF EXISTS notify_invitation();
 DROP FUNCTION IF EXISTS coordinator_change();
 DROP FUNCTION IF EXISTS no_delete_coordinator();
+DROP FUNCTION IF EXISTS no_invite_participant();
 
 DROP TRIGGER IF EXISTS task_number ON Task;
 DROP TRIGGER IF EXISTS user_anonymous ON Users;
@@ -290,6 +291,7 @@ DROP TRIGGER IF EXISTS notification_accept_invite ON Participation;
 DROP TRIGGER IF EXISTS invite_notification ON Invite;
 DROP TRIGGER IF EXISTS coordinator_change ON Participation;
 DROP TRIGGER IF EXISTS no_delete_coordinator ON Participation;
+DROP TRIGGER IF EXISTS no_invite_participant ON Invite;
 
 -- Trigger 1
 
@@ -467,9 +469,10 @@ BEGIN
         RETURNING id)
         
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES (False, NEW.id_user, notification_id.id);
+        SELECT False, NEW.id_user, notification_id.id
+        FROM notification_id;
            
-        RETURN VOID;
+        RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -516,9 +519,9 @@ BEGIN
                    WHERE Participation.role = 'Coordinator' 
 				  		 AND Participation.id_project = OLD.id_project
 				 		 AND Participation.id_user <> OLD.id_user) 
-		THEN RAISE EXCEPTION 'You can not have a project without a coordinator';
+		THEN RAISE EXCEPTION 'You can not have a project(%) without a coordinator(%)',OLD.id_project,OLD.id_user;
         END IF;
-        RETURN VOID;
+        RETURN OLD;
 
 END
 $BODY$
@@ -529,4 +532,28 @@ CREATE TRIGGER no_delete_coordinator
         ON Participation
         FOR EACH ROW
         WHEN (OLD.role = 'Coordinator')
-        EXECUTE PROCEDURE notify_invitation();
+        EXECUTE PROCEDURE no_delete_coordinator();
+
+
+-- Trigger 11
+
+CREATE FUNCTION no_invite_participant() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF EXISTS(SELECT *
+                   FROM Participation 
+                   WHERE Participation.id_project = NEW.id_project
+			 AND Participation.id_user = NEW.id_user) 
+		THEN RAISE EXCEPTION 'You can not invite a participant(%) of the project(%)',NEW.id_user, NEW.id_project ;
+        END IF;
+        RETURN NEW;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER no_invite_participant
+        BEFORE INSERT
+        ON Invite
+        FOR EACH ROW
+        EXECUTE PROCEDURE no_invite_participant();
