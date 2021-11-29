@@ -25,6 +25,12 @@ These are the business rules, from the previous component, that can't be explain
 
 ---
 
+### Editor
+
+Beatriz Lopes dos Santos
+
+---
+
 ## A5: Relational Schema, validation and schema refinement
 
 For this artefact our main objective was to convert the UML Class diagram to a Relational Schema that follows all the Forms to enhance performance of our databases. 
@@ -180,6 +186,12 @@ For each table of the relational schema we excuted a validation of the Normal Fo
 | FD1202          | { id_user, id_notification } → {id, seen}   |  
 | **NORMAL FORM** | BCNF                                        |  
 | **Justication** | For each functional dependency, the group of atributtes of the left side are keys, therefore, this table is in the BCNF Form. |
+
+---
+
+### Editor
+
+Matilde Oliveira
 
 ---
 
