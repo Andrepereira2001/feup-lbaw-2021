@@ -59,7 +59,15 @@ Legend:
 * NN = NOT NULL
 * DF = DEFAULT
 * CK = CHECK
- 
+
+> Justifications for the Generalisations Conversion to Relational Model:
+
+> We add two generalisations to convert to this schema. 
+
+> First the __Participation__ could have two roles, __Coordinator__ and __Member__. This only changed some permisions inside the projects work, but the information that should be kept in the table of Participation is the same for both of them. Because of that, and because the generalisation is complete and disjoint (never allowing other role), we decided that we only should map the __Participation__ table with an atributte that indicates whether the user is a member or coordinator in that project.  
+
+> The second generalisation is from the __AuthUser__ that can either be an __User__ or an __Admin__. We had two options: first, only having the User and Admin tables with repeated information, or having the table AuthUser and then the table user that had one more atributte. We came to a conclusion that, the first was a better option, since we only are going to have a little amount of Admins and when everytime we need to find an User we don't need queries that join the table User with AuthUser. To enhance our decision this generalisation was also complete and disjoint, making sense to convert them this way. 
+
 ### 2. Domains
 
 This are domains used in the relational schema above.   
