@@ -236,7 +236,17 @@ Beatriz Lopes dos Santos
 
 ## Revision history
 
-08/11/2021 - First Version
+08/11/2021:
+First Version
+
+28/11/2021:
+Changes made to the first submission:
+1. Added a small description for whom the website is for.
+2. Order high and low, and functionalities that we think are most relevant on the tables.
+3. Justification of the highlighted technical requires.
+4. Search in sitemap
+5. Footer on the wireframe
+6. Search in project wireframe
 
 ---
 

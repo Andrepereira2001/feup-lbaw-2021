@@ -74,11 +74,13 @@ CREATE TABLE Task (
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     finished_at            TIMESTAMP,
     task_number            INT NOT NULL,
+    due_date               TIMESTAMP,
     id_project             INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE, 
     id_user                INTEGER REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE, 
     CONSTRAINT task_dates CHECK ((finished_at IS NULL) OR (finished_at > created_at)),
     CONSTRAINT priority_range CHECK ((priority > 0) AND (priority < 6)),
-    CONSTRAINT project_task_number UNIQUE (id_project, task_number)
+    CONSTRAINT project_task_number UNIQUE (id_project, task_number),
+    CONSTRAINT task_due_date CHECK (due_date > created_at)
 );
 
 CREATE TABLE Label (
@@ -282,6 +284,7 @@ DROP FUNCTION IF EXISTS no_delete_coordinator();
 DROP FUNCTION IF EXISTS no_invite_participant();
 DROP FUNCTION IF EXISTS task_if_participating();
 DROP FUNCTION IF EXISTS comment_if_participating();
+DROP FUNCTION IF EXISTS message_if_participating();
 
 DROP TRIGGER IF EXISTS task_number ON Task;
 DROP TRIGGER IF EXISTS user_anonymous ON Users;
@@ -296,6 +299,7 @@ DROP TRIGGER IF EXISTS no_delete_coordinator ON Participation;
 DROP TRIGGER IF EXISTS no_invite_participant ON Invite;
 DROP TRIGGER IF EXISTS task_if_participating ON Task;
 DROP TRIGGER IF EXISTS comment_if_participating ON TaskComment;
+DROP TRIGGER IF EXISTS message_if_participating ON ForumMessage;
 
 -- Trigger 1
 
@@ -322,11 +326,10 @@ CREATE FUNCTION user_anonymous() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         UPDATE Users
-        SET OLD.name = "Anonymous",
-            OLD.email = "anonymous@anonymous.pt"
+        SET name = 'Anonymous', email = 'anonymous' || OLD.id || '@anonymous.pt'
         WHERE OLD.id = Users.id;
 
-        RETURN NULL; -- check if this rely dont delete user
+        RETURN NULL; -- check if this really dont delete user
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -591,11 +594,12 @@ CREATE TRIGGER task_if_participating
 CREATE FUNCTION comment_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-        IF NOT EXISTS(SELECT *
-                        FROM Participation 
-                        WHERE Participation.id_project = NEW.id_project
-			      AND Participation.id_user = NEW.id_user) 
-		THEN RAISE EXCEPTION 'User(%) can not comment in the project(%)',NEW.id_user, NEW.id_project ;
+        IF NOT EXISTS ( SELECT *
+                        FROM Participation, Task
+                        WHERE Participation.id_project = Task.id_project
+			      AND Participation.id_user = NEW.id_user
+                              AND Task.id = NEW.id_task)
+		THEN RAISE EXCEPTION 'User(%) can not comment in the task(%)',NEW.id_user, NEW.id_task ;
         END IF;
         RETURN NEW;
 
@@ -608,3 +612,27 @@ CREATE TRIGGER comment_if_participating
         ON TaskComment
         FOR EACH ROW
         EXECUTE PROCEDURE comment_if_participating();
+
+
+-- Trigger 14
+
+CREATE FUNCTION message_if_participating() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+        IF NOT EXISTS ( SELECT *
+                        FROM Participation
+                        WHERE Participation.id_project = NEW.id_project
+			      AND Participation.id_user = NEW.id_user)
+		THEN RAISE EXCEPTION 'User(%) can not send message in project(%)',NEW.id_user, NEW.id_project;
+        END IF;
+        RETURN NEW;
+
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER message_if_participating
+        BEFORE INSERT
+        ON ForumMessage
+        FOR EACH ROW
+        EXECUTE PROCEDURE message_if_participating();
