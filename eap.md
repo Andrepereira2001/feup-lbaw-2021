@@ -33,7 +33,7 @@
 | __OWN__ | Owner | User that owns the information (e.g. forum messages, comments, profile). |
 | __COOR__ | Coordinator | User that coordinates an instance (e.g. project coordinators). |
 | __MEMB__ | Member | Relation of membership with a project. |
-| __ADM__ | Administrator | Administrators of the system.  |
+| __ADMIN__ | Administrator | Administrators of the system.  |
 
 ### 3. OpenAPI Specification
 

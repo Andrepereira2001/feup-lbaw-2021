@@ -18,6 +18,8 @@ tags:
  - name: 'M07: Static Pages'
 
 paths:
+
+# ------------------------- USER ------------------------- 
   /login:
     get:
       operationId: R101
@@ -135,27 +137,11 @@ paths:
                   description: 'Failed registration. Redirect to register form.'
                   value: '/register'
 
-  /users/profile/{id}:
+  /users/{id}:
+
     get:
       operationId: R106
-      summary: 'R106: View user profile '
-      description: "Show the individual user profile page. Access: AUTH_USR"
-      tags:
-       - 'M01: Authentication and Individual Profile'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: 'OK. Show User Profile UI'
-
-  /users/{id}:
-    get:
-      operationId: R107
-      summary: 'R107: View user page'
+      summary: 'R106: View user page'
       description: 'Show the individual user page. Access: AUTH_USR'
       tags:
         - 'M01: Authentication and Individual Profile'
@@ -168,7 +154,174 @@ paths:
       responses:
         '200':
           description: 'Ok. Show User Page UI'
+    patch:
+      operationId: R107
+      summary: 'R107: Edit user page'
+      description: 'Edit individual user page. Access: OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              name:
+                type: string
+              image: 
+                type: string
+                format: binary
+      responses:
+        '200':
+          description: 'Ok. User updated.'
 
+    delete:
+      operationId: R601
+      summary: 'R601: Delete user'
+      description: 'Delete user from service. Access: ADMIN'
+      tags:
+        - 'M06: User Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. User deleted'
+  
+  /users/profile/{id}:
+    get:
+      operationId: R108
+      summary: 'R108: View user profile '
+      description: "Show the individual user profile page. Access: AUTH_USR"
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'OK. Show User Profile UI'
+  
+  /users/edit/{id}: #??
+    get:
+      operationId: R109
+      summary: 'R109: User edit profile Form '
+      description: "Show the individual user edit profile page. Access: OWN"
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'OK. Show User Profile UI'
+
+  /recoverPassword:
+    get:
+      operationId: R110
+      summary: 'R110: Recover password Form'
+      description: 'Provide recover password form. Access: PUB'
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show recover password UI
+
+    post:
+      operationId: R111
+      summary: 'R111: Recover password Action'
+      description: 'Processes the recover password form submission. Access: PUB'
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+              - email
+      responses:
+        '302':
+          description: Redirect after processing the recover password.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Recover email sent. Redirect to login'
+                  value: '/login'
+                302Error:
+                  description: 'Failed authentication. Redirect to login form.'
+                  value: '/recoverPassword'
+
+  /resetPassword:
+    get:
+      operationId: R112
+      summary: 'R112: Reset password Form'
+      description: 'Provide reset password form. Access: AUTH_USR'
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show reset password UI
+
+    post:
+      operationId: R113
+      summary: 'R113: Reset password Action'
+      description: 'Processes the reset password form submission. Access: AUTH_USR'
+      tags:
+       - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            required:
+              - email
+              - password
+      responses:
+        '302':
+          description: Redirect after processing the reset password.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Password reseted. Redirect to login'
+                  value: '/login'
+                302Error:
+                  description: 'Failed authentication. Redirect to home page.'
+                  value: '/'
+
+# ------------------------- PROJECTS ------------------------- 
   /api/projects:
     get:
       operationId: R201
@@ -249,16 +402,16 @@ paths:
                    created_at: '2020-01-24'
                    archived_at: NULL
 
+# ------------------------- TASKS ------------------------- 
 
 
 #M01: Authentication and Individual Profile
   #login DONE
   #logout DONE
   #sign up DONE
-  #delete 
-  #profile editing
-  #password retrieval
-  #edite profile
+  #profile editing DONE
+  #password retrieval DONE
+  #get edite profile page DONE
   #access to personal information. DONE
 #M02: Project
   #create 
@@ -298,6 +451,7 @@ paths:
   #search users
   #search projects DONE
   #block users
+  #delete users DONE
   #editing account information for all users NOT A FEATURE I THINK ????
   #View system access details for each user ????
 #M07: Static Pages
