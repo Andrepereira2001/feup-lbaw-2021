@@ -10,9 +10,26 @@
 
 > Identify and overview the modules that will be part of the application.  
 
+| | |
+| ---- | ---- |
+| __M01: Authentication and Individual Profile__ | Features related to profile and managing a user's profile, such as login/logout and sign up actions, profile editing, password retrieval, and access to personal information.
+
+ Web resources associated with user authentication and individual profile management. Includes the following system features: login/logout, registration, credential recovery, view and edit personal profile information |
+| __M02: Project and Forum__ | Web resources associated with :::: . Includes the following system features: projects list and search, view and edit project details, and delete projects |
+| __M03: Tasks, Comments and Labels__ |  |
+| __M04: Invites and Notifications__ |  |
+| __M05: User Administration and Static Pages__ |  |
+
 ### 2. Permissions
 
 > Define the permissions used by each module, necessary to access its data and features.  
+
+| | | |
+| --- | --- | --- |
+| __PUB__ | Public | Visitors of the page |
+| __AUTH_USR__ | Authenticated User | User that have passed the login | User |
+| __OWN__ | Owner | User that owns the information |
+| __ADM__ | Administrator |  |
 
 ### 3. OpenAPI Specification
 
