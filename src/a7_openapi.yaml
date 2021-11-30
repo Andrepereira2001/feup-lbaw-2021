@@ -168,3 +168,82 @@ paths:
       responses:
         '200':
           description: 'Ok. Show User Page UI'
+
+  /api/projects:
+    get:
+      operationId: R201
+      summary: 'R201: Search Projects API'
+      description: 'Searches for projects and returns the results as JSON. Access: MEMB,COOR.'
+
+      tags:
+        - 'M02: Project'
+
+      parameters:
+        - in: query
+          name: search_string
+          description: String to use for full-text search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: order
+          description: String with the ordering atribute(alph/date)
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: favourite
+          description: Boolean with the favourite flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: coordinator
+          description: Boolean with the coordinator flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: member
+          description: Boolean with the member flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: archived
+          description: Boolean with the archived flag value
+          schema:
+            type: boolean
+          required: false
+        
+        
+        
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   name:
+                     type: string
+                   description:
+                     type: string
+                   color:
+                     type: string
+                   created_at:
+                     type: string
+                   archived_at:
+                     type: string
+               example:
+                 - id: 5
+                   name: e-enable scalable technologies
+                   description: sagittis dui vel nisl duis ac nibh fusce lacus purus
+                   color: '#3fbcdd'
+                   created_at: '2020-01-24'
+                   archived_at: NULL
