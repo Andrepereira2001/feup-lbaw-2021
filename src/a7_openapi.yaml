@@ -138,7 +138,6 @@ paths:
                   value: '/register'
 
   /users/{id}:
-
     get:
       operationId: R106
       summary: 'R106: View user page'
@@ -154,6 +153,7 @@ paths:
       responses:
         '200':
           description: 'Ok. Show User Page UI'
+
     patch:
       operationId: R107
       summary: 'R107: Edit user page'
@@ -321,12 +321,80 @@ paths:
                   description: 'Failed authentication. Redirect to home page.'
                   value: '/'
 
+  /api/users:
+    get:
+      operationId: R113
+      summary: 'R113: Search Users API'
+      description: 'Searches for users and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: query
+          name: search_string
+          description: String to use for full-text search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: project_id
+          description: Id of the project participating
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: member
+          description: Boolean with the membership flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: coordinator
+          description: Boolean with the coordinator flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: blocked
+          description: Boolean with the blocked flag value
+          schema:
+            type: boolean
+          required: false
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   email:
+                     type: string
+                   password:
+                     type: string
+                   name:
+                     type: string
+                   image_path:
+                     type: string
+                   blocked:
+                     type: string
+               example:
+                 - id: 1
+                   email: mferries0@yellowpages.com
+                   password: 't6AyMFhWp'
+                   name: Mahalia Ferries
+                   image_path: './img/default'
+                   blocked: FALSE
+
 # ------------------------- PROJECTS ------------------------- 
   /api/projects:
     get:
       operationId: R201
       summary: 'R201: Search Projects API'
-      description: 'Searches for projects and returns the results as JSON. Access: MEMB,COOR.'
+      description: 'Searches for projects and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M02: Project'
       parameters:
@@ -402,6 +470,134 @@ paths:
                    created_at: '2020-01-24'
                    archived_at: NULL
 
+  /projects:
+    get:
+      operationId: R202
+      summary: 'R202: Project creation Form'
+      description: 'Provide project creation form. Access: AUTH_USR'
+      tags:
+       - 'M02: Project'
+      responses:
+        '200':
+          description: OK. Show project creation UI
+
+    post:
+      operationId: R203
+      summary: 'R203: Create Project'
+      description: 'Processe the project creation form submission. Access: AUTH_USR'
+      tags:
+       - 'M02: Project'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              color: 
+                type: string
+            required:
+              - name
+      responses:
+        '302':
+          description: Redirect after processing the project creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to project page'
+                  value: '/projects/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to login form.'
+                  value: '/users/{id}'
+
+  /projects/{id}:
+    get:
+      operationId: R204
+      summary: 'R204: View project page'
+      description: 'Show the individual project page. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Show Project Page UI'
+
+    patch:
+      operationId: R205
+      summary: 'R205: Edit project page'
+      description: 'Edit individual project page. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              name:
+                type: string
+              description: 
+                type: string
+              color: 
+                type: string
+              archived_at: 
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Project updated.'
+
+    delete:
+      operationId: R206
+      summary: 'R206: Delete project'
+      description: 'Delete project from service. Access: COOR, ADMIN'
+      tags:
+        - 'M02: Project'
+        - 'M06: User Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Project deleted'
+
+  /projects/edit/{id}: #??
+    get:
+      operationId: R207
+      summary: 'R109: Project edit Form '
+      description: "Show the individual project edit page. Access: COOR"
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'OK. Show Project Profile UI'
 # ------------------------- TASKS ------------------------- 
 
 
@@ -414,12 +610,12 @@ paths:
   #get edite profile page DONE
   #access to personal information. DONE
 #M02: Project
-  #create 
-  #delete
-  #view
-  #edit
+  #create DONE
+  #delete DONE
+  #view DONE
+  #edit DONE
   #search projects DONE 
-  #GET project team
+  #GET project team DONE
 #M03: Tasks, Comments and Labels
   #add tasks
   #edit tasks 
