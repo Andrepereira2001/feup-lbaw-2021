@@ -670,6 +670,10 @@ paths:
                      type: integer
                    due_date:
                      type: string 
+                   id_project:
+                     type: integer
+                   id_user:
+                     type: integer
                example:
                  - id: 2
                    name: 'Persevering radical time-frame'
@@ -679,11 +683,23 @@ paths:
                    finished_at:  NULL
                    task_number: 0
                    due_date: NULL
+                   id_project: 2
+                   id_user: 2
 
   /tasks:
-    post:
+    get:
       operationId: R302
-      summary: 'R302: Create Task'
+      summary: 'R302: Task creation Form'
+      description: 'Provide task creation form. Access: MEMB, COOR'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      responses:
+        '200':
+          description: OK. Show task creation UI
+
+    post:
+      operationId: R303
+      summary: 'R303: Create Task'
       description: 'Processe the task creation form submission. Access: MEMB, COOR'
       tags:
        - "M03: Tasks, Comments and Labels"
@@ -702,8 +718,13 @@ paths:
                 type: integer
               due_date:
                 type: string
+              id_project:
+                type: integer
+              id_user:
+                type: integer
             required:
               - name
+              - id_project
       responses:
         '302':
           description: Redirect after processing the task creation form.
@@ -721,8 +742,8 @@ paths:
 
   /tasks/{id}:
     get:
-      operationId: R303
-      summary: 'R303: View task page'
+      operationId: R304
+      summary: 'R304: View task page'
       description: 'Show the individual task page. Access: MEMB, COOR'
       tags:
         - 'M03: Tasks, Comments and Labels'
@@ -737,8 +758,8 @@ paths:
           description: 'Ok. Show Task Page UI'
 
     patch:
-      operationId: R304
-      summary: 'R304: Edit task page'
+      operationId: R305
+      summary: 'R305: Edit task page'
       description: 'Edit individual task page. Access: MEMB, COOR'
       tags:
         - 'M03: Tasks, Comments and Labels'
@@ -771,8 +792,8 @@ paths:
 
   /tasks/edit/{id}: #??
     get:
-      operationId: R305
-      summary: 'R305: Task edit Form '
+      operationId: R306
+      summary: 'R306: Task edit Form '
       description: "Show the individual task edit page. Access: MEMB,COOR"
       tags:
         - 'M03: Tasks, Comments and Labels'
@@ -786,7 +807,142 @@ paths:
         '200':
           description: 'OK. Show Task Update UI'
 
-  
+# ------------------------ COMMENTS ----------------------
+  /api/comments:
+    get:
+      operationId: R307
+      summary: 'R307: Search Task Comments API'
+      description: 'Searches for Task comments and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      parameters:
+        - in: query
+          name: task_id
+          description: Id of the task
+          schema:
+            type: integer
+          required: true
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   content:
+                     type: string
+                   created_at:
+                     type: string
+                   id_task:
+                     type: integer
+                   id_user:
+                     type: integer
+               example:
+                 - id: 9
+                   content: 'sit amet sem fusce consequat nulla nisl nunc nisl duis'
+                   created_at: NULL
+                   id_task: 22
+                   id_user: 22
+
+  /comments:
+    get:
+      operationId: R308
+      summary: 'R308: Comments creation Form'
+      description: 'Provide comment creation form. Access: MEMB, COOR'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      responses:
+        '200':
+          description: OK. Show comment creation UI
+
+    post:
+      operationId: R309
+      summary: 'R309: Create comment'
+      description: 'Processe the comment creation form submission. Access: AUTH_USR'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+              id_task:
+                type: integer
+              id_user:
+                type: integer
+            required:
+              - content
+              - id_task
+              - id_user
+      responses:
+        '302':
+          description: Redirect after processing the task creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to task page'
+                  value: '/tasks/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to task form.'
+                  value: '/tasks/{id}'
+
+  /comment/{id}:
+    patch:
+      operationId: R310
+      summary: 'R305: Edit task comment'
+      description: 'Edit individual task comment. Access: OWN'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              content:
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Task comment updated.'
+    
+    delete:
+      operationId: R311
+      summary: 'R311: Delete task comment'
+      description: 'Delete project from service. Access: OWN, ADMIN'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+        - 'M06: User Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Comment deleted'
+
+
+
 
 
 #M01: Authentication and Individual Profile
@@ -809,9 +965,9 @@ paths:
   #edit tasks DONE
   #search task DONE
   #see task DONE
-  #add comment (to tasks)
-  #edit comment
-  #delete comment
+  #add comment (to tasks) DONE
+  #edit comment DONE
+  #delete comment DONE
   #creat lables
   #delete lable
   #search lables
