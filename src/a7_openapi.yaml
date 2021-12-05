@@ -760,7 +760,7 @@ paths:
     patch:
       operationId: R305
       summary: 'R305: Edit task page'
-      description: 'Edit individual task page. Access: MEMB, COOR'
+      description: 'Edit individual task page. Access: COOR'
       tags:
         - 'M03: Tasks, Comments and Labels'
       parameters:
@@ -786,6 +786,8 @@ paths:
                 type: string
               due_date: 
                 type: string
+              id_user:
+                type: integer
       responses:
         '200':
           description: 'Ok. Task updated.'
@@ -898,10 +900,10 @@ paths:
                   description: 'Failed creation. Redirect to task form.'
                   value: '/tasks/{id}'
 
-  /comment/{id}:
+  /comments/{id}:
     patch:
       operationId: R310
-      summary: 'R305: Edit task comment'
+      summary: 'R310: Edit task comment'
       description: 'Edit individual task comment. Access: OWN'
       tags:
         - 'M03: Tasks, Comments and Labels'
@@ -927,7 +929,7 @@ paths:
     delete:
       operationId: R311
       summary: 'R311: Delete task comment'
-      description: 'Delete project from service. Access: OWN, ADMIN'
+      description: 'Delete task comment from service. Access: OWN, ADMIN'
       tags:
         - 'M03: Tasks, Comments and Labels'
         - 'M06: User Administration'
@@ -941,8 +943,386 @@ paths:
         '200':
           description: 'Ok. Comment deleted'
 
+# ------------------------ LABELS ----------------------
+
+  /api/labels:
+    get:
+      operationId: R312
+      summary: 'R312: Search Labels API'
+      description: 'Searches for Labels and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      parameters:
+        - in: query
+          name: project_id
+          description: Id of the project
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: name
+          description: Name of the label
+          schema:
+            type: string
+          required: false
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   name:
+                     type: string
+                   id_project:
+                     type: integer
+               example:
+                 - id: 4
+                   content: 'Epoxy Flooring'
+                   id_project: 4
+
+  /labels:
+    get:
+      operationId: R313
+      summary: 'R313: Labels creation Form'
+      description: 'Provide labels creation form. Access: MEMB, COOR ????'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      responses:
+        '200':
+          description: OK. Show labels creation UI
+
+    post:
+      operationId: R314
+      summary: 'R314: Create label'
+      description: 'Processe the label creation form submission. Access: AUTH_USR ????'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              id_project:
+                type: integer
+            required:
+              - name
+              - id_project
+      responses:
+        '302':
+          description: Redirect after processing the label creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to project page'
+                  value: '/projects/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to project form.'
+                  value: '/projects/{id}'
+
+  /labels/{id}:
+    patch:
+      operationId: R315
+      summary: 'R315: Edit label'
+      description: 'Edit individual label. Access: COOR'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              name:
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Label updated.'
+    
+    delete:
+      operationId: R316
+      summary: 'R316: Delete label'
+      description: 'Delete label from service. Access: COOR, ADMIN'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+        - 'M06: User Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Label deleted'
 
 
+  /tasks/labels: # verify this path name
+    post: 
+      operationId: R317
+      summary: 'R317: Assign label to task'
+      description: 'Processe the label assignment to task submission. Access: AUTH_USR ????'
+      tags:
+       - "M03: Tasks, Comments and Labels"
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id_task:
+                type: integer
+              id_label:
+                type: integer
+            required:
+              - id_task
+              - id_label
+      responses:
+        '302':
+          description: Redirect after processing the label assignment.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull assigned. Redirect to task page'
+                  value: '/tasks/{id}'
+                302Error:
+                  description: 'Failed assignment. Redirect to task form.'
+                  value: '/tasks/{id}'
+
+    delete:
+      operationId: R318
+      summary: 'R318: Delete label assignment'
+      description: 'Delete label assignment from service. Access: COOR, MEMB'
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id_task_label:
+                type: integer
+              id_task:
+                type: integer
+              id_label:
+                type: integer
+      responses:
+        '200':
+          description: 'Ok. Label assignment deleted.'
+
+
+# ------------------------ MESSAGES ----------------------
+
+# ------------------------ INVITES ----------------------
+  /api/invites:
+    get:
+      operationId: R501
+      summary: 'R501: Search Invites API'
+      description: 'Searches for Invites and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: query
+          name: id_user
+          description: Id of the user
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: id_project
+          description: Name of the project
+          schema:
+            type: string
+          required: false
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   created_at:
+                     type: string
+                   id_user:
+                     type: integer
+                   id_project:
+                     type: integer
+               example:
+                 - id: 1
+                   content: '2020-03-12'
+                   id_user: 21
+                   id_project: 1
+
+    post:
+      operationId: R502
+      summary: 'R502: Create invite'
+      description: 'Processe the invite creation submission. Access: COOR'
+      tags:
+       - 'M05: Invites and Notifications'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id_user:
+                type: integer
+              id_project:
+                type: integer
+            required:
+              - id_user
+              - id_project
+      responses:
+        '302':
+          description: Redirect after processing the invite creation.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to project page'
+                  value: '/projects/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to project page.'
+                  value: '/projects/{id}'
+  
+  /api/invites/accept/{id}: # OK PATH??
+    post:
+      operationId: R503
+      summary: 'R503: Accept invite'
+      description: 'Accept invite of user. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after accepting the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull accept. Redirect to project page'
+                  value: '/projects/{id}'
+                302Error:
+                  description: 'Failed accept. Redirect to user page.'
+                  value: '/users/{id}'
+  
+  /api/invites/reject/{id}: # OK PATH??
+    post:
+      operationId: R504
+      summary: 'R504: Reject invite'
+      description: 'Reject invite of user. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after reject the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull reject. Redirect to user page'
+                  value: '/users/{id}'
+                302Error:
+                  description: 'Failed reject. Redirect to user page.'
+                  value: '/users/{id}'
+
+
+# ------------------------ NOTIFICATIONS ----------------------
+  /api/notifications: # Ver como fazer com o seen, está ok????
+    get:
+      operationId: R505
+      summary: 'R505: Search Notifications API'
+      description: 'Searches for Notifications and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: query
+          name: id_user
+          description: Id of the user
+          schema:
+            type: integer
+          required: true
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   content:
+                     type: string
+                   created_at:
+                     type: string
+                   id_project:
+                     type: integer
+                   seen:
+                     type: boolean
+                   id_user:
+                     type: integer
+               example:
+                 - id: 1
+                   content: 'Invite to a new project!'
+                   id_project: 1
+                   seen: False
+                   id_user: 21
+
+
+# ------------------------ ADMIN ----------------------
+
+# ------------------------ STATIC PAGES ----------------------
 
 
 #M01: Authentication and Individual Profile
@@ -960,6 +1340,7 @@ paths:
   #edit DONE
   #search projects DONE 
   #GET project team DONE
+  #Add new coordinator ______________________________________TODO
 #M03: Tasks, Comments and Labels
   #add tasks DONE
   #edit tasks DONE
@@ -968,36 +1349,38 @@ paths:
   #add comment (to tasks) DONE
   #edit comment DONE
   #delete comment DONE
-  #creat lables
-  #delete lable
-  #search lables
-  #remove lable from task (taskLabel)
-  #add lable to task (taskLabel)
-#M04: Forum
-  #create message
-  #list messages
-  #edit message
-  #delete message
+  #creat lables DONE
+  #delete lable DONE
+  #search lables DONE
+  #add lable to task (taskLabel) DONE
+  #remove lable from task (taskLabel) DONE
+#M04: Forum 
+  #create message ______________________________________TODO
+  #list messages ______________________________________TODO
+  #edit message ______________________________________TODO
+  #delete message ______________________________________TODO
 #M05: Invites and Notifications
-  #create invite
-  #list invite
-  #accept invite
-  #reject invite
-  #(delete invite) don't know if necessary
-  #view notification
-  #list notifications
+  #create invite DONE
+  #list invite DONE
+  #accept invite DONE
+  #reject invite DONE
+  #(delete invite) don't know if necessary NOT NECESSARY
+  #view notification DONE -> (search notifications)
+  #list notifications DONE -> (search notifications)
 #M06: User Administration
   #view users DONE
   #view projects DONE
   #search users DONE
   #search projects DONE
-  #block users
+  #block users ______________________________________TODO
   #delete users DONE
+  #delete comments DONE
+  #delete messages ______________________________________TODO
   #editing account information for all users NOT A FEATURE I THINK ????
   #View system access details for each user ????
 #M07: Static Pages
   #static content 
-    #home page
-    #about
-    #contact
-    #services
+    #home page ______________________________________TODO
+    #about ______________________________________TODO
+    #contact ______________________________________TODO
+    #services ______________________________________TODO
