@@ -187,7 +187,7 @@ paths:
       summary: 'R601: Delete user'
       description: 'Delete user from service. Access: ADMIN'
       tags:
-        - 'M06: User Administration'
+        - 'M06: Administration'
       parameters:
         - in: path
           name: id
@@ -571,7 +571,7 @@ paths:
       description: 'Delete project from service. Access: COOR, ADMIN'
       tags:
         - 'M02: Project'
-        - 'M06: User Administration'
+        - 'M06: Administration'
       parameters:
         - in: path
           name: id
@@ -932,7 +932,7 @@ paths:
       description: 'Delete task comment from service. Access: OWN, ADMIN'
       tags:
         - 'M03: Tasks, Comments and Labels'
-        - 'M06: User Administration'
+        - 'M06: Administration'
       parameters:
         - in: path
           name: id
@@ -1064,7 +1064,7 @@ paths:
       description: 'Delete label from service. Access: COOR, ADMIN'
       tags:
         - 'M03: Tasks, Comments and Labels'
-        - 'M06: User Administration'
+        - 'M06: Administration'
       parameters:
         - in: path
           name: id
@@ -1367,7 +1367,7 @@ paths:
   #(delete invite) don't know if necessary NOT NECESSARY
   #view notification DONE -> (search notifications)
   #list notifications DONE -> (search notifications)
-#M06: User Administration
+#M06: Administration
   #view users DONE
   #view projects DONE
   #search users DONE
