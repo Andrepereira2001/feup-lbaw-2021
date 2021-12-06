@@ -599,6 +599,33 @@ paths:
         '200':
           description: 'OK. Show Project Update UI'
 
+  /api/projects/addCoordinator/{user_id}:
+    post:
+      operationId: R208
+      summary: 'R208: Add coordinator'
+      description: 'Add new coordinator to project. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after adding coordinator.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull added. Redirect to project page'
+                  value: '/project/{id}'
+                302Error:
+                  description: 'Failed add. Redirect to project page.'
+                  value: '/project/{id}'
 # ------------------------- TASKS ------------------------- 
   /api/tasks:
     get:
@@ -1321,7 +1348,72 @@ paths:
 
 
 # ------------------------ ADMIN ----------------------
+  /admin:
+    get:
+      operationId: R601
+      summary: 'R601: Admin page'
+      description: 'Provide admin page. Access: ADMIN'
+      tags:
+       - 'M06: Administration'
+      responses:
+        '200':
+          description: OK. Show admin page UI
 
+  /api/block/{user_id}:
+    post:
+      operationId: R602
+      summary: 'R602: Block User'
+      description: 'Block user of the webservice. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after blocking user.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull blocked. Redirect to admin page'
+                  value: '/admin'
+                302Error:
+                  description: 'Failed block. Redirect to admin page.'
+                  value: '/admin'
+    
+  /api/unblock/{user_id}:
+    post:
+      operationId: R603
+      summary: 'R603: Unblock User'
+      description: 'Unblock user of the webservice. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after unblocking user.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull unblocked. Redirect to admin page'
+                  value: '/admin'
+                302Error:
+                  description: 'Failed unblock. Redirect to admin page.'
+                  value: '/admin'
 # ------------------------ STATIC PAGES ----------------------
 
 
@@ -1340,7 +1432,7 @@ paths:
   #edit DONE
   #search projects DONE 
   #GET project team DONE
-  #Add new coordinator ______________________________________TODO
+  #Add new coordinator DONE
 #M03: Tasks, Comments and Labels
   #add tasks DONE
   #edit tasks DONE
@@ -1372,7 +1464,8 @@ paths:
   #view projects DONE
   #search users DONE
   #search projects DONE
-  #block users ______________________________________TODO
+  #block users DONE
+  #unblock users DONE
   #delete users DONE
   #delete comments DONE
   #delete messages ______________________________________TODO
