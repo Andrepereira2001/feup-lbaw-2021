@@ -1478,6 +1478,34 @@ paths:
                    seen: False
                    id_user: 21
 
+  /api/notifications/{user_id}/{notification_id}:
+    post:
+      operationId: R506
+      summary: 'R506: See notification'
+      description: 'See notification. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after see the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull seen. Redirect to project page'
+                  value: '/projects/{id}'
+                302Error:
+                  description: 'Failed seen. Redirect to user page.'
+                  value: '/users/{id}'
+  
 
 # ------------------------ ADMIN ----------------------
   /admin:
@@ -1643,7 +1671,6 @@ paths:
   #list invite DONE
   #accept invite DONE
   #reject invite DONE
-  #(delete invite) don't know if necessary NOT NECESSARY
   #view notification DONE -> (search notifications)
   #list notifications DONE -> (search notifications)
 #M06: Administration
