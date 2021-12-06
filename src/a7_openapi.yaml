@@ -534,37 +534,6 @@ paths:
         '200':
           description: 'Ok. Show Project Page UI'
 
-    patch:
-      operationId: R205
-      summary: 'R205: Edit project page'
-      description: 'Edit individual project page. Access: COOR'
-      tags:
-        - 'M02: Project'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties: 
-              name:
-                type: string
-              description: 
-                type: string
-              color: 
-                type: string
-              archived_at: 
-                type: string
-      responses:
-        '200':
-          description: 'Ok. Project updated.'
-
     delete:
       operationId: R206
       summary: 'R206: Delete project'
@@ -598,6 +567,37 @@ paths:
       responses:
         '200':
           description: 'OK. Show Project Update UI'
+
+    post:
+      operationId: R205
+      summary: 'R205: Edit project page'
+      description: 'Edit individual project page. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              name:
+                type: string
+              description: 
+                type: string
+              color: 
+                type: string
+              archived_at: 
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Project updated.'
 
   /api/projects/addCoordinator/{user_id}:
     post:
@@ -784,7 +784,24 @@ paths:
         '200':
           description: 'Ok. Show Task Page UI'
 
-    patch:
+  /tasks/edit/{id}: #??
+    get:
+      operationId: R306
+      summary: 'R306: Task edit Form '
+      description: "Show the individual task edit page. Access: MEMB,COOR"
+      tags:
+        - 'M03: Tasks, Comments and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'OK. Show Task Update UI'
+
+    post:
       operationId: R305
       summary: 'R305: Edit task page'
       description: 'Edit individual task page. Access: COOR'
@@ -818,23 +835,6 @@ paths:
       responses:
         '200':
           description: 'Ok. Task updated.'
-
-  /tasks/edit/{id}: #??
-    get:
-      operationId: R306
-      summary: 'R306: Task edit Form '
-      description: "Show the individual task edit page. Access: MEMB,COOR"
-      tags:
-        - 'M03: Tasks, Comments and Labels'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: 'OK. Show Task Update UI'
 
 # ------------------------ COMMENTS ----------------------
   /api/comments:
@@ -928,7 +928,7 @@ paths:
                   value: '/tasks/{id}'
 
   /comments/{id}:
-    patch:
+    post:
       operationId: R310
       summary: 'R310: Edit task comment'
       description: 'Edit individual task comment. Access: OWN'
@@ -1060,7 +1060,7 @@ paths:
                   value: '/projects/{id}'
 
   /labels/{id}:
-    patch:
+    post:
       operationId: R315
       summary: 'R315: Edit label'
       description: 'Edit individual label. Access: COOR'
@@ -1101,7 +1101,6 @@ paths:
       responses:
         '200':
           description: 'Ok. Label deleted'
-
 
   /tasks/labels: # verify this path name
     post: 
@@ -1164,6 +1163,139 @@ paths:
 
 
 # ------------------------ MESSAGES ----------------------
+
+  /api/messages:
+    get:
+      operationId: R401
+      summary: 'R401: Search Forum messages API'
+      description: 'Searches for Forum messages and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M04: Forum'
+      parameters:
+        - in: query
+          name: project_id
+          description: Id of the project
+          schema:
+            type: integer
+          required: true
+      responses:
+       '200':
+         description: Success
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                 type: object
+                 properties:
+                   id:
+                     type: integer
+                   content:
+                     type: string
+                   created_at:
+                     type: string
+                   id_task:
+                     type: integer
+                   id_user:
+                     type: integer
+               example:
+                 - id: 6
+                   content: lacus morbi sem mauris laoreet
+                   created_at: '2021-08-18'
+                   id_task: 6
+                   id_user: 6
+
+  /messages:
+    get:
+      operationId: R402
+      summary: 'R402: Messages creation Form'
+      description: 'Provide messages creation form. Access: MEMB, COOR'
+      tags:
+       - 'M04: Forum'
+      responses:
+        '200':
+          description: OK. Show messages creation UI
+
+    post:
+      operationId: R403
+      summary: '403: Create message'
+      description: 'Processe the message creation form submission. Access: MEMB, COOR'
+      tags:
+       - 'M04: Forum'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+              id_project:
+                type: integer
+              id_user:
+                type: integer
+            required:
+              - content
+              - id_project
+              - id_user
+      responses:
+        '302':
+          description: Redirect after processing the message creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to project page'
+                  value: '/project/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to project form.'
+                  value: '/project/{id}'
+
+  /messages/{id}:
+    post:
+      operationId: R404
+      summary: 'R404: Edit forum message'
+      description: 'Edit individual forum message. Access: OWN'
+      tags:
+        - 'M04: Forum'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              content:
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Task message updated.'
+    
+    delete:
+      operationId: R405
+      summary: 'R405: Delete Forum message'
+      description: 'Delete forum message from service. Access: OWN, ADMIN'
+      tags:
+        - 'M04: Forum'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Message deleted'
 
 # ------------------------ INVITES ----------------------
   /api/invites:
@@ -1416,6 +1548,61 @@ paths:
                   value: '/admin'
 # ------------------------ STATIC PAGES ----------------------
 
+  /home:
+    get:
+      operationId: R701
+      summary: 'R701: Home page'
+      description: 'Provide home page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show home page UI
+
+  /about:
+    get:
+      operationId: R702
+      summary: 'R702: About page'
+      description: 'Provide about page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show about page UI
+
+  /contact:
+    get:
+      operationId: R703
+      summary: 'R703: Contact page'
+      description: 'Provide contact page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show contact page UI
+
+  /service:
+    get:
+      operationId: R704
+      summary: 'R704: Service page'
+      description: 'Provide service page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show service page UI
+  
+  /404:
+    get:
+      operationId: R704
+      summary: 'R704: Errro page'
+      description: 'Provide erro page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show erro page UI
+
 
 #M01: Authentication and Individual Profile
   #login DONE
@@ -1447,10 +1634,10 @@ paths:
   #add lable to task (taskLabel) DONE
   #remove lable from task (taskLabel) DONE
 #M04: Forum 
-  #create message ______________________________________TODO
-  #list messages ______________________________________TODO
-  #edit message ______________________________________TODO
-  #delete message ______________________________________TODO
+  #create message DONE
+  #list messages DONE
+  #edit message DONE
+  #delete message DONE
 #M05: Invites and Notifications
   #create invite DONE
   #list invite DONE
@@ -1468,12 +1655,10 @@ paths:
   #unblock users DONE
   #delete users DONE
   #delete comments DONE
-  #delete messages ______________________________________TODO
-  #editing account information for all users NOT A FEATURE I THINK ????
-  #View system access details for each user ????
+  #delete messages DONE
 #M07: Static Pages
   #static content 
-    #home page ______________________________________TODO
-    #about ______________________________________TODO
-    #contact ______________________________________TODO
-    #services ______________________________________TODO
+    #home page DONE
+    #about DONE
+    #contact DONE
+    #services DONE
