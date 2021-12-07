@@ -17,7 +17,7 @@ UML class diagram containing the classes, associations, multiplicity and constra
 These are the business rules, from the previous component, that can't be explained and applied in the UML Class diagram. Its numbers refer to the previous ones. 
 
 | Identifier | Name                    | Description  |
-| ---------- | -----                   | -----------  | 
+| ---------- | -----        | -----  | 
 | BR01       | Account deletion        | Upon account deletion, all the shared social data must be kept as anonymous author |
 | BR04       | Leave project with task | Upon being removed from a project, all the tasks assignments not finished assigned to the member must be deleted |
 | BR06       | User Block              | Upon being blocked a User is removed from all his projects |
@@ -295,8 +295,9 @@ toEaseManage website provides full-text search that habilitates the users to sea
 | **Type**            | GIN                                    |
 | **Clustering**      | No                                     |
 | **Justification**   | To search for a specific user based on his name we provide full-text search features to look for him based on matching names. The type of this index is GIN because we do not expect users to change name frequently.                               |
-| `SQL code`                                                    
-```
+| `SQL code`
+                                                    
+```sql
 ALTER TABLE Users
 ADD COLUMN tsvectors TSVECTOR;
 
@@ -333,8 +334,9 @@ CREATE INDEX search_name ON Users USING GIN (tsvectors);
 | **Type**            | GIN                                    |
 | **Clustering**      | No                                     |
 | **Justification**   | To provide full-text search features to search for projects based on matching names or related description content we created an index, with type GIN, since the indexed fields (name and description) are not expected to change too often.         |
-| `SQL code`     
-```
+| `SQL code`  
+   
+```sql
 ALTER TABLE Project
 ADD COLUMN tsvectors TSVECTOR;
 
@@ -375,7 +377,7 @@ CREATE INDEX search_project ON Project USING GIN (tsvectors);
 | **Justification**   | Searching tasks for its name and description is easier with full-text search features with an index type GIN, since this atributtes are not expected to change often.   |
 | `SQL code`     
 
-```
+```sql
 ALTER TABLE Task
 ADD COLUMN tsvectors TSVECTOR;
 
@@ -414,8 +416,9 @@ Our triggers below present functionalities that our database needs to have and f
 | **Trigger**      | TRIGGER01                               |
 | ---              | ---------                               |
 | **Description**  | Update task number when adding a task   |
-| `SQL code`                  
-```
+| `SQL code`  
+                
+``` sql
 CREATE FUNCTION task_number() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -437,7 +440,7 @@ CREATE TRIGGER task_number
 | ---              | ---------  |
 | **Description**  | Update user's info to anonymous info upon account deletion, reference to business rule BR01.|
 | `SQL code`       |            |
-```
+``` sql
 CREATE FUNCTION user_anonymous() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -460,7 +463,7 @@ CREATE TRIGGER user_anonymous
 | ---              | ---         |
 | **Description**  | Remove user assignment to a task when he leaves project, reference to business rule BR04. |
 | `SQL code`       |             |
-```
+``` sql
 CREATE FUNCTION remove_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -484,7 +487,7 @@ CREATE TRIGGER remove_task
 | ---              | ---       |
 | **Description**  | Remove user from project when he is blocked, reference to business rule BR06. |
 | `SQL code`       |           |
-```
+``` sql
 CREATE FUNCTION block_user() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -508,7 +511,7 @@ CREATE TRIGGER block_user
 | ---              | ---       |
 | **Description**  | Send notification to Project Coordinator and Assigned Member when a task is finished, references FR.601. |
 | `SQL code`       |           |
-```
+``` sql
 CREATE FUNCTION finished_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -546,7 +549,7 @@ CREATE TRIGGER notification_finished_task
 | ---              | ---                                        |
 | **Description**  | Notification creation on task assignment, references FR.602.   |
 | `SQL code`       |                                            |
-```
+``` sql
 CREATE FUNCTION assign_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -574,7 +577,7 @@ CREATE TRIGGER assign_task
 | ---              | ---       |
 | **Description**  | Notification for Project Coordinator when a member accepts invitation, references FR.603.  |
 | `SQL code`       |           |
-```
+``` sql
 CREATE FUNCTION accept_invite() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -604,7 +607,7 @@ CREATE TRIGGER notification_accept_invite
 | ---              | ---                                                        |
 | **Description**  | Notification for a member when he is invited to a project, references FR.501.  |
 | `SQL code`       |                                                            |
-```
+``` sql
 CREATE FUNCTION notify_invitation() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -632,7 +635,7 @@ CREATE TRIGGER invite_notification
 | ---              | ---                                   |
 | **Description**  | Add other coordinator to the project, references FR.502.  |
 | `SQL code`       |                                       |
-```
+``` sql
 CREATE FUNCTION coordinator_change() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -662,7 +665,7 @@ CREATE TRIGGER coordinator_change
 | ---              | ---       |
 | **Description**  | Restrict deletion of a coordinator of a project if he is the only coordinator.   |
 | `SQL code`       |           |
-```
+``` sql
 CREATE FUNCTION no_delete_coordinator() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -691,7 +694,7 @@ CREATE TRIGGER no_delete_coordinator
 | ---              | ---       |
 | **Description**  | Restrict invite if the user is already participating. |
 | `SQL code`       |           |
-```
+``` sql
 CREATE FUNCTION no_invite_participant() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -719,7 +722,7 @@ CREATE TRIGGER no_invite_participant
 | ---              | ---                                                                       |
 | **Description**  | Can only be assigned to a task if a user is participating in the project. |
 | `SQL code`       |                                                                           |
-```
+``` sql
 CREATE FUNCTION task_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -746,7 +749,7 @@ CREATE TRIGGER task_if_participating
 | ---              | ---                                                                       |
 | **Description**  | Can only comment a task if a user is participating in the project. |
 | `SQL code`       |                                                                           |
-```
+``` sql
 CREATE FUNCTION comment_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -774,7 +777,7 @@ CREATE TRIGGER comment_if_participating
 | ---              | ---                                                                       |
 | **Description**  | Can only post a message a user is participating in the project.           |
 | `SQL code`       |                                                                           |
-```
+``` sql
 CREATE FUNCTION message_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -806,7 +809,7 @@ Transactions needed to assure the integrity of the data are included here.1
 | Isolation level | REPETABLE READ                       |
 | `Complete SQL Code`  ||
 
-```
+``` sql
 BEGIN TRANSACTION;
 
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
@@ -827,7 +830,7 @@ END TRANSACTION;
 | Isolation level | READ COMMITED                       |
 | `Complete SQL Code`  ||
 
-```
+``` sql
 BEGIN TRANSACTION;
 
 SET TRANSACTION ISOLATION LEVEL READ COMMITED;
@@ -844,7 +847,7 @@ END TRANSACTION;
 
 ### A.1. Database schema
 
-```
+``` sql
 DROP TABLE IF EXISTS Participation CASCADE;
 DROP TABLE IF EXISTS TaskLabel CASCADE;
 DROP TABLE IF EXISTS Label CASCADE;
@@ -1488,7 +1491,7 @@ CREATE TRIGGER message_if_participating
 
 ### A.2. Database population
 
-``` 
+``` sql
 insert into Admin (id, email, password, name) values (1, 'admin@admin.com', 'dFOpt7DPBRn', 'Admin');
 
 
