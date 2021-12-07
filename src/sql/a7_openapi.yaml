@@ -1106,7 +1106,7 @@ paths:
     post: 
       operationId: R317
       summary: 'R317: Assign label to task'
-      description: 'Processe the label assignment to task submission. Access: AUTH_USR ????'
+      description: 'Processe the label assignment to task submission. Access: MEMB, COOR'
       tags:
        - "M03: Tasks, Comments and Labels"
       requestBody:
@@ -1298,7 +1298,7 @@ paths:
           description: 'Ok. Message deleted'
 
 # ------------------------ INVITES ----------------------
-  /api/invites:
+  /api/invites/:
     get:
       operationId: R501
       summary: 'R501: Search Invites API'
@@ -1435,7 +1435,7 @@ paths:
 
 
 # ------------------------ NOTIFICATIONS ----------------------
-  /api/notifications: # Ver como fazer com o seen, está ok????
+  /api/notifications: 
     get:
       operationId: R505
       summary: 'R505: Search Notifications API'
