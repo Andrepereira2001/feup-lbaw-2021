@@ -89,7 +89,7 @@ paths:
     get:
       operationId: R104
       summary: 'R104: Register Form'
-      description: "Provide new user registration form"
+      description: "Provide new user registration form. Access: PUB"
       tags:
        - 'M01: Authentication and Individual Profile'
       responses:
@@ -154,38 +154,10 @@ paths:
         '200':
           description: 'Ok. Show User Page UI'
 
-    patch:
-      operationId: R107
-      summary: 'R107: Edit user page'
-      description: 'Edit individual user page. Access: OWN'
-      tags:
-        - 'M01: Authentication and Individual Profile'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties: 
-              name:
-                type: string
-              image: 
-                type: string
-                format: binary
-      responses:
-        '200':
-          description: 'Ok. User updated.'
-
     delete:
       operationId: R601
       summary: 'R601: Delete user'
-      description: 'Delete user from service. Access: ADMIN'
+      description: 'Delete user from service. Access: ADMIN, OWN'
       tags:
         - 'M06: Administration'
       parameters:
@@ -231,6 +203,34 @@ paths:
       responses:
         '200':
           description: 'OK. Show User Profile UI'
+
+    post:
+      operationId: R107
+      summary: 'R107: Edit user page'
+      description: 'Edit individual user page. Access: OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              name:
+                type: string
+              image: 
+                type: string
+                format: binary
+      responses:
+        '200':
+          description: 'Ok. User updated.'
 
   /recoverPassword:
     get:
@@ -551,7 +551,7 @@ paths:
         '200':
           description: 'Ok. Project deleted'
 
-  /projects/edit/{id}: #??
+  /projects/edit/{id}:
     get:
       operationId: R207
       summary: 'R207: Project edit Form '
@@ -784,7 +784,7 @@ paths:
         '200':
           description: 'Ok. Show Task Page UI'
 
-  /tasks/edit/{id}: #??
+  /tasks/edit/{id}:
     get:
       operationId: R306
       summary: 'R306: Task edit Form '
@@ -804,7 +804,7 @@ paths:
     post:
       operationId: R305
       summary: 'R305: Edit task page'
-      description: 'Edit individual task page. Access: COOR'
+      description: 'Edit individual task page. Access: COOR, MEMB'
       tags:
         - 'M03: Tasks, Comments and Labels'
       parameters:
@@ -892,7 +892,7 @@ paths:
     post:
       operationId: R309
       summary: 'R309: Create comment'
-      description: 'Processe the comment creation form submission. Access: AUTH_USR'
+      description: 'Processe the comment creation form submission. Access: MEMB, COOR'
       tags:
        - "M03: Tasks, Comments and Labels"
       requestBody:
@@ -1017,7 +1017,7 @@ paths:
     get:
       operationId: R313
       summary: 'R313: Labels creation Form'
-      description: 'Provide labels creation form. Access: MEMB, COOR ????'
+      description: 'Provide labels creation form. Access: MEMB, COOR'
       tags:
        - "M03: Tasks, Comments and Labels"
       responses:
@@ -1027,7 +1027,7 @@ paths:
     post:
       operationId: R314
       summary: 'R314: Create label'
-      description: 'Processe the label creation form submission. Access: AUTH_USR ????'
+      description: 'Processe the label creation form submission. Access: MEMB, COOR'
       tags:
        - "M03: Tasks, Comments and Labels"
       requestBody:
@@ -1102,7 +1102,7 @@ paths:
         '200':
           description: 'Ok. Label deleted'
 
-  /tasks/labels: # verify this path name
+  /tasks/labels:
     post: 
       operationId: R317
       summary: 'R317: Assign label to task'
