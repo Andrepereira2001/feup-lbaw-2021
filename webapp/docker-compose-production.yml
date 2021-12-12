@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  php:
+      container_name: lbaw_php
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      volumes:
+        - ./code/app:/code/app
+        - ./code/routes:/code/routes
+      ports:
+        - "8000:80"
+
+  pgadmin:
+    container_name: lbaw_pgadmin
+    image: dpage/pgadmin4:5.1
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@lbaw.com
+      PGADMIN_DEFAULT_PASSWORD: "123"
+    ports:
+      - "4321:80"
+
+  mailhog:
+    container_name: lbaw_mail
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025

@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+  php:
+      container_name: lbaw_php
+      build:
+        context: .
+        dockerfile: ./Dockerfile-dev
+      volumes:
+        - ./code/app:/code/app
+        - ./code/routes:/code/routes
+        - ./code/database:/code/database
+      ports:
+        - "8000:80"
+      depends_on:
+        - postgres
+
+  postgres:
+    container_name: lbaw_postgres
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123"
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: lbaw_pgadmin
+    image: dpage/pgadmin4:5.1
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@lbaw.com
+      PGADMIN_DEFAULT_PASSWORD: "123"
+    ports:
+      - "4321:80"
+    depends_on:
+      - postgres
+
+  mailhog:
+    container_name: lbaw_mail
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
