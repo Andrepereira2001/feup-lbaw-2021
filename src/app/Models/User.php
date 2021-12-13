@@ -11,6 +11,7 @@ class User extends Authenticatable
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
+    protected $table ='users';
 
     /**
      * The attributes that are mass assignable.
@@ -35,5 +36,12 @@ class User extends Authenticatable
      */
      public function cards() {
       return $this->hasMany('App\Models\Card');
+    }
+
+    /**
+     * The projects this user belongs.
+     */
+    public function projects() {
+        return $this->belongsToMany('App\Models\project', 'App\Models\participation', 'id_user', 'id_project')->withPivot('role', 'favourite');
     }
 }
