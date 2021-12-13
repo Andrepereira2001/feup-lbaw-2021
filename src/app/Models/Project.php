@@ -26,6 +26,6 @@ class Project extends Model
      * The cards this user owns.
      */
     public function users() {
-        return $this->belongsToMany('App\Models\user', 'App\Models\participation', 'id_project', 'id_user');
+        return $this->belongsToMany('App\Models\user', 'App\Models\participation', 'id_project', 'id_user')->withPivot('role', 'favourite');
     }
 }
