@@ -2,6 +2,6 @@
 
 @section('title', $project->name)
 
-@section('project')
+@section('content')
   @include('partials.project', ['project' => $project])
 @endsection

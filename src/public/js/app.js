@@ -187,14 +187,17 @@ function createCard(card) {
 }
 
 function projectDeletedHandler() {
-    // if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/';
     let project = JSON.parse(this.responseText);
     let article = document.querySelector('article.project[data-id="'+ project.id + '"]');
     article.remove();
   }
 
 function projectAddedHandler() {
-    //if (this.status != 200) window.location = '/';
+    if (this.status != 200) {
+      console.log("oi");
+      window.location = '/';
+    }
     let proj = JSON.parse(this.responseText);
 
     // Create the new card

@@ -6,21 +6,44 @@ main > header {
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  background-color: #d2afe7;
-  padding: 1em;
-  margin: 1em;
+  background-color: #ffff;
+  border-bottom: 5px solid grey;
 }
 main > header h1 {
   margin: 0;
 }
+main > header .buttons {
+  display: flex;
+  align-items:center;
+  position: relative;
+}
+main > header buttons.a {
+  display: inline;
+  position:absolute;
+  border-right: 50px;
+}
+
+main > header .buttons.notification {
+  border-right: 50px;
+  height: 50px;
+}
+
 main > header a.button {
-  margin: 1em;
-  justify-self: center;
+  height: 50px;
+  width: 50px;
+  font-size:10px;
+  background-color: #62D2C5;
+  border: 0px;
+  border-radius: 100%;
 }
 main > header span {
-  margin: 1em;
-  justify-self: center;
+  text-align: center;
+  position:relative;
+  right: 25%;
+  font-size:30px;
 }
+
+/* cards */
 #cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -155,3 +178,18 @@ input[type=email]:focus,
 input[type=password]:focus {
   border-color: #9b4dca;
 }
+
+/* project */
+#projects{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;;
+}
+
+#projects article.project{
+    width: 25%;
+    background-color: blue;
+    border-radius: 10px;
+}
+
