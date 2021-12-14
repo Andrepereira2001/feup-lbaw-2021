@@ -33,5 +33,6 @@ Route::post('register', 'Auth\RegisterController@register');
 
 // Projects
 Route::get('projects', 'ProjectController@list');
+Route::post('api/projects', 'ProjectController@create');
 Route::get('projects/{id}', 'ProjectController@show');
-Route::delete('api/projects/{project_id}', 'ProjectController@delete');
+Route::delete('api/projects/{id}', 'ProjectController@delete');

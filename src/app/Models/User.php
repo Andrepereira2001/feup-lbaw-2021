@@ -42,6 +42,31 @@ class User extends Authenticatable
      * The projects this user belongs.
      */
     public function projects() {
-        return $this->belongsToMany('App\Models\project', 'App\Models\participation', 'id_user', 'id_project')->withPivot('role', 'favourite');
+        return $this->belongsToMany(Project::class, Participation::class, 'id_user', 'id_project')->withPivot('role', 'favourite');
     }
+
+    public function tasks() {
+        return $this->hasMany(Task::class, 'id_user');
+    }
+
+    public function forumMessages() {
+        return $this->hasMany(ForumMessage::class, 'id_user');
+    }
+
+    public function invites() {
+        return $this->hasMany(Invite::class, 'id_user');
+    }
+
+    public function taskComments() {
+        return $this->hasMany(TaskComment::class, 'id_user');
+    }
+
+     /**
+     * The notifications this user has.
+     */
+    public function notifications() {
+        return $this->belongsToMany(Notification::class, Seen::class, 'id_user', 'id_notification')->withPivot('seen');
+    }
+
+
 }

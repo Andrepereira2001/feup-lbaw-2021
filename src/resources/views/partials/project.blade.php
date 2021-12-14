@@ -5,8 +5,8 @@
     </header>
     <!-- <ul>
       3@each('partials.item', $project->items()->orderBy('id')->get(), 'item')
-    </ul> -->
+    </ul>
     <form class="new_item">
       <input type="text" name="description" placeholder="new item">
-    </form>
+    </form>-->
     </article>

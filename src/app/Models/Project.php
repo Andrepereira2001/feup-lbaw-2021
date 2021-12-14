@@ -11,21 +11,34 @@ class Project extends Model
     protected $table = 'project';
     public $timestamps = false;
 
-    public function user() {
-    return $this->belongsTo('App\Models\User');
-    }
-
-    /**
-     * Items inside this card
-     */
-    public function items() {
-        return $this->hasMany('App\Models\Item');
-    }
-
     /**
      * The cards this user owns.
      */
     public function users() {
-        return $this->belongsToMany('App\Models\user', 'App\Models\participation', 'id_project', 'id_user')->withPivot('role', 'favourite');
+        return $this->belongsToMany(User::class, Participation::class, 'id_project', 'id_user')->withPivot('role', 'favourite');
+    }
+
+    // public function participations() {
+    //     return $this->hasMany(Participation::class, 'id_project');
+    // }
+
+    public function tasks() {
+        return $this->hasMany(Task::class, 'id_project');
+    }
+
+    public function forumMessages() {
+        return $this->hasMany(ForumMessage::class, 'id_project');
+    }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class, 'id_project');
+    }
+
+    public function labels() {
+        return $this->hasMany(Label::class, 'id_project');
+    }
+
+    public function invites() {
+        return $this->hasMany(Invite::class, 'id_project');
     }
 }

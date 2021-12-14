@@ -9,6 +9,6 @@ class TaskLabel extends Model
 {
     use HasFactory;
 
-    protected $table ='taskLabel';
+    protected $table ='tasklabel';
     public $timestamps = false;
 }

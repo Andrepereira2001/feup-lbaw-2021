@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Participation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -44,12 +45,17 @@ class ProjectController extends Controller
     public function create(Request $request)
     {
       $project = new Project();
+      $participation = new Participation();
 
       $this->authorize('create', $project);
 
       $project->name = $request->input('name');
-      $project->user_id = Auth::user()->id;
       $project->save();
+
+      $participation->id_user = Auth::user()->id;
+      $participation->id_project = $project->id;
+      $participation->role = 'Coordinator';
+      $participation->save();
 
       return $project;
     }
@@ -57,8 +63,8 @@ class ProjectController extends Controller
     public function delete(Request $request, $id)
     {
       $project = Project::find($id);
-
       $this->authorize('delete', $project);
+
       $project->delete();
 
       return $project;

@@ -347,17 +347,17 @@ CREATE FUNCTION remove_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
 
-        UPDATE Task
-        SET Task.id_user = NULL
-        WHERE OLD.id_user = Task.id_user AND Task.finished_at = NULL;
+        UPDATE task
+        SET id_user = NULL
+        WHERE OLD.id_user = task.id_user AND task.finished_at = NULL;
 
-        RETURN VOID;
+        RETURN NULL;
 END
 $BODY$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER remove_task
-        AFTER DELETE ON Participation
+        AFTER DELETE ON participation
         FOR EACH ROW
         EXECUTE PROCEDURE remove_task();
 
@@ -370,7 +370,7 @@ BEGIN
         DELETE FROM Participation
         WHERE Participation.id_user = OLD.id;
 
-        RETURN VOID;
+        RETURN NULL;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -404,7 +404,7 @@ BEGIN
 		FROM Participation
 		WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
 
-        RETURN VOID;
+        RETURN NULL;
 
 END
 $BODY$
@@ -429,7 +429,7 @@ BEGIN
         INSERT INTO Seen (seen, id_user, id_notification)
         VALUES (False, NEW.id_user, notification_id.id);
 
-        RETURN VOID;
+        RETURN NULL;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -505,7 +505,7 @@ BEGIN
 		FROM Participation, notification_id
 		WHERE Participation.id_project = NEW.id_project;
 
-        RETURN VOID;
+        RETURN NULL;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -519,28 +519,28 @@ CREATE TRIGGER coordinator_change
 
 -- Trigger 10
 
-CREATE FUNCTION no_delete_coordinator() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-        IF EXISTS(SELECT *
-                   FROM Participation
-                   WHERE Participation.role = 'Coordinator'
-				  		 AND Participation.id_project = OLD.id_project
-				 		 AND Participation.id_user <> OLD.id_user)
-		THEN RAISE EXCEPTION 'You can not have a project(%) without a coordinator(%)',OLD.id_project,OLD.id_user;
-        END IF;
-        RETURN OLD;
+-- CREATE FUNCTION no_delete_coordinator() RETURNS TRIGGER AS
+-- $BODY$
+-- BEGIN
+--         IF EXISTS(SELECT *
+--                    FROM participation
+--                    WHERE participation.role = 'Coordinator'
+-- 				  		 AND participation.id_project = OLD.id_project
+-- 				 		 AND participation.id_user <> OLD.id_user)
+-- 		THEN RAISE EXCEPTION 'You can not have a project(%) without a coordinator(%)',OLD.id_project,OLD.id_user;
+--         END IF;
+--         RETURN OLD;
 
-END
-$BODY$
-LANGUAGE plpgsql;
+-- END
+-- $BODY$
+-- LANGUAGE plpgsql;
 
-CREATE TRIGGER no_delete_coordinator
-        BEFORE DELETE
-        ON Participation
-        FOR EACH ROW
-        WHEN (OLD.role = 'Coordinator')
-        EXECUTE PROCEDURE no_delete_coordinator();
+-- CREATE TRIGGER no_delete_coordinator
+--         BEFORE DELETE
+--         ON Participation
+--         FOR EACH ROW
+--         WHEN (OLD.role = 'Coordinator')
+--         EXECUTE PROCEDURE no_delete_coordinator();
 
 
 -- Trigger 11
@@ -562,7 +562,7 @@ LANGUAGE plpgsql;
 
 CREATE TRIGGER no_invite_participant
         BEFORE INSERT
-        ON Invite
+        ON invite
         FOR EACH ROW
         EXECUTE PROCEDURE no_invite_participant();
 
@@ -573,9 +573,9 @@ CREATE FUNCTION task_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         IF NOT EXISTS(SELECT *
-                   FROM Participation
-                   WHERE Participation.id_project = NEW.id_project
-			 AND Participation.id_user = NEW.id_user)
+                   FROM participation
+                   WHERE participation.id_project = NEW.id_project
+			 AND participation.id_user = NEW.id_user)
 		THEN RAISE EXCEPTION 'User(%) not in the project(%)',NEW.id_user, NEW.id_project ;
         END IF;
         RETURN NEW;
@@ -586,7 +586,7 @@ LANGUAGE plpgsql;
 
 CREATE TRIGGER task_if_participating
         BEFORE INSERT
-        ON Task
+        ON task
         FOR EACH ROW
         EXECUTE PROCEDURE task_if_participating();
 
@@ -596,10 +596,10 @@ CREATE FUNCTION comment_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         IF NOT EXISTS ( SELECT *
-                        FROM Participation, Task
-                        WHERE Participation.id_project = Task.id_project
-			      AND Participation.id_user = NEW.id_user
-                              AND Task.id = NEW.id_task)
+                        FROM participation, Task
+                        WHERE participation.id_project = task.id_project
+			      AND participation.id_user = NEW.id_user
+                              AND task.id = NEW.id_task)
 		THEN RAISE EXCEPTION 'User(%) can not comment in the task(%)',NEW.id_user, NEW.id_task ;
         END IF;
         RETURN NEW;
@@ -610,7 +610,7 @@ LANGUAGE plpgsql;
 
 CREATE TRIGGER comment_if_participating
         BEFORE INSERT
-        ON TaskComment
+        ON taskcomment
         FOR EACH ROW
         EXECUTE PROCEDURE comment_if_participating();
 
@@ -621,9 +621,9 @@ CREATE FUNCTION message_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
         IF NOT EXISTS ( SELECT *
-                        FROM Participation
-                        WHERE Participation.id_project = NEW.id_project
-			      AND Participation.id_user = NEW.id_user)
+                        FROM participation
+                        WHERE participation.id_project = NEW.id_project
+			      AND participation.id_user = NEW.id_user)
 		THEN RAISE EXCEPTION 'User(%) can not send message in project(%)',NEW.id_user, NEW.id_project;
         END IF;
         RETURN NEW;

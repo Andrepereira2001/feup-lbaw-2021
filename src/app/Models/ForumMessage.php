@@ -11,4 +11,18 @@ class ForumMessage extends Model
 
     protected $table ='forumMessage';
     public $timestamps = false;
+
+    /**
+     * The project this comment belongs to.
+     */
+    public function project() {
+        return $this->belongsTo(Project::class, 'id_project');
+    }
+
+    /**
+     * The user this task comment to.
+     */
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

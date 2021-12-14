@@ -11,4 +11,5 @@ class Seen extends Model
 
     protected $table ='seen';
     public $timestamps = false;
+
 }

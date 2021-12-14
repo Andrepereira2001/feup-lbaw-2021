@@ -11,4 +11,18 @@ class Notification extends Model
 
     protected $table ='notification';
     public $timestamps = false;
+
+    /**
+     * The project this notification belongs to.
+     */
+    public function project() {
+        return $this->belongsTo('App\Models\project');
+    }
+
+    /**
+     * The notifications this user has.
+    */
+    public function users() {
+        return $this->belongsToMany(User::class, Seen::class, 'id_notification', 'id:user')->withPivot('seen');
+    }
 }

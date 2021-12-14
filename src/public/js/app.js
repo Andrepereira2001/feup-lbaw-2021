@@ -22,6 +22,15 @@ function addEventListeners() {
   let cardCreator = document.querySelector('article.card form.new_card');
   if (cardCreator != null)
     cardCreator.addEventListener('submit', sendCreateCardRequest);
+
+  let projectDeleters = document.querySelectorAll('article.project header a.delete');
+  [].forEach.call(projectDeleters, function(deleter) {
+    deleter.addEventListener('click', sendDeleteProjectRequest);
+  });
+
+  let projectCreator = document.querySelector('article.project form.new_project');
+  if (projectCreator != null)
+    projectCreator.addEventListener('submit', sendCreateProjectRequest);
 }
 
 function encodeForAjax(data) {
@@ -78,6 +87,22 @@ function sendCreateCardRequest(event) {
     sendAjaxRequest('put', '/api/cards/', {name: name}, cardAddedHandler);
 
   event.preventDefault();
+}
+
+function sendDeleteProjectRequest(event) {
+    let id = this.closest('article').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/projects/' + id, null, projectDeletedHandler);
+
+}
+
+function sendCreateProjectRequest(event) {
+    let name = this.querySelector('input[name=name]').value;
+
+    if (name != '')
+      sendAjaxRequest('post', '/api/projects/', {name: name}, projectAddedHandler);
+
+    event.preventDefault();
 }
 
 function itemUpdatedHandler() {
@@ -159,6 +184,49 @@ function createCard(card) {
   deleter.addEventListener('click', sendDeleteCardRequest);
 
   return new_card;
+}
+
+function projectDeletedHandler() {
+    // if (this.status != 200) window.location = '/';
+    let project = JSON.parse(this.responseText);
+    let article = document.querySelector('article.project[data-id="'+ project.id + '"]');
+    article.remove();
+  }
+
+function projectAddedHandler() {
+    //if (this.status != 200) window.location = '/';
+    let proj = JSON.parse(this.responseText);
+
+    // Create the new card
+    let new_proj = createProject(proj);
+
+    // Reset the new card input
+    let form = document.querySelector('article.project form.new_project');
+    form.querySelector('[type=text]').value="";
+
+    // Insert the new card
+    let article = form.parentElement;
+    let section = article.parentElement;
+    section.insertBefore(new_proj, article);
+
+    // Focus on adding an item to the new card
+    new_proj.querySelector('[type=text]').focus();
+  }
+
+function createProject(project) {
+    let new_project = document.createElement('article');
+    new_project.classList.add('project');
+    new_project.setAttribute('data-id', project.id);
+    new_project.innerHTML = `
+    <header>
+      <h2><a href="projects/${project.id}">${project.name}</a></h2>
+      <a href="#" class="delete">&#10761;</a>
+    </header>`;
+
+    let deleter = new_project.querySelector('header a.delete');
+    deleter.addEventListener('click', sendDeleteProjectRequest);
+
+    return new_project;
 }
 
 function createItem(item) {

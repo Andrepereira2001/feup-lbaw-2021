@@ -14,10 +14,11 @@ class ProjectPolicy
 
     public function show(User $user, Project $project)
     {
-        // Only a card owner can see it
-        foreach ($project->users as &$val) {
+        // Only a participating member can see it
+
+        foreach ($project->users as $val) {
             echo $val;
-            if ($user->id == $val->pivot->id_user)
+            if ($user->id == $val->id)
                 return true;
         }
         return false;
@@ -25,19 +26,23 @@ class ProjectPolicy
 
     public function list(User $user)
     {
-      // Any user can list its own cards
+      // Any user can list its own projects
       return Auth::check();
     }
 
     public function create(User $user)
     {
-      // Any user can create a new card
+      // Any user can create a new project
       return Auth::check();
     }
 
     public function delete(User $user, Project $project)
     {
-      // Only a card owner can delete it
-      return $user->id == $project->user_id;
+        // Only a project coordinator can delete it
+        foreach ($project->users as $val) {
+            if ($val->pivot->role == 'Coordinator')
+                return true;
+        }
+        return false;
     }
 }

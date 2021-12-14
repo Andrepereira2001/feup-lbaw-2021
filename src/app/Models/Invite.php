@@ -11,4 +11,19 @@ class Invite extends Model
 
     protected $table ='invite';
     public $timestamps = false;
+
+    /**
+     * The project this task belongs to.
+     */
+    public function project() {
+        return  $this->belongsTo(Project::class, 'id_project');
+    }
+
+    /**
+     * The user this task belongs to.
+     */
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
 }

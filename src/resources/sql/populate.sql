@@ -156,7 +156,7 @@ insert into Project (name, description, color, created_at) values ('expedite hol
 
 
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 1, 1);
-insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 2, 2);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 2, 2);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 3, 3);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 4, 4);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 5, 5);
@@ -355,6 +355,7 @@ insert into Participation (favourite, role, id_project, id_user) values (false, 
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Member', 48, 78);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Member', 49, 19);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 50, 30);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 2, 10);
 
 insert into Task (name, priority, created_at, id_project, id_user) values ('Cross-group human-resource encryption', 2, '2021-10-26', 1, 1);
 insert into Task (name, priority, created_at, id_project, id_user) values ('Persevering radical time-frame', 3, '2018-11-20', 2, 2);
