@@ -31,6 +31,11 @@ function addEventListeners() {
   let projectCreator = document.querySelector('article.project form.new_project');
   if (projectCreator != null)
     projectCreator.addEventListener('submit', sendCreateProjectRequest);
+
+  let projectFavs = document.querySelectorAll('article.project .content a.fav');
+  [].forEach.call(projectFavs, function(fav) {
+    fav.addEventListener('click', sendFavouriteRequest);
+  });
 }
 
 function encodeForAjax(data) {
@@ -104,6 +109,13 @@ function sendCreateProjectRequest(event) {
 
     event.preventDefault();
 }
+
+function sendFavouriteRequest(event){
+    let id = this.closest('article').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
+}
+
+/* HANDLERS */
 
 function itemUpdatedHandler() {
   let item = JSON.parse(this.responseText);
@@ -191,11 +203,10 @@ function projectDeletedHandler() {
     let project = JSON.parse(this.responseText);
     let article = document.querySelector('article.project[data-id="'+ project.id + '"]');
     article.remove();
-  }
+}
 
 function projectAddedHandler() {
     if (this.status != 200) {
-      console.log("oi");
       window.location = '/';
     }
     let proj = JSON.parse(this.responseText);
@@ -246,6 +257,13 @@ function createItem(item) {
   new_item.querySelector('a.delete').addEventListener('click', sendDeleteItemRequest);
 
   return new_item;
+}
+
+function projectFavouriteHandler(){
+    if (this.status != 200) window.location = '/';
+    else {
+        window.location = '/projects/'+ JSON.parse(this.responseText).id_project;
+    }
 }
 
 addEventListeners();

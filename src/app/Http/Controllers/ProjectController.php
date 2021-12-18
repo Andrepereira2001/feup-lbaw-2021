@@ -69,4 +69,21 @@ class ProjectController extends Controller
 
       return $project;
     }
+
+    public function favourite(Request $request, $id){
+
+        error_log("boas___________________________________________________________________");
+
+        $participation = Participation::where('id_project', $id)
+                                        ->where('id_user', Auth::user()->id)->first();
+
+                                        error_log($participation);
+
+        $participation->favourite = ! $participation->favourite ;
+        $participation->save();
+
+        return $participation;
+
+    }
+
 }

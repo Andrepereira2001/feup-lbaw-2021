@@ -599,7 +599,7 @@ paths:
         '200':
           description: 'Ok. Project updated.'
 
-  /api/projects/addCoordinator/{user_id}:
+  /api/projects/{id}/addCoordinator/{user_id}:
     post:
       operationId: R208
       summary: 'R208: Add coordinator'
@@ -609,6 +609,11 @@ paths:
       parameters:
         - in: path
           name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: id
           schema:
             type: integer
           required: true
@@ -626,6 +631,39 @@ paths:
                 302Error:
                   description: 'Failed add. Redirect to project page.'
                   value: '/project/{id}'
+
+  /api/projects/{id}/favourite/{user_id}:
+    post:
+      operationId: R209
+      summary: 'R209: Modify favourite project'
+      description: 'Modify favourite project. Access: MEMB'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after favourite coordinator.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull favourite. Redirect to project page'
+                  value: '/users'
+                302Error:
+                  description: 'Failed favourite. Redirect to project page.'
+                  value: '/users'      
 # ------------------------- TASKS ------------------------- 
   /api/tasks:
     get:

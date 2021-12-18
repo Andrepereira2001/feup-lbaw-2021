@@ -24,8 +24,6 @@ class UserController extends Controller
       return view('pages.user', ['user' => $user]);
     }
 
-
-
     // public function delete(Request $request, $id)
     // {
     //   $project = Project::find($id);
