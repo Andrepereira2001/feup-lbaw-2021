@@ -72,8 +72,6 @@ class ProjectController extends Controller
 
     public function favourite(Request $request, $id){
 
-        error_log("boas___________________________________________________________________");
-
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
 
