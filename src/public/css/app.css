@@ -189,7 +189,11 @@ input[type=password]:focus {
 
 #projects article.project{
     width: 25%;
-    background-color: blue;
+    background-color: pink;
     border-radius: 10px;
+}
+
+#projects article.project.create{
+  background-color: lightgray;
 }
 

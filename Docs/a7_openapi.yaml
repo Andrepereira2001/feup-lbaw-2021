@@ -67,7 +67,7 @@ paths:
                   value: '/login'
 
   /logout:
-    post:
+    get:
       operationId: R103
       summary: 'R103: Logout Action'
       description: 'Logout the current authenticated user. Access: AUTH_USR'

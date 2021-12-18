@@ -23,13 +23,13 @@
   <body>
     <main>
       <header>
-        <h1><a href="{{ url('/projects') }}"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
+        <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
         <section class="buttons">
-          <a class= "notification" href="{{ url('/notifications') }}"><img src={{ asset('img/notification.png') }} width="25px"></a>
-          <a class="button" href="/users/{{Auth::user()->id}}"> <span> {{ Auth::user()->name[0]}}</span> </a>
+          <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
+          <a class="button" href="/users/profile/{{Auth::user()->id}}"> <span> {{ Auth::user()->name[0]}}</span> </a>
         </section>
-        {{-- <a class="button" href="{{ url('/logout') }}">Not a button</a> --}}
+        <a class="button" href="{{ url('/logout') }}">Not a button</a>
         @endif
       </header>
       <section id="content">
