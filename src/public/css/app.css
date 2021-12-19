@@ -185,7 +185,7 @@ input[type=password]:focus {
 #projects form{
     display: grid;
     grid-template-columns: 130px auto;
-    grid-template-rows: 5% 95%;
+    grid-template-rows: 50px 95%;
 }
 
 

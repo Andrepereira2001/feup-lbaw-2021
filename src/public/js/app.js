@@ -36,6 +36,10 @@ function addEventListeners() {
   [].forEach.call(projectFavs, function(fav) {
     fav.addEventListener('click', sendFavouriteRequest);
   });
+
+  /*let projectSearch = document.querySelector('#projects form.search')
+  if (projectSearch != null)
+    projectSearch.addEventListener('submit', sendSearchProjectRequest);*/
 }
 
 function encodeForAjax(data) {
@@ -114,6 +118,13 @@ function sendFavouriteRequest(event){
     let id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
 }
+
+//___________________________________??
+/*function sendSearchProjectRequest(event){
+    console.log(this.querySelector('input[name=search]').value);
+    console.log(this.querySelector('input[name=order]:checked').value);
+    event.preventDefault();
+}*/
 
 /* HANDLERS */
 

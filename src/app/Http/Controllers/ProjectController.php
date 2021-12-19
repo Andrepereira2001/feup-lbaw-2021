@@ -11,6 +11,7 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
+
     /**
      * Shows the project for a given id.
      *
@@ -29,12 +30,51 @@ class ProjectController extends Controller
      *
      * @return Response
      */
-    public function list()
+    public function list(Request $request)
     {
-      if (!Auth::check()) return redirect('/login');
-      $this->authorize('list', Project::class);
-      $projects = Auth::user()->projects()->orderBy('id')->get();
-      return view('pages.projects', ['projects' => $projects]);
+
+        if (!Auth::check()) return redirect('/login');
+        $this->authorize('list', Project::class);
+
+
+        $search = $request->input('search');
+        $order = $request->input('order');
+        $filters = $request->input('filters');
+
+        $projects = Auth::user()->projects();
+
+        $checkbox = [
+            "archived" => false,
+            "favourite" => false,
+            "member" => false,
+            "coordinator" => false,
+        ];
+        if($filters):
+            if(in_array("archived",$filters)):
+                $checkbox["archived"] = "checked";
+                $projects->whereNotNull("archived_at");
+            endif;
+            if(in_array("favourite",$filters)):
+                $checkbox["favourite"] = "checked";
+                $projects->wherePivot("favourite",true);
+            endif;
+            if(in_array("member",$filters) && ! in_array("coordinator",$filters)):
+                $checkbox["member"] = "checked";
+                $projects->wherePivot("role","Member");
+            endif;
+            if(in_array("coordinator",$filters) && !in_array("member",$filters)):
+                $checkbox["coordinator"] = "checked";
+                $projects->wherePivot("role","Coordinator");
+            endif;
+        endif;
+
+        if($order):
+            $projects->orderBy($order);
+        endif;
+
+        $projects = $projects->get();
+
+        return view('pages.projects', ['projects' => $projects] + $checkbox);
     }
 
     /**
@@ -75,7 +115,6 @@ class ProjectController extends Controller
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
 
-                                        error_log($participation);
 
         $participation->favourite = ! $participation->favourite ;
         $participation->save();
