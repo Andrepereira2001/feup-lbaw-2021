@@ -70,7 +70,7 @@ CREATE TABLE Participation (
 CREATE TABLE Task (
     id                     SERIAL PRIMARY KEY,
     name                   TEXT NOT NULL,
-    description            TEXT,
+    description            TEXT DEFAULT '',
     priority               INTEGER,
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     finished_at            TIMESTAMP,

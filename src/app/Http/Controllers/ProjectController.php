@@ -22,15 +22,18 @@ class ProjectController extends Controller
     {
       $project = Project::find($id);
       $this->authorize('show', $project);
-      return view('pages.project', ['project' => $project]);
 
       $search = $request->input('search');
-      error_log($search);
 
+      $tasks = $project->tasks();
       if($search != ''):
         $tasks->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
             ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
       endif;
+
+      $tasks = $tasks->get();
+
+      return view('pages.project', ['project' => $project, 'tasks' => $tasks]);
     }
 
     /**

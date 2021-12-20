@@ -2,7 +2,7 @@
 
 <article class="project" data-id="{{ $project->id }}">
     <header>
-      <h2><a href="/projects/{{ $project->id }}">{{ $project->name }}</a></h2>
+      <h3><a href="/projects/{{ $project->id }}">{{ $project->name }}</a></h3>
       {{-- <a href="#" class="delete">&#10761;</a> --}}
     </header>
     <div class="content">

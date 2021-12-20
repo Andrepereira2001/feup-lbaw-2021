@@ -282,7 +282,6 @@ function projectFavouriteHandler(){
     else {
         img.setAttribute ('src', window.location.origin + '/img/filed_star.png');
     }
-    //window.location.reload();
 }
 
 addEventListeners();

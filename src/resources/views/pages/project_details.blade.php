@@ -24,6 +24,7 @@
     <div class="labels">
         <span>Labels</span>
         <div class="content">
+            TO BE DEFINED
             {{-- @each('partials.label', $project->labels()->orderBy('id')->get(), 'label') --}}
         </div>
     </div>
