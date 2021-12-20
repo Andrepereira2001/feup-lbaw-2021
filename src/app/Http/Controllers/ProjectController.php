@@ -18,11 +18,31 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
       $project = Project::find($id);
       $this->authorize('show', $project);
       return view('pages.project', ['project' => $project]);
+
+      $search = $request->input('search');
+      error_log($search);
+
+      if($search != ''):
+        $tasks->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+            ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
+      endif;
+    }
+
+    /**
+     * Shows the project details for a given id.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function details($id){
+        $project = Project::find($id);
+        $this->authorize('show', $project);
+        return view('pages.project_details', ['project' => $project]);
     }
 
     /**
@@ -30,8 +50,7 @@ class ProjectController extends Controller
      *
      * @return Response
      */
-    public function list(Request $request)
-    {
+    public function list(Request $request){
 
         if (!Auth::check()) return redirect('/login');
         $this->authorize('list', Project::class);
@@ -48,7 +67,10 @@ class ProjectController extends Controller
             "favourite" => false,
             "member" => false,
             "coordinator" => false,
+            "created_at" => false,
+            "name" => false,
         ];
+
         if($filters):
             if(in_array("archived",$filters)):
                 $checkbox["archived"] = "checked";
@@ -68,7 +90,11 @@ class ProjectController extends Controller
             endif;
         endif;
 
-        if($order):
+        if($search != ''):
+            $projects->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+                ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
+        elseif($order):
+            $checkbox[$order] = "checked";
             $projects->orderBy($order);
         endif;
 

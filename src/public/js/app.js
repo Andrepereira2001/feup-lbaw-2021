@@ -272,9 +272,17 @@ function createItem(item) {
 
 function projectFavouriteHandler(){
     if (this.status != 200) window.location = '/';
-    else {
-        window.location = '/projects/'+ JSON.parse(this.responseText).id_project;
+
+    let participation = JSON.parse(this.responseText);
+    const img = document.querySelector('article.project[data-id="'+ participation.id_project + '"] .content .fav img');
+
+    if(img.getAttribute('src').includes("filed_star")){
+        img.setAttribute ('src', window.location.origin + '/img/star.png');
     }
+    else {
+        img.setAttribute ('src', window.location.origin + '/img/filed_star.png');
+    }
+    //window.location.reload();
 }
 
 addEventListeners();

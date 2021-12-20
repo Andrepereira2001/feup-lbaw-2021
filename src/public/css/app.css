@@ -180,7 +180,7 @@ input[type=password]:focus {
   border-color: #9b4dca;
 }
 
-/* project */
+/* projects */
 
 #projects form{
     display: grid;
@@ -254,7 +254,7 @@ input[type=password]:focus {
 
 #projects .projets-display{
     grid-column: 2 / 3;
-    grid-row: 2/3;
+    grid-row: 2 / 3;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -290,3 +290,53 @@ input[type=password]:focus {
 }
 
 
+/* project */
+
+#project {
+  display: grid;
+  grid-template-columns: 2/3 1/3;
+  grid-template-rows: 1/7 4/7 2/7;
+}
+
+#project > div {
+  background-color: #00D1FF;
+}
+
+#project h1 {
+  color: #595656;
+}
+
+#project h2 {
+  color: #595656;
+}
+
+#project .title-box {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  background-color: #C4C4C4;
+  margin: 2px;
+}
+
+#project .todo-box {
+  grid-column: 1/2;
+  grid-row:2/3;
+  background-color: #d3edc3;
+  border-radius: 10px;
+  margin: 2px;
+}
+
+#project .done-box {
+  grid-column: 1/2;
+  grid-row:3/4;
+  background-color: #d2afe7;
+  border-radius: 10px;
+  margin: 2px;
+}
+
+#project .forum-box {
+  grid-column: 2/3;
+  grid-row: 1/4;
+  background-color: #ff3333;
+  border-radius: 10px;
+  margin: 2px;
+}

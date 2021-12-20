@@ -17,7 +17,6 @@ class ProjectPolicy
         // Only a participating member can see it
 
         foreach ($project->users as $val) {
-            echo $val;
             if ($user->id == $val->id)
                 return true;
         }

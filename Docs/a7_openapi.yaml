@@ -551,10 +551,28 @@ paths:
         '200':
           description: 'Ok. Project deleted'
 
-  /projects/edit/{id}:
+  /projects/{id}/details:
     get:
-      operationId: R207
-      summary: 'R207: Project edit Form '
+      operationId: R205
+      summary: 'R205: View project details page'
+      description: 'Show the individual project details page. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Show Project details page UI'
+
+
+  /projects/{id}/edit/:
+    get:
+      operationId: R206
+      summary: 'R206: Project edit Form '
       description: "Show the individual project edit page. Access: COOR"
       tags:
         - 'M02: Project'
@@ -569,8 +587,8 @@ paths:
           description: 'OK. Show Project Update UI'
 
     post:
-      operationId: R205
-      summary: 'R205: Edit project page'
+      operationId: R207
+      summary: 'R207: Edit project page'
       description: 'Edit individual project page. Access: COOR'
       tags:
         - 'M02: Project'
@@ -664,6 +682,8 @@ paths:
                 302Error:
                   description: 'Failed favourite. Redirect to project page.'
                   value: '/users'      
+
+
 # ------------------------- TASKS ------------------------- 
   /api/tasks:
     get:

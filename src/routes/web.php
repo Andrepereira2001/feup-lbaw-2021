@@ -48,12 +48,13 @@ Route::post('api/projects', 'ProjectController@create');
 Route::get('projects/{id}', 'ProjectController@show');
 Route::delete('api/projects/{id}', 'ProjectController@delete');
 
+Route::get('projects/{id}/details', 'ProjectController@details');
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
 
 // Route::get('api/projects', 'ProjectController@'); //get projects
 // Route::post('projects', 'ProjectController@create'); //create a project
 // Route::get('projects', 'ProjectController@show'); //creation page
-// Route::get('projects/{id}', 'ProjectController@show');
+
 // Route::get('projects/{id}', 'ProjectController@list'); //user's projects
 // Route::delete('projects/{id}', 'ProjectController@delete');
 // Route::get('projects/edit/{id}', 'ProjectController@'); //show edit page

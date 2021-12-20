@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <section id="projects">
     <form class="search">
         <div class="order">
@@ -14,12 +13,12 @@
             </div>
 
             <div>
-                <input type="radio" id = "alphabetic" name="order" value="name"/>
+                <input type="radio" id = "alphabetic" name="order" value="name" {{$name}}/>
                 <label for= "alphabetic"> <img src={{ asset('img/sort-az.png') }} width="30px" height="30px"> </label>
             </div>
 
             <div>
-                <input type="radio" id = "creation" name="order" value="created_at" checked/>
+                <input type="radio" id = "creation" name="order" value="created_at" {{$created_at}}/>
                 <label for= "creation"> <img src={{ asset('img/recent.png') }} width="30px" height="30px"> </label>
             </div>
         </div>
@@ -42,10 +41,13 @@
             </div>
         </div>
         <div class="projets-display">
-            <article class="project create">
-                <a href="/projects"><img src={{ asset('img/create_project.png') }}></a>
-            </article>
+            <a href="/projects">
+                <article class="project create">
+                    <img src={{ asset('img/create_project.png') }}>
+                </article>
+            </a>
             @each('partials.project', $projects, 'project')
+
         </div>
     </form>
 </section>
