@@ -22,7 +22,7 @@ class UserController extends Controller
       $user = User::find($id);
       $fname = strtok($user->name, " ");
       $lname = strrchr($user->name,' ');
-      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
+      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-view", 'view' => "View"]);
     }
 
     public function edit($id)
@@ -30,16 +30,15 @@ class UserController extends Controller
       $user = User::find($id);
       $fname = strtok($user->name, " ");
       $lname = strrchr($user->name,' ');
-      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
+      return view('pages.userEdit', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-edit", 'view' => "Edit"]);
     }
 
     public function update(Request $request, $id)
     {
       $user = User::findOrFail($id);
       $user->update($request->except(['_token']));
-      $fname = strtok($user->name, " ");
-      $lname = strrchr($user->name,' ');
-      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
+
+      return $user;
     }
 
     public function delete(Request $request, $id)
