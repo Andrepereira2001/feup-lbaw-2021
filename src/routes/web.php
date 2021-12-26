@@ -57,8 +57,8 @@ Route::get('projects', 'ProjectController@showCreate'); //creation page
 
 // Route::get('projects/{id}', 'ProjectController@list'); //user's projects
 // Route::delete('projects/{id}', 'ProjectController@delete');
-// Route::get('projects/edit/{id}', 'ProjectController@'); //show edit page
-// Route::post('projects/edit/{id}', 'ProjectController@'); //edit page
+Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
+Route::post('projects/{id}/edit/', 'ProjectController@edit'); //edit page
 // Route::post('api/projects/addCoordinator/{user_id}', 'ProjectController@');
 
 

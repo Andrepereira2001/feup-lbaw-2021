@@ -38,10 +38,12 @@ class ProjectPolicy
     public function delete(User $user, Project $project)
     {
         // Only a project coordinator can delete it
-        foreach ($project->users as $val) {
-            if ($val->pivot->role == 'Coordinator')
-                return true;
-        }
-        return false;
+        return !$user->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+    }
+
+    public function edit(User $user, Project $project)
+    {
+        // Only a project coordinator can edit it
+        return !$user->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
     }
 }

@@ -110,7 +110,7 @@ class ProjectController extends Controller
     /**
      * Show project creation form.
      *
-     * @return Project The project created.
+     * @return Response
      */
     public function showCreate(){
         $user = Auth::user();
@@ -142,6 +142,12 @@ class ProjectController extends Controller
       return $project;
     }
 
+    /**
+     * Deletes the project for a given id.
+     *
+     * @param  int  $id
+     * @return Project the project deleted
+     */
     public function delete(Request $request, $id){
       $project = Project::find($id);
       $this->authorize('delete', $project);
@@ -151,7 +157,13 @@ class ProjectController extends Controller
       return $project;
     }
 
-    public function favourite(Request $request, $id){
+    /**
+     * Favourits the id project.
+     *
+     * @param  int  $id
+     * @return Project the project favourited
+     */
+    public function favourite($id){
 
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
@@ -162,6 +174,20 @@ class ProjectController extends Controller
 
         return $participation;
 
+    }
+
+     /**
+     * Show project edit form.
+     *
+     * @param  int  $id
+     * @return Project The project created.
+     */
+    public function editShow(Request $request, $id){
+
+        $project = Project::find($id);
+        $this->authorize('edit', $project);
+
+        return view('pages.project_edit', ['project' => $project]);
     }
 
 }

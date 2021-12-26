@@ -40,6 +40,9 @@
             {{-- @each('partials.label', $project->labels()->orderBy('id')->get(), 'label') --}}
         </div>
     </div>
+    <div class="buttons">
+        <a href="/projects/{{$project->id}}/edit/" class="edit">Edit</a>
+    </div>
   </section>
 
 @endsection

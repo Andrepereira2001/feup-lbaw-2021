@@ -422,6 +422,32 @@ input[type=password]:focus {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+#project-details .buttons{
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#project-details a.edit{
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    background-color: #26C5B3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
 /* project-create */
 
 #project-create form{
