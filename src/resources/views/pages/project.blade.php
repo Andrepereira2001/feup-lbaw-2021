@@ -51,21 +51,3 @@
   </section>
 
 @endsection
-        </form>
-      </div>
-      <ul>
-        @each('partials.task', $tasksTodo, 'task')
-      </ul>
-    </div>
-    <div class="done-box">
-      <h2>DONE</h2>
-      <ul class="tasksDone">
-        @each('partials.taskDone', $tasksTodo, 'task')
-      </ul>
-    </div>
-    <div class="forum-box">
-      <h2>Forum</h2>
-    </div>
-  </section>
-
-@endsection
