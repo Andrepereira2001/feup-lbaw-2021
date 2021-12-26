@@ -47,7 +47,6 @@
                 </article>
             </a>
             @each('partials.project', $projects, 'project')
-
         </div>
     </form>
 </section>

@@ -52,7 +52,7 @@ CREATE TABLE Project (
     id                     SERIAL PRIMARY KEY,
     name                   TEXT NOT NULL,
     description            TEXT,
-    color                  TEXT,
+    color                  TEXT DEFAULT '#595656',
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     archived_at            TIMESTAMP,
     CONSTRAINT project_dates CHECK ((archived_at IS NULL) OR (archived_at > created_at))
