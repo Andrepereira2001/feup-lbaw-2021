@@ -28,7 +28,7 @@ function addEventListeners() {
     deleter.addEventListener('click', sendDeleteProjectRequest);
   });
 
-  let projectCreator = document.querySelector('article.project form.new_project');
+  let projectCreator = document.querySelector('#project-create form.new_project');
   if (projectCreator != null)
     projectCreator.addEventListener('submit', sendCreateProjectRequest);
 
@@ -37,9 +37,6 @@ function addEventListeners() {
     fav.addEventListener('click', sendFavouriteRequest);
   });
 
-  /*let projectSearch = document.querySelector('#projects form.search')
-  if (projectSearch != null)
-    projectSearch.addEventListener('submit', sendSearchProjectRequest);*/
 }
 
 function encodeForAjax(data) {
@@ -106,10 +103,15 @@ function sendDeleteProjectRequest(event) {
 }
 
 function sendCreateProjectRequest(event) {
+    event.preventDefault();
     let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let color = this.querySelector('input[name=color]').value;
+
+    console.log("log",name,description,color);
 
     if (name != '')
-      sendAjaxRequest('post', '/api/projects/', {name: name}, projectAddedHandler);
+      sendAjaxRequest('post', '/projects/', {name, description, color}, projectAddedHandler);
 
     event.preventDefault();
 }
@@ -119,12 +121,6 @@ function sendFavouriteRequest(event){
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
 }
 
-//___________________________________??
-/*function sendSearchProjectRequest(event){
-    console.log(this.querySelector('input[name=search]').value);
-    console.log(this.querySelector('input[name=order]:checked').value);
-    event.preventDefault();
-}*/
 
 /* HANDLERS */
 
@@ -217,42 +213,47 @@ function projectDeletedHandler() {
 }
 
 function projectAddedHandler() {
-    if (this.status != 200) {
+    const project = JSON.parse(this.responseText);
+    console.log(project);
+    if (this.status === 201) {
+        window.location = '/projects/' + project.id;
+    }
+    else if (this.status !== 200) {
       window.location = '/';
     }
-    let proj = JSON.parse(this.responseText);
+    // let proj = JSON.parse(this.responseText);
 
-    // Create the new card
-    let new_proj = createProject(proj);
+    // // Create the new card
+    // let new_proj = createProject(proj);
 
-    // Reset the new card input
-    let form = document.querySelector('article.project form.new_project');
-    form.querySelector('[type=text]').value="";
+    // // Reset the new card input
+    // let form = document.querySelector('article.project form.new_project');
+    // form.querySelector('[type=text]').value="";
 
-    // Insert the new card
-    let article = form.parentElement;
-    let section = article.parentElement;
-    section.insertBefore(new_proj, article);
+    // // Insert the new card
+    // let article = form.parentElement;
+    // let section = article.parentElement;
+    // section.insertBefore(new_proj, article);
 
-    // Focus on adding an item to the new card
-    new_proj.querySelector('[type=text]').focus();
+    // // Focus on adding an item to the new card
+    // new_proj.querySelector('[type=text]').focus();
   }
 
-function createProject(project) {
-    let new_project = document.createElement('article');
-    new_project.classList.add('project');
-    new_project.setAttribute('data-id', project.id);
-    new_project.innerHTML = `
-    <header>
-      <h2><a href="projects/${project.id}">${project.name}</a></h2>
-      <a href="#" class="delete">&#10761;</a>
-    </header>`;
+// function createProject(project) {
+//     let new_project = document.createElement('article');
+//     new_project.classList.add('project');
+//     new_project.setAttribute('data-id', project.id);
+//     new_project.innerHTML = `
+//     <header>
+//       <h2><a href="projects/${project.id}">${project.name}</a></h2>
+//       <a href="#" class="delete">&#10761;</a>
+//     </header>`;
 
-    let deleter = new_project.querySelector('header a.delete');
-    deleter.addEventListener('click', sendDeleteProjectRequest);
+//     let deleter = new_project.querySelector('header a.delete');
+//     deleter.addEventListener('click', sendDeleteProjectRequest);
 
-    return new_project;
-}
+//     return new_project;
+// }
 
 function createItem(item) {
   let new_item = document.createElement('li');

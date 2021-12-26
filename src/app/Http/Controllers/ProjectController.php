@@ -51,6 +51,7 @@ class ProjectController extends Controller
     /**
      * Shows all projects.
      *
+     * @param Request $request
      * @return Response
      */
     public function list(Request $request){
@@ -107,6 +108,16 @@ class ProjectController extends Controller
     }
 
     /**
+     * Show project creation form.
+     *
+     * @return Project The project created.
+     */
+    public function showCreate(){
+        $user = Auth::user();
+        return view('pages.project_create', ['user' => $user]);
+    }
+
+    /**
      * Creates a new project.
      *
      * @return Project The project created.
@@ -119,6 +130,8 @@ class ProjectController extends Controller
       $this->authorize('create', $project);
 
       $project->name = $request->input('name');
+      $project->description = $request->input('description');
+      $project->color = $request->input('color');
       $project->save();
 
       $participation->id_user = Auth::user()->id;
@@ -129,8 +142,7 @@ class ProjectController extends Controller
       return $project;
     }
 
-    public function delete(Request $request, $id)
-    {
+    public function delete(Request $request, $id){
       $project = Project::find($id);
       $this->authorize('delete', $project);
 
