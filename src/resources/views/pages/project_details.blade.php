@@ -2,9 +2,21 @@
 
 @section('title', $project->name)
 
+<style>
+
+    #project-details.id-{{$project->id}} .content{
+        border-color: {{$project->color}};
+    }
+
+    #project-details.id-{{$project->id}} .info{
+        background-color: {{$project->color}};
+    }
+
+</style>
+
 @section('content')
 
-  <section id="project-details">
+  <section id="project-details" class="id-{{$project->id}}">
     <div class="info">
         <h1>{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>
