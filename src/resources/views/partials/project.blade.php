@@ -1,6 +1,12 @@
+<style>
 
+#projects article.project.id-{{$project->id}}{
+    background-color: {{$project->color}};
+}
 
-<article class="project" data-id="{{ $project->id }}">
+</style>
+
+<article class="project id-{{$project->id}}" data-id="{{ $project->id }}">
     <header>
       <h3><a href="/projects/{{ $project->id }}">{{ $project->name }}</a></h3>
       {{-- <a href="#" class="delete">&#10761;</a> --}}
