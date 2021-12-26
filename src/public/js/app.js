@@ -37,6 +37,10 @@ function addEventListeners() {
     fav.addEventListener('click', sendFavouriteRequest);
   });
 
+  let userEdit = document.querySelectorAll('.save');
+  [].forEach.call(userEdit, function(edit) {
+    edit.addEventListener('click', sendEditUserRequest);
+  });
   /*let projectSearch = document.querySelector('#projects form.search')
   if (projectSearch != null)
     projectSearch.addEventListener('submit', sendSearchProjectRequest);*/
@@ -115,6 +119,11 @@ function sendCreateProjectRequest(event) {
 }
 
 function sendFavouriteRequest(event){
+    let id = this.closest('article').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
+}
+
+function sendEditUserRequest(event){
     let id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
 }
@@ -283,5 +292,42 @@ function projectFavouriteHandler(){
         img.setAttribute ('src', window.location.origin + '/img/filed_star.png');
     }
 }
+
+
+function userEditHandler(event) {
+    console.log(this.responseText);
+    // if (this.status != 200) window.location = '/';
+    // let project = JSON.parse(this.responseText);
+    // let article = document.querySelector('article.project[data-id="'+ project.id + '"]');
+    // article.remove();
+        let name = this.querySelector('input[name=name]').value;
+
+        if (name != '')
+          sendAjaxRequest('post', '/api/projects/', {name: name}, projectAddedHandler);
+
+        event.preventDefault();
+}
+
+// function projectAddedHandler() {
+//     if (this.status != 200) {
+//       window.location = '/';
+//     }
+//     let proj = JSON.parse(this.responseText);
+
+//     // Create the new card
+//     let new_proj = createProject(proj);
+
+//     // Reset the new card input
+//     let form = document.querySelector('article.project form.new_project');
+//     form.querySelector('[type=text]').value="";
+
+//     // Insert the new card
+//     let article = form.parentElement;
+//     let section = article.parentElement;
+//     section.insertBefore(new_proj, article);
+
+//     // Focus on adding an item to the new card
+//     new_proj.querySelector('[type=text]').focus();
+// }
 
 addEventListeners();

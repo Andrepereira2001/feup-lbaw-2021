@@ -1,5 +1,7 @@
+
 body {
   background-color: #ffffff;
+  font-family: "Montserrat";
   color: black;
 }
 main > header {
@@ -156,13 +158,17 @@ main > header span {
     border-bottom: 1px solid rgba(96, 108, 118, 0.4);
   }
 }
-/**
- * Overide milligram colors
+
+ /* Overide milligram colors
  * Some styles might be missing
  **/
-button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+ button {
+  border-radius: 40px;
+  background: rgba(38, 197, 179, 0.7);
+  border: 1px solid #C0F2EC;
+  width: 20%;
+  height: 30px;
+  vertical-align: middle;
 }
 a.button {
   background-color: #9b4dca;
@@ -425,4 +431,158 @@ input[type=password]:focus {
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style the links inside the sidenav */
+#mySidenav a {
+    position: relative;
+    padding: 12px; /* 15px padding */
+    width: 140px; /* Set a specific width */
+    left: -7px;
+    top: -20px;
+    font-size: 15px; /* Increase font size */
+    color: black; /* White text color */
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    display: block;
+  }
+
+
+#mySidenav a:hover {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+.arrow {
+    position: absolute;
+    left: 75%;
+    top: 35%;
+    width: 10%;
+    opacity: 90%;
+}
+
+.userInfo {
+    position: absolute;
+    text-align: center;
+    top: 20%;
+    left: 35%;
+}
+
+.info {
+    display: inline-block;
+}
+
+.profilePhoto {
+    width: 100px;
+    height: 100px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+#view {
+    display: auto;
+}
+
+#edit {
+    display: none;
+}
+
+/* .profilePhoto {
+    width: 100px;
+} */
+
+
+.userInfo form {
+    width: 370px;
+    height: 100px;
+}
+
+.userInfo form section div.full {
+    width: 185px;
+    float: left;
+}
+
+.userInfo form section div label {
+    text-align: left;
+    color:#949494;
+    font-size: small;
+}
+
+.userInfo form section div input {
+    color: #383838;
+    background-color: #F2FEFD;
+    border-color: #C0F2EC;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.userInfo form section div input:focus {
+    border-width: 2px;
+    border-color: #C0F2EC;
+}
+
+.editIcon {
+    float: right;
+    width: 8%;
+    cursor: pointer;
+}
+
+.pass {
+    position: relative;
+}
+
+i {
+    position: absolute;
+    margin-left: -30px;
+    top: 48%;
+    cursor: pointer;
+    opacity: 60%;
+}
+
+.editIconBlue {
+    position: absolute;
+    left: 55%;
+    top: 17%;
+    width: 8%;
+    cursor: pointer;
+}
+
+.editButtons {
+    padding: 0;
+    float: left;
+}
+
+.save:hover {
+    border: 1px solid #C0F2EC;
+    background-color: #26C5B3;
+}
+
+.cancel {
+    background-color: rgba(165, 176, 175, 0.7);
+}
+
+.cancel:hover {
+    border: 1px solid #C0F2EC;
+    background-color: #A5B0AF;
 }

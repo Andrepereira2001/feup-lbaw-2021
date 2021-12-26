@@ -20,17 +20,35 @@ class UserController extends Controller
     public function show($id)
     {
       $user = User::find($id);
-      $this->authorize('show', $user);
-      return view('pages.user', ['user' => $user]);
+      $fname = strtok($user->name, " ");
+      $lname = strrchr($user->name,' ');
+      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
     }
 
-    // public function delete(Request $request, $id)
-    // {
-    //   $project = Project::find($id);
-    //   $this->authorize('delete', $project);
+    public function edit($id)
+    {
+      $user = User::find($id);
+      $fname = strtok($user->name, " ");
+      $lname = strrchr($user->name,' ');
+      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
+    }
 
-    //   $project->delete();
+    public function update(Request $request, $id)
+    {
+      $user = User::findOrFail($id);
+      $user->update($request->except(['_token']));
+      $fname = strtok($user->name, " ");
+      $lname = strrchr($user->name,' ');
+      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname]);
+    }
 
-    //   return $project;
-    // }
+    public function delete(Request $request, $id)
+    {
+      $user = User::find($id);
+    //   $this->authorize('delete', $user);
+
+      $user->delete();
+
+      return $user;
+    }
 }
