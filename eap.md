@@ -90,13 +90,13 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US2.1??__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
-| __US2.2!!__ | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
+| __US2.1 ??__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
+| __US2.2 !!__ | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
 | __US2.3 !!__ | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
-| __US2.4 ??__ | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
+| __US2.4 !!__ | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
 | US2.5 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
-| __US2.6 ??__ | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
-| __US2.7 ??__ | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
+| __US2.6 !!__ | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
+| __US2.7 !!__ | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
 | US2.8 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
 | US2.9 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
 | US2.10 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |

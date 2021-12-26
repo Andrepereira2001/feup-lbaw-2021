@@ -32,8 +32,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('users', 'ProjectController@list'); //view user page !!!!!
-Route::get('users/profile/{id}', 'Auth\UserController@show'); //view user profile
-// Route::get('users/edit/{id}', 'Auth\UserController@edit'); //user edit profile form
+Route::get('users/profile/{id}', 'UserController@show'); //view user profile
+Route::delete('users/profile/{id}/delete', 'UserController@delete');
+Route::get('users/profile/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
+Route::post('users/profile/{id}/update', 'UserController@update'); //user update profile form
 // Route::post('users/edit/{id}', 'Auth\UserController@edit'); //edit user page
 // Route::get('recoverPassword', 'Auth\UserController@'); //recover password form
 // Route::post('recoverPassword', 'Auth\UserController@'); //recover password action

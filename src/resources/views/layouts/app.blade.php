@@ -29,7 +29,6 @@
           <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
           <a class="button" href="/users/profile/{{Auth::user()->id}}"> <span> {{ Auth::user()->name[0]}}</span> </a>
         </section>
-        <a class="button" href="{{ url('/logout') }}">L</a>
         @endif
       </header>
       <section id="content">

@@ -1,7 +1,7 @@
 insert into Admin (id, email, password, name) values (1, 'admin@admin.com', 'dFOpt7DPBRn', 'Admin');
 
 
-insert into Users (email, password, name) values ('mferries0@yellowpages.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Mahalia Ferries');
+insert into Users (email, password, name, image_path) values ('mferries0@yellowpages.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Mahalia Ferries', 'img/andre.png');
 insert into Users (email, password, name) values ('aoakly1@gmpg.org', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Abby Oakly');
 insert into Users (email, password, name) values ('sbennallck2@is.gd', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Shirl Bennallck');
 insert into Users (email, password, name) values ('ewestrip3@ebay.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Eamon Westrip');

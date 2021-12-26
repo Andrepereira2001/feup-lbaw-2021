@@ -11,7 +11,6 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-
     /**
      * Shows the project for a given id.
      *
@@ -25,15 +24,17 @@ class ProjectController extends Controller
 
       $search = $request->input('search');
 
-      $tasks = $project->tasks();
+      $tasksTodo = $project->tasks();
       if($search != ''):
-        $tasks->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+        $tasksTodo->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
             ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
       endif;
 
-      $tasks = $tasks->get();
+      $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
 
-      return view('pages.project', ['project' => $project, 'tasks' => $tasks]);
+      $tasksTodo = $tasksTodo->get();
+
+      return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo]);
     }
 
     /**
