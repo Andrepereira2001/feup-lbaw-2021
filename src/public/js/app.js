@@ -37,6 +37,10 @@ function addEventListeners() {
         fav.addEventListener('click', sendFavouriteRequest);
     });
 
+    let projectEdit = document.querySelector('#project-edit form.edit');
+    if (projectEdit != null)
+        projectEdit.addEventListener('submit', sendEditProjectRequest);
+
     let userEdit = document.querySelector('#user-edit form.info');
     if (userEdit != null)
         userEdit.addEventListener('submit', sendEditUserRequest);
@@ -117,6 +121,22 @@ function sendCreateProjectRequest(event) {
     event.preventDefault();
 }
 
+function sendEditProjectRequest(event) {
+    event.preventDefault();
+
+    let id = this.closest('section').getAttribute('data-id');
+    let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let color = this.querySelector('input[name=color]').value;
+
+    console.log(id, name, description, color, "myproject");
+
+    if (name != '')
+        sendAjaxRequest('post', '/projects/' + id + '/edit', { name, description, color }, projectEditHandler);
+
+    event.preventDefault();
+}
+
 function sendFavouriteRequest(event) {
     let id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
@@ -137,13 +157,6 @@ function sendEditUserRequest(event) {
         }
     }
 }
-
-//___________________________________??
-/*function sendSearchProjectRequest(event){
-    console.log(this.querySelector('input[name=search]').value);
-    console.log(this.querySelector('input[name=order]:checked').value);
-    event.preventDefault();
-}*/
 
 /* HANDLERS */
 
@@ -237,13 +250,22 @@ function projectDeletedHandler() {
 
 function projectAddedHandler() {
     const project = JSON.parse(this.responseText);
-    console.log(project);
     if (this.status === 201) {
         window.location = '/projects/' + project.id;
     } else if (this.status !== 200) {
         window.location = '/';
     }
 }
+
+function projectEditHandler() {
+    const project = JSON.parse(this.responseText);
+    if (this.status === 201 || this.status === 200) {
+        window.location = '/projects/' + project.id + '/details';
+    } else {
+        window.location = '/';
+    }
+}
+
 
 function createItem(item) {
     let new_item = document.createElement('li');

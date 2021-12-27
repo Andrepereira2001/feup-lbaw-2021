@@ -60,7 +60,7 @@ Route::get('projects', 'ProjectController@showCreate'); //creation page
 // Route::get('projects/{id}', 'ProjectController@list'); //user's projects
 // Route::delete('projects/{id}', 'ProjectController@delete');
 Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
-Route::post('projects/{id}/edit/', 'ProjectController@edit'); //edit page
+Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 // Route::post('api/projects/addCoordinator/{user_id}', 'ProjectController@');
 
 
@@ -68,8 +68,8 @@ Route::post('projects/{id}/edit/', 'ProjectController@edit'); //edit page
 // Route::get('api/tasks', 'TaskController@'); //get tasks
 // Route::get('tasks', 'TaskController@'); //creation task page
 // Route::post('tasks', 'TaskController@create'); //create task
-// Route::get('tasks/{id}', 'TaskController@show'); //task page
-// Route::get('tasks/edit/{id}', 'TaskController@'); //task edit page
+Route::get('tasks/{id}', 'TaskController@show'); //task page
+Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
 // Route::post('tasks/edit/{id}', 'TaskController@'); //edit task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page

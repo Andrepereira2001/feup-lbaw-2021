@@ -42,6 +42,7 @@
     <div class="done-box">
       <h2>DONE</h2>
       <ul class="tasksDone">
+        {{-- !!! to change to Done --}}
         @each('partials.taskDone', $tasksTodo, 'task')
       </ul>
     </div>

@@ -2,6 +2,7 @@
 
 @section('title', $project->name)
 
+
 <style>
 
     #project-details.id-{{$project->id}} .content{
@@ -41,8 +42,12 @@
         </div>
     </div>
     <div class="buttons">
+        @if ($isCoordinator)
         <a href="/projects/{{$project->id}}/edit/" class="edit">Edit</a>
+        @endif
+        <button type="button" class="leave">Leave</button>
     </div>
+
   </section>
 
 @endsection

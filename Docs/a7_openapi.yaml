@@ -842,7 +842,7 @@ paths:
         '200':
           description: 'Ok. Show Task Page UI'
 
-  /tasks/edit/{id}:
+  /tasks/{id}/edit:
     get:
       operationId: R306
       summary: 'R306: Task edit Form '

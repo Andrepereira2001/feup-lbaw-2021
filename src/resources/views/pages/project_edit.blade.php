@@ -1,10 +1,19 @@
 @extends('layouts.app')
 
+<style>
+    #project-edit.id-{{$project->id}} .content{
+        border-color: {{$project->color}};
+    }
+
+    #project-edit.id-{{$project->id}} .info{
+        background-color: {{$project->color}};
+    }
+</style>
 @section('content')
-    <section id="project-edit">
+    <section id="project-edit" class="id-{{$project->id}}" data-id={{$project->id}} >
         <form class="edit">
             <div class="info">
-                <input class="name" type="text" placeholder="Project Name..." name="name" value={{$project->name}}>
+                <input class="name" type="text" placeholder="Project Name..." name="name" size="30" value={{$project->name}}>
                 <input type="text" placeholder="Add a description..." name="description" value={{$project->description}}>
                 <input class="color" type="color" name="color" value={{$project->color}}>
             </div>

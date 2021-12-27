@@ -46,7 +46,9 @@ class ProjectController extends Controller
     public function details($id){
         $project = Project::find($id);
         $this->authorize('show', $project);
-        return view('pages.project_details', ['project' => $project]);
+        $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+
+        return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator ]);
     }
 
     /**
@@ -162,7 +164,7 @@ class ProjectController extends Controller
      * Favourits the id project.
      *
      * @param  int  $id
-     * @return Project the project favourited
+     * @return Participation the participation favourited
      */
     public function favourite($id){
 
@@ -191,4 +193,24 @@ class ProjectController extends Controller
         return view('pages.project_edit', ['project' => $project]);
     }
 
+    /**
+     * Edit the id project.
+     *
+     * @param Request $request
+     * @param  int  $id
+     * @return Project the project edited
+     */
+    public function edit(Request $request,$id){
+
+        $project = Project::find($id);
+        $this->authorize('edit', $project);
+
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->color = $request->color;
+        $project->save();
+
+        return $project;
+
+    }
 }
