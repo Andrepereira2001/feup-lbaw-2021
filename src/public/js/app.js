@@ -363,4 +363,4 @@ function userEditHandler() {
 //     new_proj.querySelector('[type=text]').focus();
 // }
 
-addEventListeners();;
+addEventListeners();
