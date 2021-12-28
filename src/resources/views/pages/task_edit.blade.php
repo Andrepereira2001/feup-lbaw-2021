@@ -16,9 +16,9 @@
     <section id="task-edit" class="id-{{$task->id}}" data-id={{$task->id}} >
         <form class="edit">
             <div class="info">
-                <input class="name" type="text" placeholder="Task ..." name="name" size="30" value={{$task->name}}>
+                <input class="name" type="text" placeholder="Task ..." name="name" size="30" value="{{$task->name}}">
                 <div class="box-descript">
-                    <input class="description" type="text" placeholder="Add a description..." name="description" value={{$task->description}}>
+                    <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$task->description}}">
                     <div class="priority">
                         <span>Priority:<span>
                         <input class="number" type="number" name="priority" value={{$task->priority}}>

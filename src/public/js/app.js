@@ -23,6 +23,8 @@ function addEventListeners() {
     if (cardCreator != null)
         cardCreator.addEventListener('submit', sendCreateCardRequest);
 
+    /*----Apenas interessa apartir daqui ---*/
+
     let projectDeleters = document.querySelectorAll('article.project header a.delete');
     [].forEach.call(projectDeleters, function(deleter) {
         deleter.addEventListener('click', sendDeleteProjectRequest);
@@ -44,6 +46,12 @@ function addEventListeners() {
     let userEdit = document.querySelector('#user-edit form.info');
     if (userEdit != null)
         userEdit.addEventListener('submit', sendEditUserRequest);
+
+    let taskEdit = document.querySelector('#task-edit form.edit');
+    if (taskEdit != null) {
+        console.log("oi");
+        taskEdit.addEventListener('submit', sendEditTaskRequest);
+    }
 
 }
 
@@ -133,6 +141,23 @@ function sendEditProjectRequest(event) {
 
     if (name != '')
         sendAjaxRequest('post', '/projects/' + id + '/edit', { name, description, color }, projectEditHandler);
+
+    event.preventDefault();
+}
+
+function sendEditTaskRequest(event) {
+    event.preventDefault();
+    console.log("recebi");
+
+    let id = this.closest('section').getAttribute('data-id');
+    let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let priority = this.querySelector('input[name=priority]').value;
+
+    console.log(id, name, description, priority, "mytask");
+
+    if (name != '')
+        sendAjaxRequest('post', '/tasks/' + id + '/edit', { name, description, priority }, taskEditHandler);
 
     event.preventDefault();
 }
@@ -261,6 +286,15 @@ function projectEditHandler() {
     const project = JSON.parse(this.responseText);
     if (this.status === 201 || this.status === 200) {
         window.location = '/projects/' + project.id + '/details';
+    } else {
+        window.location = '/';
+    }
+}
+
+function taskEditHandler() {
+    const task = JSON.parse(this.responseText);
+    if (this.status === 201 || this.status === 200) {
+        window.location = '/tasks/' + task.id;
     } else {
         window.location = '/';
     }

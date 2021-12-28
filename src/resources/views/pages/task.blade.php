@@ -20,7 +20,7 @@
     <div class="info">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">
-            <span class="description">description{{ $task->description }}</span>
+            <span class="description">{{ $task->description }}</span>
             <span class="priority">Priority: {{ $task->priority }}</span>
         </div>
     </div>

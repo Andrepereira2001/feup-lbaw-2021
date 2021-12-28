@@ -107,8 +107,10 @@ class TaskController extends Controller
         $task = Task::find($id);
         $this->authorize('edit', $task);
 
-        // $participation->favourite = ! $participation->favourite ;
-        // $participation->save();
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->priority = $request->priority;
+        $task->save();
 
         return $task;
 

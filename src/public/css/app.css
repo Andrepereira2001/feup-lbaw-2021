@@ -439,22 +439,18 @@ input[type=password]:focus {
     display: none;
 }
 
-#project .taskDone:hover {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
 #project .taskDone .number {
-    width: 35px;
     height: 35px;
+    min-width: 35px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 14px;
+    color: black;
 }
 
-#project .taskDone .number:hover+.name {
+#project .taskDone .number:hover>.name {
     display: flex;
+    margin-left: 10px;
 }
 
 #project .taskDone .name {
@@ -467,7 +463,7 @@ input[type=password]:focus {
 #project-details {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: auto auto auto;
 }
 
 #project-details .info {
@@ -555,7 +551,7 @@ input[type=password]:focus {
 #project-create form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: auto auto auto;
 }
 
 #project-create input {
@@ -648,7 +644,7 @@ input[type=password]:focus {
 #project-edit form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: auto auto auto;
 }
 
 #project-edit input {
@@ -751,7 +747,7 @@ input[type=password]:focus {
 #task-details {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: auto auto auto;
 }
 
 #task-details .info {
@@ -849,7 +845,7 @@ input[type=password]:focus {
 #task-edit form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: auto auto auto;
 }
 
 #task-edit input {

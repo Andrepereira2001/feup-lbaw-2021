@@ -70,7 +70,7 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 // Route::post('tasks', 'TaskController@create'); //create task
 Route::get('tasks/{id}', 'TaskController@show'); //task page
 Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
-// Route::post('tasks/edit/{id}', 'TaskController@'); //edit task
+Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page
 // Route::post('comments', 'CommentController@create'); //create task comment
