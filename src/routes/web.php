@@ -27,7 +27,7 @@ Route::delete('api/item/{id}', 'ItemController@delete');
 
 // (M01) Athentication and Individual Profile
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@authenticate');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
@@ -67,10 +67,13 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 // (M03) Tasks, Comments and Labels
 // Route::get('api/tasks', 'TaskController@'); //get tasks
 // Route::get('tasks', 'TaskController@'); //creation task page
-// Route::post('tasks', 'TaskController@create'); //create task
-Route::get('tasks/{id}', 'TaskController@show'); //task page
+Route::get('tasks/{id}', 'TaskController@show'); //task edit page
+Route::post('tasks', 'TaskController@create'); //creation task page
+Route::post('projects/{project_id}/tasks', 'TaskController@create'); //create task
+Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task page
 Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
 Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
+Route::post('tasks/{id}', 'TaskController@complete'); //complete task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page
 // Route::post('comments', 'CommentController@create'); //create task comment
@@ -105,7 +108,7 @@ Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
 
 
 // (M06) Administration
-// Route::get('admin', 'AdminController@show'); //admin page
+Route::get('admin', 'AdminController@showProjects'); //admin page
 // Route::delete('/users/{id}', 'AdminController@deleteUser'); //admin page
 // Route::post('/api/block/{user_id}', 'AdminController@block'); // block user
 // Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user

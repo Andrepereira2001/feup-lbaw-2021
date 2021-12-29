@@ -38,12 +38,13 @@
       <ul>
         @each('partials.task', $tasksTodo, 'task')
       </ul>
+      <a href="/projects/{{$project->id}}/tasks" class="add-task"><img src={{ asset('img/add.png') }}></a>
     </div>
     <div class="done-box">
       <h2>DONE</h2>
       <ul class="tasksDone">
         {{-- !!! to change to Done --}}
-        @each('partials.taskDone', $tasksTodo, 'task')
+        @each('partials.taskDone', $tasksDone, 'task')
       </ul>
     </div>
     <div class="forum-box">

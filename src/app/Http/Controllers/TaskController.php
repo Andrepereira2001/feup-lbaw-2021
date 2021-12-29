@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Participation;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -20,26 +20,25 @@ class TaskController extends Controller
     public function show($id,Request $request)
     {
       $task = Task::find($id);
+      $project = Project::find($task->id_project);
       $this->authorize('show', $task);
 
       //$search = $request->input('search');
 
-      return view('pages.task', ['task' => $task]);
+      return view('pages.task', ['task' => $task, 'project' => $project]);
     }
 
-    //review
     /**
      * Show task creation form.
      *
      * @return Response
      */
-    public function showCreate(){
+    public function showCreate($project_id){
+        $project = Project::find($project_id);
         $user = Auth::user();
-        //project?
-        return view('pages.task_create', ['user' => $user]);
+        return view('pages.task_create', ['user' => $user, 'project' => $project]);
     }
 
-    //review
     /**
      * Creates a new task.
      *
@@ -53,14 +52,9 @@ class TaskController extends Controller
 
       $task->name = $request->input('name');
       $task->description = $request->input('description');
+      $task->priority = $request->input('priority');
+      $task->id_project = $request->input('projectId');
       $task->save();
-
-      //Save who is task assigned to
-
-    //   $participation->id_user = Auth::user()->id;
-    //   $participation->id_project = $project->id;
-    //   $participation->role = 'Coordinator';
-    //   $participation->save();
 
       return $task;
     }
@@ -115,4 +109,22 @@ class TaskController extends Controller
         return $task;
 
     }
+
+    /**
+     * Complete the id task.
+     *
+     * @param Request $request
+     * @param  int  $id
+     * @return Task the task edited
+     */
+    public function complete(Request $request,$id){
+
+      $task = Task::find($id);
+      $this->authorize('edit', $task);
+
+      $task->finished_at = $request->today;
+      $task->save();
+
+      return $task;
+  }
 }

@@ -44,6 +44,7 @@ CREATE TABLE Admin (
                            CONSTRAINT admin_email_uk UNIQUE,
     password               TEXT NOT NULL,
     name                   TEXT NOT NULL,
+    remember_token         TEXT,
     image_path             TEXT NOT NULL DEFAULT 'img/default'
                            CONSTRAINT a_image_path_uk UNIQUE
 );
@@ -572,6 +573,10 @@ CREATE TRIGGER no_invite_participant
 CREATE FUNCTION task_if_participating() RETURNS TRIGGER AS
 $BODY$
 BEGIN
+        IF NEW.id_user IS NULL
+        THEN RETURN NEW;
+        END IF;
+
         IF NOT EXISTS(SELECT *
                    FROM participation
                    WHERE participation.id_project = NEW.id_project

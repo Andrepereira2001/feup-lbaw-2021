@@ -12,13 +12,13 @@
       {{-- <a href="#" class="delete">&#10761;</a> --}}
     </header>
     <div class="content">
-        @if($project->pivot->role == "Coordinator")
+        @if($project->pivot !== null && $project->pivot->role == "Coordinator")
             <a href="/archive_project"><img src={{ asset('img/cardboard-box.png') }} width="25px"></a>
         @endif
 
-        @if(!$project->pivot->favourite)
+        @if($project->pivot !== null && !$project->pivot->favourite)
             <a href="#" class="fav"><img src={{ asset('img/star.png') }} width="25px"></a>
-        @else
+        @elseif ($project->pivot !== null && $project->pivot->favourite)
             <a href="#" class="fav"><img src={{ asset('img/filed_star.png') }} width="25px"></a>
         @endif
     </div>

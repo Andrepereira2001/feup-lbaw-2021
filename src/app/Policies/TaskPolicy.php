@@ -34,7 +34,7 @@ class TaskPolicy
     //review
     public function create(User $user)
     {
-      // Any user can create a new project
+      // Any user can create a new task
       return Auth::check();
     }
 

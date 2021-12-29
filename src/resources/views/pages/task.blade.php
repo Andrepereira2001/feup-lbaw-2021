@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-{{-- @section('title', $project->name) --}}
-
 <style>
 
     #task-details.id-{{$task->id}} .content{
@@ -16,7 +14,7 @@
 
 @section('content')
 
-  <section id="task-details" class="id-{{$task->id}}">
+  <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
     <div class="info">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">
@@ -45,7 +43,10 @@
         </div>
     </div>
     <div class="buttons">
-        <a href="/tasks/{{$task->id}}/edit/" class="edit">Edit</a>
+        @if($task->finished_at === null)
+            <a href="/tasks/{{$task->id}}/edit/" class="edit">Edit</a>
+            <button type="button" class="complete">Complete</a>
+        @endif
     </div>
   </section>
 

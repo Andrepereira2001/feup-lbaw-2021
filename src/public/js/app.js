@@ -34,6 +34,10 @@ function addEventListeners() {
     if (projectCreator != null)
         projectCreator.addEventListener('submit', sendCreateProjectRequest);
 
+    let taskCreator = document.querySelector('#task-create form.create');
+    if (taskCreator != null)
+        taskCreator.addEventListener('submit', sendCreateTaskRequest);
+
     let projectFavs = document.querySelectorAll('article.project .content a.fav');
     [].forEach.call(projectFavs, function(fav) {
         fav.addEventListener('click', sendFavouriteRequest);
@@ -49,8 +53,12 @@ function addEventListeners() {
 
     let taskEdit = document.querySelector('#task-edit form.edit');
     if (taskEdit != null) {
-        console.log("oi");
         taskEdit.addEventListener('submit', sendEditTaskRequest);
+    }
+
+    let taskComplete = document.querySelector('#task-details button.complete');
+    if (taskComplete != null) {
+        taskComplete.addEventListener('click', sendCompleteTaskRequest);
     }
 
 }
@@ -129,6 +137,19 @@ function sendCreateProjectRequest(event) {
     event.preventDefault();
 }
 
+function sendCreateTaskRequest(event) {
+    event.preventDefault();
+    let projectId = this.querySelector('input[name=project-id]').value;
+    let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let priority = this.querySelector('input[name=priority]').value;
+
+    if (name != '')
+        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId }, taskAddedHandler);
+
+    event.preventDefault();
+}
+
 function sendEditProjectRequest(event) {
     event.preventDefault();
 
@@ -136,8 +157,6 @@ function sendEditProjectRequest(event) {
     let name = this.querySelector('input[name=name]').value;
     let description = this.querySelector('input[name=description]').value;
     let color = this.querySelector('input[name=color]').value;
-
-    console.log(id, name, description, color, "myproject");
 
     if (name != '')
         sendAjaxRequest('post', '/projects/' + id + '/edit', { name, description, color }, projectEditHandler);
@@ -147,22 +166,33 @@ function sendEditProjectRequest(event) {
 
 function sendEditTaskRequest(event) {
     event.preventDefault();
-    console.log("recebi");
 
     let id = this.closest('section').getAttribute('data-id');
     let name = this.querySelector('input[name=name]').value;
     let description = this.querySelector('input[name=description]').value;
     let priority = this.querySelector('input[name=priority]').value;
 
-    console.log(id, name, description, priority, "mytask");
-
     if (name != '')
         sendAjaxRequest('post', '/tasks/' + id + '/edit', { name, description, priority }, taskEditHandler);
 
+}
+
+function sendCompleteTaskRequest(event) {
     event.preventDefault();
+
+    let id = this.closest('section').getAttribute('data-id');
+    let day = new Date().toISOString().slice(0, 10);
+    let time = new Date().toISOString().slice(10, 19);
+    const today = day + time;
+    console.log(today);
+
+    if (id != undefined) //change route
+        sendAjaxRequest('post', '/tasks/' + id, { today }, taskEditHandler);
+
 }
 
 function sendFavouriteRequest(event) {
+    event.preventDefault();
     let id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
 }
@@ -282,6 +312,15 @@ function projectAddedHandler() {
     }
 }
 
+function taskAddedHandler() {
+    const task = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/tasks/' + task.id;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
 function projectEditHandler() {
     const project = JSON.parse(this.responseText);
     if (this.status === 201 || this.status === 200) {
@@ -333,7 +372,6 @@ function projectFavouriteHandler() {
 
 function userEditHandler() {
     const user = JSON.parse(this.responseText);
-    console.log("oi");
     if (this.status === 200) {
         window.location = '/users/profile/' + user.id;
     } else if (this.status !== 201) {

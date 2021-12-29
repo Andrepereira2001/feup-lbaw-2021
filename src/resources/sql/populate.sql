@@ -1,4 +1,4 @@
-insert into Admin (id, email, password, name) values (1, 'admin@admin.com', 'dFOpt7DPBRn', 'Admin');
+insert into Admin (id, email, password, name) values (1, 'admin@admin.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Admin');
 
 
 insert into Users (email, password, name, image_path) values ('mferries0@yellowpages.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Mahalia Ferries', 'img/andre.png');

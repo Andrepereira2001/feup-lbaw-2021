@@ -32,7 +32,7 @@ class ProjectController extends Controller
 
       $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
 
-      $tasksTodo = $tasksTodo->get();
+      $tasksTodo = $project->tasks()->whereNull("finished_at")->get();
 
       return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo]);
     }

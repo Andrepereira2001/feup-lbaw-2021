@@ -31,6 +31,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function isAdmin(){
+        return false;
+    }
+
     /**
      * The cards this user owns.
      */
