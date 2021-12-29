@@ -26,7 +26,7 @@
         </div>
         <div class="filters">
             <div>
-                <input type = "checkbox" id = "favourite" name = "filters[]" value = "favourite" {{$favourite}}/>
+                <input type = "checkbox" id = "favourite" name = "filters[]" class="favourite" value = "favourite" {{$favourite}}/>
                 <label for = "favourite"> Favourite </label>
             </div>
             <div>

@@ -105,9 +105,16 @@ class ProjectController extends Controller
             $projects->orderBy($order);
         endif;
 
+        /*--Todo on click search--*/
+
+        $favouriteProjects = $projects->wherePivot("favourite",true);
+        $archivedProjects = $projects->whereNotNull("archived_at");
+        $coordinatorProjects = $projects->wherePivot("role","Coordinator");
+        $memberProjects = $projects->wherePivot("role","Member");
+
         $projects = $projects->get();
 
-        return view('pages.projects', ['projects' => $projects] + $checkbox);
+        return view('pages.projects', ['projects' => $projects /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
     }
 
     /**

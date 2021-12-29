@@ -113,11 +113,9 @@ Route::get('admin', 'AdminController@showProjects'); //admin page
 // Route::post('/api/block/{user_id}', 'AdminController@block'); // block user
 // Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user
 
-
 // // (M07) Static Pages
-// Route::get('home', 'NonAuthController@show'); //see home page
-// Route::get('about', 'NonAuthController@show'); //see about page
-// Route::get('contact', 'NonAuthController@show'); //see contact page
-// Route::get('service', 'NonAuthController@show'); //see services
+Route::get('home', 'NonAuthController@showHome'); //see home page
+Route::get('about', 'NonAuthController@showAbout'); //see about page
+Route::get('contact', 'NonAuthController@showContact'); //see contact page
+Route::get('services', 'NonAuthController@showService'); //see services
 // Route::get('404', 'NonAuthController@'); //see error page
-

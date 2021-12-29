@@ -25,6 +25,8 @@ function addEventListeners() {
 
     /*----Apenas interessa apartir daqui ---*/
 
+    /*--------------project------------*/
+
     let projectDeleters = document.querySelectorAll('article.project header a.delete');
     [].forEach.call(projectDeleters, function(deleter) {
         deleter.addEventListener('click', sendDeleteProjectRequest);
@@ -33,10 +35,6 @@ function addEventListeners() {
     let projectCreator = document.querySelector('#project-create form.create');
     if (projectCreator != null)
         projectCreator.addEventListener('submit', sendCreateProjectRequest);
-
-    let taskCreator = document.querySelector('#task-create form.create');
-    if (taskCreator != null)
-        taskCreator.addEventListener('submit', sendCreateTaskRequest);
 
     let projectFavs = document.querySelectorAll('article.project .content a.fav');
     [].forEach.call(projectFavs, function(fav) {
@@ -47,9 +45,11 @@ function addEventListeners() {
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
 
-    let userEdit = document.querySelector('#user-edit form.info');
-    if (userEdit != null)
-        userEdit.addEventListener('submit', sendEditUserRequest);
+    /*--------------task------------*/
+
+    let taskCreator = document.querySelector('#task-create form.create');
+    if (taskCreator != null)
+        taskCreator.addEventListener('submit', sendCreateTaskRequest);
 
     let taskEdit = document.querySelector('#task-edit form.edit');
     if (taskEdit != null) {
@@ -61,7 +61,14 @@ function addEventListeners() {
         taskComplete.addEventListener('click', sendCompleteTaskRequest);
     }
 
+    /*--------------user------------*/
+
+    let userEdit = document.querySelector('#user-edit form.info');
+    if (userEdit != null)
+        userEdit.addEventListener('submit', sendEditUserRequest);
 }
+
+/*--------------Utils------------*/
 
 function encodeForAjax(data) {
     if (data == null) return null;
@@ -80,50 +87,12 @@ function sendAjaxRequest(method, url, data, handler) {
     request.send(encodeForAjax(data));
 }
 
-function sendItemUpdateRequest() {
-    let item = this.closest('li.item');
-    let id = item.getAttribute('data-id');
-    let checked = item.querySelector('input[type=checkbox]').checked;
-
-    sendAjaxRequest('post', '/api/item/' + id, { done: checked }, itemUpdatedHandler);
-}
-
-function sendDeleteItemRequest() {
-    let id = this.closest('li.item').getAttribute('data-id');
-
-    sendAjaxRequest('delete', '/api/item/' + id, null, itemDeletedHandler);
-}
-
-function sendCreateItemRequest(event) {
-    let id = this.closest('article').getAttribute('data-id');
-    let description = this.querySelector('input[name=description]').value;
-
-    if (description != '')
-        sendAjaxRequest('put', '/api/cards/' + id, { description: description }, itemAddedHandler);
-
-    event.preventDefault();
-}
-
-function sendDeleteCardRequest(event) {
-    let id = this.closest('article').getAttribute('data-id');
-
-    sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
-}
-
-function sendCreateCardRequest(event) {
-    let name = this.querySelector('input[name=name]').value;
-
-    if (name != '')
-        sendAjaxRequest('put', '/api/cards/', { name: name }, cardAddedHandler);
-
-    event.preventDefault();
-}
+/*--------------Project------------*/
 
 function sendDeleteProjectRequest(event) {
     let id = this.closest('article').getAttribute('data-id');
 
     sendAjaxRequest('delete', '/api/projects/' + id, null, projectDeletedHandler);
-
 }
 
 function sendCreateProjectRequest(event) {
@@ -133,19 +102,6 @@ function sendCreateProjectRequest(event) {
 
     if (name != '')
         sendAjaxRequest('post', '/projects/', { name, description, color }, projectAddedHandler);
-
-    event.preventDefault();
-}
-
-function sendCreateTaskRequest(event) {
-    event.preventDefault();
-    let projectId = this.querySelector('input[name=project-id]').value;
-    let name = this.querySelector('input[name=name]').value;
-    let description = this.querySelector('input[name=description]').value;
-    let priority = this.querySelector('input[name=priority]').value;
-
-    if (name != '')
-        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId }, taskAddedHandler);
 
     event.preventDefault();
 }
@@ -160,6 +116,42 @@ function sendEditProjectRequest(event) {
 
     if (name != '')
         sendAjaxRequest('post', '/projects/' + id + '/edit', { name, description, color }, projectEditHandler);
+
+    event.preventDefault();
+}
+
+function sendFavouriteRequest(event) {
+    event.preventDefault();
+    let id = this.closest('article').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
+}
+
+function sendFavouritesProjectRequest(event) {
+    event.preventDefault();
+    console.log("cheguei");
+
+    let id = this.closest('section').getAttribute('data-id');
+    let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let color = this.querySelector('input[name=color]').value;
+
+    if (name != '')
+        sendAjaxRequest('post', '/projects/' + id + '/edit', { name, description, color }, projectEditHandler);
+
+    event.preventDefault();
+}
+
+/*--------------Task------------*/
+
+function sendCreateTaskRequest(event) {
+    event.preventDefault();
+    let projectId = this.querySelector('input[name=project-id]').value;
+    let name = this.querySelector('input[name=name]').value;
+    let description = this.querySelector('input[name=description]').value;
+    let priority = this.querySelector('input[name=priority]').value;
+
+    if (name != '')
+        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId }, taskAddedHandler);
 
     event.preventDefault();
 }
@@ -191,11 +183,7 @@ function sendCompleteTaskRequest(event) {
 
 }
 
-function sendFavouriteRequest(event) {
-    event.preventDefault();
-    let id = this.closest('article').getAttribute('data-id');
-    sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
-}
+/*--------------User------------*/
 
 function sendEditUserRequest(event) {
 
@@ -214,6 +202,118 @@ function sendEditUserRequest(event) {
 }
 
 /* HANDLERS */
+
+/*--------------Project------------*/
+
+function projectDeletedHandler() {
+    if (this.status != 200) window.location = '/';
+    let project = JSON.parse(this.responseText);
+    let article = document.querySelector('article.project[data-id="' + project.id + '"]');
+    article.remove();
+}
+
+function projectAddedHandler() {
+    const project = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/projects/' + project.id;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+function projectEditHandler() {
+    const project = JSON.parse(this.responseText);
+    if (this.status === 201 || this.status === 200) {
+        window.location = '/projects/' + project.id + '/details';
+    } else {
+        window.location = '/';
+    }
+}
+
+function projectFavouriteHandler() {
+    if (this.status != 200) window.location = '/';
+
+    let participation = JSON.parse(this.responseText);
+    const img = document.querySelector('article.project[data-id="' + participation.id_project + '"] .content .fav img');
+
+    if (img.getAttribute('src').includes("filed_star")) {
+        img.setAttribute('src', window.location.origin + '/img/star.png');
+    } else {
+        img.setAttribute('src', window.location.origin + '/img/filed_star.png');
+    }
+}
+
+/*--------------Task------------*/
+
+function taskAddedHandler() {
+    const task = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/tasks/' + task.id;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+function taskEditHandler() {
+    const task = JSON.parse(this.responseText);
+    if (this.status === 201 || this.status === 200) {
+        window.location = '/tasks/' + task.id;
+    } else {
+        window.location = '/';
+    }
+}
+
+/*--------------User------------*/
+
+function userEditHandler() {
+    const user = JSON.parse(this.responseText);
+    if (this.status === 200) {
+        window.location = '/users/profile/' + user.id;
+    } else if (this.status !== 201) {
+        window.location = '/';
+    }
+}
+
+/*Acho que nao interessa APARTIR DAQUI */
+function createItem(item) {
+    let new_item = document.createElement('li');
+    new_item.classList.add('item');
+    new_item.setAttribute('data-id', item.id);
+    new_item.innerHTML = `
+  <label>
+    <input type="checkbox"> <span>${item.description}</span><a href="#" class="delete">&#10761;</a>
+  </label>
+  `;
+
+    new_item.querySelector('input').addEventListener('change', sendItemUpdateRequest);
+    new_item.querySelector('a.delete').addEventListener('click', sendDeleteItemRequest);
+
+    return new_item;
+}
+
+// function projectAddedHandler() {
+//     if (this.status != 200) {
+//       window.location = '/';
+//     }
+//     let proj = JSON.parse(this.responseText);
+
+//     // Create the new card
+//     let new_proj = createProject(proj);
+
+//     // Reset the new card input
+//     let form = document.querySelector('article.project form.new_project');
+//     form.querySelector('[type=text]').value="";
+
+//    // Insert the new card
+//     let article = form.parentElement;
+//     let section = article.parentElement;
+//     section.insertBefore(new_proj, article);
+
+//     // Focus on adding an item to the new card
+//     new_proj.querySelector('[type=text]').focus();
+// }
+
+/* NAO INTERESSA */
 
 function itemUpdatedHandler() {
     let item = JSON.parse(this.responseText);
@@ -296,109 +396,44 @@ function createCard(card) {
     return new_card;
 }
 
-function projectDeletedHandler() {
-    if (this.status != 200) window.location = '/';
-    let project = JSON.parse(this.responseText);
-    let article = document.querySelector('article.project[data-id="' + project.id + '"]');
-    article.remove();
+function sendItemUpdateRequest() {
+    let item = this.closest('li.item');
+    let id = item.getAttribute('data-id');
+    let checked = item.querySelector('input[type=checkbox]').checked;
+
+    sendAjaxRequest('post', '/api/item/' + id, { done: checked }, itemUpdatedHandler);
 }
 
-function projectAddedHandler() {
-    const project = JSON.parse(this.responseText);
-    if (this.status === 201) {
-        window.location = '/projects/' + project.id;
-    } else if (this.status !== 200) {
-        window.location = '/';
-    }
+function sendDeleteItemRequest() {
+    let id = this.closest('li.item').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/item/' + id, null, itemDeletedHandler);
 }
 
-function taskAddedHandler() {
-    const task = JSON.parse(this.responseText);
-    if (this.status === 201) {
-        window.location = '/tasks/' + task.id;
-    } else if (this.status !== 200) {
-        window.location = '/';
-    }
+function sendCreateItemRequest(event) {
+    let id = this.closest('article').getAttribute('data-id');
+    let description = this.querySelector('input[name=description]').value;
+
+    if (description != '')
+        sendAjaxRequest('put', '/api/cards/' + id, { description: description }, itemAddedHandler);
+
+    event.preventDefault();
 }
 
-function projectEditHandler() {
-    const project = JSON.parse(this.responseText);
-    if (this.status === 201 || this.status === 200) {
-        window.location = '/projects/' + project.id + '/details';
-    } else {
-        window.location = '/';
-    }
+function sendDeleteCardRequest(event) {
+    let id = this.closest('article').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
 }
 
-function taskEditHandler() {
-    const task = JSON.parse(this.responseText);
-    if (this.status === 201 || this.status === 200) {
-        window.location = '/tasks/' + task.id;
-    } else {
-        window.location = '/';
-    }
+function sendCreateCardRequest(event) {
+    let name = this.querySelector('input[name=name]').value;
+
+    if (name != '')
+        sendAjaxRequest('put', '/api/cards/', { name: name }, cardAddedHandler);
+
+    event.preventDefault();
 }
 
-
-function createItem(item) {
-    let new_item = document.createElement('li');
-    new_item.classList.add('item');
-    new_item.setAttribute('data-id', item.id);
-    new_item.innerHTML = `
-  <label>
-    <input type="checkbox"> <span>${item.description}</span><a href="#" class="delete">&#10761;</a>
-  </label>
-  `;
-
-    new_item.querySelector('input').addEventListener('change', sendItemUpdateRequest);
-    new_item.querySelector('a.delete').addEventListener('click', sendDeleteItemRequest);
-
-    return new_item;
-}
-
-function projectFavouriteHandler() {
-    if (this.status != 200) window.location = '/';
-
-    let participation = JSON.parse(this.responseText);
-    const img = document.querySelector('article.project[data-id="' + participation.id_project + '"] .content .fav img');
-
-    if (img.getAttribute('src').includes("filed_star")) {
-        img.setAttribute('src', window.location.origin + '/img/star.png');
-    } else {
-        img.setAttribute('src', window.location.origin + '/img/filed_star.png');
-    }
-}
-
-
-function userEditHandler() {
-    const user = JSON.parse(this.responseText);
-    if (this.status === 200) {
-        window.location = '/users/profile/' + user.id;
-    } else if (this.status !== 201) {
-        window.location = '/';
-    }
-}
-
-// function projectAddedHandler() {
-//     if (this.status != 200) {
-//       window.location = '/';
-//     }
-//     let proj = JSON.parse(this.responseText);
-
-//     // Create the new card
-//     let new_proj = createProject(proj);
-
-//     // Reset the new card input
-//     let form = document.querySelector('article.project form.new_project');
-//     form.querySelector('[type=text]').value="";
-
-//    // Insert the new card
-//     let article = form.parentElement;
-//     let section = article.parentElement;
-//     section.insertBefore(new_proj, article);
-
-//     // Focus on adding an item to the new card
-//     new_proj.querySelector('[type=text]').focus();
-// }
 
 addEventListeners();

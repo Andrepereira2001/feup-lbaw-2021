@@ -50,6 +50,227 @@ main>header span {
 }
 
 
+/* static */
+
+#static header {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 2rem;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+#static img {
+    width: 100%;
+    height: auto;
+}
+
+#static a.button {
+    background-color: #dedede;
+    border: transparent;
+    text-align: center;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    padding: 0 1.5rem;
+    height: 4rem;
+}
+
+#static span {
+    font-size: 1vw;
+    font-weight: 50;
+    color: black;
+    font-size: 30px;
+    letter-spacing: normal;
+    text-transform: lowercase;
+}
+
+
+/* about */
+
+#about {
+    margin-top: 4em;
+}
+
+#about h1 {
+    position: absolute;
+    top: 25rem;
+    left: 26vw;
+    font-size: 12vw;
+    font-weight: 700;
+}
+
+#about .line {
+    margin-top: 2em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 12px;
+}
+
+#about .grid-container {
+    margin-left: 15vw;
+    margin-right: 15vw;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#about a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about img {
+    width: 80%;
+    height: auto;
+}
+
+#about .title2 {
+    margin-top: 1vh;
+    font-size: 3.4vw;
+    text-align: center;
+    color: #595656;
+}
+
+#about .text {
+    line-height: normal;
+    font-size: 2vw;
+    text-align: center;
+    background-color: #dedede;
+    border-radius: 20px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding-top: 3em;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 3em;
+}
+
+
+/* services */
+
+#services {
+    margin-top: 4em;
+}
+
+#services h1 {
+    position: absolute;
+    top: 25rem;
+    left: 26vw;
+    font-size: 12vw;
+    font-weight: 700;
+}
+
+#services .line {
+    margin-top: 2em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 12px;
+}
+
+#services .grid-container {
+    margin-left: 15vw;
+    margin-right: 15vw;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#services a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services .img {
+    width: 80%;
+    height: auto;
+}
+
+#services .box {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    background-color: #DEDEDE;
+    border-radius: 10px;
+    margin-left: 2em;
+    margin-left: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#services .box.img {
+    display: flex;
+    padding-left: 2em;
+}
+
+#services span.description {
+    color: #000000;
+    font-size: 2vw;
+    align-items: center;
+    text-align: center;
+}
+
+
 /* cards */
 
 #cards {
@@ -1251,4 +1472,8 @@ i {
     display: none;
 }
 
-c
+u2hmargin-right:;
+ghe-xs#services .box.mg
+/* cards */
+
+e:2220r#i
