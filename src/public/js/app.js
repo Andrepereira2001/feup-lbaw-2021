@@ -211,6 +211,9 @@ function sendEditUserRequest(event) {
             this.querySelector('#error').style.display = "flex";
         }
     }
+    else {
+        this.querySelector('#error').style.display = "flex";
+    }
 }
 
 /* HANDLERS */
