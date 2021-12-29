@@ -39,18 +39,18 @@
                     </div>
                     <div class="pass">
                         <label for="password">Password</label>
-                        <input id="password" type="password" name="password" value="{{$user->password}}">
-                        <i class="far fa-eye" id="togglePassword"></i>
+                        <input id="password" type="password" name="password">
+                        <i class="far fa-eye" id="togglePassword" onmousedown ="document.getElementById('password').type='text';" onmouseup="document.getElementById('password').type='password';"></i>
                     </div>
                     <div class="pass">
                         <label for="cPassword">Confirm Password</label>
-                        <input id="cPassword" type="password" name="cPassword" value="{{$user->password}}">
-                        <i class="far fa-eye" id="togglePassword"></i>
+                        <input id="cPassword" type="password" name="cPassword">
+                        <i class="far fa-eye" id="togglePassword"  onmousedown ="document.getElementById('cPassword').type='text';" onmouseup="document.getElementById('cPassword').type='password';" ></i>
                     </div>
                 </section>
-                <div>
-                    <button class="editButtons save" type="submit">Save</button>
-                    <a class="editButtons cancel" href="/users/profile/{{$user->id}}">Cancel</a>
+                <div class="editButtons">
+                    <button class="save" type="submit">Save</button>
+                    <a class="cancel" href="/users/profile/{{$user->id}}">Cancel</a>
                 </div>
                 <span id="error">Error</span>
             </form>
