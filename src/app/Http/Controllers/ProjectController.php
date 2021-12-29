@@ -107,10 +107,10 @@ class ProjectController extends Controller
 
         /*--Todo on click search--*/
 
-        $favouriteProjects = $projects->wherePivot("favourite",true);
-        $archivedProjects = $projects->whereNotNull("archived_at");
-        $coordinatorProjects = $projects->wherePivot("role","Coordinator");
-        $memberProjects = $projects->wherePivot("role","Member");
+        // $favouriteProjects = $projects->wherePivot("favourite",true);
+        // $archivedProjects = $projects->whereNotNull("archived_at");
+        // $coordinatorProjects = $projects->wherePivot("role","Coordinator");
+        // $memberProjects = $projects->wherePivot("role","Member");
 
         $projects = $projects->get();
 

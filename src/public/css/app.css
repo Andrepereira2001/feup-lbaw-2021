@@ -482,7 +482,7 @@ input[type=password]:focus {
     height: 30px;
     color: white;
     text-align: center;
-    background-image: url('colors.png');
+    background-image: url('../img/colors.png');
     background-size: cover;
 }
 
