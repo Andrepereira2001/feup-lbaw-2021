@@ -43,10 +43,6 @@
                         <input id="email" type="text" name="email" value="{{$user->email}}" disabled>
                     </div>
                     <div>
-                        <label for="password">Password</label>
-                        <input id="password" type="password" name="password" value="{{$user->password}}" disabled>
-                    </div>
-                    <div>
                         <a href="/users/profile/{{Auth::user()->id}}/update"><img src={{ asset('img/edit.png') }} class="editIcon"></a>
                     </div>
                 </section>

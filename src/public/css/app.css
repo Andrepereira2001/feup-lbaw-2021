@@ -133,7 +133,6 @@ main>header span {
     margin: 0 auto;
     padding: 1em;
     max-width: 20em;
-    border: 1px solid #d2afe7;
 }
 
 #content>form .error {
@@ -216,6 +215,72 @@ input[type=password]:focus {
 }
 
 
+/* login */
+
+#login {
+    all: unset;
+    display: flex;
+    box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    padding-top: 100px;
+    background: rgba(232, 232, 232, 0.9);
+    border-radius: 20px;
+}
+
+#login .loginPhoto {
+    position: relative;
+    width: 100px;
+    bottom: 50px;
+}
+
+#login .loginEmail,
+#login .loginPassword {
+    position: relative;
+    bottom: 20px;
+}
+
+
+#login .loginEmail .loginUser,
+#login .loginPassword .loginPasswordImg{
+    position: absolute;
+    width: 30px;
+    left: 7px;
+    top: 7px;
+}
+
+#login .loginEmail #email,
+#login #password{
+    padding: 0 45px;
+}
+
+#login .loginButton {
+    all: unset;
+    border-radius: 5px;
+    width: 90%;
+    height: 30px;
+    color: white;
+    text-align: center;
+    background-image:url('colors.png');
+    background-size:cover;
+}
+
+#login .registerHere,
+.registerHereSpan,
+.remeberMe{
+    font-size: small;
+}
+
+#login .remeberMe{
+    align-self: start;
+    justify-self: center;
+    margin-left: 20px;
+}
+
+#login .remeberMe input{
+    margin-top: 10px;
+}
 /* projects */
 
 #projects form {
@@ -1094,6 +1159,7 @@ input[type=password]:focus {
     margin-bottom: 10px;
 }
 
+/*FROM USER*/
 
 /* Style the links inside the sidenav */
 
@@ -1145,20 +1211,6 @@ input[type=password]:focus {
     border-radius: 100%;
     display: inline-block;
 }
-
-
-/* #view {
-    display: auto;
-}
-
-#edit {
-    display: none;
-} */
-
-
-/* .profilePhoto {
-    width: 100px;
-} */
 
 .userInfo form {
     width: 370px;
@@ -1216,8 +1268,18 @@ i {
 }
 
 .editButtons {
-    padding: 0;
     float: left;
+}
+
+.save {
+    all: unset;
+    border-radius: 40px;
+    border: 1px solid #C0F2EC;
+    width: 70px;
+    height: 30px;
+    vertical-align: middle;
+    color: white;
+    background-color: rgba(38, 197, 179, 0.7);
 }
 
 .save:hover {
@@ -1225,10 +1287,12 @@ i {
     background-color: #26C5B3;
 }
 
-.cancel {
+.editButtons .cancel {
+    all: unset;
+    display: inline-block;
     border-radius: 40px;
     border: 1px solid #C0F2EC;
-    width: 20%;
+    width: 70px;
     height: 30px;
     vertical-align: middle;
     color: white;
@@ -1236,7 +1300,6 @@ i {
 }
 
 .cancel:hover {
-    border: 1px solid #C0F2EC;
     background-color: #A5B0AF;
 }
 
@@ -1249,6 +1312,6 @@ i {
 
 #error {
     display: none;
+    font-size: small;
+    color: red;
 }
-
-c
