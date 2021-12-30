@@ -1782,21 +1782,19 @@ main>header span {
 /* Style the links inside the sidenav */
 
 
-#user .user {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+#user .user,
+#user-edit .user {
+    display: flex;
+    flex-flow: row;
 }
 
-#user #sidenav {
+#sidenav {
     display: flex;
     position: relative;
     flex-flow: column;
-    grid-row: 1/2;
-    grid-column: 1/2;
 }
 
-#user #sidenavleft {
+#sidenavleft {
     padding: 25px 0;
     display: flex;
     flex-flow: row;
@@ -1805,7 +1803,7 @@ main>header span {
     border-right: 1px solid grey;
 }
 
-#user #sidenavleft a {
+#sidenavleft a {
     position: absolute;
     padding: 12px;
     width: 140px;
@@ -1817,11 +1815,11 @@ main>header span {
     right: 0;
 }
 
-#user #sidenavleft:hover {
+#sidenavleft:hover {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-#user .arrow {
+.arrow {
     position: absolute;
     left: 115px;
     margin-top: 5px;
@@ -1829,7 +1827,8 @@ main>header span {
     opacity: 90%;
 }
 
-#user .userInfo {
+#user .userInfo,
+#user-edit .userInfo {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
@@ -1837,8 +1836,6 @@ main>header span {
     align-items: center;
     flex-flow: column;
     margin: 0px auto;
-    grid-row: 1/2;
-    grid-column: 1/2;
 }
 
 .selected-view,
@@ -1848,25 +1845,29 @@ main>header span {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-#user .info {
+#user .info,
+#user-edit .info {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     margin: 55px auto;
+    /* width: 100px; */
 }
 
-#user .profilePhoto {
-    width: 100px;
-    height: 100px;
+#user .profilePhoto,
+#user-edit .profilePhoto {
+    width: 150px;
+    height: 150px;
     background-color: #62D2C5;
     border: 0px;
     border-radius: 100%;
 }
 
-#user .writtenInfo {
+#user .writtenInfo,
+#user-edit .writtenInfo {
     margin-top: 30px;
-    width: 300px;
+    width: 350px;
 }
 
 #user form section {
@@ -1876,7 +1877,8 @@ main>header span {
 }
 
 #user .full,
-#user .full1 {
+#user .full1,
+#user-edit section div {
     display: flex;
     flex-flow: column;
 }
@@ -1884,10 +1886,12 @@ main>header span {
 #user .full1 {
     margin-top: 10px;
 }
-#user label {
+
+#user label,
+#user-edit label {
     text-align: left;
     color: #949494;
-    font-size: smaller;
+    font-size: small;
 }
 
 #user input {
@@ -1895,6 +1899,21 @@ main>header span {
     background-color: #F2FEFD;
     border-radius: 3px;
     border-color: transparent;
+    height: 40px;
+    font-size: medium;
+}
+
+#user-edit input {
+    color: #383838;
+    background-color: #F2FEFD;
+    border-radius: 3px;
+    border-color: transparent;
+    height: 40px;
+    font-size: medium;
+}
+
+#user-edit #name:focus {
+    border: 2px solid #C0F2EC;
 }
 
 #user .full input {
@@ -1907,44 +1926,52 @@ main>header span {
 }
 
 
-.userInfo form section div input:focus {
-    border-width: 2px;
-    border-color: #C0F2EC;
-}
-
-
-
-
-
 #user .editIcon {
     float: right;
-    width: 8%;
+    width: 10%;
     cursor: pointer;
     margin-top: 10px;
 }
 
-.pass {
+
+
+
+
+
+
+
+#user-edit .eye {
+    display: flex;
+    flex-flow: row;
     position: relative;
 }
 
-i {
+#user-edit i {
     position: absolute;
-    margin-left: -30px;
-    top: 48%;
     cursor: pointer;
+    top: 50%;
+    right: 0px;
     opacity: 60%;
 }
 
-.editIconBlue {
+#user-edit .userIcon {
+    position: relative;
+}
+
+#user-edit .editIconBlue {
     position: absolute;
-    left: 55%;
-    top: 17%;
-    width: 8%;
+    right: 0;
+    bottom: 0;
+    width: 25%;
     cursor: pointer;
 }
 
 .editButtons {
-    float: left;
+    position: relative;
+    margin-right: auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
 }
 
 .save {
@@ -1953,7 +1980,7 @@ i {
     border: 1px solid #C0F2EC;
     width: 70px;
     height: 30px;
-    vertical-align: middle;
+    text-align: center;
     color: white;
     background-color: rgba(38, 197, 179, 0.7);
 }
@@ -1965,12 +1992,12 @@ i {
 
 .editButtons .cancel {
     all: unset;
-    display: inline-block;
+    /* display: inline-block; */
     border-radius: 40px;
     border: 1px solid #C0F2EC;
     width: 70px;
     height: 30px;
-    vertical-align: middle;
+    text-align: center;
     color: white;
     background-color: rgba(165, 176, 175, 0.7);
 }
