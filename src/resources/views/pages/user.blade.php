@@ -5,6 +5,8 @@
 @section('content')
 
 <section id="user">
+    @include('partials.popupLogout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
+    @include('partials.popupDelete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <article class="user">
         <div id="sidenav" class="sidenav">
@@ -17,11 +19,11 @@
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
-                <a href="/users/profile/{{$user->id}}/delete" id="delete">Delete Profile
+                <a data-toggle="modal" data-target="#delete">Delete Profile
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
-                <a href="{{ url('/logout') }}">Logout
+                <a data-toggle="modal" data-target="#logout">Logout
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>

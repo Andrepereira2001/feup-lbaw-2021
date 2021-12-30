@@ -1,0 +1,13 @@
+<div class="modal fade" id={{$name}} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{$title}}</h4>
+        </div>
+        <div class="modal-footer">
+            <a class="btn confirm" href="{{ url('/logout') }}">Logout</a>
+            <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -5,6 +5,8 @@
 @section('content')
 
 <section id="user-edit">
+    @include('partials.popupLogout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
+    @include('partials.popupDelete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <article class="user" data-id="{{$user->id}}">
         <div id="sidenav" class="sidenav">
@@ -17,11 +19,11 @@
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
-                <a href="/users/profile/{{$user->id}}/delete" id="delete">Delete Profile
+                <a data-toggle="modal" data-target="#delete">Delete Profile
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
-                <a href="{{ url('/logout') }}">Logout
+                <a data-toggle="modal" data-target="#logout">Logout
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
@@ -37,7 +39,7 @@
                 <section class="writtenInfo">
                     <div>
                         <label for="name">Name</label>
-                        <input id="name" type="text" name="name" value="{{$user->name}}"/>
+                        <input class="focusName" id="name" type="text" name="name" value="{{$user->name}}"/>
                     </div>
                     <div>
                         <label for="email">Email</label>
@@ -49,6 +51,7 @@
                             <input id="password" type="password" name="password">
                             <i class="far fa-eye" id="togglePassword" onmousedown ="document.getElementById('password').type='text';" onmouseup="document.getElementById('password').type='password';"></i>
                         </div>
+
                     </div>
                     <div class="pass">
                         <label for="cPassword">Confirm Password</label>
@@ -58,11 +61,13 @@
                         </div>
                     </div>
                 </section>
-                <div class="editButtons">
-                    <button class="save" type="submit">Save</button>
-                    <a class="cancel" href="/users/profile/{{$user->id}}">Cancel</a>
+                <div class="submitEdit">
+                    <span id="error">Error, change the data and try again</span>
+                    <div class="editButtons">
+                        <button class="save" type="submit">Save</button>
+                        <a class="cancel" href="/users/profile/{{$user->id}}">Cancel</a>
+                    </div>
                 </div>
-                <span id="error">Error</span>
             </form>
         </div>
     </article>
