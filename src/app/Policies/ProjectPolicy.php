@@ -12,6 +12,18 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
+    // public function show(Project $project)
+    // {
+    //     // Only a participating member can see it
+    //     // if (Auth::guard('admin')->user()) return true;
+
+    //     foreach ($project->users as $val) {
+    //         if (Auth::user()->id == $val->id)
+    //             return true;
+    //     }
+    //     return false;
+    // }
+
     public function show(User $user, Project $project)
     {
         // Only a participating member can see it

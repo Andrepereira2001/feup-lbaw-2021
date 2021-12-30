@@ -8,8 +8,8 @@
     <a class="item-rosa"><img src={{ asset('img/pink_project_box.png') }}></a>
     <a class="item-azul"><img src={{ asset('img/blue_project_box.png') }}></a>
     <a class="item-verde"><img src={{ asset('img/green_project_box.png') }}></a>
+    <h1 class="title">Services</h1>
   </div>
-  <h1 class="title">Services</h1>
   <div class="line"></div>
   <div class="enumeration">
     <div class="box"><img src={{ asset('img/blue_project_box.png') }} width="65px"><span class="description"> At toEaseManage, all users can create or be part of many projects.</span></div>

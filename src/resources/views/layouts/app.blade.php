@@ -11,6 +11,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -20,16 +25,25 @@
     </script>
     <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
     <script type="text/javascript" src={{ asset('js/scripts.js') }} defer></script>
+
   </head>
   <body>
     <main>
-      <header>
+      <header id="header">
         <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
+        <script>
+          document.getElementById("header").style.borderBottom = "6px solid #A1A1A1";
+        </script>
         <section class="buttons">
           <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
           <a class="button" href="/users/profile/{{Auth::user()->id}}"> <span> {{ Auth::user()->name[0]}}</span> </a>
         </section>
+        @elseif (Auth::guard('admin')->check())
+          <script>
+            document.getElementById("header").style.borderBottom = "6px solid #A1A1A1";
+          </script>
+          <a class="logout" href="{{ url('/logout') }}">Logout</a>
         @endif
       </header>
       <section id="content">

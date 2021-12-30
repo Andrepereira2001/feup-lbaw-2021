@@ -14,12 +14,22 @@
 
 @section('content')
 
+<?php
+    $date = "";
+    if($task->due_date != null)
+        $date =substr($task->due_date, 0, 10);
+
+?>
+
   <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
     <div class="info">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">
             <span class="description">{{ $task->description }}</span>
-            <span class="priority">Priority: {{ $task->priority }}</span>
+            <div class="config">
+                <span class="date" type="date">Due Date: {{$date }}</span>
+                <span class="priority">Priority: {{ $task->priority }}</span>
+            </div>
         </div>
     </div>
     <div class="coordinators">

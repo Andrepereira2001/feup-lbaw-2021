@@ -10,6 +10,7 @@ use App\Models\Card;
 
 class CardController extends Controller
 {
+
     /**
      * Shows the card for a given id.
      *

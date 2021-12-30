@@ -9,6 +9,8 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
+    protected $table ='admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,7 +33,5 @@ class Admin extends Authenticatable
         return true;
     }
 
-
-    protected $table ='admin';
     public $timestamps = false;
 }

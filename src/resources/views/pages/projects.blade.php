@@ -5,13 +5,11 @@
 @section('content')
 
 <section id="projects">
-    <!-- Button trigger modal -->
-
     <form class="search">
         <div class="order">
             <div>
-                <input type="text" id = "search" name="search" placeholder="project name"/>
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
+                <input type="text" id = "search" name="search" placeholder="Search for Project"/>
             </div>
 
             <div>

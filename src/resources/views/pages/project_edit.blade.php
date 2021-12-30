@@ -13,8 +13,8 @@
     <section id="project-edit" class="id-{{$project->id}}" data-id={{$project->id}} >
         <form class="edit">
             <div class="info">
-                <input class="name" type="text" placeholder="Project Name..." name="name" size="30" value={{$project->name}}>
-                <input type="text" placeholder="Add a description..." name="description" value={{$project->description}}>
+                <input class="name" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
+                <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$project->description}}">
                 <input class="color" type="color" name="color" value={{$project->color}}>
             </div>
             <div class="coordinators">

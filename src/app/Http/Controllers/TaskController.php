@@ -54,6 +54,13 @@ class TaskController extends Controller
       $task->description = $request->input('description');
       $task->priority = $request->input('priority');
       $task->id_project = $request->input('projectId');
+      $date = $request->input('dueDate');
+      if($date != ""){
+        $date = explode('-', $date);
+        $date = implode('/',$date);
+        $task->due_date = $date;
+      }
+
       $task->save();
 
       return $task;
@@ -104,10 +111,16 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->description = $request->description;
         $task->priority = $request->priority;
+        $date = $request->input('dueDate');
+        if($date != ""){
+            $date = explode('-', $date);
+            $date = implode('/',$date);
+            $task->due_date = $date;
+        }
+
         $task->save();
 
         return $task;
-
     }
 
     /**

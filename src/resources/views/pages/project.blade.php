@@ -31,8 +31,8 @@
       <div class="todo-search">
         <h2>TO-DO</h2>
         <form>
-          <input type="text" id="task-search" name="search" placeholder="Task"/>
           <label for="task-search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
+          <input type="text" id="task-search" name="search" placeholder="Search for Task"/>
         </form>
       </div>
       <ul>
@@ -48,7 +48,7 @@
       </ul>
     </div>
     <div class="forum-box">
-      <h2>Forum</h2>
+      <h2>FORUM</h2>
     </div>
   </section>
 

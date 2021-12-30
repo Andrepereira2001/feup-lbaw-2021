@@ -36,7 +36,23 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
       $user = User::findOrFail($id);
-      $user->update($request->except(['_token']));
+      // 'name' => $data['name'],
+      //       'email' => $data['email'],
+      //       'password' => bcrypt($data['password']),
+      // echo $request;
+      if ($request->input('password')) {
+        $user->password = bcrypt($request->input('password'));
+      }
+
+      if ($request->input('name')) {
+        $user->name = $request->input('name');
+      }
+
+      if ($request->input('email')) {
+        $user->email = $request->input('email');
+      }
+
+      $user->save();
 
       return $user;
     }
@@ -50,4 +66,24 @@ class UserController extends Controller
 
       return $user;
     }
+
+    public function search(Request $request)
+    {
+
+        $search = $request->search;
+        $notInProject = $request->notInProject;
+
+        if($notInProject){
+            $users = User::whereDoesntHave('projects', function($p) use($notInProject){
+                $p->where('participation.id_project',$notInProject);;
+            });
+        }
+        if($search){
+            $users->where('name', 'ILIKE', "%${search}%")->orderBy('name', 'asc');
+        }
+
+
+      return $users->get();
+    }
+
 }

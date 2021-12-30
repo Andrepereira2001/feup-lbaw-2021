@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', 'Auth\LoginController@getUser');
+// Route::middleware('auth:api')->get('/admin', 'Auth\LoginController@getUser');

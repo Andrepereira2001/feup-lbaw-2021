@@ -17,7 +17,11 @@
 
 @section('content')
 
-  <section id="project-details" class="id-{{$project->id}}">
+<section id="project-details" class="id-{{$project->id}}">
+    @include('partials.popup',['name' => "leave-project", 'title' => "Are you sure you want to leave project?",'project_id' => $project->id])
+    @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
+    @include('partials.add_popup',['name' => "add-coordinator", 'title' => "Add Coordinator",'project_id' => $project->id, 'add_text' => 'Add', 'users' => $project->users()->wherePivot("role","Member")->get()])
+    @include('partials.add_popup',['name' => "invite-member", 'title' => "Invite member",'project_id' => $project->id, 'add_text' => 'Invite', 'users' => $noMembers])
     <div class="info">
         <h1>{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>
@@ -26,12 +30,14 @@
       <span>Coordinators</span>
       <div class="content">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
+        <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }}></button>
       </div>
     </div>
     <div class="members">
         <span>Members</span>
         <div class="content">
             @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+            <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }}></button>
         </div>
     </div>
     <div class="labels">
@@ -44,8 +50,10 @@
     <div class="buttons">
         @if ($isCoordinator)
         <a href="/projects/{{$project->id}}/edit/" class="edit">Edit</a>
+        <button type="button" class="delete" data-toggle="modal" data-target="#delete-project">Delete</button>
         @endif
-        <button type="button" class="leave">Leave</button>
+        <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
+
     </div>
 
   </section>

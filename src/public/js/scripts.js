@@ -27,9 +27,14 @@ function addEventListeners() {
 
     /*--------------project------------*/
 
-    let projectDeleters = document.querySelectorAll('article.project header a.delete');
+    let projectDeleters = document.querySelectorAll('#delete-project .confirm');
     [].forEach.call(projectDeleters, function(deleter) {
         deleter.addEventListener('click', sendDeleteProjectRequest);
+    });
+
+    let participationDeleters = document.querySelectorAll('#leave-project .confirm');
+    [].forEach.call(participationDeleters, function(deleter) {
+        deleter.addEventListener('click', sendDeleteParticipationRequest);
     });
 
     let projectCreator = document.querySelector('#project-create form.create');
@@ -44,6 +49,11 @@ function addEventListeners() {
     let projectEdit = document.querySelector('#project-edit form.edit');
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
+
+    let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
+    [].forEach.call(projectUserAddSearch, function(search) {
+        search.addEventListener('change', projectUserAddSearchChange);
+    });
 
     /*--------------task------------*/
 
@@ -66,6 +76,13 @@ function addEventListeners() {
     let userEdit = document.querySelector('#user-edit form.info');
     if (userEdit != null)
         userEdit.addEventListener('submit', sendEditUserRequest);
+
+    /*--------------email------------*/
+
+    let sendEmail = document.querySelector('#contact form');
+    if (sendEmail != null)
+        sendEmail.addEventListener('submit', sendEmailRequest);
+
 }
 
 /*--------------Utils------------*/
@@ -89,10 +106,18 @@ function sendAjaxRequest(method, url, data, handler) {
 
 /*--------------Project------------*/
 
-function sendDeleteProjectRequest(event) {
-    let id = this.closest('article').getAttribute('data-id');
+function sendDeleteParticipationRequest(event) {
+    event.preventDefault();
+    let id = this.closest('button').getAttribute('data-id');
 
-    sendAjaxRequest('delete', '/api/projects/' + id, null, projectDeletedHandler);
+    sendAjaxRequest('delete', '/api/projects/' + id + '/leave', null, participationDeletedHandler);
+}
+
+function sendDeleteProjectRequest(event) {
+    event.preventDefault();
+    let id = this.closest('button').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/projects/' + id, null, projectDeletedHandler);
 }
 
 function sendCreateProjectRequest(event) {
@@ -128,7 +153,6 @@ function sendFavouriteRequest(event) {
 
 function sendFavouritesProjectRequest(event) {
     event.preventDefault();
-    console.log("cheguei");
 
     let id = this.closest('section').getAttribute('data-id');
     let name = this.querySelector('input[name=name]').value;
@@ -141,6 +165,20 @@ function sendFavouritesProjectRequest(event) {
     event.preventDefault();
 }
 
+function projectUserAddSearchChange(event) {
+    event.preventDefault();
+
+    let search = event.target.value;
+    let notInProject = event.target.getAttribute('data-id');
+
+    console.log(notInProject, search);
+
+    if (search != '')
+        sendAjaxRequest('post', '/api/users/', { notInProject, search }, projectUserAddSearchChangeHandler);
+
+}
+
+
 /*--------------Task------------*/
 
 function sendCreateTaskRequest(event) {
@@ -149,9 +187,10 @@ function sendCreateTaskRequest(event) {
     let name = this.querySelector('input[name=name]').value;
     let description = this.querySelector('input[name=description]').value;
     let priority = this.querySelector('input[name=priority]').value;
+    let dueDate = this.querySelector('input[name=date]').value;
 
     if (name != '')
-        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId }, taskAddedHandler);
+        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate }, taskAddedHandler);
 
     event.preventDefault();
 }
@@ -163,9 +202,10 @@ function sendEditTaskRequest(event) {
     let name = this.querySelector('input[name=name]').value;
     let description = this.querySelector('input[name=description]').value;
     let priority = this.querySelector('input[name=priority]').value;
+    let dueDate = this.querySelector('input[name=date]').value;
 
     if (name != '')
-        sendAjaxRequest('post', '/tasks/' + id + '/edit', { name, description, priority }, taskEditHandler);
+        sendAjaxRequest('post', '/tasks/' + id + '/edit', { name, description, priority, dueDate }, taskEditHandler);
 
 }
 
@@ -198,21 +238,31 @@ function sendEditUserRequest(event) {
         if (sendAjaxRequest('post', '/users/profile/' + id + '/update', { name, email, password }, userEditHandler)) {
             this.querySelector('#error').style.display = "flex";
         }
-    }
-    else {
+    } else {
         this.querySelector('#error').style.display = "flex";
     }
+}
+
+/*--------------Email------------*/
+
+function sendEmailRequest(event) {
+    event.preventDefault();
+    let name = this.querySelector('input[name=name').value;
+    let email = this.querySelector('input[email=email]').value;
+    let message = this.querySelector('input[message=message').value;
+    sendAjaxRequest('post', 'contact', { name, email, message }, sendEmailHandler)
 }
 
 /* HANDLERS */
 
 /*--------------Project------------*/
 
+function participationDeletedHandler() {
+    window.location = '/';
+}
+
 function projectDeletedHandler() {
-    if (this.status != 200) window.location = '/';
-    let project = JSON.parse(this.responseText);
-    let article = document.querySelector('article.project[data-id="' + project.id + '"]');
-    article.remove();
+    window.location = '/';
 }
 
 function projectAddedHandler() {
@@ -266,12 +316,32 @@ function taskEditHandler() {
     }
 }
 
+function projectUserAddSearchChangeHandler() {
+    console.log(this.responseText)
+    const users = JSON.parse(this.responseText);
+    console.log(users);
+    //CONTINUA AQUI ANDREE
+}
+
 /*--------------User------------*/
 
 function userEditHandler() {
+    console.log(this.responseText);
     const user = JSON.parse(this.responseText);
     if (this.status === 200) {
         window.location = '/users/profile/' + user.id;
+    } else if (this.status !== 201) {
+        window.location = '/';
+    }
+}
+
+/*--------------Email------------*/
+
+function sendEmailHandler() {
+    console.log(this.responseText);
+    const user = JSON.parse(this.responseText);
+    if (this.status === 200) {
+        window.location = '/contact';
     } else if (this.status !== 201) {
         window.location = '/';
     }

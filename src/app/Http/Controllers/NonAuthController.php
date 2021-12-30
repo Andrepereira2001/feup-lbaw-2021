@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 class NonAuthController extends Controller
 {
@@ -44,4 +45,21 @@ class NonAuthController extends Controller
   {
     return view('pages.services');
   }
+
+  /**
+     *
+     */
+    public function sendEmail(Request $request){
+
+      $name = $request->input('name');
+      $from = $request->input('email');
+      $message = $request->input('message');
+      $to = "ricky.ferreira.305@gmail.com";
+      $subject = "Form submission";
+      $message = $name . "wrote the following:" . "\n\n" . $message;
+
+      $header = "From:" . $from;
+      mail($to,$subject,$message,$header);
+      return view('pages.about');
+    }
 }

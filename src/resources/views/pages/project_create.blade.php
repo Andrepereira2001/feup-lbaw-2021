@@ -5,7 +5,7 @@
         <form class="create">
             <div class="info">
                 <input class="name" type="text" placeholder="Project Name..." name="name">
-                <input type="text" placeholder="Add a description..." name="description">
+                <input class="description" type="text" placeholder="Add a description..." name="description">
                 <input class="color" type="color" name="color" value="#595656">
             </div>
             <div class="coordinators">

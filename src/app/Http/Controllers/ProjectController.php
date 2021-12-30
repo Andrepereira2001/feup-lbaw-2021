@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -47,8 +48,11 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $this->authorize('show', $project);
         $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+        $noMembers = User::whereDoesntHave('projects', function($p) use($id){
+            $p->where('participation.id_project',$id);;
+        })->get();
 
-        return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator ]);
+        return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator, 'noMembers' => $noMembers ]);
     }
 
     /**
@@ -132,24 +136,24 @@ class ProjectController extends Controller
      *
      * @return Project The project created.
      */
-    public function create(Request $request)
-    {
-      $project = new Project();
-      $participation = new Participation();
+    public function create(Request $request){
+        Auth::check();
+        $project = new Project();
+        $participation = new Participation();
 
-      $this->authorize('create', $project);
+        $this->authorize('create', $project);
 
-      $project->name = $request->input('name');
-      $project->description = $request->input('description');
-      $project->color = $request->input('color');
-      $project->save();
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->color = $request->input('color');
+        $project->save();
 
-      $participation->id_user = Auth::user()->id;
-      $participation->id_project = $project->id;
-      $participation->role = 'Coordinator';
-      $participation->save();
+        $participation->id_user = Auth::user()->id;
+        $participation->id_project = $project->id;
+        $participation->role = 'Coordinator';
+        $participation->save();
 
-      return $project;
+        return $project;
     }
 
     /**
@@ -158,7 +162,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return Project the project deleted
      */
-    public function delete(Request $request, $id){
+    public function delete($id){
       $project = Project::find($id);
       $this->authorize('delete', $project);
 
@@ -175,6 +179,7 @@ class ProjectController extends Controller
      */
     public function favourite($id){
 
+        Auth::check();
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
 
@@ -218,6 +223,25 @@ class ProjectController extends Controller
         $project->save();
 
         return $project;
+
+    }
+
+
+    /**
+     * Leave the id project.
+     *
+     * @param  int  $id
+     * @return Participation the participation favourited
+     */
+    public function leave($id){
+
+        Auth::check();
+        $participation = Participation::where('id_project', $id)
+                                        ->where('id_user', Auth::user()->id)
+                                        ->first()
+                                        ->delete();
+
+        return $participation;
 
     }
 }

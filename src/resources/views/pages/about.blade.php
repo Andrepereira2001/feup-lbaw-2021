@@ -8,8 +8,8 @@
     <a class="item-rosa"><img src={{ asset('img/pink_project_box.png') }}></a>
     <a class="item-azul"><img src={{ asset('img/blue_project_box.png') }}></a>
     <a class="item-verde"><img src={{ asset('img/green_project_box.png') }}></a>
+    <h1 class="title">About Us</h1>
   </div>
-  <h1 class="title">About Us</h1>
   <div class="line"></div>
   <div class="title2"> Project Management has never been easier </div>
   <div class="text">At toEaseManage we belive that there is a better way to manage your life and work projects.
