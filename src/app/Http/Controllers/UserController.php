@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Project;
 
 class UserController extends Controller
 {
@@ -68,11 +69,20 @@ class UserController extends Controller
 
         $search = $request->search;
         $notInProject = $request->notInProject;
+        $inProject = $request->inProject;
+        $isMember = $request->isMember;
 
+        if($inProject){
+            $project = Project::find($inProject);
+            $users = $project->users();
+        }
         if($notInProject){
             $users = User::whereDoesntHave('projects', function($p) use($notInProject){
                 $p->where('participation.id_project',$notInProject);;
             });
+        }
+        if($isMember){
+            $users->wherePivot("role","Member");
         }
         if($search){
             $users->where('name', 'ILIKE', "%${search}%")->orderBy('name', 'asc');

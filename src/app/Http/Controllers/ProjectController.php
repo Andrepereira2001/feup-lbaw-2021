@@ -244,4 +244,25 @@ class ProjectController extends Controller
         return $participation;
 
     }
+
+    /**
+     * Add a coordinator.
+     *
+     * @param  Request  request
+     * @return User Added to coordinator.
+     */
+    public function addCoordinator(Request $request){
+
+        $project = Project::find($request->id_project);
+        $this->authorize('edit',$project);
+
+        $participation = Participation::where('id_project', $request->id_project)
+                                        ->where('id_user', $request->id_user)
+                                        ->first();
+
+        $participation->role = 'Coordinator';
+        $participation->save();
+
+        return User::find($request->id_user);
+    }
 }

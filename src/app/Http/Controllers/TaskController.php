@@ -54,6 +54,7 @@ class TaskController extends Controller
       $task->description = $request->input('description');
       $task->priority = $request->input('priority');
       $task->id_project = $request->input('projectId');
+      $task->id_user = $request->input('userId');
       $date = $request->input('dueDate');
       if($date != ""){
         $date = explode('-', $date);
@@ -108,14 +109,25 @@ class TaskController extends Controller
         $task = Task::find($id);
         $this->authorize('edit', $task);
 
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->priority = $request->priority;
-        $date = $request->input('dueDate');
-        if($date != ""){
-            $date = explode('-', $date);
-            $date = implode('/',$date);
-            $task->due_date = $date;
+        if($request->name){
+            $task->name = $request->name;
+        }
+        if($request->description){
+            $task->description = $request->description;
+        }
+        if($request->priority){
+            $task->priority = $request->priority;
+        }
+        if($request->dueDate){
+            $date = $request->dueDate;
+            if($date != ""){
+                $date = explode('-', $date);
+                $date = implode('/',$date);
+                $task->due_date = $date;
+            }
+        }
+        if($request->userId){
+            $task->id_user = $request->userId;
         }
 
         $task->save();
@@ -140,4 +152,39 @@ class TaskController extends Controller
 
       return $task;
   }
+
+
+  /**
+     * Clone the id task.
+     *
+     * @param Request $request
+     * @param  int  $id
+     * @return Task the task cloned
+     */
+    public function clone(Request $request,$id){
+
+        $original = Task::find($id);
+
+        $task = new Task();
+        $this->authorize('edit', $original);
+        $task->id_project = $original->id_project;
+
+        if($original->name){
+            $task->name = $original->name;
+        }
+        if($original->description){
+            $task->description = $original->description;
+        }
+        if($original->priority){
+            $task->priority = $original->priority;
+        }
+        if($original->dueDate){
+            $task->due_date = $original->due_date;
+
+        }
+        $task->id_user = $request->userId;
+        $task->save();
+
+        return $task;
+    }
 }

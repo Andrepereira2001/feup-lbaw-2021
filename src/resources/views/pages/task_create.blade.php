@@ -2,6 +2,7 @@
 
 @section('content')
     <section id="task-create">
+        @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $project->id, 'users' => $project->users()->get()])
         <form class="create">
             <div class="info">
                 <input class="project-id" name="project-id" value={{ $project->id }}>
@@ -19,12 +20,13 @@
                         </div>
                     </div>
                 </div>
-                {{--priority--}}
             </div>
             <div class="coordinators">
                 <span>Assigned To</span>
+                <input type="hidden" name="user-id">
                 <div class="content">
                     {{-- @include('partials.user', ['user' => $user]) --}}
+                    <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
                 </div>
             </div>
             <div class="buttons">

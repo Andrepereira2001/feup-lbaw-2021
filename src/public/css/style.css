@@ -3,6 +3,10 @@ body {
     color: black;
 }
 
+#header {
+    margin-bottom: 20px;
+}
+
 main>header {
     display: grid;
     grid-template-columns: 1fr auto auto;
@@ -1108,8 +1112,10 @@ main>header span {
 }
 
 #project-details .add {
+    all: unset;
     align-self: end;
     margin: 10px;
+    cursor: pointer;
 }
 
 #project-details .add img {
@@ -1393,19 +1399,19 @@ main>header span {
     align-items: center;
 }
 
-#task-details .coordinators {
+#task-details .assigned {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
     margin: 10px;
 }
 
-#task-details .members {
+#task-details .labels {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
     margin: 10px;
 }
 
-#task-details .labels {
+#task-details .comments {
     grid-column: 3 / 5;
     grid-row: 2 / 4;
     margin: 10px;
@@ -1414,6 +1420,9 @@ main>header span {
 #task-details .content {
     border: 4px solid;
     border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
 }
 
 #task-details .user {
@@ -1463,6 +1472,18 @@ main>header span {
 #task-details button.complete {
     background-color: #C86660;
     margin-bottom: 10px;
+}
+
+
+#task-details .add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#task-details .add img {
+    width: 50px;
 }
 
 
@@ -1566,6 +1587,9 @@ main>header span {
 #task-create .content {
     border: 4px solid lightgray;
     border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
 }
 
 #task-create .user {
@@ -1615,6 +1639,17 @@ main>header span {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+}
+
+#task-create .add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#task-create .add img {
+    width: 50px;
 }
 
 
@@ -2014,35 +2049,23 @@ i {
 
 /* POPUPS */
 
-#invite-member .modal-content,
-#add-coordinator .modal-content,
-#leave-project .modal-content,
-#delete-project .modal-content {
+.modal-content {
     position: relative;
     border-radius: 30px;
     background-color: #E8E8E8;
 }
 
-#invite-member .modal-header,
-#add-coordinator .modal-header,
-#leave-project .modal-header,
-#delete-project .modal-header {
+.modal-header {
     border-style: none
 }
 
-#invite-member .modal-title,
-#add-coordinator .modal-title,
-#leave-project .modal-title,
-#delete-project .modal-title {
+.modal-title {
     width: 100%;
     text-align: center;
     font-size: x-large;
 }
 
-#invite-member .modal-footer,
-#add-coordinator .modal-footer,
-#leave-project .modal-footer,
-#delete-project .modal-footer {
+.modal-footer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2050,6 +2073,7 @@ i {
     gap: 10px;
 }
 
+#assign-member .confirm,
 #invite-member .confirm,
 #add-coordinator .confirm,
 #leave-project .confirm,
@@ -2059,6 +2083,7 @@ i {
     color: white;
 }
 
+#assign-member .cancel,
 #invite-member .cancel,
 #add-coordinator .cancel,
 #leave-project .cancel,
@@ -2068,9 +2093,48 @@ i {
     color: white;
 }
 
-#invite-member .modal-body,
-#add-coordinator .modal-body {
+.modal-body {
     background-color: white;
+    margin: 0px 15px;
     border-radius: 50px;
     text-align: center;
 }
+
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm{
+    position: absolute;
+    right: 20px;
+}
+
+
+/* #projects .filters {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    border-right: 2px solid black;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#projects .filters input {
+    display: none;
+}
+
+#projects .filters div {
+    width: 80px;
+    text-align: center;
+}
+
+#projects .filters label {
+    border-radius: 50px;
+    width: 100%;
+    margin: 5px;
+}
+
+#projects .filters input:checked+label {
+    background-color: #62D2C5;
+    border-radius: 50px;
+    width: 100%;
+    margin: 5px;
+} */

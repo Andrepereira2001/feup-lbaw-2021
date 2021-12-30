@@ -81,8 +81,8 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US1.1 ??__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
-| __US1.2 ??__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
+| __US1.1 !!__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
+| __US1.2 !!__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
 
 > Table 3: Visitor User Stories
 
@@ -90,7 +90,7 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US2.1 ??__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
+| __US2.1 !!__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
 | __US2.2 !!__ | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
 | __US2.3 !!__ | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
 | __US2.4 !!__ | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
@@ -110,13 +110,13 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US3.1??__ | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
+| __US3.1!!__ | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
 | __US3.2??__ | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date |
 | US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
-| __US3.4??__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
+| __US3.4!!__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
-| __US3.6??__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
-| __US3.7??__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
+| __US3.6!!__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
+| __US3.7!!__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
 | US3.8 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
 | US3.9 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
 | US3.10 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
@@ -133,7 +133,7 @@ openapi: 3.0.0
 | US4.2 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
 | US4.3 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
 | US4.4 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
-| __US4.5??__ | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
+| __US4.5!!__ | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
 | US4.6 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
 > Table 6: Coordinator User Stories
 
@@ -149,7 +149,7 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US6.1??__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile|
+| __US6.1!!__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile|
 | __US6.2??__ | Administer User | high | As an Admin, I want to search through the existing users, so that I can view, edit and create them|
 | __US6.3??__ | Block User | high | As an Admin, I want to be able to block some User account, so that I can prevent them from using the website wrongly|
 | US6.4 | Unblock User | high | As an Admin, I want to unblock Users, so that I can give their permissions back|

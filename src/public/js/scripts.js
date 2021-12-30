@@ -50,16 +50,37 @@ function addEventListeners() {
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
 
-    let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
-    [].forEach.call(projectUserAddSearch, function(search) {
-        search.addEventListener('change', projectUserAddSearchChange);
+
+    let projectCoordinatorAddSearch = document.querySelectorAll('#add-coordinator .search');
+    [].forEach.call(projectCoordinatorAddSearch, function(search) {
+        search.addEventListener('change', projectCoordinatorAddSearchChange);
+    });
+
+    let addCoordinator = document.querySelectorAll('#add-coordinator button.confirm');
+    [].forEach.call(addCoordinator, function(user) {
+        user.addEventListener('click', addCoordinatorRequest);
     });
 
     /*--------------task------------*/
 
+    let taskAssignSearch = document.querySelectorAll('#task-create .search');
+    [].forEach.call(taskAssignSearch, function(search) {
+        search.addEventListener('change', taskAssignSearchChange);
+    });
+
     let taskCreator = document.querySelector('#task-create form.create');
     if (taskCreator != null)
         taskCreator.addEventListener('submit', sendCreateTaskRequest);
+
+    let taskCreatorAssign = document.querySelectorAll('#task-create .modal .confirm');
+    [].forEach.call(taskCreatorAssign, function(val) {
+        val.addEventListener('click', createTaskAssignHandler);
+    });
+
+    let taskAssignMember = document.querySelectorAll('#task-details .modal .confirm');
+    [].forEach.call(taskAssignMember, function(val) {
+        val.addEventListener('click', taskAssignMemberHandler);
+    });
 
     let taskEdit = document.querySelector('#task-edit form.edit');
     if (taskEdit != null) {
@@ -76,6 +97,18 @@ function addEventListeners() {
     let userEdit = document.querySelector('#user-edit form.info');
     if (userEdit != null)
         userEdit.addEventListener('submit', sendEditUserRequest);
+
+    /*--------------invite------------*/
+
+    let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
+    [].forEach.call(projectUserAddSearch, function(search) {
+        search.addEventListener('change', projectUserAddSearchChange);
+    });
+
+    let userInvite = document.querySelectorAll('#invite-member button.confirm');
+    [].forEach.call(userInvite, function(user) {
+        user.addEventListener('click', sendInviteRequest);
+    });
 
     /*--------------email------------*/
 
@@ -165,17 +198,24 @@ function sendFavouritesProjectRequest(event) {
     event.preventDefault();
 }
 
-function projectUserAddSearchChange(event) {
+function projectCoordinatorAddSearchChange(event) {
     event.preventDefault();
 
     let search = event.target.value;
-    let notInProject = event.target.getAttribute('data-id');
-
-    console.log(notInProject, search);
+    let inProject = event.target.getAttribute('data-id');
+    let isMember = true;
 
     if (search != '')
-        sendAjaxRequest('post', '/api/users/', { notInProject, search }, projectUserAddSearchChangeHandler);
+        sendAjaxRequest('post', '/api/users/', { inProject, search, isMember }, projectCoordinatorAddSearchChangeHandler);
+}
 
+function addCoordinatorRequest(event){
+    event.preventDefault();
+
+    let id_user = event.target.getAttribute('data-id');
+    let id_project = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('post', '/api/projects/addCoordinator' , { id_user, id_project }, addCoordinatorHandler);
 }
 
 
@@ -188,11 +228,10 @@ function sendCreateTaskRequest(event) {
     let description = this.querySelector('input[name=description]').value;
     let priority = this.querySelector('input[name=priority]').value;
     let dueDate = this.querySelector('input[name=date]').value;
+    let userId = this.querySelector('input[name=user-id]').value;
 
     if (name != '')
-        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate }, taskAddedHandler);
-
-    event.preventDefault();
+        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId }, taskAddedHandler);
 }
 
 function sendEditTaskRequest(event) {
@@ -216,10 +255,35 @@ function sendCompleteTaskRequest(event) {
     let day = new Date().toISOString().slice(0, 10);
     let time = new Date().toISOString().slice(10, 19);
     const today = day + time;
-    console.log(today);
 
     if (id != undefined) //change route
         sendAjaxRequest('post', '/tasks/' + id, { today }, taskEditHandler);
+
+}
+
+function taskAssignSearchChange(event) {
+    event.preventDefault();
+
+    let search = event.target.value;
+    let inProject = event.target.getAttribute('data-id');
+
+    if (search != '')
+        sendAjaxRequest('post', '/api/users/', { inProject, search }, taskAssignSearchChangeHandler);
+}
+
+function taskAssignMemberHandler(event) {
+    event.preventDefault();
+
+    let user = document.querySelector('#task-details .assigned .user');
+    let id = this.closest('section').getAttribute('data-id');
+    let userId = this.getAttribute('data-id');
+
+    console.log(user,id,userId);
+    if(user === null){
+        sendAjaxRequest('post', '/tasks/' + id + '/edit', { userId }, taskEditHandler);
+    } else {
+        sendAjaxRequest('post', '/tasks/' + id + '/clone', { userId }, taskEditHandler);
+    }
 
 }
 
@@ -242,6 +306,32 @@ function sendEditUserRequest(event) {
         this.querySelector('#error').style.display = "flex";
     }
 }
+
+
+/*--------------Invite------------*/
+
+function projectUserAddSearchChange(event) {
+    event.preventDefault();
+
+    let search = event.target.value;
+    let notInProject = event.target.getAttribute('data-id');
+
+    console.log(notInProject, search);
+
+    if (search != '')
+        sendAjaxRequest('post', '/api/users/', { notInProject, search }, projectUserAddSearchChangeHandler);
+
+}
+
+function sendInviteRequest(event){
+    event.preventDefault();
+
+    let id_user = event.target.getAttribute('data-id');
+    let id_project = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('post', '/api/invites' , { id_user, id_project }, sendInviteHandler);
+}
+
 
 /*--------------Email------------*/
 
@@ -296,7 +386,108 @@ function projectFavouriteHandler() {
     }
 }
 
+function addCoordinatorHandler() {
+    if (this.status != 200) window.location = '/';
+    let user = JSON.parse(this.responseText);
+    let element = document.querySelector('.user.invite[data-id="' + user.id + '"]');
+    element.remove();
+
+    let member = document.querySelector('#project-details .members .user[data-id="' + user.id + '"]');
+    member.remove();
+
+    let body = document.querySelector('#project-details .coordinators .content');
+    let button = document.querySelector('#project-details .coordinators .content button');
+
+    let coordinator = document.createElement('div');
+    coordinator.className = ('user');
+    coordinator.setAttribute('data-id', user.id);
+    coordinator.innerHTML = `
+
+        <img src="https://picsum.photos/200" alt="User image" width="70px">
+        <a href="/users/profile/${user.id}">${user.name}</a>`;
+
+    body.insertBefore(coordinator, button);
+
+}
+
+function projectCoordinatorAddSearchChangeHandler() {
+    const users = JSON.parse(this.responseText);
+
+    let addCoordinator = document.querySelectorAll('#add-coordinator .user.invite');
+    [].forEach.call(addCoordinator, function(add) {
+        add.remove();
+    });
+
+
+    let body = document.querySelector('#add-coordinator .modal-body');
+    users.map((user) => {
+        let add_coordinator = document.createElement('div');
+        add_coordinator.className = ('user invite');
+        add_coordinator.setAttribute('data-id', user.id);
+        add_coordinator.innerHTML = `
+
+            <img src="https://picsum.photos/200" alt="User image" width="70px">
+             <a href="/users/profile/${user.id}">${user.name}</a>
+             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+
+        let add = add_coordinator.querySelector('button.confirm');
+        add.addEventListener('click', createTaskAssignHandler);
+
+        body.appendChild(add_coordinator);
+    })
+}
+
+
+function taskAssignSearchChangeHandler() {
+    const users = JSON.parse(this.responseText);
+
+    let assigned = document.querySelectorAll('#task-create .user.invite');
+    [].forEach.call(assigned, function(val) {
+        val.remove();
+    });
+
+
+    let body = document.querySelector('#task-create .modal-body');
+    users.map((user) => {
+        let assign = document.createElement('div');
+        assign.className = ('user invite');
+        assign.setAttribute('data-id', user.id);
+        assign.innerHTML = `
+
+            <img src="https://picsum.photos/200" alt="User image" width="70px">
+             <a href="/users/profile/${user.id}">${user.name}</a>
+             <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+
+        let add = assign.querySelector('button.confirm');
+        add.addEventListener('click', addCoordinatorRequest);
+
+        body.appendChild(assign);
+    })
+}
+
 /*--------------Task------------*/
+
+function createTaskAssignHandler(event) {
+    event.preventDefault();
+
+    let remove = document.querySelectorAll('#task-create .coordinators .user');
+    [].forEach.call(remove, function(del) {
+        del.remove();
+    });
+
+    let id_user = event.target.getAttribute('data-id');
+    document.querySelector('#task-create input[name=user-id]').value = id_user;
+
+    let user = document.querySelector('#task-create .user[data-id="' + id_user + '"]').cloneNode(true);
+    // user.remove();
+    user.querySelector('button').remove();
+
+    let body = document.querySelector('#task-create .coordinators .content');
+    let button = document.querySelector('#task-create .coordinators .content button');
+
+    body.insertBefore(user, button);
+
+}
 
 function taskAddedHandler() {
     const task = JSON.parse(this.responseText);
@@ -316,17 +507,43 @@ function taskEditHandler() {
     }
 }
 
+function sendInviteHandler() {
+    if (this.status != 201) window.location = '/';
+    let invite = JSON.parse(this.responseText);
+    let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
+    element.remove();
+}
+
 function projectUserAddSearchChangeHandler() {
-    console.log(this.responseText)
     const users = JSON.parse(this.responseText);
-    console.log(users);
-    //CONTINUA AQUI ANDREE
+
+    let userInvite = document.querySelectorAll('#invite-member .user.invite');
+    [].forEach.call(userInvite, function(invite) {
+        invite.remove();
+    });
+
+
+    let body = document.querySelector('#invite-member .modal-body');
+    users.map((user) => {
+        let user_invite = document.createElement('div');
+        user_invite.className = ('user invite');
+        user_invite.setAttribute('data-id', user.id);
+        user_invite.innerHTML = `
+
+            <img src="https://picsum.photos/200" alt="User image" width="70px">
+             <a href="/users/profile/${user.id}">${user.name}</a>
+             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+
+        let invite = user_invite.querySelector('button.confirm');
+        invite.addEventListener('click', sendInviteRequest);
+
+        body.appendChild(user_invite);
+    })
 }
 
 /*--------------User------------*/
 
 function userEditHandler() {
-    console.log(this.responseText);
     const user = JSON.parse(this.responseText);
     if (this.status === 200) {
         window.location = '/users/profile/' + user.id;
@@ -362,30 +579,6 @@ function createItem(item) {
 
     return new_item;
 }
-
-// function projectAddedHandler() {
-//     if (this.status != 200) {
-//       window.location = '/';
-//     }
-//     let proj = JSON.parse(this.responseText);
-
-//     // Create the new card
-//     let new_proj = createProject(proj);
-
-//     // Reset the new card input
-//     let form = document.querySelector('article.project form.new_project');
-//     form.querySelector('[type=text]').value="";
-
-//    // Insert the new card
-//     let article = form.parentElement;
-//     let section = article.parentElement;
-//     section.insertBefore(new_proj, article);
-
-//     // Focus on adding an item to the new card
-//     new_proj.querySelector('[type=text]').focus();
-// }
-
-/* NAO INTERESSA */
 
 function itemUpdatedHandler() {
     let item = JSON.parse(this.responseText);

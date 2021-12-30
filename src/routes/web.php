@@ -63,7 +63,7 @@ Route::get('projects', 'ProjectController@showCreate'); //creation page
 Route::delete('projects/{id}', 'ProjectController@delete');
 Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
 Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
-// Route::post('api/projects/addCoordinator/{user_id}', 'ProjectController@');
+Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 
 
 // (M03) Tasks, Comments and Labels
@@ -76,6 +76,7 @@ Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task p
 Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
 Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
 Route::post('tasks/{id}', 'TaskController@complete'); //complete task
+Route::post('tasks/{id}/clone', 'TaskController@clone'); //complete task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page
 // Route::post('comments', 'CommentController@create'); //create task comment
@@ -101,7 +102,7 @@ Route::post('tasks/{id}', 'TaskController@complete'); //complete task
 
 // (M05) Invites and Notifications
 // Route::get('api/invites', 'InviteController@search'); //search for invites
-// Route::post('api/invites', 'InviteController@create'); //create invite
+Route::post('api/invites', 'InviteController@create'); //create invite
 // Route::post('api/invites/accept/{id}', 'InviteController@accept'); //accept invite
 // Route::post('api/invites/reject/{id}', 'InviteController@reject'); //reject invite
 // Route::get('api/notifications', 'NotificationController@search'); //search notifications

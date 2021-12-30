@@ -20,8 +20,8 @@
         $date =substr($task->due_date, 0, 10);
 
 ?>
-
   <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
+    @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $task->project->id, 'users' => $task->project->users()->get()])
     <div class="info">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">
@@ -32,20 +32,23 @@
             </div>
         </div>
     </div>
-    <div class="coordinators">
+    <div class="assigned">
       <span>Assigned To</span>
       <div class="content">
           @each('partials.user', $task->user()->get()  , 'user')
+          @if ($task->finished_at == null)
+          <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
+          @endif
       </div>
     </div>
-    <div class="members">
+    <div class="labels">
         <span>Labels</span>
         <div class="content">
             To be defined
             {{-- @each('partials.label', $task->labels()->orderBy('id')->get() , 'label') --}}
         </div>
     </div>
-    <div class="labels">
+    <div class="comments">
         <span>Comments</span>
         <div class="content">
             TO BE DEFINED
