@@ -60,6 +60,6 @@ class NonAuthController extends Controller
 
       $header = "From:" . $from;
       mail($to,$subject,$message,$header);
-      return view('pages.about');
+      return ("Email sent");
     }
 }

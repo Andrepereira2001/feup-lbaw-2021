@@ -11,7 +11,7 @@
     <h1 class="title">Contact Us</h1>
   </div>
   <div class="line"></div>
-  <form role="form" method="post" action="/contact">
+  <form method="post" action="/contact">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name"><br><br>
     <label for="email">Email:</label>

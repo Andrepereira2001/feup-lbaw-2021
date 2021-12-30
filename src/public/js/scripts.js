@@ -250,7 +250,7 @@ function sendEmailRequest(event) {
     let name = this.querySelector('input[name=name').value;
     let email = this.querySelector('input[email=email]').value;
     let message = this.querySelector('input[message=message').value;
-    sendAjaxRequest('post', 'contact', { name, email, message }, sendEmailHandler)
+    sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
 }
 
 /* HANDLERS */
@@ -339,7 +339,6 @@ function userEditHandler() {
 
 function sendEmailHandler() {
     console.log(this.responseText);
-    const user = JSON.parse(this.responseText);
     if (this.status === 200) {
         window.location = '/contact';
     } else if (this.status !== 201) {
