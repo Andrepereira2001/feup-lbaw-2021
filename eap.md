@@ -81,8 +81,8 @@ openapi: 3.0.0
 
 | Identifier | Name | Priority | Description |
 | - | - | - | - |
-| __US1.1 ??__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
-| __US1.2 ??__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
+| __US1.1 !!__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
+| __US1.2 !!__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
 
 > Table 3: Visitor User Stories
 
