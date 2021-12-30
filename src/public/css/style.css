@@ -7,7 +7,6 @@ main>header {
     display: grid;
     grid-template-columns: 1fr auto auto;
     background-color: #ffff;
-    margin-bottom: 20px;
 }
 
 main>header .buttons {
@@ -16,18 +15,19 @@ main>header .buttons {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    margin: 0px 10px 0px 0px;
+    margin-top: 7px;
+    margin-right: 7px;
+    margin-bottom: 7px;
 }
 
-main>header a.button {
-    height: 55px;
+main>header .smallIcon {
+    border-radius: 50%;
     width: 55px;
+    height: 55px;
     background-color: #62D2C5;
-    border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
 }
 
 main>header span {
@@ -491,6 +491,7 @@ main>header span {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
+    justify-content: center;
     align-items: center;
     flex-flow: column;
     background: rgba(232, 232, 232, 0.9);
@@ -502,6 +503,28 @@ main>header span {
     grid-column: 1/2;
 }
 
+#forgotPassword {
+    z-index: 10;
+    display: flex;
+    box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background: rgba(232, 232, 232, 0.9);
+    border-radius: 20px;
+    width: 450px;
+    height: 390px;
+    margin: 60px auto;
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+#forgotPassword .loginPhoto {
+    position: relative;
+    width: 130px;
+    bottom: 79px;
+}
+
 #login .loginPhoto,
 #register .loginPhoto {
     position: relative;
@@ -509,11 +532,24 @@ main>header span {
     bottom: 70px;
 }
 
+#forgotPassword .textRecover {
+    position: relative;
+    color: #505050;
+    font-size: 20px;
+    bottom: 40px;
+    text-align: center;
+}
+
 #login .loginEmail,
 #login .loginPassword,
 #register .registerInfo {
     position: relative;
     margin-bottom: 50px;
+}
+
+#forgotPassword .sendEmail {
+    position: relative;
+    margin-bottom: 100px;
 }
 
 #login .loginEmail input,
@@ -525,10 +561,42 @@ main>header span {
     width: 300px;
 }
 
+#forgotPassword .sendEmail input {
+    border-radius: 3px;
+    border-color: transparent;
+    background-color: rgba(171, 171, 171, 0.81);
+    height: 27px;
+    width: 300px;
+    color: white;
+}
+
+#forgotPassword button {
+    position: absolute;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+    border: none;
+    height: 27px;
+    width: 65px;
+    cursor: pointer;
+    color: #808080;
+    background-color: #FBFBFB;
+}
+
+#forgotPassword button:hover {
+    background-color: rgba(240, 240, 240, 1);
+}
+
 #login .loginEmail input:focus,
 #login .loginPassword input:focus,
 #register .registerInfo input:focus {
     box-shadow: 0px 0px 5px 5px #888888;
+    outline: none;
+}
+
+#forgotPassword .sendEmail input:focus {
     outline: none;
 }
 
@@ -595,6 +663,7 @@ main>header span {
 
 #login .forgotPassword {
     all: unset;
+    cursor: pointer;
     margin-right: 10px;
     color: #808080;
     font-size: small;
@@ -611,10 +680,10 @@ main>header span {
     margin-right: 3px;
 }
 
-#login .registerHereSpan,
-#login .registerHere,
-#register .loginHereSpan,
-#register .loginHere {
+.registerHereSpan,
+.registerHere,
+.loginHereSpan,
+.loginHere {
     color: #808080;
 }
 
@@ -622,13 +691,17 @@ main>header span {
     margin-top: 60px;
 }
 
-#login .registerHere,
-#register .loginHere {
+.registerHere,
+.loginHere {
     all: unset;
     cursor: pointer;
     font-weight: bold;
 }
 
+.registerHere:hover,
+.loginHere:hover {
+    color: #808080;
+}
 
 /* register */
 
@@ -1708,88 +1781,146 @@ main>header span {
 
 /* Style the links inside the sidenav */
 
-#mySidenav a {
-    position: relative;
-    padding: 12px;
-    /* 15px padding */
-    width: 140px;
-    /* Set a specific width */
-    left: -7px;
-    top: -20px;
-    font-size: 15px;
-    /* Increase font size */
-    color: black;
-    /* White text color */
-    border-right: 1px solid grey;
-    border-bottom: 1px solid grey;
-    display: block;
+
+#user .user {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
 }
 
-#mySidenav a:hover {
+#user #sidenav {
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+#user #sidenavleft {
+    padding: 25px 0;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    width: 170px;
+    border-right: 1px solid grey;
+}
+
+#user #sidenavleft a {
+    position: absolute;
+    padding: 12px;
+    width: 140px;
+    font-size: 15px;
+    color: black;
+    border-bottom: 1px solid grey;
+    bottom: 0;
+
+    right: 0;
+}
+
+#user #sidenavleft:hover {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-.arrow {
+#user .arrow {
     position: absolute;
-    left: 75%;
-    top: 35%;
+    left: 115px;
+    margin-top: 5px;
     width: 10%;
     opacity: 90%;
 }
 
-.userInfo {
-    position: absolute;
-    text-align: center;
-    top: 20%;
-    left: 35%;
+#user .userInfo {
+    z-index: 10;
+    display: flex;
+    box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    margin: 0px auto;
+    grid-row: 1/2;
+    grid-column: 1/2;
 }
 
-.info {
-    display: inline-block;
+.selected-view,
+.selected-edit,
+.selected-notification,
+.selected-logout {
+    background-color: rgba(165, 176, 175, 0.3);
 }
 
-.profilePhoto {
+#user .info {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 55px auto;
+}
+
+#user .profilePhoto {
     width: 100px;
     height: 100px;
     background-color: #62D2C5;
     border: 0px;
     border-radius: 100%;
-    display: inline-block;
 }
 
-.userInfo form {
-    width: 370px;
-    height: 100px;
+#user .writtenInfo {
+    margin-top: 30px;
+    width: 300px;
 }
 
-.userInfo form section div.full {
-    width: 185px;
-    float: left;
+#user form section {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
 }
 
-.userInfo form section div label {
+#user .full,
+#user .full1 {
+    display: flex;
+    flex-flow: column;
+}
+
+#user .full1 {
+    margin-top: 10px;
+}
+#user label {
     text-align: left;
     color: #949494;
-    font-size: small;
+    font-size: smaller;
 }
 
-.userInfo form section div input {
+#user input {
     color: #383838;
     background-color: #F2FEFD;
-    border-color: #C0F2EC;
-    border-width: 1px;
-    border-radius: 10px;
+    border-radius: 3px;
+    border-color: transparent;
 }
+
+#user .full input {
+    width: 130px;
+}
+
+#user .full1 input {
+    position: relative;
+    width: 100%;
+}
+
 
 .userInfo form section div input:focus {
     border-width: 2px;
     border-color: #C0F2EC;
 }
 
-.editIcon {
+
+
+
+
+#user .editIcon {
     float: right;
     width: 8%;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .pass {
@@ -1846,13 +1977,6 @@ i {
 
 .cancel:hover {
     background-color: #A5B0AF;
-}
-
-.selected-view,
-.selected-edit,
-.selected-notification,
-.selected-logout {
-    background-color: rgba(165, 176, 175, 0.3);
 }
 
 #error {

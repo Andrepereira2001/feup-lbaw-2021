@@ -38,7 +38,7 @@ Route::delete('users/profile/{id}/delete', 'UserController@delete');
 Route::get('users/profile/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
 Route::post('users/profile/{id}/update', 'UserController@update'); //user update profile form
 // Route::post('users/edit/{id}', 'Auth\UserController@edit'); //edit user page
-// Route::get('recoverPassword', 'Auth\UserController@'); //recover password form
+Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword');; //recover password form
 // Route::post('recoverPassword', 'Auth\UserController@'); //recover password action
 // Route::get('resetPassword', 'Auth\UserController@'); //reset password form
 // Route::post('resetPassword', 'Auth\UserController@'); //reset password action

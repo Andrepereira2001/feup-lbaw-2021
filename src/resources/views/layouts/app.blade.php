@@ -37,7 +37,14 @@
         </script>
         <section class="buttons">
           <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
-          <a class="button" href="/users/profile/{{Auth::user()->id}}"> <span> {{ Auth::user()->name[0]}}</span> </a>
+
+          <a href="/users/profile/{{Auth::user()->id}}">
+          <?php
+            if (Auth::user()->image_path != "./img/default") {
+               echo '<img src=' . asset(Auth::user()->image_path) . ' class="smallIcon" >';
+            }
+            else echo '<span class="smallIcon">' . Auth::user()->name[0] . '</span>';
+        ?></a>
         </section>
         @elseif (Auth::guard('admin')->check())
           <script>

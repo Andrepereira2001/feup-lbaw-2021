@@ -39,7 +39,7 @@
                 <label class="remeberMe">
                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
                 </label>
-                <a class="forgotPassword" href="{{ route('register') }}"> Forgot password?</a>
+                <a class="forgotPassword" href="/recoverPassword"> Forgot password?</a>
             </div>
         </div>
 

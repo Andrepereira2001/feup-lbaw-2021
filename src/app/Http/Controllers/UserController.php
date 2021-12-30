@@ -36,10 +36,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
       $user = User::findOrFail($id);
-      // 'name' => $data['name'],
-      //       'email' => $data['email'],
-      //       'password' => bcrypt($data['password']),
-      // echo $request;
       if ($request->input('password')) {
         $user->password = bcrypt($request->input('password'));
       }
