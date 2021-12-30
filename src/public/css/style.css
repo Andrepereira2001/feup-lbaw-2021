@@ -484,7 +484,7 @@ main>header span {
 }
 
 .logo {
-    margin: 30px auto;
+    margin: 78px auto;
     width: 600px;
     grid-row: 1/2;
     grid-column: 1/2;
@@ -502,7 +502,7 @@ main>header span {
     border-radius: 20px;
     width: 450px;
     height: 490px;
-    margin: 10px auto;
+    margin: 60px auto;
     grid-row: 1/2;
     grid-column: 1/2;
 }
@@ -518,7 +518,7 @@ main>header span {
     border-radius: 20px;
     width: 450px;
     height: 390px;
-    margin: 60px auto;
+    margin: 110px auto;
     grid-row: 1/2;
     grid-column: 1/2;
 }
@@ -707,8 +707,6 @@ main>header span {
     color: #808080;
 }
 
-/* register */
-
 
 /* projects */
 
@@ -849,16 +847,16 @@ main>header span {
     grid-template-rows: auto auto auto;
 }
 
-
-/* #project > div {
-} */
-
 #project h1 span {
     color: #595656;
     background-color: #F2F2F2;
     border-width: 10px;
-    border-radius: 10px;
+    border-radius: 17px;
     padding: 0px 10px 0px 10px;
+}
+
+#project h1 {
+    margin-bottom: 15px;
 }
 
 #project .done-box h2,
@@ -870,25 +868,28 @@ main>header span {
 #project .title-box {
     grid-column: 1/2;
     grid-row: 1/2;
-    margin: 10px;
+    margin: 30px 20px;
 }
 
 #project .title-box a {
-    font-size: large;
+    font-size: medium;
     color: #595656;
     background-color: #F2F2F2;
-    border-radius: 10px;
+    border-radius: 7px;
     padding: 0px 10px 0px 10px;
+    text-decoration: underline;
 }
 
 #project .todo-box {
     grid-column: 1/2;
     grid-row: 2/3;
-    border-radius: 10px;
-    margin: 10px;
+    border-radius: 20px;
+    margin-left: 20px;
+    margin-top: -25px;
     display: flex;
     flex-flow: column;
     justify-content: start;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 #project .todo-box .todo-search {
@@ -901,17 +902,27 @@ main>header span {
     margin: 10px 10px 0px 0px;
     display: flex;
     flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
 }
 
 #project .todo-box .todo-search h2 {
     color: #595656;
-    margin: 10px 0px 0px 10px;
+    margin: 15px 0px 0px 15px;
+    font-weight: bold;
+}
+
+#project .todo-box .todo-search img {
+    opacity: 70%;
+    width:30px;
 }
 
 #project .todo-box .todo-search input {
     border-radius: 10px;
     display: flex;
     flex-flow: row;
+    border-color: transparent;
     background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -921,7 +932,7 @@ main>header span {
 }
 
 #project .task {
-    background-color: rgba(128, 128, 128, 0.267);
+    background-color: rgba(255, 255, 255, 0.467);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -929,17 +940,19 @@ main>header span {
     margin-top: 10px;
     margin-left: 50px;
     margin-right: 50px;
-    font-size: large;
+    font-size: medium;
+    height: 35px;
 }
 
 #project .task .name {
-    margin-left: 20px;
-    color: black;
+    margin-left: 15px;
+    color: #595656;
     text-decoration: none;
 }
 
 #project .task .number {
-    margin-right: 20px;
+    margin-right: 15px;
+    color: #595656;
 }
 
 #project .todo-box .add-task {
@@ -955,8 +968,15 @@ main>header span {
 #project .done-box {
     grid-column: 1/2;
     grid-row: 3/4;
-    border-radius: 10px;
+    border-radius: 20px;
     margin: 10px;
+    margin-left: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project .done-box h2{
+    margin: 15px 0px 0px 15px;
+    font-weight: bold;
 }
 
 #project .tasksDone {
@@ -1003,10 +1023,15 @@ main>header span {
 #project .forum-box {
     grid-column: 2/3;
     grid-row: 1/4;
-    border-radius: 10px;
-    margin: 10px;
+    border-radius: 20px;
+    margin: 30px 20px 10px 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+#project .forum-box h2{
+    margin: 15px 0px 0px 15px;
+    font-weight: bold;
+}
 
 /* project-details */
 
@@ -1817,21 +1842,19 @@ main>header span {
 /* Style the links inside the sidenav */
 
 
-#user .user {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+#user .user,
+#user-edit .user {
+    display: flex;
+    flex-flow: row;
 }
 
-#user #sidenav {
+#sidenav {
     display: flex;
     position: relative;
     flex-flow: column;
-    grid-row: 1/2;
-    grid-column: 1/2;
 }
 
-#user #sidenavleft {
+#sidenavleft {
     padding: 25px 0;
     display: flex;
     flex-flow: row;
@@ -1840,7 +1863,7 @@ main>header span {
     border-right: 1px solid grey;
 }
 
-#user #sidenavleft a {
+#sidenavleft a {
     position: absolute;
     padding: 12px;
     width: 140px;
@@ -1852,11 +1875,11 @@ main>header span {
     right: 0;
 }
 
-#user #sidenavleft:hover {
+#sidenavleft:hover {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-#user .arrow {
+.arrow {
     position: absolute;
     left: 115px;
     margin-top: 5px;
@@ -1864,7 +1887,8 @@ main>header span {
     opacity: 90%;
 }
 
-#user .userInfo {
+#user .userInfo,
+#user-edit .userInfo {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
@@ -1872,8 +1896,6 @@ main>header span {
     align-items: center;
     flex-flow: column;
     margin: 0px auto;
-    grid-row: 1/2;
-    grid-column: 1/2;
 }
 
 .selected-view,
@@ -1883,25 +1905,28 @@ main>header span {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-#user .info {
+#user .info,
+#user-edit .info {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin: 55px auto;
+    margin: 3% auto;
 }
 
-#user .profilePhoto {
-    width: 100px;
-    height: 100px;
+#user .profilePhoto,
+#user-edit .profilePhoto {
+    width: 150px;
+    height: 150px;
     background-color: #62D2C5;
     border: 0px;
     border-radius: 100%;
 }
 
-#user .writtenInfo {
+#user .writtenInfo,
+#user-edit .writtenInfo {
     margin-top: 30px;
-    width: 300px;
+    width: 350px;
 }
 
 #user form section {
@@ -1911,7 +1936,8 @@ main>header span {
 }
 
 #user .full,
-#user .full1 {
+#user .full1,
+#user-edit section div {
     display: flex;
     flex-flow: column;
 }
@@ -1919,21 +1945,38 @@ main>header span {
 #user .full1 {
     margin-top: 10px;
 }
-#user label {
+
+#user label,
+#user-edit label {
     text-align: left;
     color: #949494;
-    font-size: smaller;
+    font-size: small;
 }
 
 #user input {
     color: #383838;
     background-color: #F2FEFD;
-    border-radius: 3px;
+    border-radius: 9px;
     border-color: transparent;
+    height: 40px;
+    font-size: medium;
+    padding: 0 10px;
 }
 
+#user-edit input {
+    color: #383838;
+    background-color: #F2FEFD;
+    border-radius: 9px;
+    border: transparent;
+    height: 40px;
+    font-size: medium;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+
 #user .full input {
-    width: 130px;
+    width: 170px;
 }
 
 #user .full1 input {
@@ -1941,84 +1984,98 @@ main>header span {
     width: 100%;
 }
 
-
-.userInfo form section div input:focus {
-    border-width: 2px;
-    border-color: #C0F2EC;
+.writtenInfo input:focus {
+    outline-color: #C0F2EC;
 }
-
-
-
-
 
 #user .editIcon {
     float: right;
-    width: 8%;
+    width: 10%;
     cursor: pointer;
     margin-top: 10px;
 }
 
-.pass {
+
+#user-edit .eye {
     position: relative;
 }
 
-i {
+#user-edit i {
     position: absolute;
-    margin-left: -30px;
-    top: 48%;
     cursor: pointer;
+    top: 13px;
+    right: 12px;
     opacity: 60%;
 }
 
-.editIconBlue {
+#user-edit .userIcon {
+    position: relative;
+}
+
+#user-edit .editIconBlue {
     position: absolute;
-    left: 55%;
-    top: 17%;
-    width: 8%;
+    right: 0;
+    bottom: 0;
+    width: 25%;
     cursor: pointer;
 }
 
-.editButtons {
-    float: left;
+#user-edit .submitEdit {
+    position: relative;
+    margin-right: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-flow: column;
 }
 
-.save {
+#user-edit .editButtons {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+}
+
+#user-edit .save {
     all: unset;
     border-radius: 40px;
     border: 1px solid #C0F2EC;
     width: 70px;
     height: 30px;
-    vertical-align: middle;
+    text-align: center;
     color: white;
     background-color: rgba(38, 197, 179, 0.7);
+    cursor: pointer;
 }
 
-.save:hover {
+#user-edit .save:hover {
     border: 1px solid #C0F2EC;
     background-color: #26C5B3;
 }
 
-.editButtons .cancel {
+#user-edit .editButtons .cancel {
     all: unset;
-    display: inline-block;
+    line-height: 30px;
+    text-align: center;
     border-radius: 40px;
     border: 1px solid #C0F2EC;
     width: 70px;
     height: 30px;
-    vertical-align: middle;
     color: white;
     background-color: rgba(165, 176, 175, 0.7);
+    cursor: pointer;
 }
 
-.cancel:hover {
+#user-edit .cancel:hover {
     background-color: #A5B0AF;
 }
 
-#error {
+#user-edit #error {
+    margin-bottom: 20px;
     display: none;
     font-size: small;
     color: red;
 }
+
+/* Admin */
 
 #admin .users-display {
     display: flex;
@@ -2056,13 +2113,24 @@ i {
 }
 
 .modal-header {
-    border-style: none
+    border-style: none;
+    display: flex;
+    flex-flow: column;
 }
 
 .modal-title {
     width: 100%;
     text-align: center;
     font-size: x-large;
+    color: #505050;
+}
+
+#delete .modal-subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: medium;
+    margin-top: 25px;
+    color: #505050;
 }
 
 .modal-footer {
@@ -2077,20 +2145,34 @@ i {
 #invite-member .confirm,
 #add-coordinator .confirm,
 #leave-project .confirm,
-#delete-project .confirm {
+#delete-project .confirm,
+#logout .confirm,
+#delete .delete {
     background-color: #26C5B3;
     border-radius: 50px;
+    height: 30px;
+    line-height: 17px;
+    text-align: center;
     color: white;
+}
+
+#delete .delete {
+    background-color: #C86660;
 }
 
 #assign-member .cancel,
 #invite-member .cancel,
 #add-coordinator .cancel,
 #leave-project .cancel,
-#delete-project .cancel {
+#delete-project .cancel,
+#logout .cancel,
+#delete .cancel {
     background-color: #A5B0AF;
     border-radius: 50px;
     color: white;
+    height: 30px;
+    text-align: center;
+    line-height: 17px;
 }
 
 .modal-body {
@@ -2108,33 +2190,74 @@ i {
 }
 
 
-/* #projects .filters {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    border-right: 2px solid black;
+.modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: #505050;
+}
+
+#delete .modal-subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: medium;
+    margin-top: 25px;
+    color: #505050;
+}
+
+.modal-footer {
     display: flex;
-    flex-flow: column;
+    justify-content: center;
     align-items: center;
+    border-style: none;
+    gap: 10px;
 }
 
-#projects .filters input {
-    display: none;
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm,
+#leave-project .confirm,
+#delete-project .confirm,
+#logout .confirm,
+#delete .delete {
+    background-color: #26C5B3;
+    border-radius: 50px;
+    height: 30px;
+    line-height: 17px;
+    text-align: center;
+    color: white;
 }
 
-#projects .filters div {
-    width: 80px;
+#delete .delete {
+    background-color: #C86660;
+}
+
+#assign-member .cancel,
+#invite-member .cancel,
+#add-coordinator .cancel,
+#leave-project .cancel,
+#delete-project .cancel,
+#logout .cancel,
+#delete .cancel {
+    background-color: #A5B0AF;
+    border-radius: 50px;
+    color: white;
+    height: 30px;
+    text-align: center;
+    line-height: 17px;
+}
+
+.modal-body {
+    background-color: white;
+    margin: 0px 15px;
+    border-radius: 50px;
     text-align: center;
 }
 
-#projects .filters label {
-    border-radius: 50px;
-    width: 100%;
-    margin: 5px;
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm{
+    position: absolute;
+    right: 20px;
 }
 
-#projects .filters input:checked+label {
-    background-color: #62D2C5;
-    border-radius: 50px;
-    width: 100%;
-    margin: 5px;
-} */

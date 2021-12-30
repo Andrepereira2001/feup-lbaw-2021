@@ -31,7 +31,7 @@
       <div class="todo-search">
         <h2>TO-DO</h2>
         <form>
-          <label for="task-search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
+          <label for="task-search"> <img src={{ asset('img/lupa.png') }}> </label>
           <input type="text" id="task-search" name="search" placeholder="Search for Task"/>
         </form>
       </div>
