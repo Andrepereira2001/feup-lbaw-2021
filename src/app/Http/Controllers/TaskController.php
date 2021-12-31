@@ -21,7 +21,10 @@ class TaskController extends Controller
     {
       $task = Task::find($id);
       $project = Project::find($task->id_project);
-      $this->authorize('show', $task);
+
+      if(!Auth::guard('admin')->user()){
+        $this->authorize('show', $task);
+      }
 
       //$search = $request->input('search');
 

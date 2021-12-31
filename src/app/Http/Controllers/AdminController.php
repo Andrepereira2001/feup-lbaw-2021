@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function showProjects(Request $request)
     {
 
-        echo Auth::guard('admin')->user();
+        //echo Auth::guard('admin')->user();
 
         $checkbox = [
             "created_at" => false,

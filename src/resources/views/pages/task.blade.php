@@ -48,8 +48,8 @@
       <span>Assigned To</span>
       <div class="content">
           @each('partials.user', $task->user()->get()  , 'user')
-          @if ($task->finished_at == null)
-          <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
+          @if ($task->finished_at == null && !Auth::guard('admin')->user())
+            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
           @endif
       </div>
     </div>
@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="buttons">
-        @if($task->finished_at === null)
+        @if($task->finished_at === null  && !Auth::guard('admin')->user())
             <a href="/tasks/{{$task->id}}/edit/" class="edit">Edit</a>
             <button type="button" class="complete">Complete</a>
         @endif

@@ -17,9 +17,8 @@ class ProjectPolicy
         return true;
     }
 
-    public function delete(User $user)
+    public function delete(User $logedUser, User $user)
     {
-        error_log("______________________POLY_________________________________________________");
-        return true;
+        return $logedUser->id == $user->id;
     }
 }

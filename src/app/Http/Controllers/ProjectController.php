@@ -16,10 +16,6 @@ use App\Models\Interfaces\UserInterface;
 class ProjectController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Admin::class, 'show');
-    }
 
     /**
      * Shows the project for a given id.
@@ -30,7 +26,9 @@ class ProjectController extends Controller
     public function show($id,Request $request)
     {
       $project = Project::find($id);
-      $this->authorize('show', $project);
+      if(!Auth::guard('admin')->user()){
+        $this->authorize('show', $project);
+        }
 
       $search = $request->input('search');
 
@@ -55,8 +53,12 @@ class ProjectController extends Controller
      */
     public function details($id){
         $project = Project::find($id);
-        $this->authorize('show', $project);
-        $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+        $isCoordinator = false;
+
+        if(Auth::guard('admin')->user() == null){
+            $this->authorize('show', $project);
+            $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+        }
         $noMembers = User::whereDoesntHave('projects', function($p) use($id){
             $p->where('participation.id_project',$id);;
         })->get();
@@ -173,8 +175,10 @@ class ProjectController extends Controller
      */
     public function delete($id){
       $project = Project::find($id);
-      $this->authorize('delete', $project);
 
+      if(!Auth::guard('admin')->user()){
+        $this->authorize('delete', $project);
+        }
       $project->delete();
 
       return $project;

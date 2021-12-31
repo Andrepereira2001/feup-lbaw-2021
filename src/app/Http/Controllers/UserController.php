@@ -58,12 +58,9 @@ class UserController extends Controller
     {
       $user = User::find($id);
 
-      error_log("_______________________________NOAUTH_______________________________________________________-");
-
-
-      //$this->authorize('delete', $user);
-
-      error_log("_________________________________AUTH_____________________________________________________-");
+      if(!Auth::guard('admin')->user){
+        $this->authorize('delete', $user);
+      }
 
       $user->delete();
 

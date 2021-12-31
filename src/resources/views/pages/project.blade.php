@@ -38,7 +38,9 @@
       <ul>
         @each('partials.task', $tasksTodo, 'task')
       </ul>
-      <a href="/projects/{{$project->id}}/tasks" class="add-task"><img src={{ asset('img/add.png') }}></a>
+      @if(Auth::user())
+        <a href="/projects/{{$project->id}}/tasks" class="add-task"><img src={{ asset('img/add.png') }}></a>
+      @endif
     </div>
     <div class="done-box">
       <h2>DONE</h2>
