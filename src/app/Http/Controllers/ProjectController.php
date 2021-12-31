@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Interfaces\UserInterface;
 
 class ProjectController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Admin::class, 'show');
+    }
+
     /**
      * Shows the project for a given id.
      *
@@ -52,7 +61,7 @@ class ProjectController extends Controller
             $p->where('participation.id_project',$id);;
         })->get();
 
-        return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator, 'noMembers' => $noMembers ]);
+        return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator, 'noMembers' => $noMembers, 'selected' => "selected-view"]);
     }
 
     /**

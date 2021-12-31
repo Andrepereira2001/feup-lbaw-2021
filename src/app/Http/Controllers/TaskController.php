@@ -25,7 +25,7 @@ class TaskController extends Controller
 
       //$search = $request->input('search');
 
-      return view('pages.task', ['task' => $task, 'project' => $project]);
+      return view('pages.task', ['task' => $task, 'project' => $project, 'selected' => "selected-view"]);
     }
 
     /**

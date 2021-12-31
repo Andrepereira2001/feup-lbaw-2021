@@ -19,7 +19,7 @@ class ProjectPolicy
 
     public function delete(User $user)
     {
-        // Only a project coordinator can delete it
+        error_log("______________________POLY_________________________________________________");
         return true;
     }
 }

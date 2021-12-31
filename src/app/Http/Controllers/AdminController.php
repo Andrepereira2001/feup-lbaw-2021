@@ -51,7 +51,7 @@ class AdminController extends Controller
      */
     public function showUsers()
     {
-      $users = User::all();
+      $users = User::where('name', '!=', 'Anonymous')->get();
       return view('pages.admin_users', ['users' => $users]);
     }
 

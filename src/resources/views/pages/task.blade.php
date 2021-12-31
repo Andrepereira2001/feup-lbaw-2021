@@ -22,6 +22,18 @@
 ?>
   <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
     @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $task->project->id, 'users' => $task->project->users()->get()])
+
+    <div id="sidenav" class="sidenav">
+        <div id="sidenavleft" class="{{$selected}}">
+            <a  href="/tasks/{{$task->id}}" id="view">Task Details
+            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+        </div>
+        <div id="sidenavleft" class="sidenavleft">
+            <a href="/projects/{{$task->id_project}}" id="notification">Project Page
+            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+        </div>
+    </div>
+
     <div class="info">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
+
 class NonAuthController extends Controller
 {
 
@@ -50,7 +51,7 @@ class NonAuthController extends Controller
      *
      */
     public function sendEmail(Request $request){
-
+      error_log("Ta foda");
       $name = $request->input('name');
       $from = $request->input('email');
       $message = $request->input('message');

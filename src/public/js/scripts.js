@@ -1,29 +1,4 @@
 function addEventListeners() {
-    let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
-    [].forEach.call(itemCheckers, function(checker) {
-        checker.addEventListener('change', sendItemUpdateRequest);
-    });
-
-    let itemCreators = document.querySelectorAll('article.card form.new_item');
-    [].forEach.call(itemCreators, function(creator) {
-        creator.addEventListener('submit', sendCreateItemRequest);
-    });
-
-    let itemDeleters = document.querySelectorAll('article.card li a.delete');
-    [].forEach.call(itemDeleters, function(deleter) {
-        deleter.addEventListener('click', sendDeleteItemRequest);
-    });
-
-    let cardDeleters = document.querySelectorAll('article.card header a.delete');
-    [].forEach.call(cardDeleters, function(deleter) {
-        deleter.addEventListener('click', sendDeleteCardRequest);
-    });
-
-    let cardCreator = document.querySelector('article.card form.new_card');
-    if (cardCreator != null)
-        cardCreator.addEventListener('submit', sendCreateCardRequest);
-
-    /*----Apenas interessa apartir daqui ---*/
 
     /*--------------project------------*/
 
@@ -53,7 +28,7 @@ function addEventListeners() {
 
     let projectCoordinatorAddSearch = document.querySelectorAll('#add-coordinator .search');
     [].forEach.call(projectCoordinatorAddSearch, function(search) {
-        search.addEventListener('change', projectCoordinatorAddSearchChange);
+        search.addEventListener('input', projectCoordinatorAddSearchChange);
     });
 
     let addCoordinator = document.querySelectorAll('#add-coordinator button.confirm');
@@ -65,7 +40,12 @@ function addEventListeners() {
 
     let taskAssignSearch = document.querySelectorAll('#task-create .search');
     [].forEach.call(taskAssignSearch, function(search) {
-        search.addEventListener('change', taskAssignSearchChange);
+        search.addEventListener('input', taskAssignSearchChange);
+    });
+
+    let taskDetailsAssignSearch = document.querySelectorAll('#task-details .search');
+    [].forEach.call(taskDetailsAssignSearch, function(search) {
+        search.addEventListener('input', taskAssignSearchChange);
     });
 
     let taskCreator = document.querySelector('#task-create form.create');
@@ -98,11 +78,16 @@ function addEventListeners() {
     if (userEdit != null)
         userEdit.addEventListener('submit', sendEditUserRequest);
 
+    let userDelete = document.querySelectorAll('#delete-user .delete');
+    [].forEach.call(userDelete, function(val) {
+        val.addEventListener('click', sendDeleteUserRequest);
+    });
+
     /*--------------invite------------*/
 
     let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
     [].forEach.call(projectUserAddSearch, function(search) {
-        search.addEventListener('change', projectUserAddSearchChange);
+        search.addEventListener('input', projectUserAddSearchChange);
     });
 
     let userInvite = document.querySelectorAll('#invite-member button.confirm');
@@ -209,13 +194,13 @@ function projectCoordinatorAddSearchChange(event) {
         sendAjaxRequest('post', '/api/users/', { inProject, search, isMember }, projectCoordinatorAddSearchChangeHandler);
 }
 
-function addCoordinatorRequest(event){
+function addCoordinatorRequest(event) {
     event.preventDefault();
 
     let id_user = event.target.getAttribute('data-id');
     let id_project = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('post', '/api/projects/addCoordinator' , { id_user, id_project }, addCoordinatorHandler);
+    sendAjaxRequest('post', '/api/projects/addCoordinator', { id_user, id_project }, addCoordinatorHandler);
 }
 
 
@@ -278,8 +263,8 @@ function taskAssignMemberHandler(event) {
     let id = this.closest('section').getAttribute('data-id');
     let userId = this.getAttribute('data-id');
 
-    console.log(user,id,userId);
-    if(user === null){
+    console.log(user, id, userId);
+    if (user === null) {
         sendAjaxRequest('post', '/tasks/' + id + '/edit', { userId }, taskEditHandler);
     } else {
         sendAjaxRequest('post', '/tasks/' + id + '/clone', { userId }, taskEditHandler);
@@ -307,6 +292,13 @@ function sendEditUserRequest(event) {
     }
 }
 
+function sendDeleteUserRequest(event) {
+    event.preventDefault();
+    let id = this.closest('button').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
+}
+
 
 /*--------------Invite------------*/
 
@@ -323,13 +315,13 @@ function projectUserAddSearchChange(event) {
 
 }
 
-function sendInviteRequest(event){
+function sendInviteRequest(event) {
     event.preventDefault();
 
     let id_user = event.target.getAttribute('data-id');
     let id_project = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('post', '/api/invites' , { id_user, id_project }, sendInviteHandler);
+    sendAjaxRequest('post', '/api/invites', { id_user, id_project }, sendInviteHandler);
 }
 
 
@@ -437,33 +429,40 @@ function projectCoordinatorAddSearchChangeHandler() {
     })
 }
 
-
-function taskAssignSearchChangeHandler() {
+function projectUserAddSearchChangeHandler() {
     const users = JSON.parse(this.responseText);
 
-    let assigned = document.querySelectorAll('#task-create .user.invite');
-    [].forEach.call(assigned, function(val) {
-        val.remove();
+    let userInvite = document.querySelectorAll('#invite-member .user.invite');
+    [].forEach.call(userInvite, function(invite) {
+        invite.remove();
     });
 
 
-    let body = document.querySelector('#task-create .modal-body');
+    let body = document.querySelector('#invite-member .modal-body');
     users.map((user) => {
-        let assign = document.createElement('div');
-        assign.className = ('user invite');
-        assign.setAttribute('data-id', user.id);
-        assign.innerHTML = `
+        let user_invite = document.createElement('div');
+        user_invite.className = ('user invite');
+        user_invite.setAttribute('data-id', user.id);
+        user_invite.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
              <a href="/users/profile/${user.id}">${user.name}</a>
-             <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
 
-        let add = assign.querySelector('button.confirm');
-        add.addEventListener('click', addCoordinatorRequest);
+        let invite = user_invite.querySelector('button.confirm');
+        invite.addEventListener('click', sendInviteRequest);
 
-        body.appendChild(assign);
+        body.appendChild(user_invite);
     })
 }
+
+function sendInviteHandler() {
+    if (this.status != 201) window.location = '/';
+    let invite = JSON.parse(this.responseText);
+    let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
+    element.remove();
+}
+
 
 /*--------------Task------------*/
 
@@ -507,37 +506,30 @@ function taskEditHandler() {
     }
 }
 
-function sendInviteHandler() {
-    if (this.status != 201) window.location = '/';
-    let invite = JSON.parse(this.responseText);
-    let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
-    element.remove();
-}
-
-function projectUserAddSearchChangeHandler() {
+function taskAssignSearchChangeHandler() {
     const users = JSON.parse(this.responseText);
 
-    let userInvite = document.querySelectorAll('#invite-member .user.invite');
-    [].forEach.call(userInvite, function(invite) {
-        invite.remove();
+    let assigned = document.querySelectorAll('.user.invite');
+    [].forEach.call(assigned, function(val) {
+        val.remove();
     });
 
 
-    let body = document.querySelector('#invite-member .modal-body');
+    let body = document.querySelector('.modal-body');
     users.map((user) => {
-        let user_invite = document.createElement('div');
-        user_invite.className = ('user invite');
-        user_invite.setAttribute('data-id', user.id);
-        user_invite.innerHTML = `
+        let assign = document.createElement('div');
+        assign.className = ('user invite');
+        assign.setAttribute('data-id', user.id);
+        assign.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
              <a href="/users/profile/${user.id}">${user.name}</a>
-             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+             <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
 
-        let invite = user_invite.querySelector('button.confirm');
-        invite.addEventListener('click', sendInviteRequest);
+        let add = assign.querySelector('button.confirm');
+        add.addEventListener('click', addCoordinatorRequest);
 
-        body.appendChild(user_invite);
+        body.appendChild(assign);
     })
 }
 
@@ -552,6 +544,10 @@ function userEditHandler() {
     }
 }
 
+function userDeletedHandler() {
+    window.location = '/';
+}
+
 /*--------------Email------------*/
 
 function sendEmailHandler() {
@@ -562,143 +558,5 @@ function sendEmailHandler() {
         window.location = '/';
     }
 }
-
-/*Acho que nao interessa APARTIR DAQUI */
-function createItem(item) {
-    let new_item = document.createElement('li');
-    new_item.classList.add('item');
-    new_item.setAttribute('data-id', item.id);
-    new_item.innerHTML = `
-  <label>
-    <input type="checkbox"> <span>${item.description}</span><a href="#" class="delete">&#10761;</a>
-  </label>
-  `;
-
-    new_item.querySelector('input').addEventListener('change', sendItemUpdateRequest);
-    new_item.querySelector('a.delete').addEventListener('click', sendDeleteItemRequest);
-
-    return new_item;
-}
-
-function itemUpdatedHandler() {
-    let item = JSON.parse(this.responseText);
-    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
-    let input = element.querySelector('input[type=checkbox]');
-    element.checked = item.done == "true";
-}
-
-function itemAddedHandler() {
-    if (this.status != 200) window.location = '/';
-    let item = JSON.parse(this.responseText);
-
-    // Create the new item
-    let new_item = createItem(item);
-
-    // Insert the new item
-    let card = document.querySelector('article.card[data-id="' + item.card_id + '"]');
-    let form = card.querySelector('form.new_item');
-    form.previousElementSibling.append(new_item);
-
-    // Reset the new item form
-    form.querySelector('[type=text]').value = "";
-}
-
-function itemDeletedHandler() {
-    if (this.status != 200) window.location = '/';
-    let item = JSON.parse(this.responseText);
-    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
-    element.remove();
-}
-
-function cardDeletedHandler() {
-    if (this.status != 200) window.location = '/';
-    let card = JSON.parse(this.responseText);
-    let article = document.querySelector('article.card[data-id="' + card.id + '"]');
-    article.remove();
-}
-
-function cardAddedHandler() {
-    if (this.status != 200) window.location = '/';
-    let card = JSON.parse(this.responseText);
-
-    // Create the new card
-    let new_card = createCard(card);
-
-    // Reset the new card input
-    let form = document.querySelector('article.card form.new_card');
-    form.querySelector('[type=text]').value = "";
-
-    // Insert the new card
-    let article = form.parentElement;
-    let section = article.parentElement;
-    section.insertBefore(new_card, article);
-
-    // Focus on adding an item to the new card
-    new_card.querySelector('[type=text]').focus();
-}
-
-function createCard(card) {
-    let new_card = document.createElement('article');
-    new_card.classList.add('card');
-    new_card.setAttribute('data-id', card.id);
-    new_card.innerHTML = `
-
-  <header>
-    <h2><a href="cards/${card.id}">${card.name}</a></h2>
-    <a href="#" class="delete">&#10761;</a>
-  </header>
-  <ul></ul>
-  <form class="new_item">
-    <input name="description" type="text">
-  </form>`;
-
-    let creator = new_card.querySelector('form.new_item');
-    creator.addEventListener('submit', sendCreateItemRequest);
-
-    let deleter = new_card.querySelector('header a.delete');
-    deleter.addEventListener('click', sendDeleteCardRequest);
-
-    return new_card;
-}
-
-function sendItemUpdateRequest() {
-    let item = this.closest('li.item');
-    let id = item.getAttribute('data-id');
-    let checked = item.querySelector('input[type=checkbox]').checked;
-
-    sendAjaxRequest('post', '/api/item/' + id, { done: checked }, itemUpdatedHandler);
-}
-
-function sendDeleteItemRequest() {
-    let id = this.closest('li.item').getAttribute('data-id');
-
-    sendAjaxRequest('delete', '/api/item/' + id, null, itemDeletedHandler);
-}
-
-function sendCreateItemRequest(event) {
-    let id = this.closest('article').getAttribute('data-id');
-    let description = this.querySelector('input[name=description]').value;
-
-    if (description != '')
-        sendAjaxRequest('put', '/api/cards/' + id, { description: description }, itemAddedHandler);
-
-    event.preventDefault();
-}
-
-function sendDeleteCardRequest(event) {
-    let id = this.closest('article').getAttribute('data-id');
-
-    sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
-}
-
-function sendCreateCardRequest(event) {
-    let name = this.querySelector('input[name=name]').value;
-
-    if (name != '')
-        sendAjaxRequest('put', '/api/cards/', { name: name }, cardAddedHandler);
-
-    event.preventDefault();
-}
-
 
 addEventListeners();

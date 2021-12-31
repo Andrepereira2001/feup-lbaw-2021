@@ -11,14 +11,15 @@
     <h1 class="title">Contact Us</h1>
   </div>
   <div class="line"></div>
-  <form method="post" action="/contact">
+  <form  method="POST" action="{{ action('NonAuthController@sendEmail') }}">
+    {{ csrf_field() }}
     <label for="name">Name:</label>
     <input type="text" id="name" name="name"><br><br>
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"><br><br>
     <label for="message">Message:</label>
     <input type="text" id="message" name="message"><br><br>
-    <input type="submit" name="submit" value="Send">
+    <input type="submit" name="submit" value="Submit">
   </form>
 
 </section>

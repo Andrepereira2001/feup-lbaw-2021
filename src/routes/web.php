@@ -34,10 +34,10 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('users', 'ProjectController@list'); //view user page
 Route::get('users/profile/{id}', 'UserController@show'); //view user profile
-Route::delete('users/profile/{id}/delete', 'UserController@delete');
+Route::delete('users/{id}', 'UserController@delete');
 Route::get('users/profile/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
 Route::post('users/profile/{id}/update', 'UserController@update'); //user update profile form
-Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword');; //recover password form
+Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword'); //recover password form
 // Route::post('recoverPassword', 'Auth\UserController@'); //recover password action
 // Route::get('resetPassword', 'Auth\UserController@'); //reset password form
 // Route::post('resetPassword', 'Auth\UserController@'); //reset password action
@@ -69,9 +69,8 @@ Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 // Route::get('api/tasks', 'TaskController@'); //get tasks
 // Route::get('tasks', 'TaskController@'); //creation task page
 Route::get('tasks/{id}', 'TaskController@show'); //task edit page
-Route::post('tasks', 'TaskController@create'); //creation task page ANDREEE VÉ ESTA ROUT
-Route::post('projects/{project_id}/tasks', 'TaskController@create'); //create task ANDREEE VÉ ESTA ROUT
-Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task page ANDREEE VÉ ESTA ROUT
+Route::post('tasks', 'TaskController@create'); //creation task page
+Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task page
 Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
 Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
 Route::post('tasks/{id}', 'TaskController@complete'); //complete task
@@ -110,8 +109,8 @@ Route::post('api/invites', 'InviteController@create'); //create invite
 
 
 // (M06) Administration
-Route::get('admin', 'AdminController@showProjects'); //admin page
-Route::get('admin/users', 'AdminController@showUsers'); //admin page
+Route::get('admin/projects', 'AdminController@showProjects'); //admin page
+Route::get('admin', 'AdminController@showUsers'); //admin page
 // Route::delete('/users/{id}', 'AdminController@deleteUser'); //admin page
 // Route::post('/api/block/{user_id}', 'AdminController@block'); // block user
 // Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user

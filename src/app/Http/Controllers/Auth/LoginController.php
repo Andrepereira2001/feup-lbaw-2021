@@ -64,6 +64,8 @@ class LoginController extends Controller
             return redirect()->intended('/admin');
         }
 
+        return redirect('/');
+
     }
 
     public function forgotPassword()

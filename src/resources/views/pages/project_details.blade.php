@@ -22,6 +22,18 @@
     @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
     @include('partials.add_popup',['name' => "add-coordinator", 'title' => "Add Coordinator",'project_id' => $project->id, 'users' => $project->users()->wherePivot("role","Member")->get()])
     @include('partials.add_popup',['name' => "invite-member", 'title' => "Invite user",'project_id' => $project->id, 'users' => $noMembers])
+
+    <div id="sidenav" class="sidenav">
+        <div id="sidenavleft" class="{{$selected}}">
+            <a  href="/projects/{{$project->id}}/details" id="view">Project Details
+            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+        </div>
+        <div id="sidenavleft" class="sidenavleft">
+            <a href="/projects/{{$project->id}}" id="notification">Project Page
+            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+        </div>
+    </div>
+
     <div class="info">
         <h1>{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>

@@ -57,7 +57,13 @@ class UserController extends Controller
     public function delete(Request $request, $id)
     {
       $user = User::find($id);
-    //   $this->authorize('delete', $user);
+
+      error_log("_______________________________NOAUTH_______________________________________________________-");
+
+
+      //$this->authorize('delete', $user);
+
+      error_log("_________________________________AUTH_____________________________________________________-");
 
       $user->delete();
 

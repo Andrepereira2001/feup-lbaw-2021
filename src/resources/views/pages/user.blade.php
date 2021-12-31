@@ -5,10 +5,10 @@
 @section('content')
 
 <section id="user">
-    @include('partials.popupLogout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
-    @include('partials.popupDelete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
+    @include('partials.popup_logout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
+    @include('partials.popup_delete',['name' => "delete-user", 'title' => "Are you sure you want to delete the profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     <article class="user">
-        @if (Auth::user()->id == $user->id)
+        @if (Auth::user() && Auth::user()->id == $user->id)
             <div id="sidenav" class="sidenav">
                 <div id="sidenavleft" class="{{$selected}}">
                     <a  href="/users/profile/{{$user->id}}" id="view">{{$view}} Profile
@@ -19,7 +19,7 @@
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
-                    <a data-toggle="modal" data-target="#delete">Delete Profile
+                    <a data-toggle="modal" data-target="#delete-user">Delete Profile
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
@@ -27,6 +27,14 @@
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
             </div>
+        @elseif (Auth::guard('admin')->user())
+            <div id="sidenav" class="sidenav">
+                <div id="sidenavleft" class="sidenavleft">
+                    <a data-toggle="modal" data-target="#delete-user">Delete Profile
+                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                </div>
+            </div>
+
         @endif
         <div class="userInfo" id="view">
             <form class="info">
@@ -51,7 +59,7 @@
                         <label for="email">Email</label>
                         <input id="email" type="text" name="email" value="{{$user->email}}" disabled>
                     </div>
-                    @if (Auth::user()->id == $user->id)
+                    @if (Auth::user() && Auth::user()->id == $user->id)
                         <div>
                             <a href="/users/profile/{{$user->id}}/update"><img src={{ asset('img/edit.png') }} class="editIcon"></a>
                         </div>

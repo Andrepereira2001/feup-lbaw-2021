@@ -6,7 +6,7 @@
           <h1 class="modal-subtitle">{{$message}}</h1>
         </div>
         <div class="modal-footer">
-            <a class="btn delete" href="/users/profile/{{$id}}/delete">Delete</a>
+            <button type="button" class="btn delete" data-id={{$id}}>Delete</button>
             <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
         </div>
       </div>

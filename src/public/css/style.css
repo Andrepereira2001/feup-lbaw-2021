@@ -7,6 +7,18 @@ body {
     margin-bottom: 20px;
 }
 
+#header .logout {
+    all: unset;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: #C86660;
+    border-radius: 50px;
+    height: 25px;
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
 main>header {
     display: grid;
     grid-template-columns: 1fr auto auto;
@@ -338,140 +350,6 @@ main>header span {
 #contact img {
     width: 60%;
     height: auto;
-}
-
-
-/* cards */
-
-#cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
-#cards article.card {
-    display: flex;
-    flex-direction: column;
-    background-color: #d3edc3;
-    padding: 1em;
-    margin: 1em;
-}
-
-#cards article.card header {
-    display: flex;
-    align-items: center;
-}
-
-#cards article.card header h2 {
-    flex-grow: 1;
-}
-
-#cards article.card header a.delete {
-    display: none;
-    font-size: 2.6rem;
-    margin-top: .5rem;
-    margin-bottom: 2.5rem;
-    line-height: 1.25;
-}
-
-#cards article.card header:hover a.delete {
-    display: inline;
-}
-
-#cards article.card li {
-    list-style-type: none;
-}
-
-#cards article.card li label {
-    display: flex;
-    align-items: baseline;
-}
-
-#cards article.card li label span {
-    margin-left: .5em;
-    flex-grow: 1;
-}
-
-#cards article.card li label a {
-    display: none;
-}
-
-#cards article.card li label:hover a {
-    display: inline;
-}
-
-#cards article.card input:checked+span {
-    text-decoration: var(--primary-color) solid line-through;
-}
-
-#cards article.card ul {
-    margin: 0;
-}
-
-#cards article.card form {
-    margin: 0;
-}
-
-#cards article.card input[type=text] {
-    background-color: white;
-    margin: 0;
-}
-
-#content label {
-    font-weight: normal;
-}
-
-#content>form {
-    margin: 0 auto;
-    padding: 1em;
-}
-
-#content>form .error {
-    font-weight: bold;
-    color: #ff3333;
-}
-
-#content>form input {
-    background-color: white;
-}
-
-@media (max-width: 70em) {
-    #cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    main>header {
-        display: grid;
-        grid-template-columns: 1fr auto;
-    }
-    main>header h1 {
-        grid-row-end: span 2;
-    }
-}
-
-@media (max-width: 40em) {
-    #cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 25em) {
-    body {
-        margin: 0;
-    }
-    main>header {
-        margin: 0;
-        padding: 0.5em;
-    }
-    main>header span {
-        margin: 0;
-    }
-    #content form {
-        margin: 0;
-        max-width: 25em;
-    }
-    article.card {
-        margin: 0;
-        border-bottom: 1px solid rgba(96, 108, 118, 0.4);
-    }
 }
 
 
@@ -915,7 +793,7 @@ main>header span {
 
 #project .todo-box .todo-search img {
     opacity: 70%;
-    width:30px;
+    width: 30px;
 }
 
 #project .todo-box .todo-search input {
@@ -969,12 +847,11 @@ main>header span {
     grid-column: 1/2;
     grid-row: 3/4;
     border-radius: 20px;
-    margin: 10px;
-    margin-left: 20px;
+    margin: 10px 0px 10px 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#project .done-box h2{
+#project .done-box h2 {
     margin: 15px 0px 0px 15px;
     font-weight: bold;
 }
@@ -1028,10 +905,11 @@ main>header span {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#project .forum-box h2{
+#project .forum-box h2 {
     margin: 15px 0px 0px 15px;
     font-weight: bold;
 }
+
 
 /* project-details */
 
@@ -1039,6 +917,56 @@ main>header span {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto auto;
+}
+
+#project-details #sidenav {
+    all: unset;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+}
+
+#project-details #sidenavleft {
+    padding: 25px 0;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    width: 170px;
+    border-right: 1px solid grey;
+}
+
+#project-details #sidenavleft a {
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    padding: 12px;
+    width: 110px;
+    font-size: 15px;
+    color: black;
+    border-bottom: 1px solid grey;
+    bottom: 0;
+    right: 0;
+}
+
+#project-details #sidenavleft:hover {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+#project-details .arrow {
+    all: unset;
+    position: absolute;
+    left: 115px;
+    margin-top: 5px;
+    width: 10%;
+    opacity: 90%;
+}
+
+#project-details .selected-view,
+#project-details .selected-notification {
+    all: unset;
+    background-color: rgba(165, 176, 175, 0.3);
 }
 
 #project-details .info {
@@ -1378,6 +1306,56 @@ main>header span {
     grid-template-rows: auto auto auto;
 }
 
+#task-details #sidenav {
+    all: unset;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+}
+
+#task-details #sidenavleft {
+    padding: 25px 0;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    width: 170px;
+    border-right: 1px solid grey;
+}
+
+#task-details #sidenavleft a {
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    padding: 12px;
+    width: 110px;
+    font-size: 15px;
+    color: black;
+    border-bottom: 1px solid grey;
+    bottom: 0;
+    right: 0;
+}
+
+#task-details #sidenavleft:hover {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+#task-details .arrow {
+    all: unset;
+    position: absolute;
+    left: 115px;
+    margin-top: 5px;
+    width: 10%;
+    opacity: 90%;
+}
+
+#task-details .selected-view,
+#task-details .selected-notification {
+    all: unset;
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
 #task-details .info {
     grid-column: 2 / 4;
     grid-row: 1 / 2;
@@ -1498,7 +1476,6 @@ main>header span {
     background-color: #C86660;
     margin-bottom: 10px;
 }
-
 
 #task-details .add {
     all: unset;
@@ -1841,7 +1818,6 @@ main>header span {
 
 /* Style the links inside the sidenav */
 
-
 #user .user,
 #user-edit .user {
     display: flex;
@@ -1871,7 +1847,6 @@ main>header span {
     color: black;
     border-bottom: 1px solid grey;
     bottom: 0;
-
     right: 0;
 }
 
@@ -1974,7 +1949,6 @@ main>header span {
     margin-bottom: 10px;
 }
 
-
 #user .full input {
     width: 170px;
 }
@@ -1994,7 +1968,6 @@ main>header span {
     cursor: pointer;
     margin-top: 10px;
 }
-
 
 #user-edit .eye {
     position: relative;
@@ -2075,6 +2048,7 @@ main>header span {
     color: red;
 }
 
+
 /* Admin */
 
 #admin .users-display {
@@ -2125,7 +2099,7 @@ main>header span {
     color: #505050;
 }
 
-#delete .modal-subtitle {
+#delete-user .modal-subtitle {
     width: 100%;
     text-align: center;
     font-size: medium;
@@ -2147,7 +2121,7 @@ main>header span {
 #leave-project .confirm,
 #delete-project .confirm,
 #logout .confirm,
-#delete .delete {
+#delete-user .delete {
     background-color: #26C5B3;
     border-radius: 50px;
     height: 30px;
@@ -2156,7 +2130,7 @@ main>header span {
     color: white;
 }
 
-#delete .delete {
+#delete-user .delete {
     background-color: #C86660;
 }
 
@@ -2166,7 +2140,7 @@ main>header span {
 #leave-project .cancel,
 #delete-project .cancel,
 #logout .cancel,
-#delete .cancel {
+#delete-user .cancel {
     background-color: #A5B0AF;
     border-radius: 50px;
     color: white;
@@ -2184,11 +2158,10 @@ main>header span {
 
 #assign-member .confirm,
 #invite-member .confirm,
-#add-coordinator .confirm{
+#add-coordinator .confirm {
     position: absolute;
     right: 20px;
 }
-
 
 .modal-title {
     width: 100%;
@@ -2197,7 +2170,7 @@ main>header span {
     color: #505050;
 }
 
-#delete .modal-subtitle {
+#delete-user .modal-subtitle {
     width: 100%;
     text-align: center;
     font-size: medium;
@@ -2219,7 +2192,7 @@ main>header span {
 #leave-project .confirm,
 #delete-project .confirm,
 #logout .confirm,
-#delete .delete {
+#delete-user .delete {
     background-color: #26C5B3;
     border-radius: 50px;
     height: 30px;
@@ -2228,7 +2201,7 @@ main>header span {
     color: white;
 }
 
-#delete .delete {
+#delete-user .delete {
     background-color: #C86660;
 }
 
@@ -2238,7 +2211,7 @@ main>header span {
 #leave-project .cancel,
 #delete-project .cancel,
 #logout .cancel,
-#delete .cancel {
+#delete-user .cancel {
     background-color: #A5B0AF;
     border-radius: 50px;
     color: white;
@@ -2256,8 +2229,7 @@ main>header span {
 
 #assign-member .confirm,
 #invite-member .confirm,
-#add-coordinator .confirm{
+#add-coordinator .confirm {
     position: absolute;
     right: 20px;
 }
-

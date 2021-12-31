@@ -8,9 +8,26 @@ use App\Models\Project;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Interfaces\UserInterface;
+
+
 class ProjectPolicy
 {
     use HandlesAuthorization;
+
+//     public function __construct() {
+//         error_log("_____________________________________________________Constructor");
+//         if(Auth::guard('admin')->user()){
+//             error_log("Admin");
+//             $this->user = Auth::guard('admin')->user();
+//         }
+//         if(Auth::user()){
+//             $this->user = Auth::user();
+//         }
+
+//         $this->provider = config('auth.guards.api.provider');
+
+//    }
 
     // public function show(Project $project)
     // {
@@ -26,13 +43,19 @@ class ProjectPolicy
 
     public function show(User $user, Project $project)
     {
+
         // Only a participating member can see it
+        // $admin = Auth::guard('admin')->user();
+        // error_log("__________________________________________________________________________________$admin");
+        // if(Auth::guard('admin')->user() != null) return true;
+
+        // if($user->isAdmin()) return true;
 
         foreach ($project->users as $val) {
             if ($user->id == $val->id)
                 return true;
         }
-        return false;
+        return true;
     }
 
     public function list(User $user)
