@@ -79,11 +79,16 @@ class UserController extends Controller
             $project = Project::find($inProject);
             $users = $project->users();
         }
-        if($notInProject){
+        else if($notInProject){
             $users = User::whereDoesntHave('projects', function($p) use($notInProject){
                 $p->where('participation.id_project',$notInProject);;
             });
         }
+        else{
+            $users = User::query();
+        }
+
+
         if($isMember){
             $users->wherePivot("role","Member");
         }

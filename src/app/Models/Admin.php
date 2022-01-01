@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\Admin as Authenticatable;
 
-use App\Models\Interfaces\UserInterface;
-
-class Admin extends Authenticatable implements UserInterface
+class Admin extends Authenticatable
 {
     use Notifiable;
 

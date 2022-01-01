@@ -2050,8 +2050,25 @@ main>header span {
 
 
 /* Admin */
+#admin {
+    display: grid;
+    grid-template-columns: 165px auto;
+    grid-template-rows: 50px 95%;
+}
+
+#admin .search-container{
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: end;
+    margin-right: 30px;
+}
 
 #admin .users-display {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
@@ -2076,6 +2093,48 @@ main>header span {
     width: auto;
     color: black;
 }
+
+
+#admin .sidenav {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+}
+
+#admin .sidenavleft {
+    padding: 25px 0;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    width: 170px;
+    border-right: 1px solid grey;
+}
+
+#admin .sidenavleft a {
+    position: absolute;
+    padding: 12px;
+    width: 140px;
+    font-size: 15px;
+    color: black;
+    border-bottom: 1px solid grey;
+    bottom: 0;
+    right: 0;
+}
+
+#admin .sidenavleft:hover {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+#admin .arrow {
+    position: absolute;
+    left: 115px;
+    margin-top: 5px;
+    width: 10%;
+    opacity: 90%;
+}
+
 
 
 /* POPUPS */

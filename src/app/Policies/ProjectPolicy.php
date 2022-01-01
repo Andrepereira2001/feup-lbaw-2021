@@ -8,8 +8,6 @@ use App\Models\Project;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Interfaces\UserInterface;
-
 
 class ProjectPolicy
 {

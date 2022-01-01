@@ -101,6 +101,12 @@ function addEventListeners() {
     if (sendEmail != null)
         sendEmail.addEventListener('submit', sendEmailRequest);
 
+    /*--------------admin-------------*/
+
+    let adminUserSearch = document.querySelector('#admin .search')
+    if (adminUserSearch != null)
+    adminUserSearch.addEventListener('input', adminUserSearchChange);
+
 }
 
 /*--------------Utils------------*/
@@ -190,8 +196,7 @@ function projectCoordinatorAddSearchChange(event) {
     let inProject = event.target.getAttribute('data-id');
     let isMember = true;
 
-    if (search != '')
-        sendAjaxRequest('post', '/api/users/', { inProject, search, isMember }, projectCoordinatorAddSearchChangeHandler);
+    sendAjaxRequest('post', '/api/users/', { inProject, search, isMember }, projectCoordinatorAddSearchChangeHandler);
 }
 
 function addCoordinatorRequest(event) {
@@ -252,8 +257,7 @@ function taskAssignSearchChange(event) {
     let search = event.target.value;
     let inProject = event.target.getAttribute('data-id');
 
-    if (search != '')
-        sendAjaxRequest('post', '/api/users/', { inProject, search }, taskAssignSearchChangeHandler);
+    sendAjaxRequest('post', '/api/users/', { inProject, search }, taskAssignSearchChangeHandler);
 }
 
 function taskAssignMemberHandler(event) {
@@ -308,10 +312,7 @@ function projectUserAddSearchChange(event) {
     let search = event.target.value;
     let notInProject = event.target.getAttribute('data-id');
 
-    console.log(notInProject, search);
-
-    if (search != '')
-        sendAjaxRequest('post', '/api/users/', { notInProject, search }, projectUserAddSearchChangeHandler);
+    sendAjaxRequest('post', '/api/users/', { notInProject, search }, projectUserAddSearchChangeHandler);
 
 }
 
@@ -333,6 +334,17 @@ function sendEmailRequest(event) {
     let email = this.querySelector('input[email=email]').value;
     let message = this.querySelector('input[message=message').value;
     sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
+}
+
+/*--------------Adim------------*/
+
+function adminUserSearchChange(event) {
+    event.preventDefault();
+
+    let search = event.target.value;
+
+    sendAjaxRequest('post', '/api/users/', { search }, adminUserSearchChangeHandler);
+
 }
 
 /* HANDLERS */
@@ -557,6 +569,32 @@ function sendEmailHandler() {
     } else if (this.status !== 201) {
         window.location = '/';
     }
+}
+
+/*--------------Admin------------*/
+
+function adminUserSearchChangeHandler() {
+    const users = JSON.parse(this.responseText);
+
+    let usersList = document.querySelectorAll('#admin .user');
+    [].forEach.call(usersList, function(user) {
+        user.remove();
+    });
+
+
+    let body = document.querySelector('#admin .users-display');
+    users.map((user) => {
+        console.log(user);
+        let userDisplay = document.createElement('div');
+        userDisplay.className = ('user');
+        userDisplay.setAttribute('data-id', user.id);
+        userDisplay.innerHTML = `
+
+            <img src="https://picsum.photos/200" alt="User image" width="70px">
+             <a href="/users/profile/${user.id}">${user.name}</a>`;
+
+        body.appendChild(userDisplay);
+    })
 }
 
 addEventListeners();

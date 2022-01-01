@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Admin;
-use App\Models\Interfaces\UserInterface;
 
 class ProjectController extends Controller
 {

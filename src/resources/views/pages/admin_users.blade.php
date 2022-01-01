@@ -6,6 +6,18 @@
 
 <section id="admin">
     <!-- Button trigger modal -->
+    <div class="search-container">
+        <input class= "search" type="text" name="search" placeholder="User name..."/>
+        <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
+    </div>
+
+    <div class="sidenav">
+        <div class="sidenavleft">
+            <a href="/admin/projects">Projects
+            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+        </div>
+    </div>
+
     <div class="users-display">
         @each('partials.user', $users, 'user')
     </div>
