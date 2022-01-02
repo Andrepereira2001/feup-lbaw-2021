@@ -37,7 +37,7 @@ function addEventListeners() {
 
     let projectSearchTask = document.querySelectorAll('#task-search ');
     [].forEach.call(projectSearchTask, function(search) {
-        search.addEventListener('click', projectSearchTaskChange);
+        search.addEventListener('input', projectSearchTaskChange);
     });
 
 
@@ -219,8 +219,6 @@ function projectSearchTaskChange(event) {
     let search = event.target.value;
     let project_id = this.closest('section').getAttribute('data-id');
     let finished = false;
-
-    console.log(search,project_id,finished )
 
     sendAjaxRequest('post', '/api/tasks', { project_id, search, finished }, projectSearchTaskHandler);
 }
@@ -492,31 +490,25 @@ function sendInviteHandler() {
 }
 
 function projectSearchTaskHandler() {
-    console.log(this.responseText);
     const tasks = JSON.parse(this.responseText);
 
-    // let addCoordinator = document.querySelectorAll('#add-coordinator .user.invite');
-    // [].forEach.call(addCoordinator, function(add) {
-    //     add.remove();
-    // });
+    let taskList = document.querySelectorAll('#project .todo-box .task');
+    [].forEach.call(taskList, function(task) {
+        task.remove();
+    });
 
+    let body = document.querySelector('#project .todo-box ul');
+    tasks.map((task) => {
+        let taskLi = document.createElement('li');
+        taskLi.className = ('task');
+        taskLi.setAttribute('data-id', task.id);
+        taskLi.innerHTML = `
 
-    // let body = document.querySelector('#add-coordinator .modal-body');
-    // users.map((user) => {
-    //     let add_coordinator = document.createElement('div');
-    //     add_coordinator.className = ('user invite');
-    //     add_coordinator.setAttribute('data-id', user.id);
-    //     add_coordinator.innerHTML = `
+            <a href="/tasks/${ task.id }" class="name">${ task.name }</a>
+            <span class="number">${task.task_number+1}</span>`;
 
-    //         <img src="https://picsum.photos/200" alt="User image" width="70px">
-    //          <a href="/users/${user.id}/profile/">${user.name}</a>
-    //          <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-
-    //     let add = add_coordinator.querySelector('button.confirm');
-    //     add.addEventListener('click', createTaskAssignHandler);
-
-    //     body.appendChild(add_coordinator);
-    // })
+        body.appendChild(taskLi);
+    })
 }
 
 /*--------------Task------------*/

@@ -192,15 +192,23 @@ class TaskController extends Controller
     }
 
 
-    $search = $request->input('search');
+    public function search(Request $request){
+        $search = $request->search;
+        $project = Project::find($request->project_id);
+        $finished = $request->finished;
+        $tasks = $project->tasks();
 
-      $tasksTodo = $project->tasks();
-      if($search != ''):
-        $tasksTodo->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
-            ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
-      endif;
+        if($finished == "false"){
+            $tasks = $tasks->whereNull("finished_at");
+        }
 
-      $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
+        if($search != ''){
+            $tasks->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+                ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
+        }
+
+        return $tasks->get();
+    }
 
 
 }
