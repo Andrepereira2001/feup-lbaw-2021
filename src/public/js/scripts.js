@@ -25,7 +25,6 @@ function addEventListeners() {
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
 
-
     let projectCoordinatorAddSearch = document.querySelectorAll('#add-coordinator .search');
     [].forEach.call(projectCoordinatorAddSearch, function(search) {
         search.addEventListener('input', projectCoordinatorAddSearchChange);
@@ -35,6 +34,12 @@ function addEventListeners() {
     [].forEach.call(addCoordinator, function(user) {
         user.addEventListener('click', addCoordinatorRequest);
     });
+
+    let projectSearchTask = document.querySelectorAll('#task-search ');
+    [].forEach.call(projectSearchTask, function(search) {
+        search.addEventListener('click', projectSearchTaskChange);
+    });
+
 
     /*--------------task------------*/
 
@@ -105,7 +110,7 @@ function addEventListeners() {
 
     let adminUserSearch = document.querySelector('#admin .search')
     if (adminUserSearch != null)
-    adminUserSearch.addEventListener('input', adminUserSearchChange);
+        adminUserSearch.addEventListener('input', adminUserSearchChange);
 
 }
 
@@ -208,6 +213,17 @@ function addCoordinatorRequest(event) {
     sendAjaxRequest('post', '/api/projects/addCoordinator', { id_user, id_project }, addCoordinatorHandler);
 }
 
+function projectSearchTaskChange(event) {
+    event.preventDefault();
+
+    let search = event.target.value;
+    let project_id = this.closest('section').getAttribute('data-id');
+    let finished = false;
+
+    console.log(search,project_id,finished )
+
+    sendAjaxRequest('post', '/api/tasks', { project_id, search, finished }, projectSearchTaskHandler);
+}
 
 /*--------------Task------------*/
 
@@ -475,6 +491,33 @@ function sendInviteHandler() {
     element.remove();
 }
 
+function projectSearchTaskHandler() {
+    console.log(this.responseText);
+    const tasks = JSON.parse(this.responseText);
+
+    // let addCoordinator = document.querySelectorAll('#add-coordinator .user.invite');
+    // [].forEach.call(addCoordinator, function(add) {
+    //     add.remove();
+    // });
+
+
+    // let body = document.querySelector('#add-coordinator .modal-body');
+    // users.map((user) => {
+    //     let add_coordinator = document.createElement('div');
+    //     add_coordinator.className = ('user invite');
+    //     add_coordinator.setAttribute('data-id', user.id);
+    //     add_coordinator.innerHTML = `
+
+    //         <img src="https://picsum.photos/200" alt="User image" width="70px">
+    //          <a href="/users/${user.id}/profile/">${user.name}</a>
+    //          <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+
+    //     let add = add_coordinator.querySelector('button.confirm');
+    //     add.addEventListener('click', createTaskAssignHandler);
+
+    //     body.appendChild(add_coordinator);
+    // })
+}
 
 /*--------------Task------------*/
 
@@ -550,7 +593,7 @@ function taskAssignSearchChangeHandler() {
 function userEditHandler() {
     const user = JSON.parse(this.responseText);
     if (this.status === 200) {
-        window.location = '/users/'+ user.id +'/profile' ;
+        window.location = '/users/' + user.id + '/profile';
     } else if (this.status !== 201) {
         window.location = '/';
     }

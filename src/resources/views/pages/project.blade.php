@@ -22,7 +22,7 @@
 
 @section('content')
 
-  <section id="project" class="id-{{$project->id}}">
+  <section id="project" class="id-{{$project->id}}" data-id={{$project->id}}>
     <div class="title-box">
       <h1><span>{{ $project->name }}</span></h1>
       <a href="/projects/{{$project->id}}/details">View Project Details</a>

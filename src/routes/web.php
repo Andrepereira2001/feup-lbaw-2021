@@ -50,7 +50,7 @@ Route::post('api/projects/{id}/addCoordinator', 'ProjectController@addCoordinato
 
 
 // (M03) Tasks, Comments and Labels
-// Route::get('api/tasks', 'TaskController@'); //get tasks
+Route::post('api/tasks', 'TaskController@search'); //get tasks
 // Route::get('tasks', 'TaskController@'); //creation task page
 Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task page
 Route::post('tasks', 'TaskController@create'); //creation task page

@@ -62,108 +62,43 @@ openapi: 3.0.0
 
 > Identify the user stories that were implemented in the prototype.  
 
-| User Story reference | Name                   | Priority                   | Description                   |
-| -------------------- | ---------------------- | -------------------------- | ----------------------------- |
-| US01                 | Name of the user story | Priority of the user story | Description of the user story |
-
-#### 2.0. User
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| US0.1 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website |
-| US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
-| US0.3 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
-| US0.4 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
-> Table 2: User User Stories
-
-
-#### 2.1. Visitor
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| __US1.1 !!__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information |
-| __US1.2 !!__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
-
-> Table 3: Visitor User Stories
-
-#### 2.2. AuthUser
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| __US2.1 !!__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project |
-| __US2.2 !!__ | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them |
-| __US2.3 !!__ | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most |
-| __US2.4 !!__ | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  |
-| US2.5 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website |
-| __US2.6 !!__ | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  |
-| __US2.7 !!__ | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it |
-| US2.8 | Upload Profile Pictures | high | As a AuthUser, I want to upload a profile picture for me account, so that users can identify me |
-| US2.9 | View notifications | high | As a AuthUser, I want to be able to see the notifications, so that informs me of some changes |
-| US2.10 | Appeal for unblock | high | As a AuthUser, I want to be able to ask for the Administrators to unblock my account, so that I can continue with my work  |
-| US2.11 | Receive Notifications | high | As a AuthUser, I want to receive notifications relevant to me, so that I can be aware of what is appening |
-| US2.12 | Accept project invitations | high | As a AuthUser, I want to be able to accept project invitations, so that i can be part of them | 
-| US2.13 | Project Invitation | low | As a AuthUser, I want to manage my project invitations, so that I can accept or refuse the invites |
-| US2.14 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily |
-> Table 4: AuthUser User Stories
-
-#### 2.3. Member
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| __US3.1!!__ | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  |
-| __US3.2??__ | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date |
-| US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do |
-| __US3.4!!__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
+| User Story reference | Name                   | Priority                   | Description                   | Functional Requirements |
+| -------------------- | ---------------------- | -------------------------- | ----------------------------- | ----------------------- |
+| US0.1 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website | NA |
+| US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators | FR.061 |
+| US0.3 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators | FR.063 |
+| US0.4 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services | FR.062 |
+| __US1.1__ | Sign-in | high | As a Visitor, I want to authenticate into the system, so that I can access privileged information | FR.011 |
+| __US1.2__ | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |FR.012 |
+| __US2.1__ | Create projects | high | As a AuthUser, I want to create my own projects, so that the users can work on the project | FR.201 |
+| __US2.2__ | View projects | high | As a AuthUser, I want to view the projects that are allocated to me, so that I can work on them | FR.202 |
+| __US2.3__ | Mark project as favorite | high | As a AuthUser, I want to mark the projects as favorite, so that I can easily find the projects that interests me the most | FR.204 |
+| __US2.4__ | Logout | high | As a AuthUser, I want to log out of my account, so that I can leave the website safely  | FR.011 |
+| US2.5 | Delete account | high | As a AuthUser, I want to be able to delete my account, so that I can remove my information from the website | FR.014 |
+| __US2.6__ | View profile | high | As a AuthUser, I want to view my profile information, so that I can check it  | FR.021 |
+| __US2.7__ | Edit profile | high | As a AuthUser, I want to edit my profile information, so that I can update it | FR.022 |
+| US2.14 | Order Project | low | As a AuthUser, I want to be able to go through my project in an order of my choice (alphabetical, cronological), so that I can find it easily | FR.035 |
+| __US3.1__ | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  | FR.301 |
+| __US3.2__ | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date and priority | FR.302 |
+| US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do | FR.303 |
+| __US3.4__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
 | US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
-| __US3.6!!__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
-| __US3.7!!__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
+| __US3.6__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
+| __US3.7__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
 | US3.8 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
 | US3.9 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
 | US3.10 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
-| US3.11 | Browse the Project Forum | medium | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
-| US3.12 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
 | US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
-> Table 5: Member User Stories
-
-#### 2.4. Coordinator
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
 | US4.1 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
 | US4.2 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
-| US4.3 | Remove Member | high | As a Coordinator, I want to be able to remove some member from the project , so that I can decide wich persons are working in the project |
-| US4.4 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
-| __US4.5!!__ | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
-| US4.6 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
-> Table 6: Coordinator User Stories
+| __US6.1__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile|
+| __US6.2__ | Administer User | high | As an Admin, I want to search through the existing users, so that I can view, delete them|
+| __US6.5__ | Delete User | high | As a Admin, I want erase User accounts, so that they can not use their acount more. |
+| __US6.6__ | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects |
+| __US6.7__ | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features|
 
-#### 2.5. PostAuthor
 
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| US5.1 | Edit Post | low | As a PostAuthor, I want to edit the post that I had made , so that I can rectify what I had wrote before|
-| US5.2 | Delete Post | low | As a PostAuthor, I want to delete post that I had made , so that I can erase some mistaken post |
-> Table 7: PostAuthor User Stories
-
-#### 2.6. Admin
-
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| __US6.1!!__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile|
-| __US6.2??__ | Administer User | high | As an Admin, I want to search through the existing users, so that I can view, edit and create them|
-| __US6.3??__ | Block User | high | As an Admin, I want to be able to block some User account, so that I can prevent them from using the website wrongly|
-| US6.4 | Unblock User | high | As an Admin, I want to unblock Users, so that I can give their permissions back|
-| __US6.5??__ | Delete User | high | As a Admin, I want erase User accounts, so that I can remove there working history from the website|
-| __US6.6??__ | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects |
-| __US6.7??__ | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features|
-> Table 8: Admin User Stories
-
-#### 2.7. OAuth API
-| Identifier | Name | Priority | Description |
-| - | - | - | - |
-| US7.1 | Get Information | high | As a OAuth API, I want to get information related to the User, so that all the information is updated |
-> Table 9: OAuth API User Stories
-
+Note: atualmente conseguimos adicionar um membro ao projeto mas ainda não esta implementado com recurso aos invites. 
 ...
 
 #### 1.2. Implemented Web Resources
@@ -194,12 +129,12 @@ openapi: 3.0.0
 ## Revision history
 
 Changes made to the first submission:
-1. Item 1
-1. ..
+1. - 
 
 ***
-GROUP21gg, DD/MM/2021
+GROUP2102, 03/01/2021
  
-* Group member 1 name, email (Editor)
-* Group member 2 name, email
-* ...
+* André Pereira, up201905650@up.pt
+* Beatriz Lopes dos Santos, up201906888@up.pt
+* Matilde Oliveira, up201906954@up.pt
+* Ricardo Ferreira, up201907835@up.pt

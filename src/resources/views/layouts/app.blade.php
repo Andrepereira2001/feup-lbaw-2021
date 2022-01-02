@@ -58,4 +58,7 @@
       </section>
     </main>
   </body>
+  <footer class="footer">
+    <section class="footer">Copyright © 2022 toEaseManage, Inc.</section>
+  </footer>
 </html>
