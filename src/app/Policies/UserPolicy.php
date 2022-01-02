@@ -14,7 +14,12 @@ class ProjectPolicy
 
     public function show(User $user)
     {
-        return true;
+        return Auth::check();
+    }
+
+    public function edit(User $logedUser, User $user)
+    {
+        return $logedUser->id == $user->id;
     }
 
     public function delete(User $logedUser, User $user)

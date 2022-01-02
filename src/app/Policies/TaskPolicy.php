@@ -25,24 +25,17 @@ class TaskPolicy
     }
 
     //review
-    public function list(User $user)
+    public function list(User $user, Task $task)
     {
-      // Any user can list its own projects
-      return Auth::check();
+      // Any member can list its own tasks
+      return !$user->projects()->wherePivot("id_project",$task->project->id)->get()->isEmpty();
     }
 
     //review
-    public function create(User $user)
+    public function create(User $user, Task $project)
     {
       // Any user can create a new task
-      return Auth::check();
-    }
-
-    //review
-    public function delete(User $user, Project $project)
-    {
-        // Only a project coordinator can delete it
-        return !$user->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+      return !$user->projects()->wherePivot("id_project",$project->id)->get()->isEmpty();
     }
 
     public function edit(User $user, Task $task)

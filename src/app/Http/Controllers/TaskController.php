@@ -39,6 +39,10 @@ class TaskController extends Controller
     public function showCreate($project_id){
         $project = Project::find($project_id);
         $user = Auth::user();
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('create', $project);
+        }
+
         return view('pages.task_create', ['user' => $user, 'project' => $project]);
     }
 
@@ -51,7 +55,9 @@ class TaskController extends Controller
     {
       $task = new Task();
 
-      $this->authorize('create', $task);
+      $project = Project::find($request->input('projectId'));
+
+      $this->authorize('create', $project);
 
       $task->name = $request->input('name');
       $task->description = $request->input('description');
@@ -70,22 +76,6 @@ class TaskController extends Controller
       return $task;
     }
 
-    //review
-    /**
-     * Deletes the task for a given id.
-     *
-     * @param  int  $id
-     * @return Task the project deleted
-     */
-    public function delete(Request $request, $id){
-      $task = Task::find($id);
-      $this->authorize('delete', $task);
-
-      $task->delete();
-
-      return $task;
-    }
-
      /**
      * Show task edit form.
      *
@@ -95,7 +85,9 @@ class TaskController extends Controller
     public function editShow(Request $request, $id){
 
         $task = Task::find($id);
-        $this->authorize('edit', $task);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $task);
+        }
 
         return view('pages.task_edit', ['task' => $task]);
     }
@@ -110,7 +102,9 @@ class TaskController extends Controller
     public function edit(Request $request,$id){
 
         $task = Task::find($id);
-        $this->authorize('edit', $task);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $task);
+        }
 
         if($request->name){
             $task->name = $request->name;
@@ -148,7 +142,9 @@ class TaskController extends Controller
     public function complete(Request $request,$id){
 
       $task = Task::find($id);
-      $this->authorize('edit', $task);
+      if(!Auth::guard('admin')->user()){
+        $this->authorize('edit', $task);
+    }
 
       $task->finished_at = $request->today;
       $task->save();
@@ -169,7 +165,9 @@ class TaskController extends Controller
         $original = Task::find($id);
 
         $task = new Task();
-        $this->authorize('edit', $original);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $original);
+        }
         $task->id_project = $original->id_project;
 
         if($original->name){
@@ -190,4 +188,25 @@ class TaskController extends Controller
 
         return $task;
     }
+
+    public function search(Request $request){
+        Auth::check();
+        $search = $request->search;
+        $project = Project::find($request->project_id);
+        $finished = $request->finished;
+        $tasks = $project->tasks();
+
+        if($finished == "false"){
+            $tasks = $tasks->whereNull("finished_at");
+        }
+
+        if($search != ''){
+            $tasks->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+                ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
+        }
+
+        return $tasks->get();
+    }
+
+
 }

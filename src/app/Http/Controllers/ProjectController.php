@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
 use App\Models\User;
-use App\Models\Admin;
 
 class ProjectController extends Controller
 {
@@ -128,7 +127,7 @@ class ProjectController extends Controller
 
         $projects = $projects->get();
 
-        return view('pages.projects', ['projects' => $projects /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
+        return view('pages.projects', ['projects' => $projects, 'search' => $search /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
     }
 
     /**
@@ -137,6 +136,7 @@ class ProjectController extends Controller
      * @return Response
      */
     public function showCreate(){
+        if (!Auth::check()) return redirect('/login');
         $user = Auth::user();
         return view('pages.project_create', ['user' => $user]);
     }
@@ -147,7 +147,7 @@ class ProjectController extends Controller
      * @return Project The project created.
      */
     public function create(Request $request){
-        Auth::check();
+        if (!Auth::check()) return redirect('/login');
         $project = new Project();
         $participation = new Participation();
 
@@ -190,8 +190,12 @@ class ProjectController extends Controller
      * @return Participation the participation favourited
      */
     public function favourite($id){
+        if (!Auth::check()) return redirect('/login');
 
-        Auth::check();
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('participant', $project);
+        }
+
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
 
@@ -246,12 +250,22 @@ class ProjectController extends Controller
      * @return Participation the participation favourited
      */
     public function leave($id){
+        if (!Auth::check()) return redirect('/login');
+        $project = Project::find($id);
+        $this->authorize('participant', $project);
 
-        Auth::check();
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)
-                                        ->first()
-                                        ->delete();
+                                        ->first();
+
+        if($participation->role == "Coordinator"){
+            if(!Participation::where('id_project', $id)->where("id_user", '!=', Auth::user()->id)->where('role','Coordinator')->empty()){
+                $participation->delete();
+            }
+            else {
+                abort(406, 'Not Acceptable');
+            }
+        }
 
         return $participation;
 

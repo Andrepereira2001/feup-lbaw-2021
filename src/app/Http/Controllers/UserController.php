@@ -20,38 +20,49 @@ class UserController extends Controller
      */
     public function show($id)
     {
-      $user = User::find($id);
-      $fname = strtok($user->name, " ");
-      $lname = strrchr($user->name,' ');
-      return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-view", 'view' => "View"]);
+        $user = User::find($id);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('show', $user);
+        }
+
+        $fname = strtok($user->name, " ");
+        $lname = strrchr($user->name,' ');
+        return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-view", 'view' => "View"]);
     }
 
     public function edit($id)
     {
-      $user = User::find($id);
-      $fname = strtok($user->name, " ");
-      $lname = strrchr($user->name,' ');
-      return view('pages.userEdit', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-edit", 'view' => "Edit"]);
+        $user = User::find($id);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $user);
+        }
+        $fname = strtok($user->name, " ");
+        $lname = strrchr($user->name,' ');
+        return view('pages.userEdit', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-edit", 'view' => "Edit"]);
     }
 
     public function update(Request $request, $id)
     {
-      $user = User::findOrFail($id);
-      if ($request->input('password')) {
-        $user->password = bcrypt($request->input('password'));
-      }
+        $user = User::findOrFail($id);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $user);
+        }
 
-      if ($request->input('name')) {
-        $user->name = $request->input('name');
-      }
+        if ($request->input('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
 
-      if ($request->input('email')) {
-        $user->email = $request->input('email');
-      }
+        if ($request->input('name')) {
+            $user->name = $request->input('name');
+        }
 
-      $user->save();
+        if ($request->input('email')) {
+            $user->email = $request->input('email');
+        }
 
-      return $user;
+        $user->save();
+
+        return $user;
     }
 
     public function delete(Request $request, $id)
@@ -69,6 +80,9 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('show');
+        }
 
         $search = $request->search;
         $notInProject = $request->notInProject;
