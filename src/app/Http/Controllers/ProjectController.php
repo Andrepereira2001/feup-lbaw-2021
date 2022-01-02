@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
 use App\Models\User;
-use App\Models\Admin;
 
 class ProjectController extends Controller
 {
@@ -137,6 +136,7 @@ class ProjectController extends Controller
      * @return Response
      */
     public function showCreate(){
+        if (!Auth::check()) return redirect('/login');
         $user = Auth::user();
         return view('pages.project_create', ['user' => $user]);
     }
@@ -147,7 +147,7 @@ class ProjectController extends Controller
      * @return Project The project created.
      */
     public function create(Request $request){
-        Auth::check();
+        if (!Auth::check()) return redirect('/login');
         $project = new Project();
         $participation = new Participation();
 
@@ -190,8 +190,12 @@ class ProjectController extends Controller
      * @return Participation the participation favourited
      */
     public function favourite($id){
+        if (!Auth::check()) return redirect('/login');
 
-        Auth::check();
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('delete', $project);
+        }
+
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)->first();
 

@@ -12,7 +12,7 @@ class Project extends Model
     public $timestamps = false;
 
     /**
-     * The cards this user owns.
+     * The projects this user owns.
      */
     public function users() {
         return $this->belongsToMany(User::class, Participation::class, 'id_project', 'id_user')->withPivot('role', 'favourite');
