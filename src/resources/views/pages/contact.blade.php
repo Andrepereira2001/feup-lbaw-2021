@@ -11,20 +11,20 @@
     <h1 class="title">Contact Us</h1>
   </div>
   <div class="line"></div>
-  <form  method="POST" action="{{ action('NonAuthController@sendEmail') }}">
+  <form  method="POST" action="{{ action('NonAuthController@sendEmail') }}" id="contact-form">
     <div class="name-email">
       <div class="name">
-        <p><label for="name">Name:</label></p>
+        <p><label for="name">Name</label></p>
         <input type="text" class="name-textbox" id="name" name="name">
       </div>
       <div class="email">
-        <p><label for="email">Email:</label></p>
+        <p><label for="email">Email</label></p>
         <input type="email" class="email-textbox" id="email" name="email">
       </div>
     </div>
     <div class="message">
-      <p><label for="message">Message:</label></p>
-      <input type="text" class="message-textbox" id="message" name="message">
+      <p><label for="message">Message</label></p>
+      <textarea type="text" class="message-textbox" id="message" name="message" form="contact-form"></textarea>
     </div>
     <div class="submit">
       <input type="submit" name="submit" value="Send">

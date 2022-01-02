@@ -331,8 +331,8 @@ function sendInviteRequest(event) {
 function sendEmailRequest(event) {
     event.preventDefault();
     let name = this.querySelector('input[name=name').value;
-    let email = this.querySelector('input[email=email]').value;
-    let message = this.querySelector('input[message=message').value;
+    let email = this.querySelector('input[name=email]').value;
+    let message = this.querySelector('textarea[name=message').value;
     sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
 }
 

@@ -354,25 +354,53 @@ main>header span {
 
 #contact .name-email {
     display:flex;
-    justify-content: space-between;
-    margin-left: 20vw;
-    margin-right: 20vw;
+    margin-top: 2rem;
+    margin-left: 15vw;
+    margin-right: 15vw;
 }
 
 #contact p {
     margin-bottom: 0;
+    font-size: 2vw;
+}
+
+#contact .name {
+    width: 50%;
+}
+
+#contact .email {
+    width:50%;
+}
+
+#contact .message {
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-top: 1rem;
+}
+
+#contact .message-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+    font-size: 1.5vw;
+    width: 90%;
+    height: 400px;
 }
 
 #contact .name-textbox {
     background-color: #dedede;
     border-radius: 20px;
     border: 0;
+    font-size: 1.5vw;
+    width: 80%;
 }
 
 #contact .email-textbox {
     background-color: #dedede;
     border-radius: 20px;
     border: 0;
+    font-size: 1.5vw;
+    width: 80%;
 }
 
 /* login */
