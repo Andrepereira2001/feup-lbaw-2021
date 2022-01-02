@@ -128,7 +128,7 @@ class ProjectController extends Controller
 
         $projects = $projects->get();
 
-        return view('pages.projects', ['projects' => $projects /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
+        return view('pages.projects', ['projects' => $projects, 'search' => $search /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
     }
 
     /**

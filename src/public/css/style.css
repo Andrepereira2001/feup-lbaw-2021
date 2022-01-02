@@ -681,9 +681,6 @@ footer section {
 #projects .order {
     grid-column: 1 / 3;
     grid-row: 1 / 2;
-}
-
-#projects .order {
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -691,6 +688,16 @@ footer section {
     gap: 20px;
     margin-right: 20px;
 }
+
+#projects .order button{
+    background-color: #62D2C5;
+    border-radius: 50px;
+    width: 90px;
+    margin: 5px;
+    height: 30px;
+    text-align: center;
+}
+
 
 #projects .order div {
     display: flex;
@@ -742,6 +749,7 @@ footer section {
     border-radius: 50px;
     width: 100%;
     margin: 5px;
+    cursor: pointer;
 }
 
 #projects .filters input:checked+label {

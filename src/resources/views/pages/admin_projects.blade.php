@@ -23,6 +23,8 @@
                 <input type="radio" id = "creation" name="order" value="created_at" {{$created_at}}/>
                 <label for= "creation"> <img src={{ asset('img/recent.png') }} width="30px" height="30px"> </label>
             </div>
+
+            <button type="submit" >Search</button>
         </div>
         <div class="projets-display">
             @each('partials.project', $projects, 'project')

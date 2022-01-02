@@ -9,7 +9,7 @@
         <div class="order">
             <div>
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
-                <input type="text" id = "search" name="search" placeholder="Search for Project"/>
+                <input type="text" id = "search" name="search" placeholder="Search for Project" value="{{$search}}"/>
             </div>
 
             <div>
@@ -21,6 +21,8 @@
                 <input type="radio" id = "creation" name="order" value="created_at" {{$created_at}}/>
                 <label for= "creation"> <img src={{ asset('img/recent.png') }} width="30px" height="30px"> </label>
             </div>
+
+            <button type="submit" >Search</button>
         </div>
         <div class="filters">
             <div>
