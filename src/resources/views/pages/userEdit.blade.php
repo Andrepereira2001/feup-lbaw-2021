@@ -46,6 +46,11 @@
                     <div>
                         <label for="email">Email</label>
                         <input id="email" type="text" name="email" value="{{$user->email}}">
+                        @if ($errors->has('email'))
+                            <span class="error">
+                            {{ $errors->first('email') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="pass">
                         <label for="password">Password</label>

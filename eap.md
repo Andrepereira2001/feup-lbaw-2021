@@ -23,7 +23,7 @@ Here we identify the modules that are part of our application. It's division was
 | __M07: Static Pages__ | Web resources containning static content, such as information about the website and the developers of the website (about, contact, services). |
 
 There is an explaination about the division that was made mainly in modules M02, M03, M04. 
-Since projects and tasks are the main big services of our project, and even if a task exits only inside projects, there are a lot of methods to handle with the requests proposed. Therefore, we come to the conclusion that they should be separated. Soon we understood that task comments should be agrouped within the tasks modules, since they exist due to the existence of tasks (MO3). However, we remained with a very large module if we included the project forum and project labels inside the project module. As they belong to a project we decided to create other module that included the two of them (M04). Concluding the modules division with three modules more similar in size and more in context with what they are working with.  
+Since projects and tasks are the main big services of our project, and even if a task exists only inside projects, there are a lot of methods to handle with the requests proposed. Therefore, we come to the conclusion that they should be separated. Soon we understood that task comments should be agrouped within the tasks modules, since they exist due to the existence of tasks (MO3). However, we remained with a very large module if we included the project forum and project labels inside the project module. As they belong to a project we decided to create other module that included the two of them (M04). Concluding the modules division with three modules more similar in size and more in context with what they are working with.  
 
 ### 2. Permissions
 
@@ -129,7 +129,7 @@ __Module M01: Authentication and Individual Profile__
 | R109: User Edit Profile Form | GET | /users/{id}/update |
 | R110: Edit User Profile | POST | /users/{id}/update |
 | R111: Recover Password Form | GET | /recoverPassword |
-| R115: Search Users API | GET | /api/users |
+| R114: Search Users API | GET | /api/users |
 
 __Module M02: Project__
 

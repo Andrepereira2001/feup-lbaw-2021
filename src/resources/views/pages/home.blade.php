@@ -11,12 +11,16 @@
     </div>
     <div class="buttons">
         <a class="login-button" href="/login">
-            <span class="bar"></span>
-            <span> Login </span>
+            <div class="bar"></div>
+            <div class="name">
+                <span>Login</span>
+            </div>
         </a>
         <a class="register-button" href="/register">
-            <span class="bar"></span>
-            <span> Register </span>
+            <div class="bar"></div>
+            <div class="name">
+                <span>Register</span>
+            </div>
         </a>
     </div>
     <div class="line"></div>

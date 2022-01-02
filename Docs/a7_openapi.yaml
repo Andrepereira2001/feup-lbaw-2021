@@ -932,41 +932,41 @@ paths:
   /tasks/{id}/complete:
     post:
       operationId: R307
-        summary: 'R307: Complete task'
-        description: 'Complete task. Access: MEMB, COOR'
-        tags:
-          - 'M03: Project'
-        parameters:
-          - in: path
-            name: id
-            schema:
-              type: integer
-            required: true
-        requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
+      summary: 'R307: Complete task'
+      description: 'Complete task. Access: MEMB, COOR'
+      tags:
+        - 'M03: Project'
+      parameters:
+        - in: path
+          name: id
           schema:
-            type: object
-            properties:
-              today:
+            type: integer
+          required: true
+      requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            today:
+              type: string
+          required:
+            - today
+      responses:
+        '302':
+          description: Redirect after Complete task.
+          headers:
+            Location:
+              schema:
                 type: string
-            required:
-              - today
-        responses:
-          '302':
-            description: Redirect after Complete task.
-            headers:
-              Location:
-                schema:
-                  type: string
-                examples:
-                  302Success:
-                    description: 'Successfull complete. Redirect to task page'
-                    value: '/tasks/{id}'
-                  302Error:
-                    description: 'Failed complete. Redirect to task page.'
-                    value: '/tasks/{id}'  
+              examples:
+                302Success:
+                  description: 'Successfull complete. Redirect to task page'
+                  value: '/tasks/{id}'
+                302Error:
+                  description: 'Failed complete. Redirect to task page.'
+                  value: '/tasks/{id}'  
 
   /tasks/{id}/clone:
     post:

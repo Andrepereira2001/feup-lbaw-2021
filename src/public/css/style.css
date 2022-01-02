@@ -109,6 +109,12 @@ footer section {
 
 /* home */
 
+#home {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
 #home .logo {
     all: unset;
     display: flex;
@@ -116,16 +122,16 @@ footer section {
 }
 
 #home .logo img {
-    width: 800px;
+    width: 500px;
 }
 
 #home .title {
-    margin: 20px 0px 60px 0px;
+    margin: 20px 0px 20px 0px;
     text-align: center;
 }
 
 #home .title span {
-    font-size: xx-large;
+    font-size: x-large;
     background-color: #F6F6F6;
     border-radius: 20px;
     padding: 0px 10px 0px 10px;
@@ -133,17 +139,35 @@ footer section {
 
 #home .buttons {
     text-align: center;
+    display: flex;
+    flex-flow: row;
 }
 
 #home .buttons a {
     background-color: #26C5B3;
     border-radius: 10px;
     margin: 10px;
-    padding: 40px;
+    width: 120px;
+    height: 80px;
 }
 
-#home .buttons a span {
-    background-color: white;
+#home .buttons a .bar {
+    margin: 0px;
+    padding: 10px;
+    background-color: #C0F2EC;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#home .buttons a .name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .buttons a .name span {
+    color: black;
+    font-size: x-large;
 }
 
 
@@ -153,11 +177,12 @@ footer section {
     margin-top: 1em;
 }
 
-#about h1 {
+#about .title {
     position: absolute;
-    top: 12%;
-    left: 20%;
-    font-size: 12vw;
+    text-align: center;
+    top: 15%;
+    font-size: 500%;
+    width: 100%;
     font-weight: 700;
 }
 
@@ -168,14 +193,17 @@ footer section {
     height: 6px;
 }
 
-#about .grid-container {}
+#about .grid {
+    display: flex;
+    justify-content: center;
+}
 
 #about .grid-container {
+    width: 800px;
     display: grid;
     position: relative;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 50% 50%;
-    text-align: center;
 }
 
 #about a.item-azul {
@@ -1139,7 +1167,16 @@ footer section {
     color: black;
 }
 
-#project-details .user img {
+#project-details .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-details .user img,
+#project-details .user span {
     border-radius: 50%;
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);

@@ -13,11 +13,11 @@
             <input id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
             <img src={{"./img/loginUser.png"}} class="loginUser" >
 
-        @if ($errors->has('email'))
-            <span class="error">
-            {{ $errors->first('email') }}
-            </span>
-        @endif
+            @if ($errors->has('email'))
+                <span class="error">
+                {{ $errors->first('email') }}
+                </span>
+            @endif
         </div>
 
         <div class="loginPassword">

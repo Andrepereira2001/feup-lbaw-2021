@@ -55,12 +55,15 @@ class LoginController extends Controller
             // Authentication passed...
             return redirect()->intended('/users');
         }
+        // else {
+        //     echo '<span class="profilePhoto"></span>';
+        // }
 
         if(Auth::guard('admin')->attempt(['email' => $email, 'password' => $password])){
             return redirect()->intended('/admin');
         }
 
-        return redirect('/');
+        return redirect('/login');
 
     }
 

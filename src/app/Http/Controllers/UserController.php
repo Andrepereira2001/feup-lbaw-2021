@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!Auth::guard('admin')->user()){
-            $this->authorize('show', $user);
+            $this->authorize('show',$user);
         }
 
         $fname = strtok($user->name, " ");
@@ -69,9 +69,11 @@ class UserController extends Controller
     {
       $user = User::find($id);
 
-      if(!Auth::guard('admin')->user){
+      if(!Auth::guard('admin')->user()){
         $this->authorize('delete', $user);
+        Auth::logout();
       }
+
 
       $user->delete();
 

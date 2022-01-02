@@ -3,18 +3,17 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Project;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function show(User $user)
+    public function show(User $logedUser, User $user)
     {
-        return Auth::check();
+        return true;
     }
 
     public function edit(User $logedUser, User $user)

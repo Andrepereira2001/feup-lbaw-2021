@@ -366,7 +366,14 @@ function adminUserSearchChange(event) {
 /*--------------Project------------*/
 
 function participationDeletedHandler() {
-    window.location = '/';
+    if(this.status == 406){
+        alert("Last coordinator! Can't leave project.")
+    }else if(this.status == 200){
+        window.location = '/';
+    }
+    else{
+        alert("Error: Can't leave project");
+    }
 }
 
 function projectDeletedHandler() {
@@ -591,8 +598,13 @@ function userEditHandler() {
     }
 }
 
-function userDeletedHandler() {
-    window.location = '/';
+function userDeletedHandler(e) {
+    if (this.status === 200) {
+        window.location = '/';
+    } else {
+        alert("Error deleting account");
+    }
+
 }
 
 /*--------------Email------------*/
@@ -633,3 +645,4 @@ function adminUserSearchChangeHandler() {
 }
 
 addEventListeners();
+
