@@ -14,7 +14,8 @@ class NonAuthController extends Controller
      */
     public function showHome()
   {
-    return view('pages.home');
+    //return view('pages.home');
+    return redirect("/login");
   }
 
   /**

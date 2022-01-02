@@ -12,14 +12,23 @@
   </div>
   <div class="line"></div>
   <form  method="POST" action="{{ action('NonAuthController@sendEmail') }}">
-    {{ csrf_field() }}
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name"><br><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"><br><br>
-    <label for="message">Message:</label>
-    <input type="text" id="message" name="message"><br><br>
-    <input type="submit" name="submit" value="Submit">
+    <div class="name-email">
+      <div class="name">
+        <p><label for="name">Name:</label></p>
+        <input type="text" class="name-textbox" id="name" name="name">
+      </div>
+      <div class="email">
+        <p><label for="email">Email:</label></p>
+        <input type="email" class="email-textbox" id="email" name="email">
+      </div>
+    </div>
+    <div class="message">
+      <p><label for="message">Message:</label></p>
+      <input type="text" class="message-textbox" id="message" name="message">
+    </div>
+    <div class="submit">
+      <input type="submit" name="submit" value="Send">
+</div>
   </form>
 
 </section>

@@ -10,7 +10,7 @@
     <article class="user" data-id="{{$user->id}}">
         <div id="sidenav" class="sidenav">
             <div id="sidenavleft" class="{{$selected}}">
-                <a  href="/users/profile/{{$user->id}}" id="view">{{$view}} Profile
+                <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
@@ -64,7 +64,7 @@
                     <span id="error">Error, change the data and try again</span>
                     <div class="editButtons">
                         <button class="save" type="submit">Save</button>
-                        <a class="cancel" href="/users/profile/{{$user->id}}">Cancel</a>
+                        <a class="cancel" href="/users/{{$user->id}}/profile">Cancel</a>
                     </div>
                 </div>
             </form>

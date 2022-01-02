@@ -38,7 +38,7 @@
         <section class="buttons">
           <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
 
-          <a href="/users/profile/{{Auth::user()->id}}">
+          <a href="/users/{{Auth::user()->id}}/profile">
           <?php
             if (Auth::user()->image_path != "./img/default") {
                echo '<img src=' . asset(Auth::user()->image_path) . ' class="smallIcon" >';

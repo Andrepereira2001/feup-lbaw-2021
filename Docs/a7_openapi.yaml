@@ -137,11 +137,11 @@ paths:
                   description: 'Failed registration. Redirect to register form.'
                   value: '/register'
 
-  /users/{id}:
+  /users:
     get:
       operationId: R106
       summary: 'R106: View user page'
-      description: 'Show the individual user page. Access: AUTH_USR'
+      description: 'Show the authenticated user page. Access: AUTH_USR'
       tags:
         - 'M01: Authentication and Individual Profile'
       parameters:
@@ -154,6 +154,7 @@ paths:
         '200':
           description: 'Ok. Show User Page UI'
 
+  /users/{id}:
     delete:
       operationId: R601
       summary: 'R601: Delete user'
@@ -170,7 +171,7 @@ paths:
         '200':
           description: 'Ok. User deleted'
   
-  /users/profile/{id}:
+  /users/{id}/profile/:
     get:
       operationId: R108
       summary: 'R108: View user profile '
@@ -187,7 +188,7 @@ paths:
         '200':
           description: 'OK. Show User Profile UI'
   
-  /users/edit/{id}: #??
+  /users/{id}/update:
     get:
       operationId: R109
       summary: 'R109: User edit profile Form '
@@ -336,8 +337,14 @@ paths:
             type: string
           required: false
         - in: query
-          name: project_id
+          name: inProject
           description: Id of the project participating
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: notInProject
+          description: Id of the project users don't participate
           schema:
             type: integer
           required: false
@@ -617,7 +624,7 @@ paths:
         '200':
           description: 'Ok. Project updated.'
 
-  /api/projects/{id}/addCoordinator/{user_id}:
+  /api/projects/addCoordinator:
     post:
       operationId: R208
       summary: 'R208: Add coordinator'
@@ -625,16 +632,20 @@ paths:
       tags:
         - 'M02: Project'
       parameters:
-        - in: path
-          name: user_id
+        requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
           schema:
-            type: integer
-          required: true
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+            type: object
+            properties:
+              id_user:
+                type: integer
+              id_project:
+                type: integer
+            required:
+              - id_user
+              - id_project
       responses:
         '302':
           description: Redirect after adding coordinator.
@@ -645,26 +656,21 @@ paths:
               examples:
                 302Success:
                   description: 'Successfull added. Redirect to project page'
-                  value: '/project/{id}'
+                  value: '/project/{id}/details'
                 302Error:
                   description: 'Failed add. Redirect to project page.'
-                  value: '/project/{id}'
+                  value: '/project/{id}/details'
 
-  /api/projects/{id}/favourite/{user_id}:
+  /api/projects/{id}/favourite:
     post:
       operationId: R209
       summary: 'R209: Modify favourite project'
-      description: 'Modify favourite project. Access: MEMB'
+      description: 'Modify favourite project. Access: MEMB, COOR'
       tags:
         - 'M02: Project'
       parameters:
         - in: path
           name: id
-          schema:
-            type: integer
-          required: true
-        - in: path
-          name: user_id
           schema:
             type: integer
           required: true
@@ -683,6 +689,33 @@ paths:
                   description: 'Failed favourite. Redirect to project page.'
                   value: '/users'      
 
+  /api/projects/{id}/leave:
+    post:
+      operationId: R209
+      summary: 'R209: Leave project'
+      description: 'Leave project. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after leave project.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull leave. Redirect to user page'
+                  value: '/users'
+                302Error:
+                  description: 'Failed favourite. Redirect to user page.'
+                  value: '/users'  
 
 # ------------------------- TASKS ------------------------- 
   /api/tasks:
@@ -771,7 +804,7 @@ paths:
                    id_project: 2
                    id_user: 2
 
-  /tasks:
+  /projects/{project_id}/tasks:
     get:
       operationId: R302
       summary: 'R302: Task creation Form'
@@ -782,6 +815,7 @@ paths:
         '200':
           description: OK. Show task creation UI
 
+  /tasks:
     post:
       operationId: R303
       summary: 'R303: Create Task'
@@ -893,6 +927,73 @@ paths:
       responses:
         '200':
           description: 'Ok. Task updated.'
+
+  /tasks/{id}/complete:
+    post:
+      operationId: R309
+        summary: 'R309: Complete task'
+        description: 'Complete task. Access: MEMB, COOR'
+        tags:
+          - 'M03: Project'
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+        requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              today:
+                type: string
+            required:
+              - today
+        responses:
+          '302':
+            description: Redirect after Complete task.
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: 'Successfull complete. Redirect to task page'
+                    value: '/tasks/{id}'
+                  302Error:
+                    description: 'Failed complete. Redirect to task page.'
+                    value: '/tasks/{id}'  
+
+  tasks/{id}/clone:
+    post:
+      operationId: R309
+        summary: 'R309: Clone task'
+        description: 'Clone task. Access: MEMB, COOR'
+        tags:
+          - 'M03: Project'
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+        responses:
+          '302':
+            description: Redirect after Clone task.
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: 'Successfull complete. Redirect to cloned task page'
+                    value: '/tasks/{id}'
+                  302Error:
+                    description: 'Failed complete. Redirect to cloned user page page.'
+                    value: '/users'
 
 # ------------------------ COMMENTS ----------------------
   /api/comments:
@@ -1435,7 +1536,7 @@ paths:
                   description: 'Failed creation. Redirect to project page.'
                   value: '/projects/{id}'
   
-  /api/invites/accept/{id}: # OK PATH??
+  /api/invites/{id}/accept: 
     post:
       operationId: R503
       summary: 'R503: Accept invite'
@@ -1463,7 +1564,7 @@ paths:
                   description: 'Failed accept. Redirect to user page.'
                   value: '/users/{id}'
   
-  /api/invites/reject/{id}: # OK PATH??
+  /api/invites/{id}/reject: 
     post:
       operationId: R504
       summary: 'R504: Reject invite'
@@ -1569,8 +1670,19 @@ paths:
   /admin:
     get:
       operationId: R601
-      summary: 'R601: Admin page'
-      description: 'Provide admin page. Access: ADMIN'
+      summary: 'R601: Admin users page'
+      description: 'Provide admin users page. Access: ADMIN'
+      tags:
+       - 'M06: Administration'
+      responses:
+        '200':
+          description: OK. Show admin page UI
+
+  /admin/projects:
+    get:
+      operationId: R601
+      summary: 'R601: Admin projects page'
+      description: 'Provide admin projects page. Access: ADMIN'
       tags:
        - 'M06: Administration'
       responses:
@@ -1634,7 +1746,7 @@ paths:
                   value: '/admin'
 # ------------------------ STATIC PAGES ----------------------
 
-  /home:
+  /:
     get:
       operationId: R701
       summary: 'R701: Home page'
@@ -1689,61 +1801,3 @@ paths:
         '200':
           description: OK. Show erro page UI
 
-
-#M01: Authentication and Individual Profile
-  #login DONE
-  #logout DONE
-  #sign up DONE
-  #profile editing DONE
-  #password retrieval DONE
-  #get edite profile page DONE
-  #access to personal information. DONE
-#M02: Project
-  #create DONE
-  #delete DONE
-  #view DONE
-  #edit DONE
-  #search projects DONE 
-  #GET project team DONE
-  #Add new coordinator DONE
-#M03: Tasks, Comments and Labels
-  #add tasks DONE
-  #edit tasks DONE
-  #search task DONE
-  #see task DONE
-  #add comment (to tasks) DONE
-  #edit comment DONE
-  #delete comment DONE
-  #creat lables DONE
-  #delete lable DONE
-  #search lables DONE
-  #add lable to task (taskLabel) DONE
-  #remove lable from task (taskLabel) DONE
-#M04: Forum 
-  #create message DONE
-  #list messages DONE
-  #edit message DONE
-  #delete message DONE
-#M05: Invites and Notifications
-  #create invite DONE
-  #list invite DONE
-  #accept invite DONE
-  #reject invite DONE
-  #view notification DONE -> (search notifications)
-  #list notifications DONE -> (search notifications)
-#M06: Administration
-  #view users DONE
-  #view projects DONE
-  #search users DONE
-  #search projects DONE
-  #block users DONE
-  #unblock users DONE
-  #delete users DONE
-  #delete comments DONE
-  #delete messages DONE
-#M07: Static Pages
-  #static content 
-    #home page DONE
-    #about DONE
-    #contact DONE
-    #services DONE

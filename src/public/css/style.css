@@ -352,6 +352,28 @@ main>header span {
     height: auto;
 }
 
+#contact .name-email {
+    display:flex;
+    justify-content: space-between;
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+
+#contact p {
+    margin-bottom: 0;
+}
+
+#contact .name-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+}
+
+#contact .email-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+}
 
 /* login */
 

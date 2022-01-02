@@ -247,7 +247,7 @@ function sendCompleteTaskRequest(event) {
     const today = day + time;
 
     if (id != undefined) //change route
-        sendAjaxRequest('post', '/tasks/' + id, { today }, taskEditHandler);
+        sendAjaxRequest('post', '/tasks/' + id + '/complete', { today }, taskEditHandler);
 
 }
 
@@ -288,7 +288,7 @@ function sendEditUserRequest(event) {
     let cpassword = this.querySelector('input[name=cPassword]').value;
     if (password == cpassword) {
 
-        if (sendAjaxRequest('post', '/users/profile/' + id + '/update', { name, email, password }, userEditHandler)) {
+        if (sendAjaxRequest('post', '/users/' + id + '/update', { name, email, password }, userEditHandler)) {
             this.querySelector('#error').style.display = "flex";
         }
     } else {
@@ -408,7 +408,7 @@ function addCoordinatorHandler() {
     coordinator.innerHTML = `
 
         <img src="https://picsum.photos/200" alt="User image" width="70px">
-        <a href="/users/profile/${user.id}">${user.name}</a>`;
+        <a href="/users/${user.id}/profile">${user.name}</a>`;
 
     body.insertBefore(coordinator, button);
 
@@ -431,7 +431,7 @@ function projectCoordinatorAddSearchChangeHandler() {
         add_coordinator.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/profile/${user.id}">${user.name}</a>
+             <a href="/users/${user.id}/profile/">${user.name}</a>
              <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
 
         let add = add_coordinator.querySelector('button.confirm');
@@ -458,7 +458,7 @@ function projectUserAddSearchChangeHandler() {
         user_invite.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/profile/${user.id}">${user.name}</a>
+             <a href="/users/${user.id}/profile/">${user.name}</a>
              <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
 
         let invite = user_invite.querySelector('button.confirm');
@@ -535,7 +535,7 @@ function taskAssignSearchChangeHandler() {
         assign.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/profile/${user.id}">${user.name}</a>
+             <a href="/users/${user.id}/profile">${user.name}</a>
              <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
 
         let add = assign.querySelector('button.confirm');
@@ -550,7 +550,7 @@ function taskAssignSearchChangeHandler() {
 function userEditHandler() {
     const user = JSON.parse(this.responseText);
     if (this.status === 200) {
-        window.location = '/users/profile/' + user.id;
+        window.location = '/users/'+ user.id +'/profile' ;
     } else if (this.status !== 201) {
         window.location = '/';
     }
@@ -591,7 +591,7 @@ function adminUserSearchChangeHandler() {
         userDisplay.innerHTML = `
 
             <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/profile/${user.id}">${user.name}</a>`;
+             <a href="/users/${user.id}/profile">${user.name}</a>`;
 
         body.appendChild(userDisplay);
     })

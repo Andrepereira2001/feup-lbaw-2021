@@ -19,7 +19,9 @@ class AdminController extends Controller
     public function showProjects(Request $request)
     {
 
-        //echo Auth::guard('admin')->user();
+        if(!Auth::guard('admin')->user()){
+            abort(403, 'Access denied');
+        }
 
         $checkbox = [
             "created_at" => false,
@@ -51,8 +53,12 @@ class AdminController extends Controller
      */
     public function showUsers()
     {
-      $users = User::where('name', '!=', 'Anonymous')->get();
-      return view('pages.admin_users', ['users' => $users]);
+        if(!Auth::guard('admin')->user()){
+            abort(403, 'Access denied');
+        }
+
+        $users = User::where('name', '!=', 'Anonymous')->get();
+        return view('pages.admin_users', ['users' => $users]);
     }
 
 }

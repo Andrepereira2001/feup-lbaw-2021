@@ -11,7 +11,7 @@
         @if (Auth::user() && Auth::user()->id == $user->id)
             <div id="sidenav" class="sidenav">
                 <div id="sidenavleft" class="{{$selected}}">
-                    <a  href="/users/profile/{{$user->id}}" id="view">{{$view}} Profile
+                    <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
@@ -61,7 +61,7 @@
                     </div>
                     @if (Auth::user() && Auth::user()->id == $user->id)
                         <div>
-                            <a href="/users/profile/{{$user->id}}/update"><img src={{ asset('img/edit.png') }} class="editIcon"></a>
+                            <a href="/users/{{$user->id}}/update"><img src={{ asset('img/edit.png') }} class="editIcon"></a>
                         </div>
 
                     @endif

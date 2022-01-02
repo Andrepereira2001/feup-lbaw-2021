@@ -12,20 +12,6 @@
 */
 // Home
 
-
-Route::get('/', 'Auth\LoginController@home');
-
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
-
-// API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
-
 // (M01) Athentication and Individual Profile
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@authenticate');
@@ -33,10 +19,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('users', 'ProjectController@list'); //view user page
-Route::get('users/profile/{id}', 'UserController@show'); //view user profile
 Route::delete('users/{id}', 'UserController@delete');
-Route::get('users/profile/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
-Route::post('users/profile/{id}/update', 'UserController@update'); //user update profile form
+Route::get('users/{id}/profile', 'UserController@show'); //view user profile
+Route::get('users/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
+Route::post('users/{id}/update', 'UserController@update'); //user update profile form
 Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword'); //recover password form
 // Route::post('recoverPassword', 'Auth\UserController@'); //recover password action
 // Route::get('resetPassword', 'Auth\UserController@'); //reset password form
@@ -45,35 +31,33 @@ Route::post('api/users', 'UserController@search'); //search users API
 
 
 // (M02) Project
-//Route::get('projects', 'ProjectController@list');
-Route::post('api/projects', 'ProjectController@create');
-Route::get('projects/{id}', 'ProjectController@show');
-Route::delete('api/projects/{id}', 'ProjectController@delete');
-
-Route::get('projects/{id}/details', 'ProjectController@details');
-Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
-Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
-
-// Route::get('api/projects', 'ProjectController@'); //get projects
+//Route::get('api/projects', 'ProjectController@search');
 Route::post('projects', 'ProjectController@create'); //create a project
 Route::get('projects', 'ProjectController@showCreate'); //creation page
 
+Route::get('projects/{id}', 'ProjectController@show'); //project page
+Route::delete('projects/{id}', 'ProjectController@delete'); //delete project
+
+Route::get('projects/{id}/details', 'ProjectController@details');
+
 // Route::get('projects/{id}', 'ProjectController@list'); //user's projects
-Route::delete('projects/{id}', 'ProjectController@delete');
 Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
 Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
-Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
+
+Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
+Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
+Route::post('api/projects/{id}/addCoordinator', 'ProjectController@addCoordinator');
 
 
 // (M03) Tasks, Comments and Labels
 // Route::get('api/tasks', 'TaskController@'); //get tasks
 // Route::get('tasks', 'TaskController@'); //creation task page
-Route::get('tasks/{id}', 'TaskController@show'); //task edit page
-Route::post('tasks', 'TaskController@create'); //creation task page
 Route::get('projects/{project_id}/tasks', 'TaskController@showCreate'); //task page
+Route::post('tasks', 'TaskController@create'); //creation task page
+Route::get('tasks/{id}', 'TaskController@show'); //task page
 Route::get('tasks/{id}/edit', 'TaskController@editShow'); //task edit page
 Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
-Route::post('tasks/{id}', 'TaskController@complete'); //complete task
+Route::post('tasks/{id}/complete', 'TaskController@complete'); //complete task
 Route::post('tasks/{id}/clone', 'TaskController@clone'); //complete task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page
@@ -116,7 +100,7 @@ Route::get('admin', 'AdminController@showUsers'); //admin page
 // Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user
 
 // // (M07) Static Pages
-Route::get('home', 'NonAuthController@showHome'); //see home page
+Route::get('/', 'NonAuthController@showHome'); //see home page
 Route::get('about', 'NonAuthController@showAbout'); //see about page
 Route::get('contact', 'NonAuthController@showContact'); //see contact page
 Route::post('contact','NonAuthController@sendEmail');
