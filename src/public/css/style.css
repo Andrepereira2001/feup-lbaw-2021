@@ -384,7 +384,9 @@ main>header span {
     border: 0;
     font-size: 1.5vw;
     width: 90%;
-    height: 400px;
+    height: 380px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
 }
 
 #contact .name-textbox {
