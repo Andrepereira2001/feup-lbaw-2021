@@ -31,7 +31,7 @@
     <main>
       <section id="static">
         <header>
-          <h1><a href="home"><img src={{ asset('img/logo_sem_letras.png') }}></a></h1>
+          <h1><a href="/"><img src={{ asset('img/logo_sem_letras.png') }}></a></h1>
           <section class="buttons">
             <a class="button" href="/about"> <span> about</span> </a>
             <a class="button" href="/services"> <span> services </span> </a>
@@ -42,6 +42,9 @@
       <section id="content">
         @yield('content')
       </section>
+      <footer class="footer">
+        <section class="footer">Copyright © 2022 toEaseManage, Inc.</section>
+      </footer>
     </main>
   </body>
 </html>

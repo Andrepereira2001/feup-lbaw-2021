@@ -14,8 +14,7 @@ class NonAuthController extends Controller
      */
     public function showHome()
   {
-    //return view('pages.home');
-    return redirect("/login");
+    return view('pages.home');
   }
 
   /**
@@ -52,7 +51,6 @@ class NonAuthController extends Controller
      *
      */
     public function sendEmail(Request $request){
-      error_log("Ta foda");
       $name = $request->input('name');
       $from = $request->input('email');
       $message = $request->input('message');

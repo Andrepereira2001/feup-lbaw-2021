@@ -31,11 +31,14 @@
     <main>
       <header>
         <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
-        
+
       </header>
       <section id="content">
         @yield('content')
       </section>
+      <footer class="footer">
+        <section class="footer">Copyright © 2022 toEaseManage, Inc.</section>
+      </footer>
     </main>
   </body>
 </html>

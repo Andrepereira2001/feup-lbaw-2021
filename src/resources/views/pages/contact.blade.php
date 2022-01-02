@@ -24,7 +24,7 @@
     </div>
     <div class="message">
       <p><label for="message">Message</label></p>
-      <textarea type="text" class="message-textbox" id="message" name="message"  maxlength="400" form="contact-form"></textarea>
+      <textarea type="text" class="message-textbox" id="message" name="message"  maxlength="1000" form="contact-form"></textarea>
     </div>
     <div class="submit">
       <input class="submit-button" type="submit" name="submit" value="Send">

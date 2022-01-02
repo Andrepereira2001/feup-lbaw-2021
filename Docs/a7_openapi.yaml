@@ -11,8 +11,8 @@ servers:
 tags:
  - name: 'M01: Authentication and Individual Profile'
  - name: 'M02: Project'
- - name: 'M03: Tasks, Comments and Labels'
- - name: 'M04: Forum'
+ - name: 'M03: Tasks and Comments'
+ - name: 'M04: Project Forum and Labels'
  - name: 'M05: Invites and Notifications'
  - name: 'M06: Administration'
  - name: 'M07: Static Pages'
@@ -156,10 +156,11 @@ paths:
 
   /users/{id}:
     delete:
-      operationId: R601
-      summary: 'R601: Delete user'
+      operationId: R107
+      summary: 'R107: Delete user'
       description: 'Delete user from service. Access: ADMIN, OWN'
       tags:
+        - 'M01: Authentication and Individual Profile'
         - 'M06: Administration'
       parameters:
         - in: path
@@ -206,8 +207,8 @@ paths:
           description: 'OK. Show User Profile UI'
 
     post:
-      operationId: R107
-      summary: 'R107: Edit user page'
+      operationId: R110
+      summary: 'R110: Edit user profile'
       description: 'Edit individual user page. Access: OWN'
       tags:
         - 'M01: Authentication and Individual Profile'
@@ -235,8 +236,8 @@ paths:
 
   /recoverPassword:
     get:
-      operationId: R110
-      summary: 'R110: Recover password Form'
+      operationId: R111
+      summary: 'R111: Recover password Form'
       description: 'Provide recover password form. Access: PUB'
       tags:
        - 'M01: Authentication and Individual Profile'
@@ -245,8 +246,8 @@ paths:
           description: OK. Show recover password UI
 
     post:
-      operationId: R111
-      summary: 'R111: Recover password Action'
+      operationId: R112
+      summary: 'R112: Recover password Action'
       description: 'Processes the recover password form submission. Access: PUB'
       tags:
        - 'M01: Authentication and Individual Profile'
@@ -278,8 +279,8 @@ paths:
 
   /resetPassword:
     get:
-      operationId: R112
-      summary: 'R112: Reset password Form'
+      operationId: R113
+      summary: 'R113: Reset password Form'
       description: 'Provide reset password form. Access: AUTH_USR'
       tags:
        - 'M01: Authentication and Individual Profile'
@@ -288,8 +289,8 @@ paths:
           description: OK. Show reset password UI
 
     post:
-      operationId: R113
-      summary: 'R113: Reset password Action'
+      operationId: R114
+      summary: 'R114: Reset password Action'
       description: 'Processes the reset password form submission. Access: AUTH_USR'
       tags:
        - 'M01: Authentication and Individual Profile'
@@ -324,8 +325,8 @@ paths:
 
   /api/users:
     get:
-      operationId: R113
-      summary: 'R113: Search Users API'
+      operationId: R115
+      summary: 'R115: Search Users API'
       description: 'Searches for users and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M01: Authentication and Individual Profile'
@@ -542,8 +543,8 @@ paths:
           description: 'Ok. Show Project Page UI'
 
     delete:
-      operationId: R206
-      summary: 'R206: Delete project'
+      operationId: R205
+      summary: 'R205: Delete project'
       description: 'Delete project from service. Access: COOR, ADMIN'
       tags:
         - 'M02: Project'
@@ -560,8 +561,8 @@ paths:
 
   /projects/{id}/details:
     get:
-      operationId: R205
-      summary: 'R205: View project details page'
+      operationId: R206
+      summary: 'R206: View project details page'
       description: 'Show the individual project details page. Access: MEMB, COOR'
       tags:
         - 'M02: Project'
@@ -578,8 +579,8 @@ paths:
 
   /projects/{id}/edit/:
     get:
-      operationId: R206
-      summary: 'R206: Project edit Form '
+      operationId: R207
+      summary: 'R207: Project edit Form '
       description: "Show the individual project edit page. Access: COOR"
       tags:
         - 'M02: Project'
@@ -594,8 +595,8 @@ paths:
           description: 'OK. Show Project Update UI'
 
     post:
-      operationId: R207
-      summary: 'R207: Edit project page'
+      operationId: R208
+      summary: 'R208: Edit project page'
       description: 'Edit individual project page. Access: COOR'
       tags:
         - 'M02: Project'
@@ -626,8 +627,8 @@ paths:
 
   /api/projects/addCoordinator:
     post:
-      operationId: R208
-      summary: 'R208: Add coordinator'
+      operationId: R209
+      summary: 'R209: Add coordinator'
       description: 'Add new coordinator to project. Access: COOR'
       tags:
         - 'M02: Project'
@@ -663,8 +664,8 @@ paths:
 
   /api/projects/{id}/favourite:
     post:
-      operationId: R209
-      summary: 'R209: Modify favourite project'
+      operationId: R210
+      summary: 'R210: Modify favourite project'
       description: 'Modify favourite project. Access: MEMB, COOR'
       tags:
         - 'M02: Project'
@@ -691,8 +692,8 @@ paths:
 
   /api/projects/{id}/leave:
     post:
-      operationId: R209
-      summary: 'R209: Leave project'
+      operationId: R211
+      summary: 'R211: Leave project'
       description: 'Leave project. Access: MEMB, COOR'
       tags:
         - 'M02: Project'
@@ -724,7 +725,7 @@ paths:
       summary: 'R301: Search Tasks API'
       description: 'Searches for tasks and returns the results as JSON. Access: AUTH_USR.'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: query
           name: project_id
@@ -810,7 +811,7 @@ paths:
       summary: 'R302: Task creation Form'
       description: 'Provide task creation form. Access: MEMB, COOR'
       tags:
-       - "M03: Tasks, Comments and Labels"
+       - "M03: Tasks and Comments"
       responses:
         '200':
           description: OK. Show task creation UI
@@ -821,7 +822,7 @@ paths:
       summary: 'R303: Create Task'
       description: 'Processe the task creation form submission. Access: MEMB, COOR'
       tags:
-       - "M03: Tasks, Comments and Labels"
+       - "M03: Tasks and Comments"
       requestBody:
         required: true
         content:
@@ -865,7 +866,7 @@ paths:
       summary: 'R304: View task page'
       description: 'Show the individual task page. Access: MEMB, COOR'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -878,11 +879,11 @@ paths:
 
   /tasks/{id}/edit:
     get:
-      operationId: R306
-      summary: 'R306: Task edit Form '
+      operationId: R305
+      summary: 'R305: Task edit Form '
       description: "Show the individual task edit page. Access: MEMB,COOR"
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -894,11 +895,11 @@ paths:
           description: 'OK. Show Task Update UI'
 
     post:
-      operationId: R305
-      summary: 'R305: Edit task page'
+      operationId: R306
+      summary: 'R306: Edit task page'
       description: 'Edit individual task page. Access: COOR, MEMB'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -930,8 +931,8 @@ paths:
 
   /tasks/{id}/complete:
     post:
-      operationId: R309
-        summary: 'R309: Complete task'
+      operationId: R307
+        summary: 'R307: Complete task'
         description: 'Complete task. Access: MEMB, COOR'
         tags:
           - 'M03: Project'
@@ -967,10 +968,10 @@ paths:
                     description: 'Failed complete. Redirect to task page.'
                     value: '/tasks/{id}'  
 
-  tasks/{id}/clone:
+  /tasks/{id}/clone:
     post:
-      operationId: R309
-        summary: 'R309: Clone task'
+      operationId: R308
+        summary: 'R308: Clone task'
         description: 'Clone task. Access: MEMB, COOR'
         tags:
           - 'M03: Project'
@@ -996,64 +997,13 @@ paths:
                     value: '/users'
 
 # ------------------------ COMMENTS ----------------------
-  /api/comments:
-    get:
-      operationId: R307
-      summary: 'R307: Search Task Comments API'
-      description: 'Searches for Task comments and returns the results as JSON. Access: AUTH_USR.'
-      tags:
-        - 'M03: Tasks, Comments and Labels'
-      parameters:
-        - in: query
-          name: task_id
-          description: Id of the task
-          schema:
-            type: integer
-          required: true
-      responses:
-       '200':
-         description: Success
-         content:
-           application/json:
-             schema:
-               type: array
-               items:
-                 type: object
-                 properties:
-                   id:
-                     type: integer
-                   content:
-                     type: string
-                   created_at:
-                     type: string
-                   id_task:
-                     type: integer
-                   id_user:
-                     type: integer
-               example:
-                 - id: 9
-                   content: 'sit amet sem fusce consequat nulla nisl nunc nisl duis'
-                   created_at: NULL
-                   id_task: 22
-                   id_user: 22
-
   /comments:
-    get:
-      operationId: R308
-      summary: 'R308: Comments creation Form'
-      description: 'Provide comment creation form. Access: MEMB, COOR'
-      tags:
-       - "M03: Tasks, Comments and Labels"
-      responses:
-        '200':
-          description: OK. Show comment creation UI
-
     post:
       operationId: R309
       summary: 'R309: Create comment'
       description: 'Processe the comment creation form submission. Access: MEMB, COOR'
       tags:
-       - "M03: Tasks, Comments and Labels"
+       - "M03: Tasks and Comments"
       requestBody:
         required: true
         content:
@@ -1092,7 +1042,7 @@ paths:
       summary: 'R310: Edit task comment'
       description: 'Edit individual task comment. Access: OWN'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -1117,7 +1067,7 @@ paths:
       summary: 'R311: Delete task comment'
       description: 'Delete task comment from service. Access: OWN, ADMIN'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M03: Tasks and Comments'
         - 'M06: Administration'
       parameters:
         - in: path
@@ -1129,15 +1079,157 @@ paths:
         '200':
           description: 'Ok. Comment deleted'
 
-# ------------------------ LABELS ----------------------
+  /tasks/labels:
+    post: 
+      operationId: R312
+      summary: 'R312: Assign label to task'
+      description: 'Processe the label assignment to task submission. Access: MEMB, COOR'
+      tags:
+       - "M03: Tasks and Comments"
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id_task:
+                type: integer
+              id_label:
+                type: integer
+            required:
+              - id_task
+              - id_label
+      responses:
+        '302':
+          description: Redirect after processing the label assignment.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull assigned. Redirect to task page'
+                  value: '/tasks/{id}'
+                302Error:
+                  description: 'Failed assignment. Redirect to task form.'
+                  value: '/tasks/{id}'
 
+    delete:
+      operationId: R313
+      summary: 'R313: Delete label assignment'
+      description: 'Delete label assignment from service. Access: COOR, MEMB'
+      tags:
+        - 'M03: Tasks and Comments'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id_task_label:
+                type: integer
+              id_task:
+                type: integer
+              id_label:
+                type: integer
+      responses:
+        '200':
+          description: 'Ok. Label assignment deleted.'
+
+
+# ------------------------ MESSAGES ----------------------
+  /messages:
+    post:
+      operationId: R401
+      summary: '401: Create message'
+      description: 'Processe the message creation form submission. Access: MEMB, COOR'
+      tags:
+       - 'M04: Project Forum and Labels'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+              id_project:
+                type: integer
+              id_user:
+                type: integer
+            required:
+              - content
+              - id_project
+              - id_user
+      responses:
+        '302':
+          description: Redirect after processing the message creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull creation. Redirect to project page'
+                  value: '/project/{id}'
+                302Error:
+                  description: 'Failed creation. Redirect to project form.'
+                  value: '/project/{id}'
+
+  /messages/{id}:
+    post:
+      operationId: R402
+      summary: 'R402: Edit forum message'
+      description: 'Edit individual forum message. Access: OWN'
+      tags:
+        - 'M04: Project Forum and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties: 
+              content:
+                type: string
+      responses:
+        '200':
+          description: 'Ok. Task message updated.'
+    
+    delete:
+      operationId: R403
+      summary: 'R403: Delete Forum message'
+      description: 'Delete forum message from service. Access: OWN, ADMIN'
+      tags:
+        - 'M04: Project Forum and Labels'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Message deleted'
+
+# ------------------------ LABELS ----------------------
   /api/labels:
     get:
-      operationId: R312
-      summary: 'R312: Search Labels API'
+      operationId: R404
+      summary: 'R404: Search Labels API'
       description: 'Searches for Labels and returns the results as JSON. Access: AUTH_USR.'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M04: Project Forum and Labels'
       parameters:
         - in: query
           name: project_id
@@ -1174,21 +1266,21 @@ paths:
 
   /labels:
     get:
-      operationId: R313
-      summary: 'R313: Labels creation Form'
+      operationId: R405
+      summary: 'R405: Labels creation Form'
       description: 'Provide labels creation form. Access: MEMB, COOR'
       tags:
-       - "M03: Tasks, Comments and Labels"
+       - 'M04: Project Forum and Labels'
       responses:
         '200':
           description: OK. Show labels creation UI
 
     post:
-      operationId: R314
-      summary: 'R314: Create label'
+      operationId: R406
+      summary: 'R406: Create label'
       description: 'Processe the label creation form submission. Access: MEMB, COOR'
       tags:
-       - "M03: Tasks, Comments and Labels"
+       - 'M04: Project Forum and Labels'
       requestBody:
         required: true
         content:
@@ -1220,11 +1312,11 @@ paths:
 
   /labels/{id}:
     post:
-      operationId: R315
-      summary: 'R315: Edit label'
+      operationId: R407
+      summary: 'R407: Edit label'
       description: 'Edit individual label. Access: COOR'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M04: Project Forum and Labels'
       parameters:
         - in: path
           name: id
@@ -1245,11 +1337,11 @@ paths:
           description: 'Ok. Label updated.'
     
     delete:
-      operationId: R316
-      summary: 'R316: Delete label'
+      operationId: R408
+      summary: 'R408: Delete label'
       description: 'Delete label from service. Access: COOR, ADMIN'
       tags:
-        - 'M03: Tasks, Comments and Labels'
+        - 'M04: Project Forum and Labels'
         - 'M06: Administration'
       parameters:
         - in: path
@@ -1260,201 +1352,6 @@ paths:
       responses:
         '200':
           description: 'Ok. Label deleted'
-
-  /tasks/labels:
-    post: 
-      operationId: R317
-      summary: 'R317: Assign label to task'
-      description: 'Processe the label assignment to task submission. Access: MEMB, COOR'
-      tags:
-       - "M03: Tasks, Comments and Labels"
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties:
-              id_task:
-                type: integer
-              id_label:
-                type: integer
-            required:
-              - id_task
-              - id_label
-      responses:
-        '302':
-          description: Redirect after processing the label assignment.
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successfull assigned. Redirect to task page'
-                  value: '/tasks/{id}'
-                302Error:
-                  description: 'Failed assignment. Redirect to task form.'
-                  value: '/tasks/{id}'
-
-    delete:
-      operationId: R318
-      summary: 'R318: Delete label assignment'
-      description: 'Delete label assignment from service. Access: COOR, MEMB'
-      tags:
-        - 'M03: Tasks, Comments and Labels'
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties:
-              id_task_label:
-                type: integer
-              id_task:
-                type: integer
-              id_label:
-                type: integer
-      responses:
-        '200':
-          description: 'Ok. Label assignment deleted.'
-
-
-# ------------------------ MESSAGES ----------------------
-
-  /api/messages:
-    get:
-      operationId: R401
-      summary: 'R401: Search Forum messages API'
-      description: 'Searches for Forum messages and returns the results as JSON. Access: AUTH_USR.'
-      tags:
-        - 'M04: Forum'
-      parameters:
-        - in: query
-          name: project_id
-          description: Id of the project
-          schema:
-            type: integer
-          required: true
-      responses:
-       '200':
-         description: Success
-         content:
-           application/json:
-             schema:
-               type: array
-               items:
-                 type: object
-                 properties:
-                   id:
-                     type: integer
-                   content:
-                     type: string
-                   created_at:
-                     type: string
-                   id_task:
-                     type: integer
-                   id_user:
-                     type: integer
-               example:
-                 - id: 6
-                   content: lacus morbi sem mauris laoreet
-                   created_at: '2021-08-18'
-                   id_task: 6
-                   id_user: 6
-
-  /messages:
-    get:
-      operationId: R402
-      summary: 'R402: Messages creation Form'
-      description: 'Provide messages creation form. Access: MEMB, COOR'
-      tags:
-       - 'M04: Forum'
-      responses:
-        '200':
-          description: OK. Show messages creation UI
-
-    post:
-      operationId: R403
-      summary: '403: Create message'
-      description: 'Processe the message creation form submission. Access: MEMB, COOR'
-      tags:
-       - 'M04: Forum'
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties:
-              content:
-                type: string
-              id_project:
-                type: integer
-              id_user:
-                type: integer
-            required:
-              - content
-              - id_project
-              - id_user
-      responses:
-        '302':
-          description: Redirect after processing the message creation form.
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successfull creation. Redirect to project page'
-                  value: '/project/{id}'
-                302Error:
-                  description: 'Failed creation. Redirect to project form.'
-                  value: '/project/{id}'
-
-  /messages/{id}:
-    post:
-      operationId: R404
-      summary: 'R404: Edit forum message'
-      description: 'Edit individual forum message. Access: OWN'
-      tags:
-        - 'M04: Forum'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-         application/x-www-form-urlencoded:
-          schema:
-            type: object
-            properties: 
-              content:
-                type: string
-      responses:
-        '200':
-          description: 'Ok. Task message updated.'
-    
-    delete:
-      operationId: R405
-      summary: 'R405: Delete Forum message'
-      description: 'Delete forum message from service. Access: OWN, ADMIN'
-      tags:
-        - 'M04: Forum'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: 'Ok. Message deleted'
 
 # ------------------------ INVITES ----------------------
   /api/invites/:
@@ -1680,8 +1577,8 @@ paths:
 
   /admin/projects:
     get:
-      operationId: R601
-      summary: 'R601: Admin projects page'
+      operationId: R602
+      summary: 'R602: Admin projects page'
       description: 'Provide admin projects page. Access: ADMIN'
       tags:
        - 'M06: Administration'
@@ -1691,8 +1588,8 @@ paths:
 
   /api/block/{user_id}:
     post:
-      operationId: R602
-      summary: 'R602: Block User'
+      operationId: R603
+      summary: 'R603: Block User'
       description: 'Block user of the webservice. Access: ADMIN'
       tags:
         - 'M06: Administration'
@@ -1719,8 +1616,8 @@ paths:
     
   /api/unblock/{user_id}:
     post:
-      operationId: R603
-      summary: 'R603: Unblock User'
+      operationId: R604
+      summary: 'R604: Unblock User'
       description: 'Unblock user of the webservice. Access: ADMIN'
       tags:
         - 'M06: Administration'
@@ -1778,11 +1675,49 @@ paths:
       responses:
         '200':
           description: OK. Show contact page UI
+    post:
+      operationId: R704
+      summary: 'R704: Submit contact form'
+      description: 'Provide contact page. Access: PUB'
+      tags:
+       - 'M07: Static Pages'
+       requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              text:
+                type: string
+            required:
+              - email
+              - name
+              - text
+      responses:
+        '302':
+          description: Redirect after submit contact.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successfull submit. Redirect to home page'
+                  value: '/'
+                302Error:
+                  description: 'Failed submit. Redirect to contact page.'
+                  value: '/contact'
+
 
   /service:
     get:
-      operationId: R704
-      summary: 'R704: Service page'
+      operationId: R705
+      summary: 'R705: Service page'
       description: 'Provide service page. Access: PUB'
       tags:
        - 'M07: Static Pages'
@@ -1792,8 +1727,8 @@ paths:
   
   /404:
     get:
-      operationId: R704
-      summary: 'R704: Errro page'
+      operationId: R705
+      summary: 'R705: Errro page'
       description: 'Provide erro page. Access: PUB'
       tags:
        - 'M07: Static Pages'

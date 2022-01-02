@@ -357,6 +357,26 @@ insert into Participation (favourite, role, id_project, id_user) values (false, 
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 50, 30);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 2, 10);
 
+
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 4, 90);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 5, 27);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 6, 10);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 9, 40);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 10, 66);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 11, 69);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 14, 9);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 19, 23);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 22, 21);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 26, 11);
+insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 30, 27);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 31, 50);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 38, 11);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 42, 40);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 44, 82);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 48, 25);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 49, 77);
+
+
 insert into Task (name, priority, created_at, id_project, id_user) values ('Cross-group human-resource encryption', 2, '2021-10-26', 1, 1);
 insert into Task (name, priority, created_at, id_project, id_user) values ('Persevering radical time-frame', 3, '2018-11-20', 2, 2);
 insert into Task (name, priority, created_at, id_project, id_user) values ('Phased asymmetric data-warehouse', 3, '2020-01-13', 3, 3);

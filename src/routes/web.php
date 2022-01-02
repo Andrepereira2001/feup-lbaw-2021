@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Home
 
 // (M01) Athentication and Individual Profile
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

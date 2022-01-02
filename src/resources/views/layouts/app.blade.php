@@ -56,9 +56,9 @@
       <section id="content">
         @yield('content')
       </section>
+      <footer class="footer">
+        <section class="footer">Copyright © 2022 toEaseManage, Inc.</section>
+      </footer>
     </main>
   </body>
-  <footer class="footer">
-    <section class="footer">Copyright © 2022 toEaseManage, Inc.</section>
-  </footer>
 </html>

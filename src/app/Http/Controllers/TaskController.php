@@ -190,17 +190,4 @@ class TaskController extends Controller
 
         return $task;
     }
-
-
-    $search = $request->input('search');
-
-      $tasksTodo = $project->tasks();
-      if($search != ''):
-        $tasksTodo->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
-            ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
-      endif;
-
-      $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
-
-
 }

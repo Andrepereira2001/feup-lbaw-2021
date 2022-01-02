@@ -1,30 +1,33 @@
 # EAP: Architecture Specification and Prototype
 
-> Project vision.
+With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. The website is for everyone, it can be used personally, for business, school, or even among friends.
 
 ## A7: High-level architecture. Privileges. Web resources specification
 
-> Brief presentation of the artefact's goals.
+This artefact describes the architecture of the web application to be developed, indicating the catalogue of data, the properties of each one, and the format of JSON responses. This specification adheres to the OpenAPI standard using YAML.
+
+This artefact presents the documentation for toEaseManage, including the CRUD (create, read, update, delete) operations for each data resource.
 
 ### 1. Overview
 
-> Identify and overview the modules that will be part of the application.  
+Here we identify the modules that are part of our application. It's division was made taking into account the granularity and meaning of each one of the modules. 
 
-| | |
+| Module | Description |
 | ---- | ---- |
 | __M01: Authentication and Individual Profile__ | Web features related to profile and managing a user's profile, such as login/logout and sign up actions, profile editing, password retrieval, and access to personal information. |
 | __M02: Project__ | Web resources associated with project interaction. Includes the following system features: create and delete, view, edit, and search projects. |
-| __M03: Tasks, Comments and Labels__ | Web features associated with project execution and details, as well as interaction with other project members. It includes the following system features: add/edit/comment tasks, plus you can edit or delete the comment made. It is also possible to characterize a task with one or more lables, creating them or using already existing lables in the project besides being able to remove the lable as well as delete it from the project.|
-| __M04: Forum__| Forum related web resources with the following system features: create, view, edit and delete forum messages. |
+| __M03: Tasks and Comments__ | Web features associated with project execution and details, as well as interaction with other project members. It includes the following system features: add/edit/comment tasks, plus you can edit or delete the comment made. |
+| __M04: Project Forum and Labels__| Project Forum related web resources with the following system features: create, view, edit and delete forum messages.  It is also possible to create new labels to use inside a project, to characterize tasks with one or more, and besides that being able to remove the label as well as delete it from the project. |
 | __M05: Invites and Notifications__ | Web resources associated to project invitations and notifications related to tasks, invitations and project modifications. It includes the following system features: create/list/accept/reject invitations and view/list notifications. |
 | __M06: User Administration__ | Web features associated with user management, specifically: viewing, searching and blocking users accounts. Plus, in a user's administration you can view system access details for each user. |
 | __M07: Static Pages__ | Web resources containning static content, such as information about the website and the developers of the website (about, contact, services). |
 
-> justificar o porque do m04 está separado do m02
+There is an explaination about the division that was made mainly in modules M02, M03, M04. 
+Since projects and tasks are the main big services of our project, and even if a task exits only inside projects, there are a lot of methods to handle with the requests proposed. Therefore, we come to the conclusion that they should be separated. Soon we understood that task comments should be agrouped within the tasks modules, since they exist due to the existence of tasks (MO3). However, we remained with a very large module if we included the project forum and project labels inside the project module. As they belong to a project we decided to create other module that included the two of them (M04). Concluding the modules division with three modules more similar in size and more in context with what they are working with.  
 
 ### 2. Permissions
 
-> Define the permissions used by each module, necessary to access its data and features.  
+This section defines the permissions used in the modules to establish the conditions of access to resources.
 
 | | | |
 | --- | --- | --- |
@@ -37,9 +40,11 @@
 
 ### 3. OpenAPI Specification
 
-OpenAPI specification in YAML format to describe the web application's web resources.
+This section includes the complete API specification in OpenAPI (YAML).
 
-Link to the `.yaml` file in the group's repository.
+Additionally there is a link to the OpenAPI YAML file in the group's repository (LINKKKKKKKKKKKKKKKKKKK). 
+
+?????????? The filename should include ‘openapi’ to activate GitLab’s OpenAPI viewer.
 
 Link to the Swagger generated documentation (e.g. `https://app.swaggerhub.com/apis-docs/...`).
 
@@ -54,13 +59,17 @@ openapi: 3.0.0
 
 ## A8: Vertical prototype
 
-> Brief presentation of the artefact goals.
+This artefact has the necessary features implemented as well as other identified below. The vertical prototype abled us to get familiar with the tecnologies of the project and to build the main structure of our application. 
+
+The LBAW Framework is behind the architecture of our prototype and all layers were build above it. Until now, we already worked in: user interface, business logic and data access. We also implemented features of creation, insertion, search, update, removel and deletion of information, the control of permissions and //////////////// presentation of error and sucess messages. 
 
 ### 1. Implemented Features
 
+Inside this section we present the currently implemented web and system features. 
+
 #### 1.1. Implemented User Stories
 
-> Identify the user stories that were implemented in the prototype.  
+The user stories that are for now implemented in the prototype are described in the following table. 
 
 | User Story reference | Name                   | Priority                   | Description                   | Functional Requirements |
 | -------------------- | ---------------------- | -------------------------- | ----------------------------- | ----------------------- |
@@ -81,50 +90,111 @@ openapi: 3.0.0
 | __US3.1__ | Create Tasks | high | As a Member, I want to create tasks, so that I can add to dos to the project  | FR.301 |
 | __US3.2__ | Manage Tasks | high | As a Member, I want to manage tasks details, so that I can change task information such as due date and priority | FR.302 |
 | US3.3 | Assign Tasks | high | As a Member, I want to assign tasks to members of the project, so that everyone knows what to do | FR.303 |
-| __US3.4__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do |
-| US3.5 | Comment Tasks | high | As a Member, I want to comment on tasks, so that I can complete it with additional information |
-| __US3.6__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  |
-| __US3.7__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want|
-| US3.8 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team |
-| US3.9 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  |
-| US3.10 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them|
-| US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
-| US4.1 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management |
-| US4.2 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project|
-| __US6.1__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile|
-| __US6.2__ | Administer User | high | As an Admin, I want to search through the existing users, so that I can view, delete them|
-| __US6.5__ | Delete User | high | As a Admin, I want erase User accounts, so that they can not use their acount more. |
-| __US6.6__ | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects |
-| __US6.7__ | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features|
+| __US3.4__ | View Tasks | high | As a Member, I want to view all the tasks, so that I can see what everyone needed to do | FR.304 |
+| __US3.6__ | Complete Tasks | high | As a Member, I want to be able to check the tasks I have done, so that everyone knows it is completed  | FR.306 |
+| __US3.7__ | Search Tasks | high | As a Member, I want to be able to search tasks by keywords, so that I can easily find what I want | FR.312, FR.032 | 
+| US3.8 | Leave Project | high | As a Member, I want to be able to leave a project , so that I stop being part of the that project team | FR.309 |
+| US3.9 | View Project Details | high | As a Member, I want to be able to check project information, so that I can know the members of the project along with other relevant information  | FR.310 |
+| US3.10 | View Team Profiles | high | As a Member, I want to be able to see other team members profiles , so that I can have more information about them| FR.311 |
+| US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project| FR.331 |
+| US4.1 | Assign Coordinator | high | As a Coordinator, I want to be able to assign new coordinators to the project, so that I can have other Users helping me in the project management | FR.502 |
+| US4.2 | Edit Project Details | high | As a Coordinator, I want to edit current project information, so that I can update information referent to the project| FR.503 |
+| __US6.1__ | Login Admin Account | high | As an Admin, I want to be able to login in to my account, so that I can have an administrator profile| FR.041, FR.011 |
+| __US6.2__ | Administer User | high | As an Admin, I want to search through the existing users, so that I can view, delete them | FR.042, FR.031 |
+| __US6.5__ | Delete User | high | As a Admin, I want erase User accounts, so that they can not use their acount more. | FR.044 |
+| __US6.6__ | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects | FR.701, FR.032 |
+| __US6.7__ | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features| FR.702 |
 
-
-Note: atualmente conseguimos adicionar um membro ao projeto mas ainda não esta implementado com recurso aos invites. 
-...
+Some features and requirements, not previously noted as an user story we leave here in text:
+1. (FR.501) Add user to project: for now this is possible, however not through the invite method, because the email feature is not yet implemented.
+2. (FR.032) Full-text search: this is used in searching for projects or tasks, as well as for the Admin.
+3. (FR.031) Exact match search: this is used in searching users to add them to projects, to assign them to tasks or as an Admin to simply search for them.  
 
 #### 1.2. Implemented Web Resources
 
-> Identify the web resources that were implemented in the prototype.  
+The web resources that were implemented in the prototype are presented in the next section.  
 
-> Module M01: Module Name  
+__Module M01: Authentication and Individual Profile__
 
-| Web Resource Reference | URL                            |
-| ---------------------- | ------------------------------ |
-| R01: Web resource name | URL to access the web resource |
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R101: Login Form | GET | /login |
+| R102: Login Action | POST | /login |
+| R103: Logout Action | GET | /logout |
+| R104: Register Form | GET | /register |
+| R105: Register Action | POST | /register |
+| R106: View User Page | GET | /users |
+| R107: Delete User | DELETE | /users/{id} |
+| R108: View User Profile | GET | /users/{id}/profile |
+| R109: User Edit Profile Form | GET | /users/{id}/update |
+| R110: Edit User Profile | POST | /users/{id}/update |
+| R111: Recover Password Form | GET | /recoverPassword |
+| R115: Search Users API | GET | /api/users |
 
-...
+__Module M02: Project__
 
-> Module M02: Module Name  
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R202: Project creation Form | GET | /projects |
+| R203: Create Project | POST | /projects |
+| R204: View project page | GET | /projects/{id} |
+| R205: Delete project | POST | /projects/{id} |
+| R206: View project details page | GET | /projects/{id}/details |
+| R207: Project edit Form | GET | /projects/{id}/edit |
+| R208: Edit project page | POST | /projects/{id}/edit |
+| R209: Add coordinator | POST | /api/projects/addCoordinator |
+| R210: Modify favourite project | POST | /api/projects/{id}/favourite |
+| R211: Leave project | POST | /api/projects/{id}/leave |
 
-...
+__Module M03: Tasks and Comments__
+
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R301: Search Tasks API | GET | /api/tasks |
+| R302: Task creation Form | GET | /projects/{project_id}/tasks |
+| R303: Create Task | POST | /tasks |
+| R304: View task page | GET | /tasks/{id} |
+| R305: Task edit Form | GET | /tasks/{id}/edit |
+| R306: Edit task page | POST | /tasks/{id}/edit |
+| R307: Complete task | POST | /tasks/{id}/complete |
+| R308: Clone task | POST | /tasks/{id}/clone |
+
+__Module M05: Invites and Notifications__
+
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R501: Search Invites API | GET | /api/invites |
+
+__Module M06: User Administration__
+
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R601: Admin users page | GET | /admin |
+| R602: Admin projects page | GET | /admin/projects |
+
+__Module M07: User Administration__
+
+| Web Resource Reference | Method    | URL                 |
+| ---------------------- | --------- | ------------------- |
+| R701: Home page | GET | / |
+| R702: About page | GET | /about |
+| R703: Contact page | GET | /contact |
+| R704: Submit contact form | POST | /contact |
+| R705: Service page | GET | /service |
 
 ### 2. Prototype
 
-> URL of the prototype plus user credentials necessary to test all features.  
-> Link to the prototype source code in the group's git repository.  
+The prototype is available at: (link!!!!!!!!!!!!)
 
+Credentials:
+* Admin User: 
+    * Email: admin@admin.com
+    * Password: 123456
+* Regular User: 
+    * Email: 
+    * Password: 
 
----
-
+The code is available at: (link!!!!!!!!!!!!)
 
 ## Revision history
 
@@ -136,5 +206,5 @@ GROUP2102, 03/01/2021
  
 * André Pereira, up201905650@up.pt
 * Beatriz Lopes dos Santos, up201906888@up.pt
-* Matilde Oliveira, up201906954@up.pt
+* Matilde Oliveira, up201906954@up.pt (editor)
 * Ricardo Ferreira, up201907835@up.pt

@@ -5,8 +5,9 @@
 @section('content')
 
 <section id="user-edit">
-    @include('partials.popupLogout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
-    @include('partials.popupDelete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
+    @include('partials.popup_logout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
+    @include('partials.popup_delete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
+    @include('partials.popup_photo',['name' => "photo", 'title' => "Are you sure you want to logout?", 'id' => $user->id])
     <article class="user" data-id="{{$user->id}}">
         <div id="sidenav" class="sidenav">
             <div id="sidenavleft" class="{{$selected}}">
@@ -28,13 +29,15 @@
         </div>
         <div class="userInfo" id="edit">
             <form class="info">
-                <a class="userIcon"><?php
-                    if ($user->image_path != "./img/default") {
-                    echo '<img src=' . asset($user->image_path) . ' class="profilePhoto" >';
-                    }
-                    else echo '<span class="profilePhoto"></span>';
-                ?>
-                <img src={{ asset('img/editBlue.png') }} class="editIconBlue"></a>
+                <a class="userIcon">
+                    <?php
+                        if ($user->image_path != "./img/default") {
+                        echo '<img src=' . asset($user->image_path) . ' class="profilePhoto" >';
+                        }
+                        else echo '<span class="profilePhoto"></span>';
+                    ?>
+                    <img src={{ asset('img/editBlue.png') }} data-toggle="modal" data-target="#photo" class="editIconBlue">
+                </a>
                 <section class="writtenInfo">
                     <div>
                         <label for="name">Name</label>

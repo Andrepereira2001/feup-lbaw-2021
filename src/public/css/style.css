@@ -1,6 +1,8 @@
 body {
     background-color: #ffffff;
     color: black;
+    position: relative;
+    min-height: 100vh;
 }
 
 
@@ -9,7 +11,6 @@ body {
 } */
 
 #header .logout {
-    all: unset;
     margin-top: 20px;
     margin-right: 20px;
     background-color: #C86660;
@@ -56,8 +57,8 @@ main>header span {
 
 footer {
     position: absolute;
-    bottom: 0px;
     width: 100%;
+    bottom: -50px;
     background-color: rgba(196, 196, 196, 0.5);
 }
 
@@ -106,6 +107,46 @@ footer section {
 }
 
 
+/* home */
+
+#home .logo {
+    all: unset;
+    display: flex;
+    justify-content: center;
+}
+
+#home .logo img {
+    width: 800px;
+}
+
+#home .title {
+    margin: 20px 0px 60px 0px;
+    text-align: center;
+}
+
+#home .title span {
+    font-size: xx-large;
+    background-color: #F6F6F6;
+    border-radius: 20px;
+    padding: 0px 10px 0px 10px;
+}
+
+#home .buttons {
+    text-align: center;
+}
+
+#home .buttons a {
+    background-color: #26C5B3;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 40px;
+}
+
+#home .buttons a div {
+    background-color: white;
+}
+
+
 /* about */
 
 #about {
@@ -114,8 +155,8 @@ footer section {
 
 #about h1 {
     position: absolute;
-    top: 8%;
-    left: 11vw;
+    top: 12%;
+    left: 20%;
     font-size: 12vw;
     font-weight: 700;
 }
@@ -127,13 +168,14 @@ footer section {
     height: 6px;
 }
 
+#about .grid-container {}
+
 #about .grid-container {
-    margin-left: 15vw;
-    margin-right: 15vw;
     display: grid;
     position: relative;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 50% 50%;
+    text-align: center;
 }
 
 #about a.item-azul {
@@ -183,17 +225,11 @@ footer section {
 #about .text {
     line-height: normal;
     font-size: 1.4vw;
-    text-align: center;
+    text-align: justify;
     background-color: #dedede;
     border-radius: 20px;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 5vw;
-    margin-right: 5vw;
-    padding-top: 3em;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 3em;
+    margin: 0.5em 3em 0.5em 3em;
+    padding: 1.5em 1rem 1.5em 1rem;
 }
 
 
@@ -205,9 +241,9 @@ footer section {
 
 #services h1 {
     position: absolute;
-    top: 8%;
-    left: 11vw;
-    font-size: 12vw;
+    top: 12%;
+    left: 25%;
+    font-size: 10vw;
     font-weight: 700;
 }
 
@@ -259,32 +295,23 @@ footer section {
     margin-left: -1rem;
 }
 
-#services img {
-    width: 60%;
-    height: auto;
-}
-
 #services .box img {
-    width: 10%;
-    height: auto;
     object-fit: contain;
 }
 
 #services .enumeration {
-    margin-bottom: 4em;
+    margin-bottom: 2em;
 }
 
 #services .box {
     display: flex;
     background-color: #DEDEDE;
     border-radius: 15px;
-    height: 14.5vw;
+    height: 7vw;
     margin-right: 10vw;
-    margin-left: 15vw;
-    margin-top: 5em;
+    margin-left: 10vw;
+    margin-top: 2em;
     padding-left: 2vw;
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 
 #services span.description {
@@ -292,7 +319,7 @@ footer section {
     margin-left: 0.2em;
     margin-right: 0.2em;
     width: 100%;
-    font-size: 2vw;
+    font-size: 1.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -308,9 +335,9 @@ footer section {
 
 #contact h1 {
     position: absolute;
-    top: 8%;
-    left: 7vw;
-    font-size: 12vw;
+    top: 12%;
+    left: 25%;
+    font-size: 10vw;
     font-weight: 700;
 }
 
@@ -376,7 +403,7 @@ footer section {
 
 #contact p {
     margin-bottom: 0;
-    font-size: 2vw;
+    font-size: 1.5vw;
 }
 
 #contact .name {
@@ -429,7 +456,7 @@ footer section {
 #contact .submit-button {
     border-radius: 30px;
     background-color: #26C5B3;
-    font-size: 1.8vw;
+    font-size: 1.5vw;
     border: none;
     color: white;
     padding-left: 2.5rem;
@@ -675,7 +702,7 @@ footer section {
 #projects form {
     display: grid;
     grid-template-columns: 130px auto;
-    grid-template-rows: 50px 95%;
+    grid-template-rows: 50px auto;
 }
 
 #projects .order {
@@ -2071,9 +2098,9 @@ footer section {
 
 #user-edit .editIconBlue {
     position: absolute;
+    width: 25%;
     right: 0;
     bottom: 0;
-    width: 25%;
     cursor: pointer;
 }
 
@@ -2241,6 +2268,93 @@ footer section {
     color: #505050;
 }
 
+#photo .modal-body {
+    background-color: transparent;
+}
+
+#photo .options {
+    display: flex;
+    gap: 90px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#photo .colors {
+    margin-top: 30px;
+    display: none;
+}
+
+#photo .colors input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+#photo .colors label {
+    display: inline-block;
+    padding: 40px 40px;
+    border-radius: 10px;
+}
+
+#photo .colors label.yellow {
+    background-color: #F9DF83;
+}
+
+#photo .colors label.red {
+    background-color: #A3DA89;
+}
+
+#photo .colors label.blue {
+    background-color: #62D2C5;
+}
+
+#photo .colors label.pink {
+    background-color: #DB8CA8;
+}
+
+#photo .upload {
+    background-color: #F2FEFD;
+    border: 2px solid black;
+    border-color: #C0F2EC;
+    border-radius: 10px;
+}
+
+#photo .uploadPhoto {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#photo .uploadPhoto input {
+    border-radius: 3px;
+    border-color: transparent;
+    background-color: rgba(171, 171, 171, 0.81);
+    height: 27px;
+    width: 350px;
+    color: white;
+}
+
+#photo .uploadPhoto button {
+    position: absolute;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+    border: none;
+    height: 27px;
+    width: 65px;
+    cursor: pointer;
+    color: #808080;
+    background-color: #FBFBFB;
+}
+
+#photo .uploadPhoto button:hover {
+    background-color: rgba(240, 240, 240, 1);
+}
+
 #delete-user .modal-subtitle {
     width: 100%;
     text-align: center;
@@ -2263,7 +2377,8 @@ footer section {
 #leave-project .confirm,
 #delete-project .confirm,
 #logout .confirm,
-#delete-user .delete {
+#delete-user .delete,
+#photo .confirm {
     background-color: #26C5B3;
     border-radius: 50px;
     height: 30px;
@@ -2282,7 +2397,8 @@ footer section {
 #leave-project .cancel,
 #delete-project .cancel,
 #logout .cancel,
-#delete-user .cancel {
+#delete-user .cancel,
+#photo .cancel {
     background-color: #A5B0AF;
     border-radius: 50px;
     color: white;
@@ -2375,7 +2491,3 @@ footer section {
     position: absolute;
     right: 20px;
 }
-
-{}
-
-:t
