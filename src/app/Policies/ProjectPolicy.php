@@ -44,7 +44,8 @@ class ProjectPolicy
         return !$user->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
     }
 
-    public function participating(User $user, Project $project){
+    public function participant(User $user, Project $project){
 
+        return !$user->projects()->wherePivot("id_project",$project->id)->get()->isEmpty();
     }
 }

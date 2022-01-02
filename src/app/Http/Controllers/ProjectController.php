@@ -193,7 +193,7 @@ class ProjectController extends Controller
         if (!Auth::check()) return redirect('/login');
 
         if(!Auth::guard('admin')->user()){
-            $this->authorize('delete', $project);
+            $this->authorize('participant', $project);
         }
 
         $participation = Participation::where('id_project', $id)
@@ -250,12 +250,22 @@ class ProjectController extends Controller
      * @return Participation the participation favourited
      */
     public function leave($id){
+        if (!Auth::check()) return redirect('/login');
+        $project = Project::find($id);
+        $this->authorize('participant', $project);
 
-        Auth::check();
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)
-                                        ->first()
-                                        ->delete();
+                                        ->first();
+
+        if($participation->role == "Coordinator"){
+            if(!Participation::where('id_project', $id)->where("id_user", '!=', Auth::user()->id)->where('role','Coordinator')->empty()){
+                $participation->delete();
+            }
+            else {
+                abort(406, 'Not Acceptable');
+            }
+        }
 
         return $participation;
 
