@@ -1855,7 +1855,7 @@ __Module M07: User Administration__
 
 ### 2. Prototype
 
-The prototype is available at: (link!!!!!!!!!!!!)
+The prototype is available at: http://lbaw2102.lbaw.fe.up.pt/
 
 Credentials:
 * Admin User: 
@@ -1865,7 +1865,7 @@ Credentials:
     * Email: sbennallck2@is.gd
     * Password: 123456
 
-The code is available at: (link!!!!!!!!!!!!)
+The code is available at: https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102
 
 ## Revision history
 
