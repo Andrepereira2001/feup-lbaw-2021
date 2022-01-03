@@ -2,6 +2,16 @@
 
 @section('content')
 
+@if(session()->has('jsAlert'))
+     <script>
+    var msg = '{{Session::get('jsAlert')}}';
+    var exist = '{{Session::has('jsAlert')}}';
+    if(exist){
+      alert(msg);
+    }
+  </script>
+@endif
+
 <div class="logo1">
     <img src={{"./img/logo_sem_letras.png"}} class="logo" >
     <form id="login" method="POST" action="{{ route('login') }}">
@@ -12,6 +22,7 @@
         <div class="loginEmail">
             <input id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
             <img src={{"./img/loginUser.png"}} class="loginUser" >
+
 
             @if ($errors->has('email'))
                 <span class="error">

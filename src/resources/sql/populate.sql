@@ -3,7 +3,7 @@ insert into Admin (id, email, password, name) values (1, 'admin@admin.com', '$2y
 
 insert into Users (email, password, name, image_path) values ('mferries0@yellowpages.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Mahalia Ferries', 'img/andre.png');
 insert into Users (email, password, name) values ('aoakly1@gmpg.org', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Abby Oakly');
-insert into Users (email, password, name) values ('sbennallck2@is.gd', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Shirl Bennallck');
+insert into Users (email, password, name, image_path) values ('sbennallck2@is.gd', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Shirl Bennallck', 'img/andre.png');
 insert into Users (email, password, name) values ('ewestrip3@ebay.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Eamon Westrip');
 insert into Users (email, password, name) values ('esutlieff4@prlog.org', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Eliot Sutlieff');
 insert into Users (email, password, name) values ('aormesher5@blogs.com', '$2y$10$qNi4phqhMjk0FbAX4B6tR.LAMGn1IYq4IkAFAQcBeBjAxLB6smCeS', 'Albie Ormesher');
@@ -157,7 +157,7 @@ insert into Project (name, description, color, created_at) values ('expedite hol
 
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 1, 1);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 2, 2);
-insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 3, 3);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 3, 3);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 4, 4);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 5, 5);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 6, 6);

@@ -4,9 +4,9 @@ With the development of toEaseManage we intend to create a useful and acessible 
 
 ## A7: High-level architecture. Privileges. Web resources specification
 
-This artefact describes the architecture of the web application to be developed, indicating the catalogue of data, the properties of each one, and the format of JSON responses. This specification adheres to the OpenAPI standard using YAML.
+This artefact describes the architecture of the web application to be developed, indicating the requests of data, the properties of each one, and the format of JSON responses. This specification uses the OpenAPI standard using YAML.
 
-This artefact presents the documentation for toEaseManage, including the CRUD (create, read, update, delete) operations for each data resource.
+This artefact presents the documentation for toEaseManage, including the create, view, update and delete operations for each data resource.
 
 ### 1. Overview
 
@@ -48,18 +48,1682 @@ Link to the Swagger generated documentation: https://app.swaggerhub.com/apis/toE
 
 ``` yaml
 openapi: 3.0.0
-
-...
+info:
+  version: 1.0.0-oas3
+  title: LBAW toEaseManage Web AP
+  description: Web Resources Specification (A7) for toEaseManage
+servers:
+  - url: http://lbaw.fe.up.pt
+    description: Production server
+tags:
+  - name: 'M01: Authentication and Individual Profile'
+  - name: 'M02: Project'
+  - name: 'M03: Tasks and Comments'
+  - name: 'M04: Project Forum and Labels'
+  - name: 'M05: Invites and Notifications'
+  - name: 'M06: Administration'
+  - name: 'M07: Static Pages'
+paths:
+  /login:
+    get:
+      operationId: R101
+      summary: 'R101: Login Form'
+      description: 'Provide login form. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show Log-in UI
+    post:
+      operationId: R102
+      summary: 'R102: Login Action'
+      description: 'Processes the login form submission. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '302':
+          description: Redirect after processing the login credentials.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull authentication. Redirect to user profile
+                  value: /users/{id}
+                302Error:
+                  description: Failed authentication. Redirect to login form.
+                  value: /login
+  /logout:
+    get:
+      operationId: R103
+      summary: 'R103: Logout Action'
+      description: 'Logout the current authenticated user. Access: AUTH_USR'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '302':
+          description: Redirect after processing logout.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successful logout. Redirect to login form.
+                  value: /login
+  /register:
+    get:
+      operationId: R104
+      summary: 'R104: Register Form'
+      description: 'Provide new user registration form. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show Sign-Up UI
+    post:
+      operationId: R105
+      summary: 'R105: Register Action'
+      description: 'Processes the register form submission. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+              required:
+                - email
+                - password
+                - name
+      responses:
+        '302':
+          description: Redirect after processing the new user information.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull registration. Redirect to login page
+                  value: /login
+                302Error:
+                  description: Failed registration. Redirect to register form.
+                  value: /register
+  /users:
+    get:
+      operationId: R106
+      summary: 'R106: View user page'
+      description: 'Show the authenticated user page. Access: AUTH_USR'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: Ok. Show User Page UI
+  /users/{id}:
+    delete:
+      operationId: R107
+      summary: 'R107: Delete user'
+      description: 'Delete user from service. Access: ADMIN, OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. User deleted
+  /users/{id}/profile/:
+    get:
+      operationId: R108
+      summary: 'R108: View user profile '
+      description: 'Show the individual user profile page. Access: AUTH_USR'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK. Show User Profile UI
+  /users/{id}/update:
+    get:
+      operationId: R109
+      summary: 'R109: User edit profile Form '
+      description: 'Show the individual user edit profile page. Access: OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK. Show User Profile UI
+    post:
+      operationId: R110
+      summary: 'R110: Edit user profile'
+      description: 'Edit individual user page. Access: OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Ok. User updated.
+  /recoverPassword:
+    get:
+      operationId: R111
+      summary: 'R111: Recover password Form'
+      description: 'Provide recover password form. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show recover password UI
+    post:
+      operationId: R112
+      summary: 'R112: Recover password Action'
+      description: 'Processes the recover password form submission. Access: PUB'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+                - email
+      responses:
+        '302':
+          description: Redirect after processing the recover password.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Recover email sent. Redirect to login
+                  value: /login
+                302Error:
+                  description: Failed authentication. Redirect to login form.
+                  value: /recoverPassword
+  /resetPassword:
+    get:
+      operationId: R113
+      summary: 'R113: Reset password Form'
+      description: 'Provide reset password form. Access: AUTH_USR'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      responses:
+        '200':
+          description: OK. Show reset password UI
+    post:
+      operationId: R114
+      summary: 'R114: Reset password Action'
+      description: 'Processes the reset password form submission. Access: AUTH_USR'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '302':
+          description: Redirect after processing the reset password.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Password reseted. Redirect to login
+                  value: /login
+                302Error:
+                  description: Failed authentication. Redirect to home page.
+                  value: /
+  /api/users:
+    get:
+      operationId: R115
+      summary: 'R115: Search Users API'
+      description: 'Searches for users and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - in: query
+          name: search_string
+          description: String to use for full-text search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: inProject
+          description: Id of the project participating
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: notInProject
+          description: Id of the project users don't participate
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: member
+          description: Boolean with the membership flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: coordinator
+          description: Boolean with the coordinator flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: blocked
+          description: Boolean with the blocked flag value
+          schema:
+            type: boolean
+          required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    name:
+                      type: string
+                    image_path:
+                      type: string
+                    blocked:
+                      type: string
+                example:
+                  - id: 1
+                    email: mferries0@yellowpages.com
+                    password: t6AyMFhWp
+                    name: Mahalia Ferries
+                    image_path: ./img/default
+                    blocked: false
+  /api/projects:
+    get:
+      operationId: R201
+      summary: 'R201: Search Projects API'
+      description: 'Searches for projects and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: query
+          name: user_id
+          description: Id of the user
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: search_string
+          description: String to use for full-text search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: order
+          description: String with the ordering atribute(alph/date)
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: favourite
+          description: Boolean with the favourite flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: coordinator
+          description: Boolean with the coordinator flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: member
+          description: Boolean with the member flag value
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: archived
+          description: Boolean with the archived flag value
+          schema:
+            type: boolean
+          required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    color:
+                      type: string
+                    created_at:
+                      type: string
+                    archived_at:
+                      type: string
+                example:
+                  - id: 5
+                    name: e-enable scalable technologies
+                    description: sagittis dui vel nisl duis ac nibh fusce lacus purus
+                    color: '#3fbcdd'
+                    created_at: '2020-01-24'
+                    archived_at: null
+  /projects:
+    get:
+      operationId: R202
+      summary: 'R202: Project creation Form'
+      description: 'Provide project creation form. Access: AUTH_USR'
+      tags:
+        - 'M02: Project'
+      responses:
+        '200':
+          description: OK. Show project creation UI
+    post:
+      operationId: R203
+      summary: 'R203: Create Project'
+      description: 'Processe the project creation form submission. Access: AUTH_USR'
+      tags:
+        - 'M02: Project'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                color:
+                  type: string
+              required:
+                - name
+      responses:
+        '302':
+          description: Redirect after processing the project creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed creation. Redirect to login form.
+                  value: /users/{id}
+  /projects/{id}:
+    get:
+      operationId: R204
+      summary: 'R204: View project page'
+      description: 'Show the individual project page. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Show Project Page UI
+    delete:
+      operationId: R205
+      summary: 'R205: Delete project'
+      description: 'Delete project from service. Access: COOR, ADMIN'
+      tags:
+        - 'M02: Project'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Project deleted
+  /projects/{id}/details:
+    get:
+      operationId: R206
+      summary: 'R206: View project details page'
+      description: 'Show the individual project details page. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Show Project details page UI
+  /projects/{id}/edit/:
+    get:
+      operationId: R207
+      summary: 'R207: Project edit Form '
+      description: 'Show the individual project edit page. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK. Show Project Update UI
+    post:
+      operationId: R208
+      summary: 'R208: Edit project page'
+      description: 'Edit individual project page. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                color:
+                  type: string
+                archived_at:
+                  type: string
+      responses:
+        '200':
+          description: Ok. Project updated.
+  /api/projects/addCoordinator:
+    post:
+      operationId: R209
+      summary: 'R209: Add coordinator'
+      description: 'Add new coordinator to project. Access: COOR'
+      tags:
+        - 'M02: Project'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_user:
+                  type: integer
+                id_project:
+                  type: integer
+              required:
+                - id_user
+                - id_project
+      responses:
+        '302':
+          description: Redirect after adding coordinator.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull added. Redirect to project page
+                  value: /project/{id}/details
+                302Error:
+                  description: Failed add. Redirect to project page.
+                  value: /project/{id}/details
+  /api/projects/{id}/favourite:
+    post:
+      operationId: R210
+      summary: 'R210: Modify favourite project'
+      description: 'Modify favourite project. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after favourite coordinator.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull favourite. Redirect to project page
+                  value: /users
+                302Error:
+                  description: Failed favourite. Redirect to project page.
+                  value: /users
+  /api/projects/{id}/leave:
+    post:
+      operationId: R211
+      summary: 'R211: Leave project'
+      description: 'Leave project. Access: MEMB, COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after leave project.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull leave. Redirect to user page
+                  value: /users
+                302Error:
+                  description: Failed favourite. Redirect to user page.
+                  value: /users
+  /api/tasks:
+    get:
+      operationId: R301
+      summary: 'R301: Search Tasks API'
+      description: 'Searches for tasks and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: query
+          name: project_id
+          description: Id of the project
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: user_id
+          description: Id of the user
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: search_string
+          description: String to use for full-text search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: finished
+          description: Boolean with the finished flag value
+          schema:
+            type: boolean
+          required: true
+        - in: query
+          name: priority
+          description: Integer with the priority value
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: order
+          description: String with the ordering atribute
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    priority:
+                      type: string
+                    created_at:
+                      type: string
+                    finished_at:
+                      type: string
+                    task_number:
+                      type: integer
+                    due_date:
+                      type: string
+                    id_project:
+                      type: integer
+                    id_user:
+                      type: integer
+                example:
+                  - id: 2
+                    name: Persevering radical time-frame
+                    description: null
+                    priority: 3
+                    created_at: '2018-11-20'
+                    finished_at: null
+                    task_number: 0
+                    due_date: null
+                    id_project: 2
+                    id_user: 2
+  /projects/{project_id}/tasks:
+    get:
+      operationId: R302
+      summary: 'R302: Task creation Form'
+      description: 'Provide task creation form. Access: MEMB, COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK. Show task creation UI
+  /tasks:
+    post:
+      operationId: R303
+      summary: 'R303: Create Task'
+      description: 'Processe the task creation form submission. Access: MEMB, COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                priority:
+                  type: integer
+                due_date:
+                  type: string
+                id_project:
+                  type: integer
+                id_user:
+                  type: integer
+              required:
+                - name
+                - id_project
+      responses:
+        '302':
+          description: Redirect after processing the task creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to task page
+                  value: /tasks/{id}
+                302Error:
+                  description: Failed creation. Redirect to project form.
+                  value: /projects/{id}
+  /tasks/{id}:
+    get:
+      operationId: R304
+      summary: 'R304: View task page'
+      description: 'Show the individual task page. Access: MEMB, COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Show Task Page UI
+  /tasks/{id}/edit:
+    get:
+      operationId: R305
+      summary: 'R305: Task edit Form '
+      description: 'Show the individual task edit page. Access: MEMB,COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK. Show Task Update UI
+    post:
+      operationId: R306
+      summary: 'R306: Edit task page'
+      description: 'Edit individual task page. Access: COOR, MEMB'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                priority:
+                  type: integer
+                finished_at:
+                  type: string
+                due_date:
+                  type: string
+                id_user:
+                  type: integer
+      responses:
+        '200':
+          description: Ok. Task updated.
+  /tasks/{id}/complete:
+    post:
+      operationId: R307
+      summary: 'R307: Complete task'
+      description: 'Complete task. Access: MEMB, COOR'
+      tags:
+        - 'M03: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                today:
+                  type: string
+              required:
+                - today
+      responses:
+        '302':
+          description: Redirect after Complete task.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull complete. Redirect to task page
+                  value: /tasks/{id}
+                302Error:
+                  description: Failed complete. Redirect to task page.
+                  value: /tasks/{id}
+  /tasks/{id}/clone:
+    post:
+      operationId: R308
+      summary: 'R308: Clone task'
+      description: 'Clone task. Access: MEMB, COOR'
+      tags:
+        - 'M03: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after Clone task.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull complete. Redirect to cloned task page
+                  value: /tasks/{id}
+                302Error:
+                  description: Failed complete. Redirect to cloned user page page.
+                  value: /users
+  /comments:
+    post:
+      operationId: R309
+      summary: 'R309: Create comment'
+      description: 'Processe the comment creation form submission. Access: MEMB, COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                id_task:
+                  type: integer
+                id_user:
+                  type: integer
+              required:
+                - content
+                - id_task
+                - id_user
+      responses:
+        '302':
+          description: Redirect after processing the task creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to task page
+                  value: /tasks/{id}
+                302Error:
+                  description: Failed creation. Redirect to task form.
+                  value: /tasks/{id}
+  /comments/{id}:
+    post:
+      operationId: R310
+      summary: 'R310: Edit task comment'
+      description: 'Edit individual task comment. Access: OWN'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Ok. Task comment updated.
+    delete:
+      operationId: R311
+      summary: 'R311: Delete task comment'
+      description: 'Delete task comment from service. Access: OWN, ADMIN'
+      tags:
+        - 'M03: Tasks and Comments'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Comment deleted
+  /tasks/labels:
+    post:
+      operationId: R312
+      summary: 'R312: Assign label to task'
+      description: 'Processe the label assignment to task submission. Access: MEMB, COOR'
+      tags:
+        - 'M03: Tasks and Comments'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_task:
+                  type: integer
+                id_label:
+                  type: integer
+              required:
+                - id_task
+                - id_label
+      responses:
+        '302':
+          description: Redirect after processing the label assignment.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull assigned. Redirect to task page
+                  value: /tasks/{id}
+                302Error:
+                  description: Failed assignment. Redirect to task form.
+                  value: /tasks/{id}
+    delete:
+      operationId: R313
+      summary: 'R313: Delete label assignment'
+      description: 'Delete label assignment from service. Access: COOR, MEMB'
+      tags:
+        - 'M03: Tasks and Comments'
+      parameters: 
+        - in: query
+          name: id_task
+          description: Id of the task
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: id_label
+          description: id of the label
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: id_task_label
+          description: id of the task_label
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Ok. Label assignment deleted.
+  /messages:
+    post:
+      operationId: R401
+      summary: '401: Create message'
+      description: 'Processe the message creation form submission. Access: MEMB, COOR'
+      tags:
+        - 'M04: Project Forum and Labels'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                id_project:
+                  type: integer
+                id_user:
+                  type: integer
+              required:
+                - content
+                - id_project
+                - id_user
+      responses:
+        '302':
+          description: Redirect after processing the message creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to project page
+                  value: /project/{id}
+                302Error:
+                  description: Failed creation. Redirect to project form.
+                  value: /project/{id}
+  /messages/{id}:
+    post:
+      operationId: R402
+      summary: 'R402: Edit forum message'
+      description: 'Edit individual forum message. Access: OWN'
+      tags:
+        - 'M04: Project Forum and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Ok. Task message updated.
+    delete:
+      operationId: R403
+      summary: 'R403: Delete Forum message'
+      description: 'Delete forum message from service. Access: OWN, ADMIN'
+      tags:
+        - 'M04: Project Forum and Labels'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Message deleted
+  /api/labels:
+    get:
+      operationId: R404
+      summary: 'R404: Search Labels API'
+      description: 'Searches for Labels and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M04: Project Forum and Labels'
+      parameters:
+        - in: query
+          name: project_id
+          description: Id of the project
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: name
+          description: Name of the label
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    id_project:
+                      type: integer
+                example:
+                  - id: 4
+                    content: Epoxy Flooring
+                    id_project: 4
+  /labels:
+    get:
+      operationId: R405
+      summary: 'R405: Labels creation Form'
+      description: 'Provide labels creation form. Access: MEMB, COOR'
+      tags:
+        - 'M04: Project Forum and Labels'
+      responses:
+        '200':
+          description: OK. Show labels creation UI
+    post:
+      operationId: R406
+      summary: 'R406: Create label'
+      description: 'Processe the label creation form submission. Access: MEMB, COOR'
+      tags:
+        - 'M04: Project Forum and Labels'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                id_project:
+                  type: integer
+              required:
+                - name
+                - id_project
+      responses:
+        '302':
+          description: Redirect after processing the label creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed creation. Redirect to project form.
+                  value: /projects/{id}
+  /labels/{id}:
+    post:
+      operationId: R407
+      summary: 'R407: Edit label'
+      description: 'Edit individual label. Access: COOR'
+      tags:
+        - 'M04: Project Forum and Labels'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Ok. Label updated.
+    delete:
+      operationId: R408
+      summary: 'R408: Delete label'
+      description: 'Delete label from service. Access: COOR, ADMIN'
+      tags:
+        - 'M04: Project Forum and Labels'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Label deleted
+  /api/invites/:
+    get:
+      operationId: R501
+      summary: 'R501: Search Invites API'
+      description: 'Searches for Invites and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: query
+          name: id_user
+          description: Id of the user
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: id_project
+          description: Name of the project
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    created_at:
+                      type: string
+                    id_user:
+                      type: integer
+                    id_project:
+                      type: integer
+                example:
+                  - id: 1
+                    content: '2020-03-12'
+                    id_user: 21
+                    id_project: 1
+    post:
+      operationId: R502
+      summary: 'R502: Create invite'
+      description: 'Processe the invite creation submission. Access: COOR'
+      tags:
+        - 'M05: Invites and Notifications'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_user:
+                  type: integer
+                id_project:
+                  type: integer
+              required:
+                - id_user
+                - id_project
+      responses:
+        '302':
+          description: Redirect after processing the invite creation.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed creation. Redirect to project page.
+                  value: /projects/{id}
+  /api/invites/{id}/accept:
+    post:
+      operationId: R503
+      summary: 'R503: Accept invite'
+      description: 'Accept invite of user. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after accepting the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull accept. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed accept. Redirect to user page.
+                  value: /users/{id}
+  /api/invites/{id}/reject:
+    post:
+      operationId: R504
+      summary: 'R504: Reject invite'
+      description: 'Reject invite of user. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after reject the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull reject. Redirect to user page
+                  value: /users/{id}
+                302Error:
+                  description: Failed reject. Redirect to user page.
+                  value: /users/{id}
+  /api/notifications:
+    get:
+      operationId: R505
+      summary: 'R505: Search Notifications API'
+      description: >-
+        Searches for Notifications and returns the results as JSON. Access:
+        AUTH_USR.
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: query
+          name: id_user
+          description: Id of the user
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    content:
+                      type: string
+                    created_at:
+                      type: string
+                    id_project:
+                      type: integer
+                    seen:
+                      type: boolean
+                    id_user:
+                      type: integer
+                example:
+                  - id: 1
+                    content: Invite to a new project!
+                    id_project: 1
+                    seen: false
+                    id_user: 21
+  /api/notifications/{user_id}/{notification_id}:
+    post:
+      operationId: R506
+      summary: 'R506: See notification'
+      description: 'See notification. Access: OWN'
+      tags:
+        - 'M05: Invites and Notifications'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: notification_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after see the invite.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull seen. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed seen. Redirect to user page.
+                  value: /users/{id}
+  /admin:
+    get:
+      operationId: R601
+      summary: 'R601: Admin users page'
+      description: 'Provide admin users page. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      responses:
+        '200':
+          description: OK. Show admin page UI
+  /admin/projects:
+    get:
+      operationId: R602
+      summary: 'R602: Admin projects page'
+      description: 'Provide admin projects page. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      responses:
+        '200':
+          description: OK. Show admin page UI
+  /api/block/{user_id}:
+    post:
+      operationId: R603
+      summary: 'R603: Block User'
+      description: 'Block user of the webservice. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after blocking user.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull blocked. Redirect to admin page
+                  value: /admin
+                302Error:
+                  description: Failed block. Redirect to admin page.
+                  value: /admin
+  /api/unblock/{user_id}:
+    post:
+      operationId: R604
+      summary: 'R604: Unblock User'
+      description: 'Unblock user of the webservice. Access: ADMIN'
+      tags:
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after unblocking user.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull unblocked. Redirect to admin page
+                  value: /admin
+                302Error:
+                  description: Failed unblock. Redirect to admin page.
+                  value: /admin
+  /:
+    get:
+      operationId: R701
+      summary: 'R701: Home page'
+      description: 'Provide home page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show home page UI
+  /about:
+    get:
+      operationId: R702
+      summary: 'R702: About page'
+      description: 'Provide about page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show about page UI
+  /contact:
+    get:
+      operationId: R703
+      summary: 'R703: Contact page'
+      description: 'Provide contact page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show contact page UI
+    post:
+      operationId: R704
+      summary: 'R704: Submit contact form'
+      description: 'Provide contact page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                text:
+                  type: string
+              required:
+                - email
+                - name
+                - text
+      responses:
+        '302':
+          description: Redirect after submit contact.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull submit. Redirect to home page
+                  value: /
+                302Error:
+                  description: Failed submit. Redirect to contact page.
+                  value: /contact
+  /service:
+    get:
+      operationId: R705
+      summary: 'R705: Service page'
+      description: 'Provide service page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show service page UI
+  /404:
+    get:
+      operationId: R706
+      summary: 'R706: Errro page'
+      description: 'Provide erro page. Access: PUB'
+      tags:
+        - 'M07: Static Pages'
+      responses:
+        '200':
+          description: OK. Show erro page UI
 ```
-
 ---
-
 
 ## A8: Vertical prototype
 
 This artefact has the necessary features implemented as well as other identified below. The vertical prototype abled us to get familiar with the tecnologies of the project and to build the main structure of our application. 
 
-The LBAW Framework is behind the architecture of our prototype and all layers were build above it. Until now, we already worked in: user interface, business logic and data access. We also implemented features of creation, insertion, search, update, removel and deletion of information, the control of permissions and //////////////// presentation of error and sucess messages. 
+The LBAW Framework is behind the architecture of our prototype and all layers were build above it. Until now, we already worked in: user interface, business logic and data access. We also implemented features of creation, addition, search, update, removal and deletion of information, the control of permissions and presentation of error messages. 
 
 ### 1. Implemented Features
 
@@ -69,7 +1733,7 @@ Inside this section we present the currently implemented web and system features
 
 The user stories that are for now implemented in the prototype are described in the following table. 
 
-| User Story reference | Name                   | Priority                   | Description                   | Functional Requirements |
+| User Story reference | Name                   | Priority                   | Description                   | Related Functional Requirements |
 | -------------------- | ---------------------- | -------------------------- | ----------------------------- | ----------------------- |
 | US0.1 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website | NA |
 | US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators | FR.061 |
@@ -103,20 +1767,23 @@ The user stories that are for now implemented in the prototype are described in 
 | __US6.6__ | Browse Projects | high | As an Admin, I want to be able to browse through projects, so that I can iterate through the existing projects | FR.701, FR.032 |
 | __US6.7__ | View Project | high | As an Admin, I want view project details, so that I can validate the curret usage of the given features| FR.702 |
 
-Some features and requirements, not previously noted as an user story we leave here in text:
+Some __features and requirements__, not previously noted as an user story we leave here in text:
 1. (FR.501) Add user to project: for now this is possible, however not through the invite method, because the email feature is not yet implemented.
 2. (FR.032) Full-text search: this is used in searching for projects or tasks, as well as for the Admin.
 3. (FR.031) Exact match search: this is used in searching users to add them to projects, to assign them to tasks or as an Admin to simply search for them.
 
 
-Some notes about using the application: 
+Some notes about the current __use of the application__:
 1. To do some kind of search where there is a button search, it is all included in a form so it is necessary to click in the submit button. This happens in the user page to search for some specific filter or order mode. 
-2. When you assign tasks when there is another user already assigned to it, another task is created assigned to the user you selected. It does not appear in the page of that task because it creates other that is only displayed in the project page. 
+2. When you assign tasks when there is another user already assigned to it, another task is created assigned to the user you selected. It does not appear in the page of that task because it creates other that is only displayed in the project page. At the creation time, for now, you can only assign one project member, to the task and to assign new ones you need to add it afterawards. 
 3. For now, due to the fact that invites are not yet implemented, when an user is added to a project you need to refresh the page in order to see it appear in the members section. 
+4. Just to remember some rules talked in the previous artifacts, when an user wants to leave a project and it is the only coordinator it is not allowed to do it, having to leave the project with at least one coordinator besides him. 
+5. Note that to create new projects and tasks you need to give them a name, otherwise it does not submit the form. 
+6. For last, when authenticated the logo in the left top corner redirects every user to its user page (where projects are presented).
 
 #### 1.2. Implemented Web Resources
 
-The web resources that were implemented in the prototype are presented in the next section.  
+The web resources that were implemented in the present prototype are displayed in the next section.  
 
 __Module M01: Authentication and Individual Profile__
 
@@ -195,8 +1862,8 @@ Credentials:
     * Email: admin@admin.com
     * Password: 123456
 * Regular User: 
-    * Email: 
-    * Password: 
+    * Email: sbennallck2@is.gd
+    * Password: 123456
 
 The code is available at: (link!!!!!!!!!!!!)
 

@@ -191,6 +191,7 @@ class ProjectController extends Controller
      */
     public function favourite($id){
         if (!Auth::check()) return redirect('/login');
+        $project = Project::find($id);
 
         if(!Auth::guard('admin')->user()){
             $this->authorize('participant', $project);
@@ -259,12 +260,14 @@ class ProjectController extends Controller
                                         ->first();
 
         if($participation->role == "Coordinator"){
-            if(!Participation::where('id_project', $id)->where("id_user", '!=', Auth::user()->id)->where('role','Coordinator')->empty()){
+            if(Participation::where('id_project', $id)->where("id_user", '!=', Auth::user()->id)->where("role","Coordinator")->first()){
                 $participation->delete();
             }
             else {
                 abort(406, 'Not Acceptable');
             }
+        }else {
+            $participation->delete();
         }
 
         return $participation;
@@ -280,6 +283,7 @@ class ProjectController extends Controller
     public function addCoordinator(Request $request){
 
         $project = Project::find($request->id_project);
+
         $this->authorize('edit',$project);
 
         $participation = Participation::where('id_project', $request->id_project)

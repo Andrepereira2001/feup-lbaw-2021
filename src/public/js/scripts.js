@@ -369,7 +369,7 @@ function participationDeletedHandler() {
     if(this.status == 406){
         alert("Last coordinator! Can't leave project.")
     }else if(this.status == 200){
-        window.location = '/';
+        window.location = '/users';
     }
     else{
         alert("Error: Can't leave project");
@@ -377,7 +377,12 @@ function participationDeletedHandler() {
 }
 
 function projectDeletedHandler() {
-    window.location = '/';
+    if(this.status == 200){
+        window.location = '/users';
+    }
+    else{
+        alert("Error: Could not delete project");
+    }
 }
 
 function projectAddedHandler() {
@@ -426,15 +431,19 @@ function addCoordinatorHandler() {
     let coordinator = document.createElement('div');
     coordinator.className = ('user');
     coordinator.setAttribute('data-id', user.id);
-    coordinator.innerHTML = `
+    console.log(user.image_path);
+    // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     coordinator.innerHTML = `
 
-        <?php
-            if (${user.image_path} != "./img/default") {
-                echo '<img src=' . asset(${user.image_path}) . ' alt="User image" width="70px" class="profilePhoto" >';
-            }
-            else echo '<span class="profilePhoto"></span>';
-        ?>
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
+    // }
+    // else{
+        coordinator.innerHTML = `
+        <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>`;
+    //}
 
     body.insertBefore(coordinator, button);
 
@@ -454,11 +463,29 @@ function projectCoordinatorAddSearchChangeHandler() {
         let add_coordinator = document.createElement('div');
         add_coordinator.className = ('user invite');
         add_coordinator.setAttribute('data-id', user.id);
-        add_coordinator.innerHTML = `
 
-            <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/${user.id}/profile/">${user.name}</a>
-             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+            // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     add_coordinator.innerHTML = `
+
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile/">${user.name}</a>
+    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+    // }
+    // else{
+        add_coordinator.innerHTML = `
+        <span class="profilePhoto"></span>
+        <a href="/users/${user.id}/profile/">${user.name}</a>
+        <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+    //}
+
+
+
+        // add_coordinator.innerHTML = `
+
+        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
+        //      <a href="/users/${user.id}/profile/">${user.name}</a>
+        //      <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
 
         let add = add_coordinator.querySelector('button.confirm');
         add.addEventListener('click', createTaskAssignHandler);
@@ -481,11 +508,29 @@ function projectUserAddSearchChangeHandler() {
         let user_invite = document.createElement('div');
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
-        user_invite.innerHTML = `
 
-            <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/${user.id}/profile/">${user.name}</a>
-             <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+                    // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     user_invite.innerHTML = `
+
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile/">${user.name}</a>
+    //     <a href="/users/${user.id}/profile/">${user.name}</a>
+    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+    // }
+    // else{
+        user_invite.innerHTML = `
+        <span class="profilePhoto"></span>
+        <a href="/users/${user.id}/profile/">${user.name}</a>
+        <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+    //}
+
+
+        // user_invite.innerHTML = `
+
+        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
+        //      <a href="/users/${user.id}/profile/">${user.name}</a>
+        //      <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
 
         let invite = user_invite.querySelector('button.confirm');
         invite.addEventListener('click', sendInviteRequest);
@@ -579,11 +624,29 @@ function taskAssignSearchChangeHandler() {
         let assign = document.createElement('div');
         assign.className = ('user invite');
         assign.setAttribute('data-id', user.id);
-        assign.innerHTML = `
 
-            <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/${user.id}/profile">${user.name}</a>
-             <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+
+            // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     assign.innerHTML = `
+
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile">${user.name}</a>
+    //     <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+    // }
+    // else{
+        assign.innerHTML = `
+        <span class="profilePhoto"></span>
+        <a href="/users/${user.id}/profile">${user.name}</a>
+        <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+    //}
+
+
+        // assign.innerHTML = `
+
+        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
+        //      <a href="/users/${user.id}/profile">${user.name}</a>
+        //      <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
 
         let add = assign.querySelector('button.confirm');
         add.addEventListener('click', addCoordinatorRequest);
@@ -603,7 +666,7 @@ function userEditHandler() {
     }
 }
 
-function userDeletedHandler(e) {
+function userDeletedHandler() {
     if (this.status === 200) {
         window.location = '/';
     } else {
@@ -615,7 +678,6 @@ function userDeletedHandler(e) {
 /*--------------Email------------*/
 
 function sendEmailHandler() {
-    console.log(this.responseText);
     if (this.status === 200) {
         window.location = '/contact';
     } else if (this.status !== 201) {
@@ -640,10 +702,23 @@ function adminUserSearchChangeHandler() {
         let userDisplay = document.createElement('div');
         userDisplay.className = ('user');
         userDisplay.setAttribute('data-id', user.id);
-        userDisplay.innerHTML = `
+                    // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     userDisplay.innerHTML = `
 
-            <img src="https://picsum.photos/200" alt="User image" width="70px">
-             <a href="/users/${user.id}/profile">${user.name}</a>`;
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
+    // }
+    // else{
+        userDisplay.innerHTML = `
+        <span class="profilePhoto"></span>
+        <a href="/users/${user.id}/profile">${user.name}</a>`;
+    //}
+
+        // userDisplay.innerHTML = `
+
+        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
+        //      <a href="/users/${user.id}/profile">${user.name}</a>`;
 
         body.appendChild(userDisplay);
     })
