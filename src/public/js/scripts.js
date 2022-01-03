@@ -428,7 +428,12 @@ function addCoordinatorHandler() {
     coordinator.setAttribute('data-id', user.id);
     coordinator.innerHTML = `
 
-        <img src="https://picsum.photos/200" alt="User image" width="70px">
+        <?php
+            if (${user.image_path} != "./img/default") {
+                echo '<img src=' . asset(${user.image_path}) . ' alt="User image" width="70px" class="profilePhoto" >';
+            }
+            else echo '<span class="profilePhoto"></span>';
+        ?>
         <a href="/users/${user.id}/profile">${user.name}</a>`;
 
     body.insertBefore(coordinator, button);

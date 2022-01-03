@@ -181,7 +181,7 @@ footer section {
     position: absolute;
     text-align: center;
     top: 15%;
-    font-size: 500%;
+    font-size: 700%;
     width: 100%;
     font-weight: 700;
 }
@@ -267,11 +267,12 @@ footer section {
     margin-top: 1em;
 }
 
-#services h1 {
+#services .title {
     position: absolute;
-    top: 12%;
-    left: 25%;
-    font-size: 10vw;
+    text-align: center;
+    top: 15%;
+    font-size: 700%;
+    width: 100%;
     font-weight: 700;
 }
 
@@ -282,9 +283,13 @@ footer section {
     height: 6px;
 }
 
+#services .grid {
+    display: flex;
+    justify-content: center;
+}
+
 #services .grid-container {
-    margin-left: 15vw;
-    margin-right: 15vw;
+    width: 800px;
     display: grid;
     position: relative;
     grid-template-columns: 25% 25% 25% 25%;
@@ -321,6 +326,11 @@ footer section {
     text-align: center;
     margin-right: -1rem;
     margin-left: -1rem;
+}
+
+#services .img {
+    width: 60%;
+    height: auto;
 }
 
 #services .box img {
@@ -361,11 +371,12 @@ footer section {
     margin-top: 1em;
 }
 
-#contact h1 {
+#contact .title {
     position: absolute;
-    top: 12%;
-    left: 25%;
-    font-size: 10vw;
+    text-align: center;
+    top: 15%;
+    font-size: 650%;
+    width: 100%;
     font-weight: 700;
 }
 
@@ -376,9 +387,13 @@ footer section {
     height: 6px;
 }
 
+#contact .grid {
+    display: flex;
+    justify-content: center;
+}
+
 #contact .grid-container {
-    margin-left: 15vw;
-    margin-right: 15vw;
+    width: 800px;
     display: grid;
     position: relative;
     grid-template-columns: 25% 25% 25% 25%;
@@ -422,11 +437,19 @@ footer section {
     height: auto;
 }
 
-#contact .name-email {
+#contact .form {
     display: flex;
+    justify-content: center;
+}
+
+#contact form {
+    width: 800px;
+}
+
+#contact .name-email {
     margin-top: 2rem;
-    margin-left: 20vw;
-    margin-right: 15vw;
+    display: flex;
+    width:100%
 }
 
 #contact p {
@@ -443,8 +466,6 @@ footer section {
 }
 
 #contact .message {
-    margin-left: 20vw;
-    margin-right: 15vw;
     margin-top: 1rem;
 }
 
@@ -452,8 +473,8 @@ footer section {
     background-color: #dedede;
     border-radius: 20px;
     border: 0;
-    font-size: 1.5vw;
-    width: 90%;
+    font-size: ;
+    width: 100%;
     height: 380px;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
@@ -464,7 +485,7 @@ footer section {
     border-radius: 20px;
     border: 0;
     font-size: 1.5vw;
-    width: 80%;
+    width: 90%;
 }
 
 #contact .email-textbox {
@@ -1297,7 +1318,16 @@ footer section {
     color: black;
 }
 
-#project-create .user img {
+#project-create .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-create .user img,
+#project-create .user span {
     border-radius: 50%;
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1413,7 +1443,16 @@ footer section {
     color: black;
 }
 
-#project-edit .user img {
+#project-edit .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-edit .user img,
+#project-edit .user span {
     border-radius: 50%;
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1593,7 +1632,16 @@ footer section {
     color: black;
 }
 
-#task-details .user img {
+#task-details .user.invite .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#task-details .user img,
+#task-details .user span {
     border-radius: 50%;
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1759,7 +1807,16 @@ footer section {
     color: black;
 }
 
-#task-create .user img {
+#task-create .user.invite .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#task-create .user img,
+#task-create .user span {
     border-radius: 50%;
     margin: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -2044,8 +2101,15 @@ footer section {
     margin: 3% auto;
 }
 
-#user .profilePhoto,
-#user-edit .profilePhoto {
+#user .profilePhoto {
+    width: 150px;
+    height: 150px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#user-edit .userIcon .profilePhoto {
     width: 150px;
     height: 150px;
     background-color: #62D2C5;

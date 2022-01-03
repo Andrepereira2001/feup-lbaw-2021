@@ -25,7 +25,8 @@
                 <label for="pink" class="pink"></label>
             </div>
             <div class="uploadPhoto">
-                {{-- <input type="email" name="email" placeholder="NOT IMPLEMENTED YET" value="{{ old('email') }}" required autofocus> --}}
+                <input type="email" name="email" placeholder="NOT IMPLEMENTED YET" value="{{ old('email') }}" required autofocus <button type="submit" class="loginButton">
+                <button type="submit">Upload</button>
                 <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg">
             </div>
         </div>

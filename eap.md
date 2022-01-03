@@ -42,11 +42,9 @@ This section defines the permissions used in the modules to establish the condit
 
 This section includes the complete API specification in OpenAPI (YAML).
 
-Additionally there is a link to the OpenAPI YAML file in the group's repository (LINKKKKKKKKKKKKKKKKKKK). 
+Additionally [here](../Docs/a7_openapi.yaml) it is a link to the OpenAPI YAML file in the group's repository. 
 
-?????????? The filename should include ‘openapi’ to activate GitLab’s OpenAPI viewer.
-
-Link to the Swagger generated documentation (e.g. `https://app.swaggerhub.com/apis-docs/...`).
+Link to the Swagger generated documentation: https://app.swaggerhub.com/apis/toEase/a7_openapi/1.0.0-oas3. We did not had an account in Swagger sowe started free trial of the account, for only 15 days. We don't know if the link is going to still available after this day, so please contact us if there is something wrong.  
 
 ``` yaml
 openapi: 3.0.0
@@ -108,7 +106,13 @@ The user stories that are for now implemented in the prototype are described in 
 Some features and requirements, not previously noted as an user story we leave here in text:
 1. (FR.501) Add user to project: for now this is possible, however not through the invite method, because the email feature is not yet implemented.
 2. (FR.032) Full-text search: this is used in searching for projects or tasks, as well as for the Admin.
-3. (FR.031) Exact match search: this is used in searching users to add them to projects, to assign them to tasks or as an Admin to simply search for them.  
+3. (FR.031) Exact match search: this is used in searching users to add them to projects, to assign them to tasks or as an Admin to simply search for them.
+
+
+Some notes about using the application: 
+1. To do some kind of search where there is a button search, it is all included in a form so it is necessary to click in the submit button. This happens in the user page to search for some specific filter or order mode. 
+2. When you assign tasks when there is another user already assigned to it, another task is created assigned to the user you selected. It does not appear in the page of that task because it creates other that is only displayed in the project page. 
+3. For now, due to the fact that invites are not yet implemented, when an user is added to a project you need to refresh the page in order to see it appear in the members section. 
 
 #### 1.2. Implemented Web Resources
 
