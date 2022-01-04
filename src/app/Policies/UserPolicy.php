@@ -11,8 +11,9 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function show(User $logedUser, User $user)
+    public function show(User $logedUser)
     {
+        Auth::check();
         return true;
     }
 

@@ -12,6 +12,7 @@
             @each('partials.user_invite', $users, 'user')
         </div>
         <div class="modal-footer">
+            <button type="button" class="btn cancel" data-dismiss="modal">OK</button>
             <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
         </div>
       </div>

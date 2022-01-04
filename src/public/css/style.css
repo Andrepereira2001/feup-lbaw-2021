@@ -5,6 +5,10 @@ body {
     min-height: 100vh;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 /* #header {
     margin-bottom: 20px;
@@ -2063,6 +2067,7 @@ footer section {
     border-bottom: 1px solid grey;
     bottom: 0;
     right: 0;
+    cursor: pointer;
 }
 
 #sidenavleft:hover {

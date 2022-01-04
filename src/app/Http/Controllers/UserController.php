@@ -83,7 +83,7 @@ class UserController extends Controller
     public function search(Request $request)
     {
         if(!Auth::guard('admin')->user()){
-            $this->authorize('show');
+            $this->authorize('show', User::class);
         }
 
         $search = $request->search;
