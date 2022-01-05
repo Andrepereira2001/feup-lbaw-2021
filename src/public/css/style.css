@@ -1443,6 +1443,7 @@ footer section {
 #project-edit .user {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 #project-edit .user a {
@@ -1496,6 +1497,12 @@ footer section {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+}
+
+#project-edit button.remove{
+    position: absolute;
+    background-color: #C86660;
+    right: 20px;
 }
 
 

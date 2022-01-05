@@ -9,7 +9,7 @@ class ForumMessage extends Model
 {
     use HasFactory;
 
-    protected $table ='forumMessage';
+    protected $table ='forummessage';
     public $timestamps = false;
 
     /**
