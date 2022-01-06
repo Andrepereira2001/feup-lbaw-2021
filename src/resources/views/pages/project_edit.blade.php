@@ -26,7 +26,7 @@
             <div class="members">
                 <span>Members</span>
                 <div class="content">
-                    @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+                    @each('partials.user_remove', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
                 </div>
             </div>
             <div class="labels">

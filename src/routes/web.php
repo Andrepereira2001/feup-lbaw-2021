@@ -45,8 +45,9 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
 Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
-Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
+Route::delete('/api/projects/{id}/removeParticipation', 'ProjectController@removeParticipation');
 
+Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 
 // (M03) Tasks, Comments and Labels
 Route::post('api/tasks', 'TaskController@search'); //get tasks

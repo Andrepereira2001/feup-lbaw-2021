@@ -40,6 +40,11 @@ function addEventListeners() {
         search.addEventListener('input', projectSearchTaskChange);
     });
 
+    let projectRemoveMember = document.querySelectorAll('#project-edit .user.remove button');
+    [].forEach.call(projectRemoveMember, function(user) {
+        user.addEventListener('click', projectRemoveMemberRequest);
+    });
+
 
     /*--------------task------------*/
 
@@ -140,6 +145,15 @@ function sendDeleteParticipationRequest(event) {
     let id = this.closest('button').getAttribute('data-id');
 
     sendAjaxRequest('delete', '/api/projects/' + id + '/leave', null, participationDeletedHandler);
+}
+
+function projectRemoveMemberRequest(event) {
+    event.preventDefault();
+
+    let user_id = event.target.getAttribute('data-id');
+    let project_id = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/removeParticipation', {user_id}, projectRemoveMemberHandler);
 }
 
 function sendDeleteProjectRequest(event) {
@@ -566,6 +580,14 @@ function projectSearchTaskHandler() {
 
         body.appendChild(taskLi);
     })
+}
+
+function projectRemoveMemberHandler(){
+    if (this.status != 200) window.location = '/';
+    let participation = JSON.parse(this.responseText);
+
+    let member = document.querySelector('#project-edit .members .user[data-id="' + participation.id_user + '"]');
+    member.remove();
 }
 
 /*--------------Task------------*/

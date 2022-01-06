@@ -43,7 +43,7 @@ class ProjectController extends Controller
 
         $forumMessages = $project->forumMessages()->orderBy("created_at", "ASC")->get();
 
-    return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo, 'forumMessages' => $forumMessages]);
+        return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo, 'forumMessages' => $forumMessages]);
     }
 
     /**
@@ -298,4 +298,38 @@ class ProjectController extends Controller
 
         return User::find($request->id_user);
     }
+
+
+    /**
+     * Leave the id project.
+     *
+     * @param  int  $id
+     * @param  Request
+     * @return Participation the participation favourited
+     */
+    public function removeParticipation(Request $request, $id){
+        if (!Auth::check()) return redirect('/login');
+        $user_id = $request->user_id;
+
+        $participation = Participation::where('id_project', $id)
+                                        ->where('id_user', $user_id)
+                                        ->first();
+
+        //$this->authorize('participantControl', $participation);
+
+        if($participation->role == "Coordinator"){
+            if(Participation::where('id_project', $id)->where("id_user", '!=', $user_id)->where("role","Coordinator")->first()){
+                $participation->delete();
+            }
+            else {
+                abort(406, 'Not Acceptable');
+            }
+        }else {
+            $participation->delete();
+        }
+
+        return $participation;
+
+    }
+
 }
