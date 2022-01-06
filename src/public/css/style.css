@@ -1077,11 +1077,73 @@ footer section {
     border-radius: 20px;
     margin: 30px 20px 10px 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
 }
 
 #project .forum-box h2 {
+    align-self: start;
     margin: 15px 0px 0px 15px;
     font-weight: bold;
+}
+
+#project .forum-box .forum {
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-flow: column;
+}
+
+#project .forum .forumMessage {
+    display: flex;
+}
+
+#project .forum .message {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#project .forum .user-info {
+    font-size: x-small;
+}
+
+#project .forum .profilePhoto {
+    width: 40px;
+    height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#project .new-message {
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#project .new-message input {
+    width: 90%;
+    border-radius: 10px;
+    border-width: 0.2px;
+    border: solid;
+    background-color: transparent;
+    margin: 10px;
+}
+
+#project .new-message img {
+    width: 25px;
+    height: 25px;
+    margin: 10px;
 }
 
 

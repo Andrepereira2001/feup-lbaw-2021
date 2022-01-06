@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ForumMessage;
 use App\Models\Participation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,24 +24,26 @@ class ProjectController extends Controller
      */
     public function show($id,Request $request)
     {
-      $project = Project::find($id);
-      if(!Auth::guard('admin')->user()){
+        $project = Project::find($id);
+        if(!Auth::guard('admin')->user()){
         $this->authorize('show', $project);
         }
 
-      $search = $request->input('search');
+        $search = $request->input('search');
 
-      $tasksTodo = $project->tasks();
-      if($search != ''):
+        $tasksTodo = $project->tasks();
+        if($search != ''):
         $tasksTodo->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
             ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
-      endif;
+        endif;
 
-      $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
+        $tasksDone = $project->tasks()->whereNotNull("finished_at")->orderBy("finished_at", "DESC")->get();
 
-      $tasksTodo = $project->tasks()->whereNull("finished_at")->get();
+        $tasksTodo = $project->tasks()->whereNull("finished_at")->get();
 
-      return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo]);
+        $forumMessages = $project->forumMessages()->orderBy("created_at", "ASC")->get();
+
+    return view('pages.project', ['project' => $project, 'tasksDone' => $tasksDone, 'tasksTodo' => $tasksTodo, 'forumMessages' => $forumMessages]);
     }
 
     /**

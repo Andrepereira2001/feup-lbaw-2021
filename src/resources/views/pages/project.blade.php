@@ -51,6 +51,13 @@
     </div>
     <div class="forum-box">
       <h2>FORUM</h2>
+      <ul class="forum">
+        @each('partials.forumMessage', $forumMessages, 'forumMessage')
+      </ul>
+      <div class="new-message">
+        <input type="text">
+        <img src={{ asset('img/send.png') }}>
+      </div>
     </div>
   </section>
 
