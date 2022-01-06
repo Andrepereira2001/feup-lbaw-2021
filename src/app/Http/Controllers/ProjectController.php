@@ -307,7 +307,7 @@ class ProjectController extends Controller
      * @param  Request
      * @return Participation the participation favourited
      */
-    public function removeParticipation(Request $request, $id){
+    public function decreaseParticipation(Request $request, $id){
         if (!Auth::check()) return redirect('/login');
         $user_id = $request->user_id;
 
@@ -319,7 +319,8 @@ class ProjectController extends Controller
 
         if($participation->role == "Coordinator"){
             if(Participation::where('id_project', $id)->where("id_user", '!=', $user_id)->where("role","Coordinator")->first()){
-                $participation->delete();
+                $participation->role = "Member";
+                $participation->save();
             }
             else {
                 abort(406, 'Not Acceptable');
@@ -328,7 +329,9 @@ class ProjectController extends Controller
             $participation->delete();
         }
 
-        return $participation;
+        $member = User::find($user_id);
+
+        return $member;
 
     }
 
