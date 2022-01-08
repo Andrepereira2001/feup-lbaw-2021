@@ -123,9 +123,8 @@ class TaskController extends Controller
                 $task->due_date = $date;
             }
         }
-        if($request->userId){
-            $task->id_user = $request->userId;
-        }
+        $task->id_user = $request->userId;
+
 
         $task->save();
 

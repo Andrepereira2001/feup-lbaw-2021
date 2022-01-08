@@ -31,20 +31,20 @@
                     </div>
                 </div>
             </div>
-            <div class="coordinators">
+            <div class="assigned">
                 <span>Assigned To</span>
                 <div class="content">
-                  @each('partials.user', $task->user()->get() , 'user')
+                  @each('partials.user_remove', $task->user()->get() , 'user')
                 </div>
             </div>
-            <div class="members">
+            <div class="labels">
                 <span>Labels</span>
                 <div class="content">
                     To be defined
                     {{-- @each('partials.label', $task->labels()->orderBy('id')->get() , 'label') --}}
                 </div>
             </div>
-            <div class="labels">
+            <div class="comments">
                 <span>Comments</span>
                 <div class="content">
                     TO BE DEFINED

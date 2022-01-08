@@ -45,6 +45,11 @@ function addEventListeners() {
         user.addEventListener('click', projectRemoveMemberRequest);
     });
 
+    let projectRemoveCoordinator = document.querySelectorAll('#project-edit .user.decrease button');
+    [].forEach.call(projectRemoveCoordinator, function(user) {
+        user.addEventListener('click', projectRemoveCoordinatorRequest);
+    });
+
 
     /*--------------task------------*/
 
@@ -82,6 +87,11 @@ function addEventListeners() {
         taskComplete.addEventListener('click', sendCompleteTaskRequest);
     }
 
+    let taskRemoveMember = document.querySelectorAll('#task-edit .user.remove button');
+    [].forEach.call(taskRemoveMember, function(user) {
+        user.addEventListener('click', taskRemoveMemberRequest);
+    });
+
     /*--------------forum message------------*/
 
     let forumMessageCreator = document.querySelector('#project form.new-message');
@@ -93,6 +103,8 @@ function addEventListeners() {
     let commentCreator = document.querySelector('#task-details form.new-comment');
     if (commentCreator != null)
         commentCreator.addEventListener('submit', sendCreateCommentRequest);
+
+
 
     /*--------------user------------*/
 
@@ -154,18 +166,11 @@ function sendAjaxRequest(method, url, data, handler) {
 
 function sendDeleteParticipationRequest(event) {
     event.preventDefault();
-    let id = this.closest('button').getAttribute('data-id');
-
-    sendAjaxRequest('delete', '/api/projects/' + id + '/leave', null, participationDeletedHandler);
-}
-
-function projectRemoveMemberRequest(event) {
-    event.preventDefault();
-
-    let user_id = event.target.getAttribute('data-id');
+    let user_id = event.target.getAttribute('data-id');;
     let project_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/removeParticipation', { user_id }, projectRemoveMemberHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, participationDeletedHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, null);
 }
 
 function sendDeleteProjectRequest(event) {
@@ -249,6 +254,24 @@ function projectSearchTaskChange(event) {
     sendAjaxRequest('post', '/api/tasks', { project_id, search, finished }, projectSearchTaskHandler);
 }
 
+function projectRemoveMemberRequest(event) {
+    event.preventDefault();
+
+    let user_id = event.target.getAttribute('data-id');
+    let project_id = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, projectRemoveMemberHandler);
+}
+
+function projectRemoveCoordinatorRequest(event) {
+    event.preventDefault();
+
+    let user_id = event.target.getAttribute('data-id');
+    let project_id = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, projectRemoveCoordinatorHandler);
+}
+
 /*--------------Task------------*/
 
 function sendCreateTaskRequest(event) {
@@ -316,6 +339,15 @@ function taskAssignMemberHandler(event) {
 
 }
 
+function taskRemoveMemberRequest(event) {
+    event.preventDefault();
+
+    let id_user = null;
+    let task_id = this.closest('section').getAttribute('data-id');
+
+    sendAjaxRequest('post', '/tasks/' + task_id + '/edit', { id_user }, taskRemoveMemberHandler);
+}
+
 /*--------------Forum Messages------------*/
 
 function sendCreateForumMessageRequest(event) {
@@ -339,6 +371,7 @@ function sendCreateCommentRequest(event) {
     if (content != '')
         sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
 }
+
 
 /*--------------User------------*/
 
@@ -527,8 +560,6 @@ function projectCoordinatorAddSearchChangeHandler() {
         <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
         //}
 
-
-
         // add_coordinator.innerHTML = `
 
         //     <img src="https://picsum.photos/200" alt="User image" width="70px">
@@ -616,12 +647,56 @@ function projectSearchTaskHandler() {
     })
 }
 
+
 function projectRemoveMemberHandler() {
     if (this.status != 200) window.location = '/';
-    let participation = JSON.parse(this.responseText);
+    let userData = JSON.parse(this.responseText);
 
-    let member = document.querySelector('#project-edit .members .user[data-id="' + participation.id_user + '"]');
+    let member = document.querySelector('#project-edit .members .user[data-id="' + userData.id + '"]');
     member.remove();
+}
+
+function taskRemoveMemberHandler() {
+    if (this.status != 200) window.location = '/users';
+    let user = JSON.parse(this.responseText);
+
+    let member = document.querySelector('#task-edit .assigned .user[data-id="' + user.id + '"]');
+    member.remove();
+}
+
+function projectRemoveCoordinatorHandler() {
+    if (this.status === 406) {
+        alert("Last coordinator! Can't leave project.")
+    } else if (this.status !== 200) {
+        alert("Error: Can't leave project");
+        window.location = '/users';
+    }
+
+    let userData = JSON.parse(this.responseText);
+
+    let member = document.querySelector('#project-edit .coordinators .user[data-id="' + userData.id + '"]');
+    member.remove();
+
+    let body = document.querySelector('#project-edit .members .content');
+
+    let user = document.createElement('div');
+    user.className = ('user remove');
+    user.setAttribute('data-id', userData.id);
+    // if(user.image_path !== "./img/default"){
+    //     console.log("entrie");
+    //     coordinator.innerHTML = `
+
+    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
+    // }
+    // else{
+    user.innerHTML = `
+        <span class="profilePhoto"></span>
+        <a href="/users/${userData.id}/profile">${userData.name}</a>
+        <button type="button" class="btn remove" data-id=${userData.id}>Remove</button>`;
+    //}
+
+    body.appendChild(user);
 }
 
 /*--------------Task------------*/

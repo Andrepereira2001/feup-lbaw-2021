@@ -45,7 +45,7 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
 Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
-Route::delete('/api/projects/{id}/removeParticipation', 'ProjectController@removeParticipation');
+Route::delete('/api/projects/{id}/decreaseParticipation', 'ProjectController@decreaseParticipation');
 
 Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 

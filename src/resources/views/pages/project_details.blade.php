@@ -18,7 +18,7 @@
 @section('content')
 
 <section id="project-details" class="id-{{$project->id}}" data-id={{$project->id}}>
-    @include('partials.popup',['name' => "leave-project", 'title' => "Are you sure you want to leave project?",'project_id' => $project->id])
+    @include('partials.popup',['name' => "leave-project", 'title' => "Are you sure you want to leave project?",'project_id' => Auth::user()->id])
     @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
     @include('partials.add_popup',['name' => "add-coordinator", 'title' => "Add Coordinator",'project_id' => $project->id, 'users' => $project->users()->wherePivot("role","Member")->get()])
     @include('partials.add_popup',['name' => "invite-member", 'title' => "Invite user",'project_id' => $project->id, 'users' => $noMembers])
