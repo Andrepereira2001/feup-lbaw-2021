@@ -63,10 +63,10 @@ class AdminController extends Controller
 
 
     /**
-     * Favourits the id project.
+     * Block the user_id user.
      *
      * @param  int  $id
-     * @return Participation the participation favourited
+     * @return User the user blocked
      */
     public function block($user_id){
         if(!Auth::guard('admin')->user()){
@@ -79,7 +79,6 @@ class AdminController extends Controller
         $user->save();
 
         return $user;
-
     }
 
 }

@@ -18,6 +18,4 @@
 A more valuable, secure way where our customers are earned rather than bought. We’re obssessively passionated about it, and our mission is to help you achieve your desired organization. We focus on keeping every thing simple for you. It’s one of the least understood and least transparent aspects of great management,  and we see that as an opportunity. We’re excited to simplify the life of everyone through our website, organization and community.</div>
 </section>
 
-
-
 @endsection

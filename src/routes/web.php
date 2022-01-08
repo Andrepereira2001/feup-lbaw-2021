@@ -104,4 +104,5 @@ Route::get('about', 'NonAuthController@showAbout'); //see about page
 Route::get('contact', 'NonAuthController@showContact'); //see contact page
 Route::post('contact','NonAuthController@sendEmail');
 Route::get('services', 'NonAuthController@showService'); //see services
+Route::get('blocked', 'NonAuthController@showBlocked'); //see services
 // Route::get('404', 'NonAuthController@'); //see error page
