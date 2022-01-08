@@ -44,7 +44,6 @@ Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
 Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
-Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
 Route::delete('/api/projects/{id}/decreaseParticipation', 'ProjectController@decreaseParticipation');
 
 Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
@@ -96,8 +95,8 @@ Route::post('api/invites', 'InviteController@create'); //create invite
 Route::get('admin/projects', 'AdminController@showProjects'); //admin page
 Route::get('admin', 'AdminController@showUsers'); //admin page
 // Route::delete('/users/{id}', 'AdminController@deleteUser'); //admin page
-// Route::post('/api/block/{user_id}', 'AdminController@block'); // block user
-// Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user
+Route::post('/api/block/{user_id}', 'AdminController@block'); // block user
+//Route::post('/api/unblock/{user_id}', 'AdminController@unblock'); // unblock user
 
 // // (M07) Static Pages
 Route::get('/', 'NonAuthController@showHome'); //see home page
