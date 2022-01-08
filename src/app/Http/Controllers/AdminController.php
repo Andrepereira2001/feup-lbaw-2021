@@ -61,4 +61,25 @@ class AdminController extends Controller
         return view('pages.admin_users', ['users' => $users]);
     }
 
+
+    /**
+     * Favourits the id project.
+     *
+     * @param  int  $id
+     * @return Participation the participation favourited
+     */
+    public function block($user_id){
+        if(!Auth::guard('admin')->user()){
+            abort(403, 'Access denied');
+        }
+
+        $user = User::find($user_id);
+
+        $user->blocked = !$user->blocked ;
+        $user->save();
+
+        return $user;
+
+    }
+
 }

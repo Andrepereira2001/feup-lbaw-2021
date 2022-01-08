@@ -2474,10 +2474,29 @@ footer section {
     gap: 20px
 }
 
-#admin .user {
+#admin .user .block{
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 300px;
+    height: 150px;
+    background-color: #26c5b373;
+    border-radius: 20px;
+}
+
+#admin .user .unblock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    background-color: #C8666073;
+    border-radius: 20px;
+}
+
+#admin .user .data{
+    display: flex;
+    align-items: center;
 }
 
 #admin .user img {
@@ -2489,6 +2508,15 @@ footer section {
 #admin .user a {
     width: auto;
     color: black;
+}
+
+#admin .buttons button{
+    background-color: #A5B0AF;
+    border-radius: 20px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    width: 100px;
 }
 
 #admin .sidenav {

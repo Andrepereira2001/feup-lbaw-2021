@@ -141,6 +141,11 @@ function addEventListeners() {
     if (adminUserSearch != null)
         adminUserSearch.addEventListener('input', adminUserSearchChange);
 
+    let adminUserBlock = document.querySelectorAll('#admin .user .block button, #admin .user .unblock button');
+    [].forEach.call(adminUserBlock, function(block) {
+        block.addEventListener('click', sendUserBlockRequest);
+    });
+
 }
 
 /*--------------Utils------------*/
@@ -442,6 +447,12 @@ function adminUserSearchChange(event) {
 
     sendAjaxRequest('post', '/api/users/', { search }, adminUserSearchChangeHandler);
 
+}
+
+function sendUserBlockRequest(event) {
+    event.preventDefault();
+    let user_id = this.closest('article').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/block/' + user_id , null, userBlockHandler);
 }
 
 /* HANDLERS */
@@ -875,6 +886,33 @@ function adminUserSearchChangeHandler() {
 
         body.appendChild(userDisplay);
     })
+}
+
+function userBlockHandler() {
+    if (this.status != 200) window.location = '/';
+
+    let user = JSON.parse(this.responseText);
+    const data = document.querySelector('#admin article.user[data-id="' + user.id + '"] div');
+    const buttons = data.querySelector(".buttons");
+    buttons.querySelector("button").remove();
+
+    let button = document.createElement('button');
+    button.className = ('btn');
+    button.setAttribute('type', 'button');
+
+    if(user.blocked){
+        data.className = "unblock";
+        button.innerHTML = "Unblock";
+        button.addEventListener('click', sendUserBlockRequest);
+    }
+    else {
+        data.className = "block";
+        button.innerHTML = "Block";
+        button.addEventListener('click', sendUserBlockRequest);
+    }
+
+    buttons.appendChild(button);
+
 }
 
 addEventListeners();
