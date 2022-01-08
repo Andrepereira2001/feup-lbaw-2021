@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Project;
 
-class UserController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Shows the user for a given id.
@@ -19,15 +19,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function list($id)
+    {
+        $notifications = Auth::user()->notifications();
+        // if(!Auth::guard('admin')->user()){
+        //     // $this->authorize('show',$user);
+        // }
+
+        return view('pages.user', ['notifications' => $notifications, 'view' => "View"]);
+    }
+
+    public function show($id,Request $request)
     {
         $notification = Notification::find($id);
-        if(!Auth::guard('admin')->user()){
-            $this->authorize('show',$user);
-        }
+        // if(!Auth::guard('admin')->user()){
+        // $this->authorize('show', $project);
+        // }
 
-        $fname = strtok($user->name, " ");
-        $lname = strrchr($user->name,' ');
-        return view('pages.user', ['user' => $user, 'lname' => $lname, 'fname' => $fname, 'selected' => "selected-view", 'view' => "View"]);
+        return view('pages.project', ['notification' => $notification]);
     }
 }
