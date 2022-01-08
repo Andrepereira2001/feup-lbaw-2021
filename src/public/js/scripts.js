@@ -82,6 +82,18 @@ function addEventListeners() {
         taskComplete.addEventListener('click', sendCompleteTaskRequest);
     }
 
+    /*--------------forum message------------*/
+
+    let forumMessageCreator = document.querySelector('#project form.new-message');
+    if (forumMessageCreator != null)
+        forumMessageCreator.addEventListener('submit', sendCreateForumMessageRequest);
+
+    /*--------------task comment------------*/
+
+    let commentCreator = document.querySelector('#task-details form.new-comment');
+    if (commentCreator != null)
+        commentCreator.addEventListener('submit', sendCreateCommentRequest);
+
     /*--------------user------------*/
 
     let userEdit = document.querySelector('#user-edit form.info');
@@ -153,7 +165,7 @@ function projectRemoveMemberRequest(event) {
     let user_id = event.target.getAttribute('data-id');
     let project_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/removeParticipation', {user_id}, projectRemoveMemberHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/removeParticipation', { user_id }, projectRemoveMemberHandler);
 }
 
 function sendDeleteProjectRequest(event) {
@@ -304,6 +316,30 @@ function taskAssignMemberHandler(event) {
 
 }
 
+/*--------------Forum Messages------------*/
+
+function sendCreateForumMessageRequest(event) {
+    event.preventDefault();
+    let projectId = this.closest('section').getAttribute('data-id');
+    let content = this.querySelector('input[name=content]').value;
+    let userId = event.target.getAttribute('data-id');
+
+    if (content != '')
+        sendAjaxRequest('post', '/messages', { projectId, content, userId }, ForumMessageAddedHandler);
+}
+
+/*--------------Task Comment------------*/
+
+function sendCreateCommentRequest(event) {
+    event.preventDefault();
+    let taskId = this.closest('section').getAttribute('data-id');
+    let content = this.querySelector('input[name=content]').value;
+    let userId = event.target.getAttribute('data-id');
+    console.log(content, taskId, userId);
+    if (content != '')
+        sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
+}
+
 /*--------------User------------*/
 
 function sendEditUserRequest(event) {
@@ -380,21 +416,19 @@ function adminUserSearchChange(event) {
 /*--------------Project------------*/
 
 function participationDeletedHandler() {
-    if(this.status == 406){
+    if (this.status == 406) {
         alert("Last coordinator! Can't leave project.")
-    }else if(this.status == 200){
+    } else if (this.status == 200) {
         window.location = '/users';
-    }
-    else{
+    } else {
         alert("Error: Can't leave project");
     }
 }
 
 function projectDeletedHandler() {
-    if(this.status == 200){
+    if (this.status == 200) {
         window.location = '/users';
-    }
-    else{
+    } else {
         alert("Error: Could not delete project");
     }
 }
@@ -454,7 +488,7 @@ function addCoordinatorHandler() {
     //     <a href="/users/${user.id}/profile">${user.name}</a>`;
     // }
     // else{
-        coordinator.innerHTML = `
+    coordinator.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>`;
     //}
@@ -478,20 +512,20 @@ function projectCoordinatorAddSearchChangeHandler() {
         add_coordinator.className = ('user invite');
         add_coordinator.setAttribute('data-id', user.id);
 
-            // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     add_coordinator.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     add_coordinator.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        // }
+        // else{
         add_coordinator.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile/">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    //}
+        //}
 
 
 
@@ -523,21 +557,21 @@ function projectUserAddSearchChangeHandler() {
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
 
-                    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     user_invite.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     user_invite.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        // }
+        // else{
         user_invite.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile/">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    //}
+        //}
 
 
         // user_invite.innerHTML = `
@@ -582,7 +616,7 @@ function projectSearchTaskHandler() {
     })
 }
 
-function projectRemoveMemberHandler(){
+function projectRemoveMemberHandler() {
     if (this.status != 200) window.location = '/';
     let participation = JSON.parse(this.responseText);
 
@@ -648,20 +682,20 @@ function taskAssignSearchChangeHandler() {
         assign.setAttribute('data-id', user.id);
 
 
-            // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     assign.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     assign.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        // }
+        // else{
         assign.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-    //}
+        //}
 
 
         // assign.innerHTML = `
@@ -675,6 +709,28 @@ function taskAssignSearchChangeHandler() {
 
         body.appendChild(assign);
     })
+}
+
+/*--------------Forum Message------------*/
+
+function ForumMessageAddedHandler() {
+    const message = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/projects/' + message.id_project;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+/*--------------Task Comment------------*/
+
+function CommentAddedHandler() {
+    const message = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/tasks/' + message.id_task;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
 }
 
 /*--------------User------------*/
@@ -724,18 +780,18 @@ function adminUserSearchChangeHandler() {
         let userDisplay = document.createElement('div');
         userDisplay.className = ('user');
         userDisplay.setAttribute('data-id', user.id);
-                    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     userDisplay.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     userDisplay.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile">${user.name}</a>`;
+        // }
+        // else{
         userDisplay.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>`;
-    //}
+        //}
 
         // userDisplay.innerHTML = `
 
@@ -747,4 +803,3 @@ function adminUserSearchChangeHandler() {
 }
 
 addEventListeners();
-

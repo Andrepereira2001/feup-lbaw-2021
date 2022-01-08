@@ -6,8 +6,8 @@
     @endif
     <div class="message">
         <div class="user-info">
-            <span class="name">{{ $forumMessage->user->name }}</span>
-            <span class="name">{{ substr($forumMessage->created_at,8,2). "/". substr($forumMessage->created_at,5,2) ." ". substr($forumMessage->created_at,11,2)."h". substr($forumMessage->created_at,14,2)}}</span>
+            <a href="/users/{{$forumMessage->id_user}}/profile" class="name">{{ $forumMessage->user->name }}</a>
+            <span class="date">{{ substr($forumMessage->created_at,8,2). "/". substr($forumMessage->created_at,5,2) ." ". substr($forumMessage->created_at,11,2)."h". substr($forumMessage->created_at,14,2)}}</span>
         </div>
         <span class="number">{{ $forumMessage->content }}</span>
     </div>

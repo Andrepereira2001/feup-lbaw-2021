@@ -983,6 +983,11 @@ footer section {
     margin: 20px 0px 20px 0px;
 }
 
+#project .tasksToDo {
+    overflow-y: scroll;
+    height: 35vh;
+}
+
 #project .task {
     background-color: rgba(255, 255, 255, 0.467);
     border-radius: 10px;
@@ -1089,18 +1094,32 @@ footer section {
     font-weight: bold;
 }
 
-#project .forum-box .forum {
+#project .forum-box .forum-messages {
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.4);
     height: 90%;
     width: 90%;
+    margin-bottom: 25px;
     display: flex;
     flex-flow: column;
+    justify-content: space-between;
+}
+
+#project .forum-box .forum {
+    width: 100%;
+    height: 58vh;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
 }
 
 #project .forum .forumMessage {
     display: flex;
+    /* background-color: rgb(255, 255, 255, 0.4);
+    border-radius: 20px;
+    margin: 5px 5px 0px 5px; */
 }
 
 #project .forum .message {
@@ -1109,13 +1128,21 @@ footer section {
     justify-content: center;
 }
 
-#project .forum .user-info {
+#project .forum .user-info .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info .date {
     font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 #project .forum .profilePhoto {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     background-color: #62D2C5;
     border: 0px;
     border-radius: 100%;
@@ -1124,26 +1151,30 @@ footer section {
 
 #project .new-message {
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    flex-flow: row;
 }
 
 #project .new-message input {
-    width: 90%;
+    width: 80%;
     border-radius: 10px;
     border-width: 0.2px;
-    border: solid;
     background-color: transparent;
+    margin: 10px;
+}
+
+#project .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
     margin: 10px;
 }
 
 #project .new-message img {
     width: 25px;
     height: 25px;
-    margin: 10px;
 }
 
 
@@ -1561,7 +1592,7 @@ footer section {
     margin-bottom: 10px;
 }
 
-#project-edit button.remove{
+#project-edit button.remove {
     position: absolute;
     background-color: #C86660;
     right: 20px;
