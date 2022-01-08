@@ -26,7 +26,7 @@
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
-        <div> @each('partials.project', $projects, 'project')</div>
+        <div> @each('partials.notification', $notifications, 'notification')</div>
     </article>
 </section>
 

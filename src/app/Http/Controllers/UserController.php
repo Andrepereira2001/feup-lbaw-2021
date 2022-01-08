@@ -119,10 +119,13 @@ class UserController extends Controller
     public function showNotifications($id)
     {
         $user = User::find($id);
-        if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $user);
-        }
-        return view('pages.notifications', ['user' => $user, 'view' => "View", 'selected' => "selected-edit"]);
+        // if(!Auth::guard('admin')->user()){
+        //     $this->authorize('edit', $user);
+        // }
+        $notifications = Auth::user()->notifications();
+        $notifications = $notifications->get();
+        echo $notifications;
+        return view('pages.notifications', ['user' => $user, 'notifications' => $notifications, 'view' => "View", 'selected' => "selected-edit"]);
     }
 
 }
