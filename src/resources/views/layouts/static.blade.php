@@ -9,6 +9,7 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
       <title>{{ config('app.name', 'Laravel') }}</title>
+      <link rel="icon" href="{{ asset('img/logo_sem_letras.png') }}">
 
       <!-- Styles -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -31,12 +32,12 @@
     <main>
       <section id="static">
         <header>
-          <h1><a href="/"><img src={{ asset('img/logo_sem_letras.png') }}></a></h1>
-          <section class="buttons">
-            <a class="button" href="/about"> <span> about</span> </a>
-            <a class="button" href="/services"> <span> services </span> </a>
-            <a class="button" href="/contact"> <span> contact us</span> </a>
-          </section>
+            <a href="/"><img src={{ asset('img/logo_sem_letras.png') }}></a>
+            <section class="buttons">
+                <a class="button" href="/about">about</a>
+                <a class="button" href="/services">services</a>
+                <a class="button" href="/contact">contact us</a>
+            </section>
         </header>
       </section>
       <section id="content">
