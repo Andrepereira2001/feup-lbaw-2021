@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Participation;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
@@ -47,5 +48,21 @@ class ProjectPolicy
     public function participant(User $user, Project $project){
 
         return !$user->projects()->wherePivot("id_project",$project->id)->get()->isEmpty();
+    }
+
+    public function participantControl(User $user, Participation $participation){
+
+        $validate = !$user->projects()->wherePivot("id_project",$participation->id_project)->wherePivot("role","Coordinator")->get()->isEmpty();
+
+        $validade2 = $user->id == $participation->id_user;
+
+        if($validate || $validade2){
+            error_log("________________________________-____________________________________________Boas");
+        }
+        else {
+            error_log("aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        }
+
+        return $validate || $validade2;
     }
 }

@@ -35,7 +35,7 @@
           <input type="text" id="task-search" name="search" placeholder="Search for Task"/>
         </form>
       </div>
-      <ul>
+      <ul class="tasksToDo">
         @each('partials.task', $tasksTodo, 'task')
       </ul>
       @if(Auth::user())
@@ -51,6 +51,15 @@
     </div>
     <div class="forum-box">
       <h2>FORUM</h2>
+      <div class="forum-messages">
+        <ul class="forum">
+        @each('partials.forumMessage', $forumMessages, 'forumMessage')
+        </ul>
+        <form class="new-message" data-id={{ Auth::user()->id}}>
+            <input type="text" name="content" placeholder="Message">
+            <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
+        </form>
+      </div>
     </div>
   </section>
 

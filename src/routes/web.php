@@ -45,8 +45,9 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
 Route::delete('/api/projects/{id}/leave', 'ProjectController@leave');
-Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
+Route::delete('/api/projects/{id}/decreaseParticipation', 'ProjectController@decreaseParticipation');
 
+Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 
 // (M03) Tasks, Comments and Labels
 Route::post('api/tasks', 'TaskController@search'); //get tasks
@@ -60,7 +61,7 @@ Route::post('tasks/{id}/complete', 'TaskController@complete'); //complete task
 Route::post('tasks/{id}/clone', 'TaskController@clone'); //complete task
 // Route::get('api/comments', 'CommentController@'); //get comments
 // Route::get('comments', 'CommentController@'); //create task comment page
-// Route::post('comments', 'CommentController@create'); //create task comment
+Route::post('comments', 'TaskCommentController@create'); //create task comment
 // Route::post('comments/{id}', 'CommentController@'); //edit task comment
 // Route::delete('comments/{id}', 'CommentController@delete'); //delete task comment
 // Route::get('api/labels', 'LabelController@'); //get labels
@@ -75,7 +76,7 @@ Route::post('tasks/{id}/clone', 'TaskController@clone'); //complete task
 
 // (M04) Forum
 // Route::get('api/messages', 'ForumController@search'); //get message
-// Route::post('messages', 'ForumController@create'); //create a message
+Route::post('messages', 'ForumMessageController@create'); //create a message
 // Route::get('messages', 'ForumController@show'); //creation page
 // Route::post('messages/{id}', 'ForumController@edit'); //edit message
 // Route::delete('messages/{id}', 'ForumController@delete'); // delete meeage

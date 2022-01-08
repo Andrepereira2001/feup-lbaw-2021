@@ -9,18 +9,16 @@ class ForumMessage extends Model
 {
     use HasFactory;
 
-    protected $table ='forumMessage';
+    protected $table ='forummessage';
     public $timestamps = false;
 
-    /**
-     * The project this comment belongs to.
-     */
     public function project() {
-        return $this->belongsTo(Project::class, 'id_project');
+        //return $this->belongsTo('App\Models\project');
+        return  $this->belongsTo(Project::class, 'id_project');
     }
 
     /**
-     * The user this task comment to.
+     * The user this forum message belongs to.
      */
     public function user() {
         return $this->belongsTo(User::class, 'id_user');
