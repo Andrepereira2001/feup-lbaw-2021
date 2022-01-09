@@ -859,30 +859,44 @@ function adminUserSearchChangeHandler() {
         user.remove();
     });
 
-
     let body = document.querySelector('#admin .users-display');
     users.map((user) => {
-        console.log(user);
-        let userDisplay = document.createElement('div');
+        let userDisplay = document.createElement('article');
         userDisplay.className = ('user');
         userDisplay.setAttribute('data-id', user.id);
-        // if(user.image_path !== "./img/default"){
-        //     console.log("entrie");
-        //     userDisplay.innerHTML = `
 
-        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-        //     <a href="/users/${user.id}/profile">${user.name}</a>`;
-        // }
-        // else{
-        userDisplay.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${user.id}/profile">${user.name}</a>`;
-        //}
+        if(user.blocked){
+            userDisplay.innerHTML= `
+                <div class="unblock">
+                    <div class="data">
+                        <span class="profilePhoto"></span>
 
-        // userDisplay.innerHTML = `
+                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    </div>
 
-        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
-        //      <a href="/users/${user.id}/profile">${user.name}</a>`;
+                    <div class="buttons">
+                            <button type="button" class="btn">Unblock</button>
+                    </div>
+                </div>
+            `;
+
+        }
+        else {
+            userDisplay.innerHTML= `
+                <div class="block">
+                    <div class="data">
+                        <span class="profilePhoto"></span>
+
+                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    </div>
+
+                    <div class="buttons">
+                            <button type="button" class="btn">Block</button>
+                    </div>
+                </div>
+            `;
+        }
+        userDisplay.querySelector("button").addEventListener('click', sendUserBlockRequest);
 
         body.appendChild(userDisplay);
     })
