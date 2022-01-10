@@ -21,6 +21,11 @@ function addEventListeners() {
         fav.addEventListener('click', sendFavouriteRequest);
     });
 
+    let projectArchived = document.querySelectorAll('article.project .content a.archive');
+    [].forEach.call(projectArchived, function(arch) {
+        arch.addEventListener('click', sendArchivedRequest);
+    });
+
     let projectEdit = document.querySelector('#project-edit form.edit');
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
@@ -50,6 +55,10 @@ function addEventListeners() {
         user.addEventListener('click', projectRemoveCoordinatorRequest);
     });
 
+    let projectFilters = document.querySelectorAll('#projects .filters input[type=checkbox]');
+    [].forEach.call(projectFilters, function(filter) {
+        filter.addEventListener('click', projectFilterChange);
+    });
 
     /*--------------task------------*/
 
@@ -100,11 +109,9 @@ function addEventListeners() {
 
     /*--------------task comment------------*/
 
-    let commentCreator = document.querySelector('#task-details form.new-comment');
+    let commentCreator = document.querySelector('#task-details form.new-message');
     if (commentCreator != null)
         commentCreator.addEventListener('submit', sendCreateCommentRequest);
-
-
 
     /*--------------user------------*/
 
@@ -216,6 +223,13 @@ function sendFavouriteRequest(event) {
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
 }
 
+function sendArchivedRequest(event) {
+    event.preventDefault();
+    let id = this.closest('article').getAttribute('data-id');
+    console.log(id);
+    sendAjaxRequest('post', '/api/projects/' + id + '/archive', null, projectArchiveHandler);
+}
+
 function sendFavouritesProjectRequest(event) {
     event.preventDefault();
 
@@ -275,6 +289,17 @@ function projectRemoveCoordinatorRequest(event) {
     let project_id = this.closest('section').getAttribute('data-id');
 
     sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, projectRemoveCoordinatorHandler);
+}
+
+function projectFilterChange(event) {
+    const filters = document.querySelector("#projects .filters");
+
+    const favourite = filters.querySelector("#favourite").checked;
+    const coordinator = filters.querySelector("#coordinator").checked;
+    const member = filters.querySelector("#member").checked;
+    const archived = filters.querySelector("#archived").checked;
+
+    sendAjaxRequest('post', '/api/projects/', { favourite, coordinator, member, archived }, projectFilterChangeHandler);
 }
 
 /*--------------Task------------*/
@@ -452,7 +477,7 @@ function adminUserSearchChange(event) {
 function sendUserBlockRequest(event) {
     event.preventDefault();
     let user_id = this.closest('article').getAttribute('data-id');
-    sendAjaxRequest('post', '/api/block/' + user_id , null, userBlockHandler);
+    sendAjaxRequest('post', '/api/block/' + user_id, null, userBlockHandler);
 }
 
 /* HANDLERS */
@@ -505,6 +530,20 @@ function projectFavouriteHandler() {
         img.setAttribute('src', window.location.origin + '/img/star.png');
     } else {
         img.setAttribute('src', window.location.origin + '/img/filed_star.png');
+    }
+}
+
+function projectArchiveHandler() {
+    console.log(this.status)
+    console.log(this.responseText);
+    if (this.status != 200) window.location = '/';
+
+    let project = JSON.parse(this.responseText);
+    const img = document.querySelector('article.project[data-id="' + project.id + '"] .content .archive img');
+
+    if (img.getAttribute('src').includes("box")) {
+        img.setAttribute('src', window.location.origin + '/img/cardboard-box-filled.png');
+        img.setAttribute('class', '');
     }
 }
 
@@ -710,6 +749,61 @@ function projectRemoveCoordinatorHandler() {
     body.appendChild(user);
 }
 
+function projectFilterChangeHandler() {
+    if (this.status != 200) window.location = '/users';
+
+    const projects = JSON.parse(this.responseText);
+
+    let firstErase = false;
+    let currProjects = document.querySelectorAll('#projects .projets-display article.project');
+    [].forEach.call(currProjects, function(project) {
+        if (!firstErase) {
+            firstErase = true;
+        } else {
+            project.remove();
+        }
+    });
+
+    let body = document.querySelector('#projects .projets-display');
+    projects.map((project) => {
+                let addProject = document.createElement('article');
+                addProject.className = (`project id-${project.id}`);
+                addProject.setAttribute('data-id', project.id);
+                addProject.innerHTML = `
+                    <header>
+                        <h3><a href="/projects/${ project.id }">${ project.name }</a></h3>
+                    </header>
+                    <div class="content">
+                        ${ project.pivot.role === "Coordinator"  ?
+                                 project.archived_at === null ?
+                                    `<a href="/archive_project" class="archive" ><img src="../img/cardboard-box.png"  width="20px"> </a>`
+                                    :
+                                    `<a href="/archive_project"><img src="../img/cardboard-box-filled.png" width="20px"> </a>`
+                            :
+                            ''
+                        }
+
+                        ${project.pivot.favourite ?
+                            `<a href="#" class="fav"><img src="../img/filed_star.png" width="20px"></a>`
+                            :
+                            `<a href="#" class="fav"><img src="../img/star.png" width="20px"></a> `
+                        }
+                    </div>`;
+
+        let fav = addProject.querySelector('a.fav');
+        fav.addEventListener('click', sendFavouriteRequest);
+
+        let archive = addProject.querySelector('a.archive');
+        if(archive != null){
+            archive.addEventListener('click', sendArchivedRequest);
+        }
+
+        body.appendChild(addProject);
+
+    })
+}
+
+
 /*--------------Task------------*/
 
 function createTaskAssignHandler(event) {
@@ -865,8 +959,8 @@ function adminUserSearchChangeHandler() {
         userDisplay.className = ('user');
         userDisplay.setAttribute('data-id', user.id);
 
-        if(user.blocked){
-            userDisplay.innerHTML= `
+        if (user.blocked) {
+            userDisplay.innerHTML = `
                 <div class="unblock">
                     <div class="data">
                         <span class="profilePhoto"></span>
@@ -880,9 +974,8 @@ function adminUserSearchChangeHandler() {
                 </div>
             `;
 
-        }
-        else {
-            userDisplay.innerHTML= `
+        } else {
+            userDisplay.innerHTML = `
                 <div class="block">
                     <div class="data">
                         <span class="profilePhoto"></span>
@@ -914,12 +1007,11 @@ function userBlockHandler() {
     button.className = ('btn');
     button.setAttribute('type', 'button');
 
-    if(user.blocked){
+    if (user.blocked) {
         data.className = "unblock";
         button.innerHTML = "Unblock";
         button.addEventListener('click', sendUserBlockRequest);
-    }
-    else {
+    } else {
         data.className = "block";
         button.innerHTML = "Block";
         button.addEventListener('click', sendUserBlockRequest);

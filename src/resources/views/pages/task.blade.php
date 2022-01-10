@@ -63,8 +63,13 @@
     <div class="comments">
         <span>Comments</span>
         <div class="content">
-            TO BE DEFINED
-            {{-- @each('partials.taskComment', $task->taskComments()->orderBy('id')->get(), 'taskComment') --}}
+            <ul class="forum">
+                @each('partials.comment', $comments, 'comment')
+            </ul>
+            <form class="new-message" data-id={{ Auth::user()->id}}>
+                <input type="text" name="content" placeholder="New Comment">
+                <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
+            </form>
         </div>
     </div>
     <div class="buttons">

@@ -1430,50 +1430,22 @@ paths:
                 302Error:
                   description: Failed reject. Redirect to user page.
                   value: /users/{id}
-  /api/notifications:
+  /users/{id}/notifications:
     get:
       operationId: R505
-      summary: 'R505: Search Notifications API'
-      description: >-
-        Searches for Notifications and returns the results as JSON. Access:
-        AUTH_USR.
+      summary: 'R505: Shows the user Notifications page'
+      description: "Shows the if user notifactions. Access: AUTH_USR."
       tags:
         - 'M05: Invites and Notifications'
       parameters:
-        - in: query
-          name: id_user
-          description: Id of the user
+        - in: path
+          name: id
           schema:
             type: integer
           required: true
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    content:
-                      type: string
-                    created_at:
-                      type: string
-                    id_project:
-                      type: integer
-                    seen:
-                      type: boolean
-                    id_user:
-                      type: integer
-                example:
-                  - id: 1
-                    content: Invite to a new project!
-                    id_project: 1
-                    seen: false
-                    id_user: 21
+          description: Ok. Show user notifications Page UI
   /api/notifications/{user_id}/{notification_id}:
     post:
       operationId: R506

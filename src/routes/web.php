@@ -30,7 +30,7 @@ Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('reco
 Route::post('api/users', 'UserController@search'); //search users API
 
 // (M02) Project
-//Route::get('api/projects', 'ProjectController@search');
+Route::post('api/projects', 'ProjectController@search');
 Route::post('projects', 'ProjectController@create'); //create a project
 Route::get('projects', 'ProjectController@showCreate'); //creation page
 
@@ -44,6 +44,7 @@ Route::get('projects/{id}/edit', 'ProjectController@editShow'); //show edit page
 Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
+Route::post('/api/projects/{id}/archive', 'ProjectController@archive');
 Route::delete('/api/projects/{id}/decreaseParticipation', 'ProjectController@decreaseParticipation');
 
 Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');

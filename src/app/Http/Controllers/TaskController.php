@@ -26,9 +26,10 @@ class TaskController extends Controller
         $this->authorize('show', $task);
       }
 
+      $comments = $task->taskComments()->orderBy("created_at", "ASC")->get();
       //$search = $request->input('search');
 
-      return view('pages.task', ['task' => $task, 'project' => $project, 'selected' => "selected-view"]);
+      return view('pages.task', ['task' => $task, 'project' => $project, 'selected' => "selected-view", 'comments' => $comments ]);
     }
 
     /**

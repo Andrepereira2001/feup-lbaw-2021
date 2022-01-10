@@ -110,8 +110,10 @@ footer section {
 }
 
 #static a.button:hover {
-    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
 }
+
 
 /* home */
 
@@ -177,7 +179,6 @@ footer section {
     border-top: 25px solid #C0F2EC;
 }
 
-
 #home .buttons .login-button:hover {
     background-color: #FEDB60;
     border-top: 25px solid #FFF4CC;
@@ -187,7 +188,6 @@ footer section {
     background-color: #38C5B4;
     border-top: 25px solid #9EF3E9;
 }
-
 
 #home .buttons a .name {
     font-weight: bolder;
@@ -543,8 +543,8 @@ footer section {
     padding-right: 2.5rem;
 }
 
-/* Blocked */
 
+/* Blocked */
 
 #blocked {
     margin-top: 1em;
@@ -625,6 +625,7 @@ footer section {
     margin: 0.5em 3em 0.5em 3em;
     padding: 1.5em 1rem 1.5em 1rem;
 }
+
 
 /* login */
 
@@ -776,7 +777,7 @@ footer section {
 
 #login .loginEmail #email,
 #login #password {
-    padding: 0 60px;
+    padding-left: 60px;
 }
 
 #register #name,
@@ -867,6 +868,7 @@ footer section {
     padding-bottom: 40px;
 }
 
+
 /* projects */
 
 #projects form {
@@ -901,7 +903,8 @@ footer section {
 
 #projects .order button:hover {
     background: linear-gradient(180deg, rgba(196, 196, 196, 0) -210.81%, #C4C4C4 305.41%);
-    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
 }
 
 #projects .order div {
@@ -975,7 +978,8 @@ footer section {
 }
 
 #projects .filters input:checked+label {
-    background: linear-gradient(180deg, rgba(0, 255, 225, 0.33) -232.29%, rgba(240, 253, 251, 0.33) -232.25%, rgba(43, 255, 230, 0.33) 198.96%);}
+    background: linear-gradient(180deg, rgba(0, 255, 225, 0.33) -232.29%, rgba(240, 253, 251, 0.33) -232.25%, rgba(43, 255, 230, 0.33) 198.96%);
+}
 
 #projects .projets-display {
     grid-column: 2 / 3;
@@ -1130,7 +1134,7 @@ footer section {
 
 #project .tasksToDo {
     overflow-y: scroll;
-    height: 35vh;
+    max-height: 35vh;
 }
 
 #project .task {
@@ -1252,7 +1256,7 @@ footer section {
 
 #project .forum-box .forum {
     width: 100%;
-    height: 58vh;
+    max-height: 58vh;
     margin: 0;
     list-style-type: none;
     display: flex;
@@ -1262,15 +1266,20 @@ footer section {
 
 #project .forum .forumMessage {
     display: flex;
-    /* background-color: rgb(255, 255, 255, 0.4);
-    border-radius: 20px;
-    margin: 5px 5px 0px 5px; */
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 #project .forum .message {
     display: flex;
     flex-flow: column;
     justify-content: center;
+}
+
+#project .forum .content {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 #project .forum .user-info .name {
@@ -1284,6 +1293,51 @@ footer section {
 }
 
 #project .forum .profilePhoto {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#project .forum .forumMessage2 {
+    display: flex;
+    margin-bottom: 10px;
+    align-self: end;
+    margin-left: 10px;
+}
+
+#project .forum .message2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#project .forum .content2 {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#project .forum .user-info2 {
+    align-self: end;
+}
+
+#project .forum .user-info2 .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info2 .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#project .forum .profilePhoto {
+    align-self: end;
     width: 40px;
     height: 40px;
     min-width: 40px;
@@ -1943,6 +1997,81 @@ footer section {
     width: 50px;
 }
 
+#task-details .forum {
+    all: unset;
+    max-height: 35vh;
+    /* height: 35vh; */
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
+}
+
+#task-details .forum .comment {
+    display: flex;
+    flex-flow: row;
+}
+
+#task-details .forum .user-info {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-flow: row;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+#task-details .forum .user-info .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+    width: auto;
+}
+
+#task-details .forum .user-info .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#task-details .forum .comment .profilePhoto {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#task-details .new-message {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin: 0px;
+}
+
+#task-details .new-message input {
+    width: 88%;
+    border-radius: 10px;
+    border-width: 0.2px;
+    background-color: transparent;
+    margin: 10px;
+}
+
+#task-details .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+
+#task-details .new-message img {
+    width: 25px;
+    height: 25px;
+}
+
 
 /* project-create */
 
@@ -2277,7 +2406,7 @@ footer section {
     margin-bottom: 10px;
 }
 
-#task-edit button.remove{
+#task-edit button.remove {
     position: absolute;
     background-color: #C86660;
     right: 20px;
@@ -2556,7 +2685,7 @@ footer section {
     gap: 20px
 }
 
-#admin .user .block{
+#admin .user .block {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2566,7 +2695,7 @@ footer section {
     border-radius: 20px;
 }
 
-#admin .user .unblock{
+#admin .user .unblock {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2576,7 +2705,7 @@ footer section {
     border-radius: 20px;
 }
 
-#admin .user .data{
+#admin .user .data {
     display: flex;
     align-items: center;
 }
@@ -2592,7 +2721,7 @@ footer section {
     color: black;
 }
 
-#admin .buttons button{
+#admin .buttons button {
     background-color: #A5B0AF;
     border-radius: 20px;
     color: white;

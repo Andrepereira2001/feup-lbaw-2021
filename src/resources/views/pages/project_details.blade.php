@@ -44,7 +44,7 @@
       <span>Coordinators</span>
       <div class="content">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
-        @if ($isCoordinator)
+        @if ($isCoordinator && $project->archived_at == null)
             <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }}></button>
         @endif
       </div>
@@ -53,7 +53,7 @@
         <span>Members</span>
         <div class="content">
             @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
-            @if($isCoordinator)
+            @if($isCoordinator && $project->archived_at == null)
                 <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }}></button>
             @endif
         </div>
@@ -66,14 +66,16 @@
         </div>
     </div>
     <div class="buttons">
-        @if ($isCoordinator)
+        @if ($isCoordinator && $project->archived_at == null)
             <a href="/projects/{{$project->id}}/edit/" class="edit">Edit</a>
             <button type="button" class="delete" data-toggle="modal" data-target="#delete-project">Delete</button>
             <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
         @elseif (Auth::guard('admin')->user())
             <button type="button" class="delete" data-toggle="modal" data-target="#delete-project">Delete</button>
         @else
-            <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
+            @if($project->archived_at == null)
+                <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
+            @endif
         @endif
 
 
