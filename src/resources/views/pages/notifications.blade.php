@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section id="user-edit">
+<section id="notifications">
     @include('partials.popup_logout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
     @include('partials.popup_delete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     <article class="user" data-id="{{$user->id}}">
@@ -26,7 +26,10 @@
                 <img src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
-        <div> @each('partials.notification', $notifications, 'notification')</div>
+        <div class="notifications-info">
+            <header><span>Notifications</span></header>
+            @each('partials.notification', $notifications, 'notification')
+        </div>
     </article>
 </section>
 

@@ -2419,9 +2419,15 @@ footer section {
 /* Style the links inside the sidenav */
 
 #user .user,
-#user-edit .user {
+#user-edit .user,
+#notifications .user  {
     display: flex;
     flex-flow: row;
+}
+
+#notifications header span{
+    font-size: xx-large;
+    font-weight: bold;
 }
 
 #sidenav {
@@ -2464,15 +2470,20 @@ footer section {
 }
 
 #user .userInfo,
-#user-edit .userInfo {
+#user-edit .userInfo,
+#notifications .notifications-info {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
     justify-content: center;
     align-items: center;
     flex-flow: column;
-    margin: 10px auto;
+    margin: 30px auto;
 }
+/*
+#notifications .notifications-info {
+    margin: 30px auto;
+} */
 
 .selected-view,
 .selected-edit,
@@ -2488,6 +2499,30 @@ footer section {
     justify-content: center;
     align-items: center;
     margin: 3% auto;
+}
+
+#notifications .notification {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: start;
+}
+
+#notifications .content {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#notifications .square {
+    background-color: rgba(219, 140, 168, 0.7);
+    width: 65px;
+    height: 48px;
+    border-top: 10px solid #FFCCDE;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    margin: 0px 15px;
 }
 
 #user .profilePhoto {
@@ -3014,4 +3049,38 @@ footer section {
 #add-coordinator .confirm {
     position: absolute;
     right: 20px;
+}
+
+#notifications article.notification {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    height: 80px;
+    width: 560px;
+    margin-bottom: 25px;
+}
+
+#notifications .accept {
+    background: #26C5B3;
+    border: unset;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    padding: 0px 10px;
+}
+
+#notifications .not-buttons {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#notifications .cancel {
+    cursor: pointer;
+    background: #C86660;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    padding: 0px 8px;
 }

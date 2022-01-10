@@ -124,7 +124,8 @@ class UserController extends Controller
         // }
         $notifications = Auth::user()->notifications();
         $notifications = $notifications->get();
-        echo $notifications;
+
+        // echo $notifications;
         return view('pages.notifications', ['user' => $user, 'notifications' => $notifications, 'view' => "View", 'selected' => "selected-edit"]);
     }
 

@@ -29,13 +29,14 @@ class NotificationController extends Controller
         return view('pages.user', ['notifications' => $notifications, 'view' => "View"]);
     }
 
-    public function show($id,Request $request)
+    public function project($id)
     {
         $notification = Notification::find($id);
+        $project = Project::find($notification->id_project);
         // if(!Auth::guard('admin')->user()){
         // $this->authorize('show', $project);
         // }
 
-        return view('pages.project', ['notification' => $notification]);
+        return view('pages.project', ['notification' => $notification, 'project' => $project]);
     }
 }

@@ -34,7 +34,7 @@
         <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
         <section class="buttons">
-          <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
+          <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img src={{ asset('img/notification.png') }} width="25px"></a>
 
           <a href="/users/{{Auth::user()->id}}/profile">
           <?php
