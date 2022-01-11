@@ -366,8 +366,8 @@ class ProjectController extends Controller
         $this->authorize('list', Project::class);
 
 
-        $search = $request->input('search');
-        $order = $request->input('order');
+        $search = $request->search;
+        $order = $request->order;
 
         $favourite=false;
         $coordinator=false;
@@ -396,7 +396,7 @@ class ProjectController extends Controller
         if($search != ''):
             $projects->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
                 ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
-        elseif($order):
+        elseif($order != 'null'):
             $checkbox[$order] = "checked";
             $projects->orderBy($order);
         endif;
