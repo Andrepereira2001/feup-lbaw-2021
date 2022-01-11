@@ -97,7 +97,7 @@ class UserController extends Controller
         }
         else if($notInProject){
             $users = User::whereDoesntHave('projects', function($p) use($notInProject){
-                $p->where('participation.id_project',$notInProject);;
+                $p->where('participation.id_project',$notInProject);
             });
         }
         else{
@@ -114,19 +114,6 @@ class UserController extends Controller
 
 
       return $users->get();
-    }
-
-    public function showNotifications($id)
-    {
-        $user = User::find($id);
-        // if(!Auth::guard('admin')->user()){
-        //     $this->authorize('edit', $user);
-        // }
-        $notifications = Auth::user()->notifications();
-        $notifications = $notifications->get();
-
-        // echo $notifications;
-        return view('pages.notifications', ['user' => $user, 'notifications' => $notifications, 'view' => "View", 'selected' => "selected-edit"]);
     }
 
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Seen;
 
 class NotificationController extends Controller
 {
@@ -21,7 +22,8 @@ class NotificationController extends Controller
      */
     public function list($id)
     {
-        $notifications = Auth::user()->notifications();
+        $user = User::find($id);
+        $notifications = $user->notifications();
         // if(!Auth::guard('admin')->user()){
         //     // $this->authorize('show',$user);
         // }
@@ -29,14 +31,31 @@ class NotificationController extends Controller
         return view('pages.user', ['notifications' => $notifications, 'view' => "View"]);
     }
 
-    public function project($id)
+    public function showNotifications($id)
     {
-        $notification = Notification::find($id);
-        $project = Project::find($notification->id_project);
+        $user = User::find($id);
         // if(!Auth::guard('admin')->user()){
-        // $this->authorize('show', $project);
+        //     $this->authorize('edit', $user);
         // }
+        $notifications = $user->notifications();
+        $notifications = $notifications->get();
+        foreach ($notifications as &$not) {
+            $color = Project::find($not->id_project)->color;
+            $not->color = $color;
+        }
 
-        return view('pages.project', ['notification' => $notification, 'project' => $project]);
+        return view('pages.notifications', ['user' => $user, 'notifications' => $notifications, 'view' => "View", 'selected' => "selected-edit"]);
+    }
+
+    public function seen(Request $request)
+    {
+        $seen = Seen::where('id_notification', $request->notification_id)->where('id_user', $request->user_id)->first();
+
+        $seen->seen = true;
+
+        $seen->save();
+        $projectId = Notification::where('id',$request->notification_id)->first();
+
+        return $projectId->id_project;
     }
 }

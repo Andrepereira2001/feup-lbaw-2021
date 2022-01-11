@@ -153,6 +153,12 @@ function addEventListeners() {
         block.addEventListener('click', sendUserBlockRequest);
     });
 
+    /*--------------notifications-------------*/
+
+    let notification = document.querySelectorAll('#notifications .link');
+    [].forEach.call(notification, function(id) {
+        id.addEventListener('click', seeNotification);
+    });
 }
 
 /*--------------Utils------------*/
@@ -178,7 +184,7 @@ function sendAjaxRequest(method, url, data, handler) {
 
 function sendDeleteParticipationRequest(event) {
     event.preventDefault();
-    let user_id = event.target.getAttribute('data-id');;
+    let user_id = event.target.getAttribute('data-id');
     let project_id = this.closest('section').getAttribute('data-id');
 
     sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, participationDeletedHandler);
@@ -463,7 +469,7 @@ function sendEmailRequest(event) {
     sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
 }
 
-/*--------------Adim------------*/
+/*--------------Admin------------*/
 
 function adminUserSearchChange(event) {
     event.preventDefault();
@@ -478,6 +484,19 @@ function sendUserBlockRequest(event) {
     event.preventDefault();
     let user_id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/block/' + user_id, null, userBlockHandler);
+}
+
+/*--------------Notification------------*/
+
+function seeNotification(event) {
+    event.preventDefault();
+    console.log(event);
+    let user_id = this.closest('.user').getAttribute('data-id');
+    let notification_id = this.closest('article').getAttribute('data-id');
+    let project_id = 0;
+    console.log(user_id, notification_id);
+    sendAjaxRequest('post', '/users/' + user_id + '/notifications', { user_id, notification_id, project_id }, notificationHandler);
+
 }
 
 /* HANDLERS */
@@ -1019,6 +1038,20 @@ function userBlockHandler() {
 
     buttons.appendChild(button);
 
+}
+
+/*--------------Notifications------------*/
+
+function notificationHandler() {
+    console.log(this.responseText);
+    const id = JSON.parse(this.responseText);
+    //console.log(ids.id_notification,ids.id_user, ids.project_id);
+    console.log(id);
+    if (this.status === 200) {
+        window.location = '/projects/' + id;
+    } else if (this.status !== 500) {
+        window.location = '/';
+    }
 }
 
 addEventListeners();
