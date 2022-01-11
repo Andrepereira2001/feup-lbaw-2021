@@ -14,7 +14,7 @@
   </div>
   <div class="line"></div>
   <div class="form">
-    <form  method="POST" action="{{ action('NonAuthController@sendEmail') }}" id="contact-form">
+    <form  method="GET" action="{{ action('NonAuthController@sendEmail') }}" id="contact-form">
       <div class="name-email">
         <div class="name">
           <p><label for="name">Name</label></p>
