@@ -18,10 +18,12 @@
 @section('content')
 
 <section id="project-details" class="id-{{$project->id}}" data-id={{$project->id}}>
+    @if (!Auth::guard('admin')->user())
     @include('partials.popup',['name' => "leave-project", 'title' => "Are you sure you want to leave project?",'project_id' => Auth::user()->id])
-    @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
     @include('partials.add_popup',['name' => "add-coordinator", 'title' => "Add Coordinator",'project_id' => $project->id, 'users' => $project->users()->wherePivot("role","Member")->get()])
     @include('partials.add_popup',['name' => "invite-member", 'title' => "Invite user",'project_id' => $project->id, 'users' => $noMembers])
+    @endif
+    @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
 
     <div id="sidenav" class="sidenav">
         <div id="sidenavleft" class="{{$selected}}">
@@ -42,7 +44,7 @@
       <span>Coordinators</span>
       <div class="content">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
-        @if ($isCoordinator)
+        @if ($isCoordinator && $project->archived_at == null)
             <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }}></button>
         @endif
       </div>
@@ -51,7 +53,7 @@
         <span>Members</span>
         <div class="content">
             @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
-            @if($isCoordinator)
+            @if($isCoordinator && $project->archived_at == null)
                 <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }}></button>
             @endif
         </div>
@@ -64,14 +66,16 @@
         </div>
     </div>
     <div class="buttons">
-        @if ($isCoordinator)
+        @if ($isCoordinator && $project->archived_at == null)
             <a href="/projects/{{$project->id}}/edit/" class="edit">Edit</a>
             <button type="button" class="delete" data-toggle="modal" data-target="#delete-project">Delete</button>
             <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
         @elseif (Auth::guard('admin')->user())
             <button type="button" class="delete" data-toggle="modal" data-target="#delete-project">Delete</button>
         @else
-            <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
+            @if($project->archived_at == null)
+                <button type="button" class="leave" data-toggle="modal" data-target="#leave-project">Leave</button>
+            @endif
         @endif
 
 

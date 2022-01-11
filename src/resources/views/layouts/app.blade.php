@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="{{ asset('img/logo_sem_letras.png') }}">
 
     <!-- Styles -->
 
@@ -32,11 +33,8 @@
       <header id="header">
         <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
-        <script>
-          document.getElementById("header").style.borderBottom = "6px solid #A1A1A1";
-        </script>
         <section class="buttons">
-          <a class= "notification" href="/notifications'"><img src={{ asset('img/notification.png') }} width="25px"></a>
+          <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img src={{ asset('img/notification.png') }} width="25px"></a>
 
           <a href="/users/{{Auth::user()->id}}/profile">
           <?php

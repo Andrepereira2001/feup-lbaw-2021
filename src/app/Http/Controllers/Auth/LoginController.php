@@ -53,6 +53,10 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             // Authentication passed...
+            if(Auth::user()->blocked){
+                Auth::logout();
+                return redirect("/blocked");
+            }
             return redirect()->intended('/users');
         }
 

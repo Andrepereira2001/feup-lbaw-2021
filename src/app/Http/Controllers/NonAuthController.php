@@ -50,6 +50,17 @@ class NonAuthController extends Controller
   }
 
   /**
+     * Shows the Blocked page
+     *
+     * @return Response
+     */
+    public function showBlocked()
+  {
+    return view('pages.blocked');
+  }
+
+
+  /**
      *
      */
     public function sendEmail(Request $request){

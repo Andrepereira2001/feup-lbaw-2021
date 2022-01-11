@@ -15,7 +15,7 @@
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
-                    <a href="#" id="notification">Notification
+                    <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
                     <img src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">

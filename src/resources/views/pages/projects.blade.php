@@ -8,18 +8,18 @@
     <form class="search">
         <div class="order">
             <div>
-                <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
+                <label for = "search"> <img src={{ asset('img/lupa.png') }} width="20px"> </label>
                 <input type="text" id = "search" name="search" placeholder="Search for Project" value="{{$search}}"/>
             </div>
 
             <div>
                 <input type="radio" id = "alphabetic" name="order" value="name" {{$name}}/>
-                <label for= "alphabetic"> <img src={{ asset('img/sort-az.png') }} width="30px" height="30px"> </label>
+                <label for= "alphabetic" class="button_projects"> <img src={{ asset('img/sort-az.png') }} width="20px"> </label>
             </div>
 
             <div>
                 <input type="radio" id = "creation" name="order" value="created_at" {{$created_at}}/>
-                <label for= "creation"> <img src={{ asset('img/recent.png') }} width="30px" height="30px"> </label>
+                <label for= "creation" class="button_projects"> <img src={{ asset('img/recent.png') }} width="20px"> </label>
             </div>
 
             <button type="submit" >Search</button>
@@ -50,6 +50,9 @@
             </a>
             @each('partials.project', $projects, 'project')
         </div>
+        {{-- <div class="width_white">
+            <span>white</span>
+        </div> --}}
     </form>
 </section>
 

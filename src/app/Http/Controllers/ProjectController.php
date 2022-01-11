@@ -211,6 +211,26 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * Archives the id project.
+     *
+     * @param  int  $id
+     * @return Project the project archived
+     */
+    public function archive($id){
+        if (!Auth::check()) return redirect('/login');
+        $project = Project::find($id);
+
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('archive', $project);
+        }
+
+        $project->archived_at = date('Y-m-d h:i:sa');
+        $project->save();
+
+        return $project;
+    }
+
      /**
      * Show project edit form.
      *
@@ -332,7 +352,58 @@ class ProjectController extends Controller
         $member = User::find($user_id);
 
         return $member;
+    }
 
+    /**
+     * Search all projects.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function search(Request $request){
+
+        if (!Auth::check()) return redirect('/login');
+        $this->authorize('list', Project::class);
+
+
+        $search = $request->search;
+        $order = $request->order;
+
+        $favourite=false;
+        $coordinator=false;
+        $member=false;
+        $archived=false;
+        if($request->favourite == "true") $favourite=true;
+        if($request->coordinator == "true") $coordinator=true;
+        if($request->member == "true") $member=true;
+        if($request->archived == "true") $archived=true;
+
+        $projects = Auth::user()->projects();
+
+        if($archived){
+            $projects->whereNotNull("archived_at");
+        }
+        if($favourite){
+            $projects->wherePivot("favourite",true);
+        }
+        if($member && ! $coordinator){
+            $projects->wherePivot("role","Member");
+        }
+        if($coordinator && !$member){
+            $projects->wherePivot("role","Coordinator");
+        }
+
+        if($search != ''):
+            $projects->whereRaw('tsvectors @@ plainto_tsquery(\'english\', ?)', $search)
+                ->orderByRaw('ts_rank(tsvectors, plainto_tsquery(\'english\', ?)) DESC', $search);
+        elseif($order != 'null'):
+            $checkbox[$order] = "checked";
+            $projects->orderBy($order);
+        endif;
+
+        $projects = $projects->get();
+
+        return $projects;
     }
 
 }

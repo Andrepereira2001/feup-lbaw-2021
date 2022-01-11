@@ -35,10 +35,10 @@
           <input type="text" id="task-search" name="search" placeholder="Search for Task"/>
         </form>
       </div>
-      <ul>
+      <ul class="tasksToDo">
         @each('partials.task', $tasksTodo, 'task')
       </ul>
-      @if(Auth::user())
+      @if(Auth::user() && $project->archived_at == null)
         <a href="/projects/{{$project->id}}/tasks" class="add-task"><img src={{ asset('img/add.png') }}></a>
       @endif
     </div>
@@ -51,12 +51,16 @@
     </div>
     <div class="forum-box">
       <h2>FORUM</h2>
-      <ul class="forum">
-        @each('partials.forumMessage', $forumMessages, 'forumMessage')
-      </ul>
-      <div class="new-message">
-        <input type="text">
-        <img src={{ asset('img/send.png') }}>
+      <div class="forum-messages">
+        <ul class="forum">
+            @each('partials.forumMessage', $forumMessages, 'forumMessage')
+        </ul>
+        @if($project->archived_at == null)
+            <form class="new-message" data-id={{ Auth::user()->id}}>
+                <input type="text" name="content" placeholder="Message">
+                <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
+            </form>
+        @endif
       </div>
     </div>
   </section>

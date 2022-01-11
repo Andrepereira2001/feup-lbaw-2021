@@ -21,6 +21,11 @@ function addEventListeners() {
         fav.addEventListener('click', sendFavouriteRequest);
     });
 
+    let projectArchived = document.querySelectorAll('article.project .content a.archive');
+    [].forEach.call(projectArchived, function(arch) {
+        arch.addEventListener('click', sendArchivedRequest);
+    });
+
     let projectEdit = document.querySelector('#project-edit form.edit');
     if (projectEdit != null)
         projectEdit.addEventListener('submit', sendEditProjectRequest);
@@ -50,6 +55,10 @@ function addEventListeners() {
         user.addEventListener('click', projectRemoveCoordinatorRequest);
     });
 
+    let projectFilters = document.querySelectorAll('#projects .filters input[type=checkbox]');
+    [].forEach.call(projectFilters, function(filter) {
+        filter.addEventListener('click', projectFilterChange);
+    });
 
     /*--------------task------------*/
 
@@ -92,6 +101,18 @@ function addEventListeners() {
         user.addEventListener('click', taskRemoveMemberRequest);
     });
 
+    /*--------------forum message------------*/
+
+    let forumMessageCreator = document.querySelector('#project form.new-message');
+    if (forumMessageCreator != null)
+        forumMessageCreator.addEventListener('submit', sendCreateForumMessageRequest);
+
+    /*--------------task comment------------*/
+
+    let commentCreator = document.querySelector('#task-details form.new-message');
+    if (commentCreator != null)
+        commentCreator.addEventListener('submit', sendCreateCommentRequest);
+
     /*--------------user------------*/
 
     let userEdit = document.querySelector('#user-edit form.info');
@@ -127,6 +148,11 @@ function addEventListeners() {
     if (adminUserSearch != null)
         adminUserSearch.addEventListener('input', adminUserSearchChange);
 
+    let adminUserBlock = document.querySelectorAll('#admin .user .block button, #admin .user .unblock button');
+    [].forEach.call(adminUserBlock, function(block) {
+        block.addEventListener('click', sendUserBlockRequest);
+    });
+
 }
 
 /*--------------Utils------------*/
@@ -155,10 +181,8 @@ function sendDeleteParticipationRequest(event) {
     let user_id = event.target.getAttribute('data-id');;
     let project_id = this.closest('section').getAttribute('data-id');
 
-    console.log("deleting", user_id,project_id);
-
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', {user_id}, participationDeletedHandler);
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', {user_id}, null);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, participationDeletedHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, null);
 }
 
 function sendDeleteProjectRequest(event) {
@@ -197,6 +221,13 @@ function sendFavouriteRequest(event) {
     event.preventDefault();
     let id = this.closest('article').getAttribute('data-id');
     sendAjaxRequest('post', '/api/projects/' + id + '/favourite', null, projectFavouriteHandler);
+}
+
+function sendArchivedRequest(event) {
+    event.preventDefault();
+    let id = this.closest('article').getAttribute('data-id');
+    console.log(id);
+    sendAjaxRequest('post', '/api/projects/' + id + '/archive', null, projectArchiveHandler);
 }
 
 function sendFavouritesProjectRequest(event) {
@@ -248,7 +279,7 @@ function projectRemoveMemberRequest(event) {
     let user_id = event.target.getAttribute('data-id');
     let project_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', {user_id}, projectRemoveMemberHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, projectRemoveMemberHandler);
 }
 
 function projectRemoveCoordinatorRequest(event) {
@@ -257,7 +288,28 @@ function projectRemoveCoordinatorRequest(event) {
     let user_id = event.target.getAttribute('data-id');
     let project_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', {user_id}, projectRemoveCoordinatorHandler);
+    sendAjaxRequest('delete', '/api/projects/' + project_id + '/decreaseParticipation', { user_id }, projectRemoveCoordinatorHandler);
+}
+
+function projectFilterChange(event) {
+    const filters = document.querySelector("#projects .filters");
+
+    const favourite = filters.querySelector("#favourite").checked;
+    const coordinator = filters.querySelector("#coordinator").checked;
+    const member = filters.querySelector("#member").checked;
+    const archived = filters.querySelector("#archived").checked;
+
+    const search = document.querySelector("#projects #search").value;
+
+    const orderElem = document.querySelector("#projects [name=order]:checked");
+    let order = null;
+    if(orderElem !== null){
+        order = orderElem.value;
+    }
+
+    console.log(search,order);
+
+    sendAjaxRequest('post', '/api/projects/', { favourite, coordinator, member, archived, search, order }, projectFilterChangeHandler);
 }
 
 /*--------------Task------------*/
@@ -333,8 +385,33 @@ function taskRemoveMemberRequest(event) {
     let id_user = null;
     let task_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('post', '/tasks/' + task_id + '/edit', {id_user}, taskRemoveMemberHandler);
+    sendAjaxRequest('post', '/tasks/' + task_id + '/edit', { id_user }, taskRemoveMemberHandler);
 }
+
+/*--------------Forum Messages------------*/
+
+function sendCreateForumMessageRequest(event) {
+    event.preventDefault();
+    let projectId = this.closest('section').getAttribute('data-id');
+    let content = this.querySelector('input[name=content]').value;
+    let userId = event.target.getAttribute('data-id');
+
+    if (content != '')
+        sendAjaxRequest('post', '/messages', { projectId, content, userId }, ForumMessageAddedHandler);
+}
+
+/*--------------Task Comment------------*/
+
+function sendCreateCommentRequest(event) {
+    event.preventDefault();
+    let taskId = this.closest('section').getAttribute('data-id');
+    let content = this.querySelector('input[name=content]').value;
+    let userId = event.target.getAttribute('data-id');
+    console.log(content, taskId, userId);
+    if (content != '')
+        sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
+}
+
 
 /*--------------User------------*/
 
@@ -407,26 +484,30 @@ function adminUserSearchChange(event) {
 
 }
 
+function sendUserBlockRequest(event) {
+    event.preventDefault();
+    let user_id = this.closest('article').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/block/' + user_id, null, userBlockHandler);
+}
+
 /* HANDLERS */
 
 /*--------------Project------------*/
 
 function participationDeletedHandler() {
-    if(this.status == 406){
+    if (this.status == 406) {
         alert("Last coordinator! Can't leave project.")
-    }else if(this.status == 200){
+    } else if (this.status == 200) {
         window.location = '/users';
-    }
-    else{
+    } else {
         alert("Error: Can't leave project");
     }
 }
 
 function projectDeletedHandler() {
-    if(this.status == 200){
+    if (this.status == 200) {
         window.location = '/users';
-    }
-    else{
+    } else {
         alert("Error: Could not delete project");
     }
 }
@@ -462,6 +543,20 @@ function projectFavouriteHandler() {
     }
 }
 
+function projectArchiveHandler() {
+    console.log(this.status)
+    console.log(this.responseText);
+    if (this.status != 200) window.location = '/';
+
+    let project = JSON.parse(this.responseText);
+    const img = document.querySelector('article.project[data-id="' + project.id + '"] .content .archive img');
+
+    if (img.getAttribute('src').includes("box")) {
+        img.setAttribute('src', window.location.origin + '/img/cardboard-box-filled.png');
+        img.setAttribute('class', '');
+    }
+}
+
 function addCoordinatorHandler() {
     if (this.status != 200) window.location = '/';
     let user = JSON.parse(this.responseText);
@@ -486,7 +581,7 @@ function addCoordinatorHandler() {
     //     <a href="/users/${user.id}/profile">${user.name}</a>`;
     // }
     // else{
-        coordinator.innerHTML = `
+    coordinator.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>`;
     //}
@@ -510,20 +605,21 @@ function projectCoordinatorAddSearchChangeHandler() {
         add_coordinator.className = ('user invite');
         add_coordinator.setAttribute('data-id', user.id);
 
-            // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     add_coordinator.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     add_coordinator.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        // }
+        // else{
         add_coordinator.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile/">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    //}
+        //}
+
         // add_coordinator.innerHTML = `
 
         //     <img src="https://picsum.photos/200" alt="User image" width="70px">
@@ -552,21 +648,21 @@ function projectUserAddSearchChangeHandler() {
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
 
-                    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     user_invite.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     user_invite.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <a href="/users/${user.id}/profile/">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <a href="/users/${user.id}/profile/">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        // }
+        // else{
         user_invite.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile/">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-    //}
+        //}
 
 
         // user_invite.innerHTML = `
@@ -613,7 +709,16 @@ function projectSearchTaskHandler() {
     })
 }
 
-function taskRemoveMemberHandler(){
+
+function projectRemoveMemberHandler() {
+    if (this.status != 200) window.location = '/';
+    let userData = JSON.parse(this.responseText);
+
+    let member = document.querySelector('#project-edit .members .user[data-id="' + userData.id + '"]');
+    member.remove();
+}
+
+function taskRemoveMemberHandler() {
     if (this.status != 200) window.location = '/users';
     let user = JSON.parse(this.responseText);
 
@@ -621,10 +726,10 @@ function taskRemoveMemberHandler(){
     member.remove();
 }
 
-function projectRemoveCoordinatorHandler(){
-    if(this.status === 406){
+function projectRemoveCoordinatorHandler() {
+    if (this.status === 406) {
         alert("Last coordinator! Can't leave project.")
-    }else if(this.status !== 200){
+    } else if (this.status !== 200) {
         alert("Error: Can't leave project");
         window.location = '/users';
     }
@@ -647,7 +752,7 @@ function projectRemoveCoordinatorHandler(){
     //     <a href="/users/${user.id}/profile">${user.name}</a>`;
     // }
     // else{
-        user.innerHTML = `
+    user.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${userData.id}/profile">${userData.name}</a>
         <button type="button" class="btn remove" data-id=${userData.id}>Remove</button>`;
@@ -655,6 +760,61 @@ function projectRemoveCoordinatorHandler(){
 
     body.appendChild(user);
 }
+
+function projectFilterChangeHandler() {
+    if (this.status != 200) window.location = '/users';
+
+    const projects = JSON.parse(this.responseText);
+
+    let firstErase = false;
+    let currProjects = document.querySelectorAll('#projects .projets-display article.project');
+    [].forEach.call(currProjects, function(project) {
+        if (!firstErase) {
+            firstErase = true;
+        } else {
+            project.remove();
+        }
+    });
+
+    let body = document.querySelector('#projects .projets-display');
+    projects.map((project) => {
+                let addProject = document.createElement('article');
+                addProject.className = (`project id-${project.id}`);
+                addProject.setAttribute('data-id', project.id);
+                addProject.innerHTML = `
+                    <header>
+                        <h3><a href="/projects/${ project.id }">${ project.name }</a></h3>
+                    </header>
+                    <div class="content">
+                        ${ project.pivot.role === "Coordinator"  ?
+                                 project.archived_at === null ?
+                                    `<a href="/archive_project" class="archive" ><img src="../img/cardboard-box.png"  width="20px"> </a>`
+                                    :
+                                    `<a href="/archive_project"><img src="../img/cardboard-box-filled.png" width="20px"> </a>`
+                            :
+                            ''
+                        }
+
+                        ${project.pivot.favourite ?
+                            `<a href="#" class="fav"><img src="../img/filed_star.png" width="20px"></a>`
+                            :
+                            `<a href="#" class="fav"><img src="../img/star.png" width="20px"></a> `
+                        }
+                    </div>`;
+
+        let fav = addProject.querySelector('a.fav');
+        fav.addEventListener('click', sendFavouriteRequest);
+
+        let archive = addProject.querySelector('a.archive');
+        if(archive != null){
+            archive.addEventListener('click', sendArchivedRequest);
+        }
+
+        body.appendChild(addProject);
+
+    })
+}
+
 
 /*--------------Task------------*/
 
@@ -714,20 +874,20 @@ function taskAssignSearchChangeHandler() {
         assign.setAttribute('data-id', user.id);
 
 
-            // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     assign.innerHTML = `
+        // if(user.image_path !== "./img/default"){
+        //     console.log("entrie");
+        //     assign.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>
-    //     <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-    // }
-    // else{
+        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
+        //     <a href="/users/${user.id}/profile">${user.name}</a>
+        //     <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        // }
+        // else{
         assign.innerHTML = `
         <span class="profilePhoto"></span>
         <a href="/users/${user.id}/profile">${user.name}</a>
         <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-    //}
+        //}
 
 
         // assign.innerHTML = `
@@ -741,6 +901,28 @@ function taskAssignSearchChangeHandler() {
 
         body.appendChild(assign);
     })
+}
+
+/*--------------Forum Message------------*/
+
+function ForumMessageAddedHandler() {
+    const message = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/projects/' + message.id_project;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+/*--------------Task Comment------------*/
+
+function CommentAddedHandler() {
+    const message = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/tasks/' + message.id_task;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
 }
 
 /*--------------User------------*/
@@ -783,34 +965,72 @@ function adminUserSearchChangeHandler() {
         user.remove();
     });
 
-
     let body = document.querySelector('#admin .users-display');
     users.map((user) => {
-        console.log(user);
-        let userDisplay = document.createElement('div');
+        let userDisplay = document.createElement('article');
         userDisplay.className = ('user');
         userDisplay.setAttribute('data-id', user.id);
-                    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     userDisplay.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
-    // }
-    // else{
-        userDisplay.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${user.id}/profile">${user.name}</a>`;
-    //}
+        if (user.blocked) {
+            userDisplay.innerHTML = `
+                <div class="unblock">
+                    <div class="data">
+                        <span class="profilePhoto"></span>
 
-        // userDisplay.innerHTML = `
+                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    </div>
 
-        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
-        //      <a href="/users/${user.id}/profile">${user.name}</a>`;
+                    <div class="buttons">
+                            <button type="button" class="btn">Unblock</button>
+                    </div>
+                </div>
+            `;
+
+        } else {
+            userDisplay.innerHTML = `
+                <div class="block">
+                    <div class="data">
+                        <span class="profilePhoto"></span>
+
+                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    </div>
+
+                    <div class="buttons">
+                            <button type="button" class="btn">Block</button>
+                    </div>
+                </div>
+            `;
+        }
+        userDisplay.querySelector("button").addEventListener('click', sendUserBlockRequest);
 
         body.appendChild(userDisplay);
     })
 }
 
-addEventListeners();
+function userBlockHandler() {
+    if (this.status != 200) window.location = '/';
 
+    let user = JSON.parse(this.responseText);
+    const data = document.querySelector('#admin article.user[data-id="' + user.id + '"] div');
+    const buttons = data.querySelector(".buttons");
+    buttons.querySelector("button").remove();
+
+    let button = document.createElement('button');
+    button.className = ('btn');
+    button.setAttribute('type', 'button');
+
+    if (user.blocked) {
+        data.className = "unblock";
+        button.innerHTML = "Unblock";
+        button.addEventListener('click', sendUserBlockRequest);
+    } else {
+        data.className = "block";
+        button.innerHTML = "Block";
+        button.addEventListener('click', sendUserBlockRequest);
+    }
+
+    buttons.appendChild(button);
+
+}
+
+addEventListeners();

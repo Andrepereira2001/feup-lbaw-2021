@@ -29,6 +29,7 @@ main>header {
     display: grid;
     grid-template-columns: 1fr auto auto;
     background-color: #ffff;
+    box-shadow: -4px -6px 20px 4px rgb(0 0 0 / 35%);
 }
 
 main>header .buttons {
@@ -50,6 +51,7 @@ main>header .smallIcon {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 main>header span {
@@ -62,7 +64,7 @@ main>header span {
 footer {
     position: absolute;
     width: 100%;
-    bottom: -50px;
+    bottom: 0px;
     background-color: rgba(196, 196, 196, 0.5);
 }
 
@@ -90,24 +92,26 @@ footer section {
     height: auto;
 }
 
-#static a.button {
-    background-color: #dedede;
-    border: transparent;
-    text-align: center;
-    margin-left: 1vw;
-    border-radius: 20px;
-    padding: 0 1vw;
-    padding-top: 0.5vw;
-    padding-bottom: 0.3vw;
-    text-decoration: none;
+#static section.buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-#static .buttons span {
-    font-size: 1.5vw;
-    font-weight: 50;
+#static a.button {
+    background-color: #dedede;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
     color: black;
-    letter-spacing: normal;
-    text-transform: lowercase;
+    font-size: medium;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 25%);
+    transition-duration: 0.3s;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+}
+
+#static a.button:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
 }
 
 
@@ -117,6 +121,8 @@ footer section {
     display: flex;
     align-items: center;
     flex-flow: column;
+    min-height: 70vh;
+    justify-content: center;
 }
 
 #home .logo {
@@ -125,53 +131,71 @@ footer section {
     justify-content: center;
 }
 
-#home .logo img {
-    width: 500px;
-}
-
 #home .title {
-    margin: 20px 0px 20px 0px;
-    text-align: center;
+    width: 420px;
+    margin: 20px 0px 50px 0px;
+    background-color: #F6F6F6;
+    border-radius: 15px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #home .title span {
-    font-size: x-large;
-    background-color: #F6F6F6;
-    border-radius: 20px;
-    padding: 0px 10px 0px 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 #home .buttons {
     text-align: center;
     display: flex;
     flex-flow: row;
+    gap: 80px;
 }
 
 #home .buttons a {
-    background-color: #26C5B3;
     border-radius: 10px;
-    margin: 10px;
-    width: 120px;
-    height: 80px;
-}
-
-#home .buttons a .bar {
-    margin: 0px;
-    padding: 10px;
-    background-color: #C0F2EC;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-#home .buttons a .name {
+    width: 130px;
+    height: 90px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+#home .buttons a:hover {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#home .buttons .login-button {
+    background-color: #F9DF83;
+    border-top: 25px solid rgba(255, 248, 222, 1);
+}
+
+#home .buttons .register-button {
+    background-color: #62D2C5;
+    border-top: 25px solid #C0F2EC;
+}
+
+#home .buttons .login-button:hover {
+    background-color: #FEDB60;
+    border-top: 25px solid #FFF4CC;
+}
+
+#home .buttons .register-button:hover {
+    background-color: #38C5B4;
+    border-top: 25px solid #9EF3E9;
+}
+
+#home .buttons a .name {
+    font-weight: bolder;
+}
+
 #home .buttons a .name span {
     color: black;
-    font-size: x-large;
+    font-size: large;
 }
 
 
@@ -520,12 +544,100 @@ footer section {
 }
 
 
+/* Blocked */
+
+#blocked {
+    margin-top: 1em;
+}
+
+#blocked .title {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    font-size: 700%;
+    width: 100%;
+    font-weight: 700;
+}
+
+#blocked .line {
+    margin-top: 1em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 6px;
+}
+
+#blocked .grid {
+    display: flex;
+    justify-content: center;
+}
+
+#blocked .grid-container {
+    width: 800px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#blocked a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#blocked a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#blocked a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#blocked a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#blocked img {
+    width: 60%;
+    height: auto;
+}
+
+#blocked .text {
+    line-height: normal;
+    font-size: 1.4vw;
+    text-align: center;
+    background-color: #dedede;
+    border-radius: 20px;
+    margin: 0.5em 3em 0.5em 3em;
+    padding: 1.5em 1rem 1.5em 1rem;
+}
+
+
 /* login */
 
 .logo1 {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 .logo {
@@ -665,7 +777,7 @@ footer section {
 
 #login .loginEmail #email,
 #login #password {
-    padding: 0 60px;
+    padding-left: 60px;
 }
 
 #register #name,
@@ -752,10 +864,15 @@ footer section {
     color: #808080;
 }
 
+#content {
+    padding-bottom: 40px;
+}
+
 
 /* projects */
 
 #projects form {
+    margin-top: 10px;
     display: grid;
     grid-template-columns: 130px auto;
     grid-template-rows: 50px auto;
@@ -773,23 +890,34 @@ footer section {
 }
 
 #projects .order button {
-    background-color: #62D2C5;
-    border-radius: 50px;
-    width: 90px;
-    margin: 5px;
+    all: unset;
+    border-radius: 40px;
+    width: 80px;
     height: 30px;
     text-align: center;
+    cursor: pointer;
+    font-size: 17px;
+    transition-duration: 0.3s;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+}
+
+#projects .order button:hover {
+    background: linear-gradient(180deg, rgba(196, 196, 196, 0) -210.81%, #C4C4C4 305.41%);
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
 }
 
 #projects .order div {
     display: flex;
     flex-flow: row;
     align-items: center;
-    justify-content: end;
+    gap: 8px;
 }
 
 #projects .order #search {
-    border-radius: 10px;
+    border-radius: 9px;
+    height: 25px;
+    border: 1px solid #C4C4C4;
 }
 
 #projects .order [type="radio"] {
@@ -800,22 +928,29 @@ footer section {
     background-color: #C4C4C4;
 }
 
-#projects .order label {
+#projects .order .button_projects {
     display: flex;
     border-radius: 50%;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+#projects .order .button_projects:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
 }
 
 #projects .filters {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    border-right: 2px solid black;
     display: flex;
     flex-flow: column;
     align-items: center;
+    box-shadow: 5px 0 5px -5px #333;
 }
 
 #projects .filters input {
@@ -828,17 +963,22 @@ footer section {
 }
 
 #projects .filters label {
-    border-radius: 50px;
-    width: 100%;
-    margin: 5px;
+    border-radius: 15px;
+    width: 90px;
+    margin: 10px 0px;
     cursor: pointer;
+    background: linear-gradient(180deg, rgba(223, 255, 251, 0.33) 72.92%, rgba(43, 255, 230, 0.33) 198.96%);
+    padding: 5px 0px;
+    transition-duration: 0.3s;
+}
+
+#projects .filters label:hover {
+    box-shadow: 0 0 10px #d4f3ff, 0 0 10px rgb(0 0 0 / 25%);
+    background: linear-gradient(180deg, rgba(223, 255, 251, 0.33) -23.96%, rgba(240, 253, 251, 0.33) -23.94%, rgba(43, 255, 230, 0.33) 198.96%);
 }
 
 #projects .filters input:checked+label {
-    background-color: #62D2C5;
-    border-radius: 50px;
-    width: 100%;
-    margin: 5px;
+    background: linear-gradient(180deg, rgba(0, 255, 225, 0.33) -232.29%, rgba(240, 253, 251, 0.33) -232.25%, rgba(43, 255, 230, 0.33) 198.96%);
 }
 
 #projects .projets-display {
@@ -854,9 +994,15 @@ footer section {
 #projects article.project {
     display: flex;
     flex-flow: column;
-    width: 300px;
-    height: 200px;
+    width: 243px;
+    height: 184px;
     border-radius: 10px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    transition-duration: 0.4s;
+}
+
+#projects article.project:hover {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 #projects article.project.create {
@@ -864,6 +1010,7 @@ footer section {
     background-color: lightgray;
     align-items: center;
     justify-content: center;
+    box-shadow: unset;
 }
 
 #projects .project .content {
@@ -888,6 +1035,8 @@ footer section {
     margin: 0px 10px 0px 10px;
     color: black;
     text-decoration: none;
+    font-size: large;
+    padding: 5px 0px 5px 0px;
 }
 
 
@@ -981,6 +1130,11 @@ footer section {
 #project ul {
     all: unset;
     margin: 20px 0px 20px 0px;
+}
+
+#project .tasksToDo {
+    overflow-y: scroll;
+    max-height: 35vh;
 }
 
 #project .task {
@@ -1089,18 +1243,31 @@ footer section {
     font-weight: bold;
 }
 
-#project .forum-box .forum {
+#project .forum-box .forum-messages {
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.4);
     height: 90%;
     width: 90%;
+    margin-bottom: 25px;
     display: flex;
     flex-flow: column;
+    justify-content: space-between;
+}
+
+#project .forum-box .forum {
+    width: 100%;
+    max-height: 58vh;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
 }
 
 #project .forum .forumMessage {
     display: flex;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 #project .forum .message {
@@ -1109,13 +1276,72 @@ footer section {
     justify-content: center;
 }
 
-#project .forum .user-info {
+#project .forum .content {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#project .forum .user-info .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info .date {
     font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 #project .forum .profilePhoto {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#project .forum .forumMessage2 {
+    display: flex;
+    margin-bottom: 10px;
+    align-self: end;
+    margin-left: 10px;
+}
+
+#project .forum .message2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#project .forum .content2 {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#project .forum .user-info2 {
+    align-self: end;
+}
+
+#project .forum .user-info2 .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info2 .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#project .forum .profilePhoto {
+    align-self: end;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     background-color: #62D2C5;
     border: 0px;
     border-radius: 100%;
@@ -1124,26 +1350,30 @@ footer section {
 
 #project .new-message {
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    flex-flow: row;
 }
 
 #project .new-message input {
-    width: 90%;
+    width: 80%;
     border-radius: 10px;
     border-width: 0.2px;
-    border: solid;
     background-color: transparent;
+    margin: 10px;
+}
+
+#project .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
     margin: 10px;
 }
 
 #project .new-message img {
     width: 25px;
     height: 25px;
-    margin: 10px;
 }
 
 
@@ -1561,7 +1791,7 @@ footer section {
     margin-bottom: 10px;
 }
 
-#project-edit button.remove{
+#project-edit button.remove {
     position: absolute;
     background-color: #C86660;
     right: 20px;
@@ -1765,6 +1995,81 @@ footer section {
 
 #task-details .add img {
     width: 50px;
+}
+
+#task-details .forum {
+    all: unset;
+    max-height: 35vh;
+    /* height: 35vh; */
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
+}
+
+#task-details .forum .comment {
+    display: flex;
+    flex-flow: row;
+}
+
+#task-details .forum .user-info {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-flow: row;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+#task-details .forum .user-info .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+    width: auto;
+}
+
+#task-details .forum .user-info .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#task-details .forum .comment .profilePhoto {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#task-details .new-message {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin: 0px;
+}
+
+#task-details .new-message input {
+    width: 88%;
+    border-radius: 10px;
+    border-width: 0.2px;
+    background-color: transparent;
+    margin: 10px;
+}
+
+#task-details .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+
+#task-details .new-message img {
+    width: 25px;
+    height: 25px;
 }
 
 
@@ -2101,7 +2406,7 @@ footer section {
     margin-bottom: 10px;
 }
 
-#task-edit button.remove{
+#task-edit button.remove {
     position: absolute;
     background-color: #C86660;
     right: 20px;
@@ -2114,9 +2419,15 @@ footer section {
 /* Style the links inside the sidenav */
 
 #user .user,
-#user-edit .user {
+#user-edit .user,
+#notifications .user  {
     display: flex;
     flex-flow: row;
+}
+
+#notifications header span{
+    font-size: xx-large;
+    font-weight: bold;
 }
 
 #sidenav {
@@ -2159,15 +2470,20 @@ footer section {
 }
 
 #user .userInfo,
-#user-edit .userInfo {
+#user-edit .userInfo,
+#notifications .notifications-info {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
     justify-content: center;
     align-items: center;
     flex-flow: column;
-    margin: 10px auto;
+    margin: 30px auto;
 }
+/*
+#notifications .notifications-info {
+    margin: 30px auto;
+} */
 
 .selected-view,
 .selected-edit,
@@ -2183,6 +2499,30 @@ footer section {
     justify-content: center;
     align-items: center;
     margin: 3% auto;
+}
+
+#notifications .notification {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: start;
+}
+
+#notifications .content {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#notifications .square {
+    background-color: rgba(219, 140, 168, 0.7);
+    width: 65px;
+    height: 48px;
+    border-top: 10px solid #FFCCDE;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    margin: 0px 15px;
 }
 
 #user .profilePhoto {
@@ -2323,7 +2663,6 @@ footer section {
 }
 
 #user-edit .save:hover {
-    border: 1px solid #C0F2EC;
     background-color: #26C5B3;
 }
 
@@ -2381,10 +2720,29 @@ footer section {
     gap: 20px
 }
 
-#admin .user {
+#admin .user .block {
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 300px;
+    height: 150px;
+    background-color: #26c5b373;
+    border-radius: 20px;
+}
+
+#admin .user .unblock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    background-color: #C8666073;
+    border-radius: 20px;
+}
+
+#admin .user .data {
+    display: flex;
+    align-items: center;
 }
 
 #admin .user img {
@@ -2396,6 +2754,15 @@ footer section {
 #admin .user a {
     width: auto;
     color: black;
+}
+
+#admin .buttons button {
+    background-color: #A5B0AF;
+    border-radius: 20px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    width: 100px;
 }
 
 #admin .sidenav {
@@ -2682,4 +3049,38 @@ footer section {
 #add-coordinator .confirm {
     position: absolute;
     right: 20px;
+}
+
+#notifications article.notification {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    height: 80px;
+    width: 560px;
+    margin-bottom: 25px;
+}
+
+#notifications .accept {
+    background: #26C5B3;
+    border: unset;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    padding: 0px 10px;
+}
+
+#notifications .not-buttons {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#notifications .cancel {
+    cursor: pointer;
+    background: #C86660;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    padding: 0px 8px;
 }

@@ -50,6 +50,11 @@ class ProjectPolicy
         return !$user->projects()->wherePivot("id_project",$project->id)->get()->isEmpty();
     }
 
+    public function archive(User $user, Project $project){
+
+        return !$user->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
+    }
+
     public function participantControl(User $user, Participation $participation){
 
         $validate = !$user->projects()->wherePivot("id_project",$participation->id_project)->wherePivot("role","Coordinator")->get()->isEmpty();

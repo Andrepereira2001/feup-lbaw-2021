@@ -19,7 +19,7 @@
     </div>
 
     <div class="users-display">
-        @each('partials.user', $users, 'user')
+        @each('partials.user_admin', $users, 'user')
     </div>
 </section>
 

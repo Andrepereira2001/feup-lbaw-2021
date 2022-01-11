@@ -61,4 +61,24 @@ class AdminController extends Controller
         return view('pages.admin_users', ['users' => $users]);
     }
 
+
+    /**
+     * Block the user_id user.
+     *
+     * @param  int  $id
+     * @return User the user blocked
+     */
+    public function block($user_id){
+        if(!Auth::guard('admin')->user()){
+            abort(403, 'Access denied');
+        }
+
+        $user = User::find($user_id);
+
+        $user->blocked = !$user->blocked ;
+        $user->save();
+
+        return $user;
+    }
+
 }
