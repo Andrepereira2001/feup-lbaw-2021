@@ -12,6 +12,8 @@
 */
 
 // (M01) Athentication and Individual Profile
+
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@authenticate');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -103,6 +105,13 @@ Route::get('admin', 'AdminController@showUsers'); //admin page
 Route::get('/', 'NonAuthController@showHome'); //see home page
 Route::get('about', 'NonAuthController@showAbout'); //see about page
 Route::get('contact', 'NonAuthController@showContact'); //see contact page
-Route::post('contact','NonAuthController@sendEmail');
+Route::post('contact/sendEmail','NonAuthController@sendEmail');
 Route::get('services', 'NonAuthController@showService'); //see services
 // Route::get('404', 'NonAuthController@'); //see error page
+
+
+// //Route for mail
+// Route::get('/email', function() {
+//     Mail::to("ricky.ferreira.305@gmail.com")->send(new ContactMail);
+//     return new ContactMail();
+// });

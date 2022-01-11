@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class NonAuthController extends Controller
@@ -51,15 +53,11 @@ class NonAuthController extends Controller
      *
      */
     public function sendEmail(Request $request){
-      $name = $request->input('name');
-      $from = $request->input('email');
-      $message = $request->input('message');
-      $to = "ricky.ferreira.305@gmail.com";
-      $subject = "Form submission";
-      $message = $name . "wrote the following:" . "\n\n" . $message;
+        $name = $request->name;
+        $email = $request->email;
+        $message = $request->message;
 
-      $header = "From:" . $from;
-      mail($to,$subject,$message,$header);
-      return ("Email sent");
+        Mail::to("toEaseManage@gmail.com")->send(new ContactMail($name, $email, $message));
+        return new ContactMail($name, $email, $message);
     }
 }

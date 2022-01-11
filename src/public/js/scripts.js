@@ -390,10 +390,10 @@ function sendInviteRequest(event) {
 
 function sendEmailRequest(event) {
     event.preventDefault();
-    let name = this.querySelector('input[name=name').value;
+    let name = this.querySelector('input[name=name]').value;
     let email = this.querySelector('input[name=email]').value;
-    let message = this.querySelector('textarea[name=message').value;
-    sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
+    let message = this.querySelector('textarea[name=message]').value;
+    sendAjaxRequest('post', '/contact/sendEmail', { name, email, message }, sendEmailHandler)
 }
 
 /*--------------Adim------------*/
@@ -583,7 +583,9 @@ function projectUserAddSearchChangeHandler() {
 }
 
 function sendInviteHandler() {
-    if (this.status != 201) window.location = '/';
+    //if (this.status != 201) window.location = '/';
+    console.log(this.status);
+    console.log(this.responseText);
     let invite = JSON.parse(this.responseText);
     let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
     element.remove();
