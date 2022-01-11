@@ -428,18 +428,19 @@ BEGIN
         RETURNING id)
 
         INSERT INTO Seen (seen, id_user, id_notification)
-        VALUES (False, NEW.id_user, notification_id.id);
+        SELECT False, NEW.id_user, notification_id.id
+        FROM notification_id;
 
-        RETURN NULL;
+
+        RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER assign_task
-        AFTER INSERT OR UPDATE
+        AFTER UPDATE
         ON Task
         FOR EACH ROW
-        WHEN (NEW.id_user <> NULL)
         EXECUTE PROCEDURE assign_task();
 
 -- Trigger 7
