@@ -25,10 +25,6 @@ class ForumMessageController extends Controller
       if(!Auth::guard('admin')->user()){
         $this->authorize('show', $forumMessage);
       }
-
-      //$search = $request->input('search');
-
-      //return view('pages.project', ['forumMessage' => $forumMessage, 'project' => $project, 'selected' => "selected-view"]);
       return $forumMessage;
     }
 
@@ -41,17 +37,8 @@ class ForumMessageController extends Controller
     {
       $forumMessage = new ForumMessage();
 
-      //$project = Project::find($request->input('projectId'));
-
-      //$this->authorize('create', $project);
-
-      error_log("entrei--------------------------------------------------------------------------------");
-
-      $forumMessage->content = $request->content;
       $forumMessage->id_project = $request->projectId;
       $forumMessage->id_user = $request->userId;
-
-      error_log("$forumMessage->content--------------------------------------------------------------------------------");
 
       $forumMessage->save();
 

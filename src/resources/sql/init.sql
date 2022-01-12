@@ -310,7 +310,7 @@ $BODY$
 BEGIN
         NEW.task_number := (SELECT count(*)
                                FROM Task
-                               WHERE Task.id_project = NEW.id_project);
+                               WHERE Task.id_project = NEW.id_project) + 1;
         RETURN NEW;
 END
 $BODY$
@@ -389,23 +389,37 @@ CREATE TRIGGER block_user
 CREATE FUNCTION finished_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-
-        INSERT INTO Notification (content, id_project)
+        WITH notification_id AS (INSERT INTO Notification (content, id_project)
         VALUES ('Task ' || OLD.task_number || ' completed!', OLD.id_project)
-        RETURNING id AS notification_id;
+        RETURNING id)
 
-        IF (OLD.id_user IS NOT NULL) THEN
-            INSERT INTO Seen (seen, id_user, id_notification)
-            Select False, OLD.id_user, notification_id.id
-            FROM notification_id;
-        END IF;
+        -- INSERT INTO Notification (content, id_project)
+        -- VALUES ('Task ' || OLD.task_number || ' completed!', OLD.id_project)
+        -- RETURNING id AS notification_id;
+
+
+
+        -- INSERT INTO Seen (seen, id_user, id_notification)
+		-- SELECT False, OLD.id_user, notification_id.id
+		-- FROM Participation
+		-- WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
+
+        -- RETURN NEW;
+        -- WITH notification_id AS (INSERT INTO Notification (content, id_project)
+        -- VALUES ('Task ' || NEW.task_number || ' completed!', NEW.id_project)
+        -- RETURNING id);
+
+        -- IF (OLD.id_user IS NOT NULL)
+        -- THEN
+
+        -- END IF;
 
         INSERT INTO Seen (seen, id_user, id_notification)
-		SELECT (False, id_user, notificationid_notification)
-		FROM Participation
-		WHERE Participation.id_project = OLD.id_project AND Participation.role = 'Coordinator';
+		SELECT False, Participation.id_user, notification_id.id
+		FROM Participation, notification_id
+		WHERE Participation.id_project = NEW.id_project;
 
-        RETURN NULL;
+        RETURN NEW;
 
 END
 $BODY$
@@ -415,7 +429,6 @@ CREATE TRIGGER notification_finished_task
         AFTER UPDATE OF finished_at
         ON Task
         FOR EACH ROW
-        WHEN (OLD.finished_at = NULL)
         EXECUTE PROCEDURE finished_task();
 
 -- Trigger 6
@@ -438,7 +451,7 @@ $BODY$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER assign_task
-        AFTER UPDATE
+        AFTER UPDATE OF id_user
         ON Task
         FOR EACH ROW
         EXECUTE PROCEDURE assign_task();

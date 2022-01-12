@@ -57,7 +57,7 @@
         </ul>
         @if($project->archived_at == null)
             <form class="new-message" data-id={{ Auth::user()->id}}>
-                <input type="text" name="content" placeholder="Message">
+                <input type="text" class="search-tab" name="content" placeholder="Message">
                 <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
             </form>
         @endif

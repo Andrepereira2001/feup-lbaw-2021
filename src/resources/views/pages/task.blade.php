@@ -49,7 +49,7 @@
       <div class="content">
           @each('partials.user', $task->user()->get()  , 'user')
           @if ($task->finished_at == null && !Auth::guard('admin')->user())
-            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
+            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }} width="30px"></button>
           @endif
       </div>
     </div>

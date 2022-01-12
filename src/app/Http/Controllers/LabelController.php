@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\ForumMessage;
+use App\Models\Label;
 
-class ForumMessageController extends Controller
+class LabelController extends Controller
 {
     /**
      * Shows the forumMessage for a given id.
@@ -19,17 +19,13 @@ class ForumMessageController extends Controller
      */
     public function show($id,Request $request)
     {
-      $forumMessage = ForumMessage::find($id);
-      $project = Project::find($forumMessage->id_project);
+      $label = Label::find($id);
+      $project = Project::find($label->id_project);
 
       if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $forumMessage);
+        $this->authorize('show', $project);
       }
-
-      //$search = $request->input('search');
-
-      //return view('pages.project', ['forumMessage' => $forumMessage, 'project' => $project, 'selected' => "selected-view"]);
-      return $forumMessage;
+      return $label;
     }
 
     /**

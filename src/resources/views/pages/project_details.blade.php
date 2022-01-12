@@ -41,7 +41,7 @@
         <span>{{ $project->description }}</span>
     </div>
     <div class="coordinators">
-      <span>Coordinators</span>
+      <span class="section-title">Coordinators</span>
       <div class="content">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
         @if ($isCoordinator && $project->archived_at == null)

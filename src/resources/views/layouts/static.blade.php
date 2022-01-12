@@ -18,7 +18,12 @@
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/popups.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/project.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/task.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
 
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug

@@ -19,7 +19,13 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/popups.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/project.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/task.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
+
 
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
@@ -34,15 +40,16 @@
         <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
         <section class="buttons">
-          <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img src={{ asset('img/notification.png') }} width="25px"></a>
+            <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img src={{ asset('img/notification.png') }} width="25px"></a>
 
-          <a href="/users/{{Auth::user()->id}}/profile">
-          <?php
-            if (Auth::user()->image_path != "./img/default") {
-               echo '<img src=' . asset(Auth::user()->image_path) . ' class="smallIcon" >';
-            }
-            else echo '<span class="smallIcon">' . Auth::user()->name[0] . '</span>';
-        ?></a>
+            <a href="/users/{{Auth::user()->id}}/profile">
+                <?php
+                    if (Auth::user()->image_path != "./img/default") {
+                        echo '<img src=' . asset(Auth::user()->image_path) . ' class="profilePhoto" >';
+                    }
+                    else echo '<span class="smallIcon">' . Auth::user()->name[0] . '</span>';
+                ?>
+            </a>
         </section>
         @elseif (Auth::guard('admin')->check())
           <script>

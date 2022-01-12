@@ -38,7 +38,7 @@ class NotificationController extends Controller
         //     $this->authorize('edit', $user);
         // }
         $notifications = $user->notifications();
-        $notifications = $notifications->get();
+        $notifications = $notifications->orderBy("created_at", "DESC")->get();
         foreach ($notifications as &$not) {
             $color = Project::find($not->id_project)->color;
             $not->color = $color;

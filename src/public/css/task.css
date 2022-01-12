@@ -1,0 +1,565 @@
+/* task-details */
+
+#task-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#task-details .selected-view {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+#task-details .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#task-details .info h1 {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#task-details .info .box-descript {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+#task-details .info .box-descript .description {
+    margin-left: 10px;
+}
+
+#task-details .info .box-descript .config {
+    margin-left: 10px;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#task-details .info .box-descript .priority {
+    font-weight: bold;
+    font-size: x-large;
+    margin-right: 20px;
+    align-self: end;
+}
+
+#task-details .info .box-descript .date {
+    font-weight: bold;
+    font-size: x-large;
+    display: inline-flex;
+    align-items: center;
+}
+
+#task-details .assigned {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+}
+
+#task-details .labels {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    margin: 10px;
+}
+
+#task-details .comments {
+    grid-column: 3 / 5;
+    grid-row: 2 / 4;
+    margin: 10px;
+}
+
+#task-details .content {
+    border: 4px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+}
+
+#task-details .user {
+    display: flex;
+    align-items: center;
+}
+
+#task-details .user a {
+    width: auto;
+    color: black;
+}
+
+#task-details .user.invite .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#task-details .user img,
+#task-details .user span {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#task-details .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#task-details .edit,
+#task-details button {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#task-details a.edit {
+    background-color: #26C5B3;
+}
+
+#task-details button.complete {
+    background-color: #C86660;
+    margin-bottom: 10px;
+}
+
+#task-details .add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+#task-details .forum {
+    all: unset;
+    max-height: 35vh;
+    /* height: 35vh; */
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
+}
+
+#task-details .forum .comment {
+    display: flex;
+    flex-flow: row;
+}
+
+#task-details .forum .user-info {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-flow: row;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+#task-details .forum .user-info .name {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.8);
+    width: auto;
+}
+
+#task-details .forum .user-info .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#task-details .forum .comment .profilePhoto {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#task-details .new-message {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin: 0px;
+}
+
+#task-details .new-message input {
+    width: 88%;
+    border-radius: 10px;
+    border-width: 0.2px;
+    background-color: transparent;
+    margin: 10px;
+}
+
+#task-details .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+
+#task-details .new-message img {
+    width: 25px;
+    height: 25px;
+}
+
+
+/* project-create */
+
+#task-create form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#task-create input {
+    border: 0;
+}
+
+#task-create .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: lightgray;
+    display: flex;
+    flex-flow: column;
+}
+
+#task-create .info .project-id {
+    display: none;
+}
+
+#task-create .info .name {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-size: large;
+    line-height: 1.2;
+}
+
+#task-create .info .box-descript {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+#task-create .info .box-descript .description {
+    margin: 0px 10px 20px 10px;
+    background-color: transparent;
+}
+
+#task-create .info .box-descript .config {
+    margin-left: 10px;
+    margin: 0px 10px 0px 10px;
+    background-color: transparent;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#task-create .info .box-descript .priority {
+    font-weight: bold;
+    font-size: x-large;
+    margin-right: 10px;
+    align-self: end;
+    display: flex;
+    flex-direction: row;
+}
+
+#task-create .info .box-descript .due-date {
+    font-weight: bold;
+    font-size: x-large;
+    display: inline-flex;
+    align-items: center;
+}
+
+#task-create .info .box-descript .due-date input {
+    all: unset;
+    color: #212529;
+    font-weight: medium;
+    font-size: medium;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+#task-create .info .box-descript .number {
+    all: unset;
+    width: 35px;
+    font-weight: bold;
+    font-size: x-large;
+    height: 20px;
+}
+
+#task-create .coordinators {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+    height: 100%;
+}
+
+#task-create .content {
+    border: 4px solid lightgray;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+}
+
+#task-create .user {
+    display: flex;
+    align-items: center;
+}
+
+#task-create .user a {
+    width: auto;
+    color: black;
+}
+
+#task-create .user.invite .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#task-create .user img,
+#task-create .user span {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#task-create .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#task-create button,
+#task-create a {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+#task-create .save {
+    background-color: #26C5B3;
+}
+
+#task-create .cancel {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#task-create .add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#task-create .add img {
+    width: 50px;
+}
+
+
+/* task-edit */
+
+#task-edit form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#task-edit input {
+    border: 0;
+}
+
+#task-edit .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-flow: column;
+}
+
+#task-edit .info .name {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-size: 2.3em;
+    line-height: 1.2;
+}
+
+#task-edit .info .box-descript {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+#task-edit .info .box-descript .description {
+    margin: 0px 10px 20px 10px;
+    background-color: transparent;
+}
+
+#task-edit .info .box-descript .config {
+    margin-left: 10px;
+    margin: 0px 10px 0px 10px;
+    background-color: transparent;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#task-edit .info .box-descript .priority {
+    font-weight: bold;
+    font-size: x-large;
+    margin-right: 10px;
+    align-self: end;
+    display: flex;
+    flex-direction: row;
+}
+
+#task-edit .info .box-descript .due-date {
+    font-weight: bold;
+    font-size: x-large;
+    display: inline-flex;
+    align-items: center;
+}
+
+#task-edit .info .box-descript .due-date input {
+    all: unset;
+    color: #212529;
+    font-weight: medium;
+    font-size: medium;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+#task-edit .info .box-descript .number {
+    all: unset;
+    width: 35px;
+    font-weight: bold;
+    font-size: x-large;
+    height: 20px;
+}
+
+#task-edit .assigned {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+}
+
+#task-edit .labels {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    margin: 10px;
+}
+
+#task-edit .comments {
+    grid-column: 3 / 5;
+    grid-row: 2 / 4;
+    margin: 10px;
+}
+
+#task-edit .content {
+    border: 4px solid;
+    border-radius: 10px;
+}
+
+#task-edit .user {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#task-edit .user a {
+    width: auto;
+    color: black;
+}
+
+#task-edit .user img {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#task-edit .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#task-edit button,
+#task-edit a {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+#task-edit .save {
+    background-color: #26C5B3;
+}
+
+#task-edit .cancel {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#task-edit button.remove {
+    position: absolute;
+    background-color: #C86660;
+    right: 20px;
+}
+

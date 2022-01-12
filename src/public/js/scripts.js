@@ -342,9 +342,10 @@ function sendCompleteTaskRequest(event) {
 
     let id = this.closest('section').getAttribute('data-id');
     let day = new Date().toISOString().slice(0, 10);
-    let time = new Date().toISOString().slice(10, 19);
-    const today = day + time;
+    let time = new Date().toISOString().slice(11, 19);
 
+    const today = day + ' ' + time;
+    console.log(day, time, today);
     if (id != undefined) //change route
         sendAjaxRequest('post', '/tasks/' + id + '/complete', { today }, taskEditHandler);
 
@@ -1043,10 +1044,7 @@ function userBlockHandler() {
 /*--------------Notifications------------*/
 
 function notificationHandler() {
-    console.log(this.responseText);
     const id = JSON.parse(this.responseText);
-    //console.log(ids.id_notification,ids.id_user, ids.project_id);
-    console.log(id);
     if (this.status === 200) {
         window.location = '/projects/' + id;
     } else if (this.status !== 500) {

@@ -128,7 +128,7 @@ class TaskController extends Controller
                 $task->due_date = $date;
             }
         }
-        
+
         if($request->userId){
             $task->id_user = $request->userId;
         }
@@ -147,16 +147,20 @@ class TaskController extends Controller
      */
     public function complete(Request $request,$id){
 
-      $task = Task::find($id);
-      if(!Auth::guard('admin')->user()){
-        $this->authorize('edit', $task);
+        error_log($request->today);
+        $task = Task::find($id);
+        error_log($task->created_at);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $task);
+        }
+        error_log("INNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+        $task->finished_at = $request->today;
+        error_log($task->finished_at);
+        $task->save();
+        error_log("oi");
+
+        return $task;
     }
-
-      $task->finished_at = $request->today;
-      $task->save();
-
-      return $task;
-  }
 
 
   /**

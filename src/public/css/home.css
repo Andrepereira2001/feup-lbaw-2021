@@ -1,0 +1,704 @@
+/* static */
+
+#static header {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    margin-right: 1rem;
+    margin-top: 0.8rem;
+    margin-left: 0.8rem;
+}
+
+#static img {
+    width: 50%;
+    height: auto;
+}
+
+#static section.buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#static a.button {
+    background-color: #dedede;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    color: black;
+    font-size: medium;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 25%);
+    transition-duration: 0.3s;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+}
+
+#static a.button:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
+}
+
+
+/* home */
+
+#home {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    min-height: 70vh;
+    justify-content: center;
+}
+
+#home .logo {
+    all: unset;
+    display: flex;
+    justify-content: center;
+}
+
+#home .title {
+    width: 420px;
+    margin: 20px 0px 50px 0px;
+    background-color: #F6F6F6;
+    border-radius: 15px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .title span {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#home .buttons {
+    text-align: center;
+    display: flex;
+    flex-flow: row;
+    gap: 80px;
+}
+
+#home .buttons a {
+    border-radius: 10px;
+    width: 130px;
+    height: 90px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .buttons a:hover {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#home .buttons .login-button {
+    background-color: #F9DF83;
+    border-top: 25px solid rgba(255, 248, 222, 1);
+}
+
+#home .buttons .register-button {
+    background-color: #62D2C5;
+    border-top: 25px solid #C0F2EC;
+}
+
+#home .buttons .login-button:hover {
+    background-color: #FEDB60;
+    border-top: 25px solid #FFF4CC;
+}
+
+#home .buttons .register-button:hover {
+    background-color: #38C5B4;
+    border-top: 25px solid #9EF3E9;
+}
+
+#home .buttons a .name {
+    font-weight: bolder;
+}
+
+#home .buttons a .name span {
+    color: black;
+    font-size: large;
+}
+
+
+/* about */
+
+#about {
+    margin-top: 1em;
+}
+
+#about .title {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    font-size: 700%;
+    width: 100%;
+    font-weight: 700;
+}
+
+#about .line {
+    margin-top: 1em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 6px;
+}
+
+#about .grid {
+    display: flex;
+    justify-content: center;
+}
+
+#about .grid-container {
+    width: 800px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#about a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#about img {
+    width: 60%;
+    height: auto;
+}
+
+#about .title2 {
+    margin-top: 1vh;
+    font-size: 2.3vw;
+    text-align: center;
+    color: #595656;
+}
+
+#about .text {
+    line-height: normal;
+    font-size: 1.4vw;
+    text-align: justify;
+    background-color: #dedede;
+    border-radius: 20px;
+    margin: 0.5em 3em 0.5em 3em;
+    padding: 1.5em 1rem 1.5em 1rem;
+}
+
+
+/* services */
+
+#services {
+    margin-top: 1em;
+}
+
+#services .title {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    font-size: 700%;
+    width: 100%;
+    font-weight: 700;
+}
+
+#services .line {
+    margin-top: 1em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 6px;
+}
+
+#services .grid {
+    display: flex;
+    justify-content: center;
+}
+
+#services .grid-container {
+    width: 800px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#services a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#services .img {
+    width: 60%;
+    height: auto;
+}
+
+#services .box img {
+    object-fit: contain;
+}
+
+#services .enumeration {
+    margin-bottom: 2em;
+}
+
+#services .box {
+    display: flex;
+    background-color: #DEDEDE;
+    border-radius: 15px;
+    height: 7vw;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    margin-top: 2em;
+    padding-left: 2vw;
+}
+
+#services span.description {
+    color: #000000;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    width: 100%;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* contact */
+
+#contact {
+    margin-top: 1em;
+}
+
+#contact .title {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    font-size: 650%;
+    width: 100%;
+    font-weight: 700;
+}
+
+#contact .line {
+    margin-top: 1em;
+    margin-left: 0em;
+    background-color: #a1a1a1;
+    height: 6px;
+}
+
+#contact .grid {
+    display: flex;
+    justify-content: center;
+}
+
+#contact .grid-container {
+    width: 800px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+}
+
+#contact a.item-azul {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#contact a.item-verde {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#contact a.item-amarelo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#contact a.item-rosa {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    text-align: center;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+#contact img {
+    width: 60%;
+    height: auto;
+}
+
+#contact .form {
+    display: flex;
+    justify-content: center;
+}
+
+#contact form {
+    width: 800px;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+#contact .name-email {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%
+}
+
+#contact p {
+    margin-bottom: 0;
+    font-size: 25px;
+}
+
+#contact .name {
+    width: 50%;
+}
+
+#contact .email {
+    width: 50%;
+}
+
+#contact .message {
+    margin-top: 1rem;
+}
+
+#contact .message-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+    font-size: 18px;
+    width: 100%;
+    height: 380px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+}
+
+#contact .name-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+    font-size: 18px;
+    width: 90%;
+}
+
+#contact .email-textbox {
+    background-color: #dedede;
+    border-radius: 20px;
+    border: 0;
+    font-size: 18px;
+    width: 80%;
+}
+
+#contact .submit {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+#contact .submit-button {
+    border-radius: 30px;
+    background-color: #26C5B3;
+    font-size: 18px;
+    border: none;
+    color: white;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+
+/* login */
+
+.logo1 {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    margin: 78px auto;
+    width: 600px;
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+#login,
+#register {
+    z-index: 10;
+    display: flex;
+    box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background: rgba(232, 232, 232, 0.9);
+    border-radius: 20px;
+    width: 450px;
+    height: 490px;
+    margin: 60px auto;
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+#forgotPassword {
+    z-index: 10;
+    display: flex;
+    box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background: rgba(232, 232, 232, 0.9);
+    border-radius: 20px;
+    width: 450px;
+    height: 390px;
+    margin: 110px auto;
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+#forgotPassword .loginPhoto {
+    position: relative;
+    width: 130px;
+    bottom: 79px;
+}
+
+#login .loginPhoto,
+#register .loginPhoto {
+    position: relative;
+    width: 130px;
+    bottom: 70px;
+}
+
+#forgotPassword .textRecover {
+    position: relative;
+    color: #505050;
+    font-size: 20px;
+    bottom: 40px;
+    text-align: center;
+}
+
+#login .loginEmail,
+#login .loginPassword,
+#register .registerInfo {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+#forgotPassword .sendEmail {
+    position: relative;
+    margin-bottom: 100px;
+}
+
+#login .loginEmail input,
+#login .loginPassword input,
+#register .registerInfo input {
+    border-radius: 3px;
+    border-color: transparent;
+    height: 50px;
+    width: 300px;
+}
+
+#forgotPassword .sendEmail input {
+    border-radius: 3px;
+    border-color: transparent;
+    background-color: rgba(171, 171, 171, 0.81);
+    height: 27px;
+    width: 300px;
+    color: white;
+}
+
+#forgotPassword button {
+    position: absolute;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+    border: none;
+    height: 27px;
+    width: 65px;
+    cursor: pointer;
+    color: #808080;
+    background-color: #FBFBFB;
+}
+
+#forgotPassword button:hover {
+    background-color: rgba(240, 240, 240, 1);
+}
+
+#login .loginEmail input:focus,
+#login .loginPassword input:focus,
+#register .registerInfo input:focus {
+    box-shadow: 0px 0px 5px 5px #888888;
+    outline: none;
+}
+
+#forgotPassword .sendEmail input:focus {
+    outline: none;
+}
+
+#register .registerInfo {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+#login .loginEmail .loginUser,
+#login .loginPassword .loginPasswordImg {
+    position: absolute;
+    width: 35px;
+    top: 10px;
+    left: 10px;
+}
+
+#login .loginEmail #email,
+#login #password {
+    padding-left: 60px;
+}
+
+#register #name,
+#register #email,
+#register #password,
+#register #password-confirm {
+    padding: 0 10px;
+}
+
+#login .loginButton,
+#register .registerButton {
+    all: unset;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 275px;
+    height: 40px;
+    color: white;
+    background-image: url('../img/colors.png');
+    background-size: cover;
+    font-size: x-large;
+    text-align: center;
+}
+
+#login .loginArea,
+#register .loginArea {
+    display: flex;
+    flex-flow: column;
+}
+
+#login .registerHere,
+.registerHereSpan,
+.remeberMe,
+.loginHereSpan,
+.loginHere {
+    font-size: smaller;
+}
+
+#login .underLoginButton {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    margin-top: 8px;
+}
+
+#login .forgotPassword {
+    all: unset;
+    cursor: pointer;
+    margin-right: 10px;
+    color: #808080;
+    font-size: small;
+}
+
+#login .remeberMe {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    color: #808080;
+}
+
+#login .remeberMe input {
+    margin-right: 3px;
+}
+
+.registerHereSpan,
+.registerHere,
+.loginHereSpan,
+.loginHere {
+    color: #808080;
+}
+
+#login .registerHereSpan {
+    margin-top: 60px;
+}
+
+.registerHere,
+.loginHere {
+    all: unset;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.registerHere:hover,
+.loginHere:hover {
+    color: #808080;
+}

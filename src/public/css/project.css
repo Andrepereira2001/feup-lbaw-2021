@@ -1,0 +1,893 @@
+
+
+/* projects */
+
+#projects form {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 130px auto;
+    grid-template-rows: 50px auto;
+}
+
+#projects .order {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
+    margin-right: 20px;
+}
+
+#projects .order button {
+    all: unset;
+    border-radius: 40px;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 17px;
+    transition-duration: 0.3s;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+}
+
+#projects .order button:hover {
+    background: linear-gradient(180deg, rgba(196, 196, 196, 0) -210.81%, #C4C4C4 305.41%);
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
+}
+
+#projects .order div {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 8px;
+}
+
+#projects .order #search {
+    border-radius: 9px;
+    height: 25px;
+    border: 1px solid #C4C4C4;
+}
+
+#projects .order [type="radio"] {
+    display: none;
+}
+
+#projects .order [type="radio"]:checked+label {
+    background-color: #C4C4C4;
+}
+
+#projects .order .button_projects {
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(179.75deg, rgba(196, 196, 196, 0) 0.22%, #C4C4C4 304.29%);
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+#projects .order .button_projects:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+}
+
+#projects .filters {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    box-shadow: 5px 0 5px -5px #333;
+}
+
+#projects .filters input {
+    display: none;
+}
+
+#projects .filters div {
+    width: 80px;
+    text-align: center;
+}
+
+#projects .filters label {
+    border-radius: 15px;
+    width: 90px;
+    margin: 10px 0px;
+    cursor: pointer;
+    background: linear-gradient(180deg, rgba(223, 255, 251, 0.33) 72.92%, rgba(43, 255, 230, 0.33) 198.96%);
+    padding: 5px 0px;
+    transition-duration: 0.3s;
+}
+
+#projects .filters label:hover {
+    box-shadow: 0 0 10px #d4f3ff, 0 0 10px rgb(0 0 0 / 25%);
+    background: linear-gradient(180deg, rgba(223, 255, 251, 0.33) -23.96%, rgba(240, 253, 251, 0.33) -23.94%, rgba(43, 255, 230, 0.33) 198.96%);
+}
+
+#projects .filters input:checked+label {
+    background: linear-gradient(180deg, rgba(0, 255, 225, 0.33) -232.29%, rgba(240, 253, 251, 0.33) -232.25%, rgba(43, 255, 230, 0.33) 198.96%);
+}
+
+#projects .projets-display {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: start;
+    margin: 20px;
+}
+
+#projects article.project {
+    display: flex;
+    flex-flow: column;
+    width: 243px;
+    height: 184px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    transition-duration: 0.4s;
+}
+
+#projects article.project:hover {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#projects article.project.create {
+    display: flex;
+    background-color: lightgray;
+    align-items: center;
+    justify-content: center;
+    box-shadow: unset;
+}
+
+#projects .project .content {
+    align-self: end;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+#projects .project .content a {
+    margin-right: 10px;
+}
+
+#projects .project header h3 {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#projects .project header h3 a {
+    display: block;
+    margin: 0px 10px 0px 10px;
+    color: black;
+    text-decoration: none;
+    font-size: large;
+    padding: 5px 0px 5px 0px;
+}
+
+
+/* project */
+
+#project {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#project h1 span {
+    color: #595656;
+    background-color: #F2F2F2;
+    border-width: 10px;
+    border-radius: 17px;
+    padding: 0px 10px 0px 10px;
+}
+
+#project h1 {
+    margin-bottom: 15px;
+}
+
+#project .done-box h2,
+#project .forum-box h2 {
+    color: #595656;
+    margin: 10px 0px 0px 10px;
+}
+
+#project .title-box {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin: 30px 20px;
+}
+
+#project .title-box a {
+    font-size: medium;
+    color: #595656;
+    background-color: #F2F2F2;
+    border-radius: 7px;
+    padding: 0px 10px 0px 10px;
+    text-decoration: underline;
+}
+
+#project .todo-box {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    border-radius: 20px;
+    margin-left: 20px;
+    margin-top: -25px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project .todo-box .todo-search {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+#project .todo-box .todo-search form {
+    margin: 10px 10px 0px 0px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+#project .todo-box .todo-search h2 {
+    color: #595656;
+    margin: 15px 0px 0px 15px;
+    font-weight: bold;
+}
+
+#project .todo-box .todo-search img {
+    opacity: 70%;
+    width: 30px;
+}
+
+#project .todo-box .todo-search input {
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#project ul {
+    all: unset;
+    margin: 20px 0px 20px 0px;
+}
+
+#project .tasksToDo {
+    overflow-y: scroll;
+    max-height: 35vh;
+}
+
+#project .task {
+    background-color: rgba(255, 255, 255, 0.467);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: medium;
+    height: 35px;
+}
+
+#project .task .name {
+    margin-left: 15px;
+    color: #595656;
+    text-decoration: none;
+}
+
+#project .task .number {
+    margin-right: 15px;
+    color: #595656;
+}
+
+#project .todo-box .add-task {
+    align-self: end;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#project .todo-box .add-task img {
+    width: 50px;
+}
+
+#project .done-box {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    border-radius: 20px;
+    margin: 10px 0px 10px 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project .done-box h2 {
+    margin: 15px 0px 0px 15px;
+    font-weight: bold;
+}
+
+#project .tasksDone {
+    display: flex;
+    flex-flow: row;
+    list-style-type: none;
+    gap: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: large;
+}
+
+#project .taskDone {
+    background-color: rgba(128, 128, 128, 0.267);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 35px;
+}
+
+#project .taskDone .name {
+    display: none;
+}
+
+#project .taskDone .number {
+    height: 35px;
+    min-width: 35px;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    color: black;
+    text-decoration: none;
+}
+
+#project .taskDone .number:hover>.name {
+    display: flex;
+    margin-left: 10px;
+}
+
+#project .taskDone .name {
+    margin-right: 10px;
+}
+
+#project .forum-box {
+    grid-column: 2/3;
+    grid-row: 1/4;
+    border-radius: 20px;
+    margin: 30px 20px 10px 20px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    padding-bottom: 15px;
+}
+
+#project .forum-box h2 {
+    align-self: start;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+#project .forum-box .forum-messages {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 90%;
+    display: flex;
+    flex-flow: column;
+}
+
+#project .forum-box .forum {
+    width: 100%;
+    max-height: 63vh;
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+#project .forum .forumMessage {
+    display: flex;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#project .forum .message {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#project .forum .content {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#project .forum .user-info .name {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#project .forum .profilePhoto {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#project .forum .forumMessage2 {
+    display: flex;
+    margin-bottom: 10px;
+    align-self: end;
+    margin-left: 10px;
+}
+
+#project .forum .message2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#project .forum .content2 {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#project .forum .user-info2 {
+    align-self: end;
+}
+
+#project .forum .user-info2 .name {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#project .forum .user-info2 .date {
+    font-size: x-small;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#project .forum .profilePhoto {
+    align-self: end;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+#project .new-message {
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin: unset;
+    justify-content: flex-start;
+    gap: 1%;
+}
+
+#project .new-message input {
+    width: 80%;
+    border-radius: 10px;
+    border-width: 0.2px;
+    background-color: transparent;
+    margin: 10px;
+}
+
+#project .new-message button {
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#project .new-message img {
+    width: 25px;
+    height: 25px;
+}
+
+/* project-details */
+
+#project-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+
+#project-details .selected-view {
+    background-color: rgba(165, 176, 175, 0.3);
+}
+
+#project-details .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    margin-top: 40px;
+    padding-bottom: 30px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#project-details .info h1 {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-size: 2.3em;
+}
+
+#project-details .info span {
+    margin: 0px 10px 0px 10px;
+}
+
+#project-details .coordinators {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+}
+
+#project-details .members {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    margin: 10px;
+}
+
+#project-details .labels {
+    grid-column: 3 / 5;
+    grid-row: 2 / 4;
+    margin: 10px;
+}
+
+#project-details .content {
+    border: 3px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+}
+
+#project-details .user {
+    display: flex;
+    align-items: center;
+}
+
+#project-details .user a {
+    width: auto;
+    color: black;
+}
+
+#project-details .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-details .user img,
+#project-details .user span {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project-details .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#project-details .edit,
+#project-details button {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#project-details a.edit {
+    background-color: #26C5B3;
+}
+
+#project-details button.delete {
+    background-color: #A5B0AF;
+}
+
+#project-details button.leave {
+    background-color: #C86660;
+    margin-bottom: 10px;
+}
+
+#project-details .add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#project-details .add img {
+    width: 50px;
+}
+
+#project-details .section-title {
+    padding-left: 10px;
+}
+
+/* project-create */
+
+#project-create form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#project-create input {
+    border: 0;
+}
+
+#project-create .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: lightgray;
+    display: flex;
+    flex-flow: column;
+}
+
+#project-create .info .name {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    line-height: 1.2;
+    font-size: large;
+}
+
+#project-create .info .description {
+    background-color: transparent;
+    margin: 0px 10px 0px 10px;
+}
+
+#project-create .info .color {
+    display: flex;
+    flex-flow: row;
+    margin: 10px;
+}
+
+#project-create .color {
+    margin: 20px;
+}
+
+#project-create .coordinators {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+    height: 100%;
+}
+
+#project-create .content {
+    border: 4px solid lightgray;
+    border-radius: 10px;
+}
+
+#project-create .user {
+    display: flex;
+    align-items: center;
+}
+
+#project-create .user a {
+    width: auto;
+    color: black;
+}
+
+#project-create .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-create .user img,
+#project-create .user span {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project-create .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#project-create button,
+#project-create a {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+#project-create .save {
+    background-color: #26C5B3;
+}
+
+#project-create .cancel {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+/* project-edit */
+
+#project-edit form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+}
+
+#project-edit input {
+    border: 0;
+}
+
+#project-edit .info {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+}
+
+#project-edit .info .name {
+    all: unset;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-size: 2.3em;
+    line-height: 1.2;
+}
+
+#project-edit .info .description {
+    background-color: transparent;
+    margin: 0px 10px 0px 10px;
+}
+
+#project-edit .info .color {
+    display: flex;
+    flex-flow: row;
+    margin: 10px;
+}
+
+#project-edit .color {
+    margin: 20px;
+}
+
+#project-edit .coordinators {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+}
+
+#project-edit .members {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    margin: 10px;
+}
+
+#project-edit .labels {
+    grid-column: 3 / 5;
+    grid-row: 2 / 4;
+    margin: 10px;
+}
+
+#project-edit .content {
+    border: 4px solid;
+    border-radius: 10px;
+}
+
+#project-edit .user {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#project-edit .user a {
+    width: auto;
+    color: black;
+}
+
+#project-edit .user .profilePhoto {
+    width: 70px;
+    height: 70px;
+    background-color: #62D2C5;
+    border: 0px;
+    border-radius: 100%;
+}
+
+#project-edit .user img,
+#project-edit .user span {
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#project-edit .buttons {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#project-edit button,
+#project-edit a {
+    all: unset;
+    width: 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+#project-edit .save {
+    background-color: #26C5B3;
+}
+
+#project-edit .cancel {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#project-edit button.remove {
+    position: absolute;
+    background-color: #C86660;
+    right: 20px;
+}

@@ -1,0 +1,158 @@
+/* POPUPS */
+
+.modal-content {
+    position: relative;
+    border-radius: 30px;
+    background-color: #E8E8E8;
+}
+
+.modal-header {
+    border-style: none;
+    display: flex;
+    flex-flow: column;
+}
+
+.modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: #505050;
+}
+
+
+#delete-user .modal-subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: medium;
+    margin-top: 25px;
+    color: #505050;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    gap: 10px;
+}
+
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm,
+#leave-project .confirm,
+#delete-project .confirm,
+#logout .confirm,
+#delete-user .delete,
+#photo .confirm {
+    background-color: #26C5B3;
+    border-radius: 50px;
+    height: 30px;
+    line-height: 17px;
+    text-align: center;
+    color: white;
+}
+
+#delete-user .delete {
+    background-color: #C86660;
+}
+
+#assign-member .cancel,
+#invite-member .cancel,
+#add-coordinator .cancel,
+#leave-project .cancel,
+#delete-project .cancel,
+#logout .cancel,
+#delete-user .cancel,
+#photo .cancel {
+    background-color: #A5B0AF;
+    border-radius: 50px;
+    color: white;
+    height: 30px;
+    text-align: center;
+    line-height: 17px;
+}
+
+.modal-body {
+    background-color: white;
+    margin: 0px 15px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm {
+    position: absolute;
+    right: 20px;
+}
+
+.modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: #505050;
+}
+
+#delete-user .modal-subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: medium;
+    margin-top: 25px;
+    color: #505050;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    gap: 10px;
+}
+
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm,
+#leave-project .confirm,
+#delete-project .confirm,
+#logout .confirm,
+#delete-user .delete {
+    background-color: #26C5B3;
+    border-radius: 50px;
+    height: 30px;
+    line-height: 17px;
+    text-align: center;
+    color: white;
+}
+
+#delete-user .delete {
+    background-color: #C86660;
+}
+
+#assign-member .cancel,
+#invite-member .cancel,
+#add-coordinator .cancel,
+#leave-project .cancel,
+#delete-project .cancel,
+#logout .cancel,
+#delete-user .cancel {
+    background-color: #A5B0AF;
+    border-radius: 50px;
+    color: white;
+    height: 30px;
+    text-align: center;
+    line-height: 17px;
+}
+
+.modal-body {
+    background-color: white;
+    margin: 0px 15px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+#assign-member .confirm,
+#invite-member .confirm,
+#add-coordinator .confirm {
+    position: absolute;
+    right: 20px;
+}
