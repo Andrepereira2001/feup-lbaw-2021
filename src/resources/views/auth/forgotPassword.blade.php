@@ -11,7 +11,7 @@
         </div>
         <span class="textRecover">Insert the email associated<br/>to your account</span>
         <div class="sendEmail">
-            <input id="email" type="email" name="email" placeholder="NOT IMPLEMENTED YET" value="{{ old('email') }}" required autofocus <button type="submit" class="loginButton">
+            <input id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
              <button type="submit">Send</button>
 
         @if ($errors->has('email'))
@@ -20,7 +20,6 @@
             </span>
         @endif
         </div>
-
 
 
         <span class="registerHereSpan"> Don't have an account? <a class="registerHere" href="{{ route('register') }}"> Register here</a></span>

@@ -137,6 +137,12 @@ CREATE TABLE Seen (
     CONSTRAINT seen_uk UNIQUE (id_user,id_notification)
 );
 
+CREATE TABLE Password_resets (
+    email                  TEXT,
+    token                  TEXT,
+    created_at             TIMESTAMP
+);
+
 
 -----------------------------------------
 -- INDEXES
