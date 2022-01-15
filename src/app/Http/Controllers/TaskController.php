@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Task;
+use App\Models\Label;
+use App\Models\TaskLabel;
 
 class TaskController extends Controller
 {
@@ -25,11 +27,18 @@ class TaskController extends Controller
       if(!Auth::guard('admin')->user()){
         $this->authorize('show', $task);
       }
+      $labelInProject = $project ->labels();
+    //   $taskLabels = TaskLabel::where('id_label', 10);
+      $taskLabels = TaskLabel::where('id_task', $id)->first()->get();
+    //   $notAssignedLabels = Label::where('taskLabel.id_task', $id);
 
-      $notAssignedLabels = Label::whereDoesntHave('projects', function($p) use($id){
-        $p->where('taskLabel.id_project',$id);;
-    })->get();
-        error_log($notAssignedLabels);
+    //   $notAssignedLabels = Label::whereDoesntHave('project', function($p) use($id){
+    //     $p->where('taskLabel.id_task',$id);
+    //     })->get();
+    echo $id;
+      echo $taskLabels;
+      echo "\n";
+      echo $labelInProject->get();
       $comments = $task->taskComments()->orderBy("created_at", "ASC")->get();
       //$search = $request->input('search');
 
