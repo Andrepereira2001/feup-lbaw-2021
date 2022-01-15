@@ -86,10 +86,11 @@ Route::post('messages', 'ForumMessageController@create'); //create a message
 
 
 // (M05) Invites and Notifications
-// Route::get('api/invites', 'InviteController@search'); //search for invites
+Route::get('api/invites', 'InviteController@search'); //search for invites
 Route::post('api/invites', 'InviteController@create'); //create invite
-// Route::post('api/invites/accept/{id}', 'InviteController@accept'); //accept invite
-// Route::post('api/invites/reject/{id}', 'InviteController@reject'); //reject invite
+Route::post('api/invites/{id}/accept', 'InviteController@accept'); //accept invite
+Route::post('api/invites/{id}/reject', 'InviteController@reject'); //reject invite
+Route::delete('api/invites/{id}','InviteController@delete'); // delete invite
 // Route::get('api/notifications', 'NotificationController@search'); //search notifications
 // Route::post('api/notifications/{user_id}/{notification_id}', 'NotificationController@show'); //see notification
 
@@ -110,10 +111,3 @@ Route::post('contact/sendEmail','NonAuthController@sendEmail');
 Route::get('services', 'NonAuthController@showService'); //see services
 Route::get('blocked', 'NonAuthController@showBlocked'); //see services
 // Route::get('404', 'NonAuthController@'); //see error page
-
-
-// //Route for mail
-// Route::get('/email', function() {
-//     Mail::to("ricky.ferreira.305@gmail.com")->send(new ContactMail);
-//     return new ContactMail();
-// });

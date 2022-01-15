@@ -32,12 +32,12 @@ class InviteController extends Controller
 
 
       Auth::check();
-
+      error_log(____________________________________________)
       $invite->id_user = $request->id_user;
       $invite->id_project = $request->id_project;
 
       $invite->save();
-      $url = App::make('url')->to('users/'.$invite->id_user.'/notifications');
+      $url = App::make('url')->to('login');
 
         // $participation = new Participation();
         // $participation->id_user = $request->id_user;
@@ -50,5 +50,32 @@ class InviteController extends Controller
       return $invite;
     }
 
+    /**
+     * Accepts an Invite.
+     *
+     * @param  Request  request
+     *
+     */
+    public function accept(Request $request){
+        $participation = new Participation();
+        $participation->id_user = $request->id_user;
+        $participation->id_project = $request->id_project;
+        $participation->role = 'Member';
+        $participation->save();
+        return $participation;
+    }
 
+    public function search(Request $request){
+        $user_id = $request->id_user;
+        $project_id = $request->id_project;
+        $invite_id = Invite::find($user_id,$project_id);
+        return $invite_id;
+    }
+
+    public function delete($id){
+        $invite = Invite::find($id);
+        $invite->delete();
+
+        return $invite;
+      }
 }
