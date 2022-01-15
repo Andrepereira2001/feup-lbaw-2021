@@ -321,7 +321,16 @@ function projectFilterChange(event) {
     const member = filters.querySelector("#member").checked;
     const archived = filters.querySelector("#archived").checked;
 
-    sendAjaxRequest('post', '/api/projects/', { favourite, coordinator, member, archived }, projectFilterChangeHandler);
+    const search = document.querySelector("#projects #search").value;
+
+    const orderElem = document.querySelector("#projects [name=order]:checked");
+    let order = null;
+    if(orderElem !== null){
+        order = orderElem.value;
+    }
+
+
+    sendAjaxRequest('post', '/api/projects/', { favourite, coordinator, member, archived, search, order }, projectFilterChangeHandler);
 }
 
 /*--------------Task------------*/

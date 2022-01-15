@@ -9,7 +9,7 @@
         <div class="order">
             <div>
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="20px"> </label>
-                <input type="text" class="search-tab" name="search" placeholder="Search for Project" value="{{$search}}"/>
+                <input type="text" id="search" class="search-tab" name="search" placeholder="Search for Project" value="{{$search}}"/>
             </div>
 
             <div>
