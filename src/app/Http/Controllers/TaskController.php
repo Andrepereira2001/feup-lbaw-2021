@@ -64,7 +64,7 @@ class TaskController extends Controller
       $task->description = $request->input('description');
       $task->priority = $request->input('priority');
       $task->id_project = $request->input('projectId');
-      $task->id_user = $request->input('userId');
+
       $date = $request->input('dueDate');
       if($date != ""){
         $date = explode('-', $date);
@@ -73,6 +73,10 @@ class TaskController extends Controller
       }
 
       $task->save();
+      if($request->input('userId')){
+        $task->id_user = $request->input('userId');
+        $task->save();
+      }
 
       return $task;
     }
@@ -124,8 +128,10 @@ class TaskController extends Controller
                 $task->due_date = $date;
             }
         }
-        $task->id_user = $request->userId;
-
+        
+        if($request->userId){
+            $task->id_user = $request->userId;
+        }
 
         $task->save();
 
@@ -183,8 +189,12 @@ class TaskController extends Controller
             $task->due_date = $original->due_date;
 
         }
-        $task->id_user = $request->userId;
+
         $task->save();
+        if($request->userId){
+            $task->id_user = $request->userId;
+            $task->save();
+        }
 
         return $task;
     }
