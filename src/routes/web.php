@@ -28,8 +28,8 @@ Route::get('users/{id}/notifications', 'NotificationController@showNotifications
 Route::post('users/{id}/notifications', 'NotificationController@seen');
 Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword'); //recover password form
 Route::post('recoverPassword', 'Auth\LoginController@recoverPassword'); //recover password action
-// Route::get('resetPassword', 'Auth\UserController@'); //reset password form
-// Route::post('resetPassword', 'Auth\UserController@'); //reset password action
+Route::get('resetPassword/{token}', 'Auth\LoginController@showResetPassword'); //reset password form
+Route::post('resetPassword', 'Auth\LoginController@resetPassword')->name('resetPassword'); //reset password action
 Route::post('api/users', 'UserController@search'); //search users API
 
 // (M02) Project
