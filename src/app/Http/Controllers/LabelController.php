@@ -65,11 +65,24 @@ class LabelController extends Controller
       $label = Label::find($request->input('labelId'));
       $task = Task::find($request->input('taskId'));
 
-      $taskLabel = new TaskLabel();
+      error_log($label);
+      error_log($task);
+
+    //   $taskLabel = array('id_label' => $label->id, 'id_task' => $task->id);
+      error_log($label);
+      error_log($task);
+        // print_r($taskLabel);
+    //   TaskLabel::create($taskLabel);
+      $taskLabel = new TaskLabel;
 
       $taskLabel->id_label =  $label->id;
 
       $taskLabel->id_task =  $task->id;
+      $taskLabel->save();
+
+      error_log($label);
+      error_log($task);
+      error_log($taskLabel);
 
       //$project = Project::find($request->input('projectId'));
 
@@ -77,7 +90,7 @@ class LabelController extends Controller
 
       //error_log("entrei--------------------------------------------------------------------------------");
 
-      $taskLabel->save();
+
 
       return $taskLabel;
     }

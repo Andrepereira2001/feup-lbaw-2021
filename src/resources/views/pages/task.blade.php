@@ -22,7 +22,7 @@
 ?>
   <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
     @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $task->project->id, 'users' => $task->project->users()->get()])
-    @include('partials.label_assign_popup',['name' => "assign-label", 'title' => "Add label",'project_id' => $project->id])
+    @include('partials.label_assign_popup',['name' => "assign-label", 'title' => "Add label",'project_id' => $project->id, 'notAssigned' => $notAssigned])
 
     <div id="sidenav" class="sidenav">
         <div id="sidenavleft" class="{{$selected}}">

@@ -37,6 +37,7 @@ CREATE TABLE Users (
     image_path             TEXT NOT NULL DEFAULT './img/default',
     remember_token         TEXT,
     blocked                BOOLEAN NOT NULL DEFAULT false
+    
 );
 
 CREATE TABLE Admin (

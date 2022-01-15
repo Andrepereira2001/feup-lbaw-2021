@@ -119,10 +119,10 @@ function addEventListeners() {
     if (labelCreator != null)
         labelCreator.addEventListener('click', sendCreateLabelRequest);
 
-
-    let labelAssigner = document.querySelector('#add-label .modal-footer .btn.save');
-    if (labelAssigner != null)
-        labelAssigner.addEventListener('click', sendAssignLabelRequest);
+    let labelAssigner = document.querySelectorAll('#assign-label .modal-body .btn.assign-label');
+    [].forEach.call(labelAssigner, function(user) {
+        user.addEventListener('click', sendAssignLabelRequest);
+    });
 
     /*--------------user------------*/
 
@@ -325,7 +325,7 @@ function projectFilterChange(event) {
 
     const orderElem = document.querySelector("#projects [name=order]:checked");
     let order = null;
-    if(orderElem !== null){
+    if (orderElem !== null) {
         order = orderElem.value;
     }
 
@@ -391,7 +391,7 @@ function taskAssignMemberHandler(event) {
     let user = document.querySelector('#task-details .assigned .user');
     let id = this.closest('section').getAttribute('data-id');
     let userId = this.getAttribute('data-id');
-
+    
     console.log(user, id, userId);
     if (user === null) {
         sendAjaxRequest('post', '/tasks/' + id + '/edit', { userId }, taskEditHandler);
@@ -448,11 +448,11 @@ function sendCreateLabelRequest(event) {
 function sendAssignLabelRequest(event) {
     event.preventDefault();
     let taskId = this.closest('section').getAttribute('data-id');
-    //let name = document.querySelector('#add-label .modal-body input').value;
+    let labelId = this.closest('div').getAttribute('data-id');
 
-    console.log(taskId);
-    if (name != '')
-        sendAjaxRequest('post', '/labels', { taskId }, LabelAddedHandler);
+    console.log(taskId, labelId);
+    if (taskId != undefined)
+        sendAjaxRequest('post', '/labels/assign', { taskId, labelId }, LabelAssignedHandler);
 }
 
 /*--------------User------------*/
@@ -1003,8 +1003,19 @@ function CommentAddedHandler() {
 
 function LabelAddedHandler() {
     const message = JSON.parse(this.responseText);
+    console.log(message);
     if (this.status === 201) {
         window.location = '/projects/' + message.id_project + '/details';
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+function LabelAssignedHandler() {
+    const message = JSON.parse(this.responseText);
+    console.log(message);
+    if (this.status === 201) {
+        window.location = '/tasks/' + message.id_task;
     } else if (this.status !== 200) {
         window.location = '/';
     }
