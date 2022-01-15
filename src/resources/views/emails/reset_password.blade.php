@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+# Reset Password
 
       {{$user->name}}, click on the button to reset your password.
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\Invite;
 use App\Models\Participation;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 
 class InviteController extends Controller
@@ -37,13 +38,8 @@ class InviteController extends Controller
       $invite->save();
       $url = App::make('url')->to('login');
 
-        // $participation = new Participation();
-        // $participation->id_user = $request->id_user;
-        // $participation->id_project = $request->id_project;
-        // $participation->role = 'Member';
-        // $participation->save();
 
-        Mail::to("toEaseManage@gmail.com")->send(new InviteMail($invite, $url));
+        Mail::to(User::find($invite->id_user)->email)->send(new InviteMail($invite, $url));
 
       return $invite;
     }
@@ -54,10 +50,13 @@ class InviteController extends Controller
      * @param  Request  request
      *
      */
-    public function accept(Request $request){
+    public function accept($id){
+
+        $invite = Invite::find($id);
+
         $participation = new Participation();
-        $participation->id_user = $request->id_user;
-        $participation->id_project = $request->id_project;
+        $participation->id_user = $invite->id_user;
+        $participation->id_project = $invite->id_project;
         $participation->role = 'Member';
         $participation->save();
         return $participation;
@@ -66,8 +65,8 @@ class InviteController extends Controller
     public function search(Request $request){
         $user_id = $request->id_user;
         $project_id = $request->id_project;
-        $invite_id = Invite::find($user_id,$project_id);
-        return $invite_id;
+        $invite = Invite::where('id_user',$user_id)->where('id_project',$project_id)->first();
+        return $invite;
     }
 
     public function delete($id){

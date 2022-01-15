@@ -38,6 +38,7 @@ class ForumMessageController extends Controller
       $forumMessage = new ForumMessage();
 
       $forumMessage->id_project = $request->projectId;
+      $forumMessage->content = $request->content;
       $forumMessage->id_user = $request->userId;
 
       $forumMessage->save();

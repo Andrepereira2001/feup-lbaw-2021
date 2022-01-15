@@ -86,10 +86,9 @@ Route::post('messages', 'ForumMessageController@create'); //create a message
 
 
 // (M05) Invites and Notifications
-Route::get('api/invites', 'InviteController@search'); //search for invites
+Route::post('api/invites/search', 'InviteController@search'); //search for invites
 Route::post('api/invites', 'InviteController@create'); //create invite
 Route::post('api/invites/{id}/accept', 'InviteController@accept'); //accept invite
-Route::post('api/invites/{id}/reject', 'InviteController@reject'); //reject invite
 Route::delete('api/invites/{id}','InviteController@delete'); // delete invite
 // Route::get('api/notifications', 'NotificationController@search'); //search notifications
 // Route::post('api/notifications/{user_id}/{notification_id}', 'NotificationController@show'); //see notification
