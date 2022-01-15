@@ -135,6 +135,10 @@ function addEventListeners() {
         val.addEventListener('click', sendDeleteUserRequest);
     });
 
+    let imageUpload = document.querySelector('#user-edit #photo .confirm');
+    if (imageUpload != null)
+        imageUpload.addEventListener('click', sendImageUploadRequest);
+
     /*--------------invite------------*/
 
     let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
@@ -484,7 +488,22 @@ function sendDeleteUserRequest(event) {
     sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
 }
 
+function sendImageUploadRequest(event) {
+    event.preventDefault();
 
+    let image = document.querySelector('#photo .uploadPhoto input').files[0];
+    let id = this.getAttribute('data-id');
+
+    const formData = new FormData();
+    formData.append('image', image, Blob);
+    formData.append("boas","texto");
+    console.log(formData.get('image'));
+    console.log(formData);
+    console.log(formData.image)
+    if(image !== null){
+        sendAjaxRequest('post', '/api/users/' + id + '/uploadImage', formData, imageUploadRequestHandler);
+    }
+}
 /*--------------Invite------------*/
 
 function projectUserAddSearchChange(event) {
@@ -509,7 +528,6 @@ function sendInviteRequest(event) {
 function acceptInviteRequest(event) {
     event.preventDefault();
     let id_user = this.closest('.user').getAttribute('data-id');
-<<<<<<< HEAD
     let id_project = this.getAttribute('data-id');
 
     sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchAcceptInviteHandler);
@@ -521,10 +539,6 @@ function rejectInviteRequest(event) {
     let id_project = this.getAttribute('data-id');
 
     sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchRejectInviteHandler);
-=======
-    let id_project = this.closest('section').getAttribute('data-id');
-    sendAjaxRequest('post', '/api/invite', { id_project, id_user }, searchAcceptInviteHandler)
->>>>>>> e2c6ac1af61f9623d18b6623b04941afdda05dcd
 }
 
 
@@ -760,7 +774,6 @@ function sendInviteHandler() {
 }
 
 function searchAcceptInviteHandler() {
-<<<<<<< HEAD
     let invite = JSON.parse(this.responseText);
     sendAjaxRequest('post','/api/invites/' + invite.id + '/accept', null, null);
     sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
@@ -769,10 +782,6 @@ function searchAcceptInviteHandler() {
 function searchRejectInviteHandler() {
     let invite = JSON.parse(this.responseText);
     sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
-=======
-    let invite_id = JSON.parse(this.responseText);
-    sendAjaxRequest('delete', '/api/invite/' + invite_id, { invite_id }, null)
->>>>>>> e2c6ac1af61f9623d18b6623b04941afdda05dcd
 }
 
 
@@ -1056,6 +1065,11 @@ function userDeletedHandler() {
         alert("Error deleting account");
     }
 
+}
+
+function imageUploadRequestHandler(){
+    console.log(this.status);
+    console.log(this.responseText);
 }
 
 /*--------------Email------------*/

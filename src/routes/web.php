@@ -31,6 +31,9 @@ Route::post('recoverPassword', 'Auth\LoginController@recoverPassword'); //recove
 Route::get('resetPassword/{token}', 'Auth\LoginController@showResetPassword'); //reset password form
 Route::post('resetPassword', 'Auth\LoginController@resetPassword')->name('resetPassword'); //reset password action
 Route::post('api/users', 'UserController@search'); //search users API
+Route::post('api/users/{id}/uploadImage', 'UserController@uploadImage'); //search users API
+
+
 
 // (M02) Project
 Route::post('api/projects', 'ProjectController@search');
@@ -110,4 +113,5 @@ Route::get('contact', 'NonAuthController@showContact'); //see contact page
 Route::post('contact/sendEmail','NonAuthController@sendEmail');
 Route::get('services', 'NonAuthController@showService'); //see services
 Route::get('blocked', 'NonAuthController@showBlocked'); //see services
+// Route::get('404', 'NonAuthController@'); //see error page
 // Route::get('404', 'NonAuthController@'); //see error page
