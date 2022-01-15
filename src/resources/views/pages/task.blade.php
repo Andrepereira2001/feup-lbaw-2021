@@ -22,6 +22,7 @@
 ?>
   <section id="task-details" class="id-{{$task->id}}" data-id={{$task->id}}>
     @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $task->project->id, 'users' => $task->project->users()->get()])
+    @include('partials.label_assign_popup',['name' => "assign-label", 'title' => "Add label",'project_id' => $project->id, 'users' => $noMembers])
 
     <div id="sidenav" class="sidenav">
         <div id="sidenavleft" class="{{$selected}}">
@@ -56,8 +57,10 @@
     <div class="labels">
         <span>Labels</span>
         <div class="content">
-            To be defined
-            {{-- @each('partials.label', $task->labels()->orderBy('id')->get() , 'label') --}}
+            @each('partials.label', $task->labels()->orderBy('id')->get() , 'label')
+            @if ($task->finished_at == null && !Auth::guard('admin')->user())
+                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img src={{ asset('img/add.png') }} width="30px"></button>
+            @endif
         </div>
     </div>
     <div class="comments">

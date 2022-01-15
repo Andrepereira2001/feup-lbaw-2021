@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS Task CASCADE;
 DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Admin CASCADE;
 DROP TABLE IF EXISTS Project CASCADE;
+DROP TABLE IF EXISTS Password_resets CASCADE;
 
 DROP TYPE IF EXISTS Role CASCADE;
 
@@ -88,7 +89,8 @@ CREATE TABLE Task (
 CREATE TABLE Label (
     id                     SERIAL PRIMARY KEY,
     name                   TEXT NOT NULL,
-    id_project             INTEGER REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE
+    id_project             INTEGER REFERENCES Project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT label_name UNIQUE (name, id_project)
 );
 
 CREATE TABLE TaskLabel (

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Label;
+use App\Models\Task;
+use App\Models\TaskLabel;
 
 class LabelController extends Controller
 {
@@ -25,33 +27,59 @@ class LabelController extends Controller
       if(!Auth::guard('admin')->user()){
         $this->authorize('show', $project);
       }
+
+      return $label;
+    }
+
+    /**
+     * Creates a new Label.
+     *
+     * @return Label The forumMessage created.
+     */
+    public function create(Request $request)
+    {
+        error_log($request);
+      $label = new Label();
+
+      //$project = Project::find($request->input('projectId'));
+
+      //$this->authorize('create', $project);
+
+      //error_log("entrei--------------------------------------------------------------------------------");
+
+      $label->name = $request->name;
+      $label->id_project = $request->projectId;
+
+      $label->save();
+
       return $label;
     }
 
     /**
      * Creates a new forumMessage.
      *
-     * @return ForumMessage The forumMessage created.
+     * @return Label The forumMessage created.
      */
-    public function create(Request $request)
+    public function assignToTask(Request $request)
     {
-      $forumMessage = new ForumMessage();
+      $label = Label::find($request->input('labelId'));
+      $task = Task::find($request->input('taskId'));
+
+      $taskLabel = new TaskLabel();
+
+      $taskLabel->id_label =  $label->id;
+
+      $taskLabel->id_task =  $task->id;
 
       //$project = Project::find($request->input('projectId'));
 
       //$this->authorize('create', $project);
 
-      error_log("entrei--------------------------------------------------------------------------------");
+      //error_log("entrei--------------------------------------------------------------------------------");
 
-      $forumMessage->content = $request->content;
-      $forumMessage->id_project = $request->projectId;
-      $forumMessage->id_user = $request->userId;
+      $taskLabel->save();
 
-      error_log("$forumMessage->content--------------------------------------------------------------------------------");
-
-      $forumMessage->save();
-
-      return $forumMessage;
+      return $taskLabel;
     }
 
 }

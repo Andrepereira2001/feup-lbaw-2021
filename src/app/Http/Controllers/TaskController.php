@@ -26,6 +26,10 @@ class TaskController extends Controller
         $this->authorize('show', $task);
       }
 
+      $notAssignedLabels = Label::whereDoesntHave('projects', function($p) use($id){
+        $p->where('taskLabel.id_project',$id);;
+    })->get();
+        error_log($notAssignedLabels);
       $comments = $task->taskComments()->orderBy("created_at", "ASC")->get();
       //$search = $request->input('search');
 
