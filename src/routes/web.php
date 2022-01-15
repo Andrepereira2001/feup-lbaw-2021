@@ -27,9 +27,9 @@ Route::post('users/{id}/update', 'UserController@update'); //user update profile
 Route::get('users/{id}/notifications', 'NotificationController@showNotifications');
 Route::post('users/{id}/notifications', 'NotificationController@seen');
 Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword'); //recover password form
-// Route::post('recoverPassword', 'Auth\UserController@'); //recover password action
-// Route::get('resetPassword', 'Auth\UserController@'); //reset password form
-// Route::post('resetPassword', 'Auth\UserController@'); //reset password action
+Route::post('recoverPassword', 'Auth\LoginController@recoverPassword'); //recover password action
+Route::get('resetPassword/{token}', 'Auth\LoginController@showResetPassword'); //reset password form
+Route::post('resetPassword', 'Auth\LoginController@resetPassword')->name('resetPassword'); //reset password action
 Route::post('api/users', 'UserController@search'); //search users API
 
 // (M02) Project
@@ -86,10 +86,11 @@ Route::post('messages', 'ForumMessageController@create'); //create a message
 
 
 // (M05) Invites and Notifications
-// Route::get('api/invites', 'InviteController@search'); //search for invites
+Route::get('api/invites', 'InviteController@search'); //search for invites
 Route::post('api/invites', 'InviteController@create'); //create invite
-// Route::post('api/invites/accept/{id}', 'InviteController@accept'); //accept invite
-// Route::post('api/invites/reject/{id}', 'InviteController@reject'); //reject invite
+Route::post('api/invites/{id}/accept', 'InviteController@accept'); //accept invite
+Route::post('api/invites/{id}/reject', 'InviteController@reject'); //reject invite
+Route::delete('api/invites/{id}','InviteController@delete'); // delete invite
 // Route::get('api/notifications', 'NotificationController@search'); //search notifications
 // Route::post('api/notifications/{user_id}/{notification_id}', 'NotificationController@show'); //see notification
 
@@ -110,10 +111,3 @@ Route::post('contact/sendEmail','NonAuthController@sendEmail');
 Route::get('services', 'NonAuthController@showService'); //see services
 Route::get('blocked', 'NonAuthController@showBlocked'); //see services
 // Route::get('404', 'NonAuthController@'); //see error page
-
-
-// //Route for mail
-// Route::get('/email', function() {
-//     Mail::to("ricky.ferreira.305@gmail.com")->send(new ContactMail);
-//     return new ContactMail();
-// });

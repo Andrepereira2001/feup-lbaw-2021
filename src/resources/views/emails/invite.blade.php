@@ -1,10 +1,10 @@
 @component('mail::message')
 # Introduction
 
-      {{$userName}}, you were invited to this project {{$projectName}} , click on the button to accept
+    {{$userName}}, You were invited to the project: {{$projectName}} , click on the button below to accept or decline the invitation
 
 @component('mail::button', ['url' => $url])
-Accept
+Invite
 @endcomponent
 
 Thanks,<br>

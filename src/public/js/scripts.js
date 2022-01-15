@@ -136,6 +136,11 @@ function addEventListeners() {
         user.addEventListener('click', sendInviteRequest);
     });
 
+    let acceptInvite = document.querySelectorAll('#notifications .notification .accept');
+    [].forEach.call(acceptInvite,function(invite) {
+        invite.addEventListener('click', acceptInviteRequest);
+    })
+
     /*--------------email------------*/
 
     let sendEmail = document.querySelector('#contact form');
@@ -459,6 +464,13 @@ function sendInviteRequest(event) {
     sendAjaxRequest('post', '/api/invites', { id_user, id_project }, sendInviteHandler);
 }
 
+function acceptInviteRequest(event) {
+    event.preventDefault();
+    let id_user = this.closest('.user').getAttribute('data-id');
+    let id_project = this.closest('section').getAttribute('data-id');
+    sendAjaxRequest('post','/api/invite', {id_project, id_user}, searchAcceptInviteHandler)
+}
+
 
 /*--------------Email------------*/
 
@@ -693,6 +705,20 @@ function sendInviteHandler() {
     let invite = JSON.parse(this.responseText);
     let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
     element.remove();
+}
+
+function searchAcceptInviteHandler() {
+    let invite_id = JSON.parse(this.responseText);
+    sendAjaxRequest('delete','/api/invite/'+invite_id,{invite_id}, null)
+}
+
+
+function acceptInviteHandler() {
+    if (this.status != 201) window.location = '/';
+    let accept = document.querySelectorAll('#notifications .notification .accept');
+    accept.remove();
+    let decline = document.querySelectorAll('#notifications .notification .cancel');
+    decline.remove();
 }
 
 function projectSearchTaskHandler() {
