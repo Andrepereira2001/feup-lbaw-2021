@@ -32,10 +32,8 @@ class InviteController extends Controller
 
 
       Auth::check();
-      error_log(____________________________________________)
       $invite->id_user = $request->id_user;
       $invite->id_project = $request->id_project;
-
       $invite->save();
       $url = App::make('url')->to('login');
 
