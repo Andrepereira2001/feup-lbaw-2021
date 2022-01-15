@@ -22,6 +22,7 @@
     @include('partials.popup',['name' => "leave-project", 'title' => "Are you sure you want to leave project?",'project_id' => Auth::user()->id])
     @include('partials.add_popup',['name' => "add-coordinator", 'title' => "Add Coordinator",'project_id' => $project->id, 'users' => $project->users()->wherePivot("role","Member")->get()])
     @include('partials.add_popup',['name' => "invite-member", 'title' => "Invite user",'project_id' => $project->id, 'users' => $noMembers])
+    @include('partials.label_create_popup',['name' => "add-label", 'title' => "Add label",'project_id' => $project->id, 'users' => $noMembers])
     @endif
     @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
 
@@ -61,8 +62,10 @@
     <div class="labels">
         <span>Labels</span>
         <div class="content">
-            TO BE DEFINED
-            {{-- @each('partials.label', $project->labels()->orderBy('id')->get(), 'label') --}}
+            @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
+            @if($isCoordinator && $project->archived_at == null)
+                <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img src={{ asset('img/add.png') }}></button>
+            @endif
         </div>
     </div>
     <div class="buttons">

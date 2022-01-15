@@ -113,6 +113,17 @@ function addEventListeners() {
     if (commentCreator != null)
         commentCreator.addEventListener('submit', sendCreateCommentRequest);
 
+
+    /*--------------label------------*/
+    let labelCreator = document.querySelector('#add-label .modal-footer .btn.save');
+    if (labelCreator != null)
+        labelCreator.addEventListener('click', sendCreateLabelRequest);
+
+
+    let labelAssigner = document.querySelector('#add-label .modal-footer .btn.save');
+    if (labelAssigner != null)
+        labelAssigner.addEventListener('click', sendAssignLabelRequest);
+
     /*--------------user------------*/
 
     let userEdit = document.querySelector('#user-edit form.info');
@@ -137,7 +148,7 @@ function addEventListeners() {
     });
 
     let acceptInvite = document.querySelectorAll('#notifications .notification .accept');
-    [].forEach.call(acceptInvite,function(invite) {
+    [].forEach.call(acceptInvite, function(invite) {
         invite.addEventListener('click', acceptInviteRequest);
     })
 
@@ -425,6 +436,26 @@ function sendCreateCommentRequest(event) {
         sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
 }
 
+/*-----------------Label---------------*/
+
+function sendCreateLabelRequest(event) {
+    event.preventDefault();
+    let projectId = this.closest('section').getAttribute('data-id');
+    let name = document.querySelector('#add-label .modal-body input').value;
+
+    if (name != '')
+        sendAjaxRequest('post', '/labels', { projectId, name }, LabelAddedHandler);
+}
+
+function sendAssignLabelRequest(event) {
+    event.preventDefault();
+    let taskId = this.closest('section').getAttribute('data-id');
+    //let name = document.querySelector('#add-label .modal-body input').value;
+
+    console.log(taskId);
+    if (name != '')
+        sendAjaxRequest('post', '/labels', { taskId }, LabelAddedHandler);
+}
 
 /*--------------User------------*/
 
@@ -478,6 +509,7 @@ function sendInviteRequest(event) {
 function acceptInviteRequest(event) {
     event.preventDefault();
     let id_user = this.closest('.user').getAttribute('data-id');
+<<<<<<< HEAD
     let id_project = this.getAttribute('data-id');
 
     sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchAcceptInviteHandler);
@@ -489,6 +521,10 @@ function rejectInviteRequest(event) {
     let id_project = this.getAttribute('data-id');
 
     sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchRejectInviteHandler);
+=======
+    let id_project = this.closest('section').getAttribute('data-id');
+    sendAjaxRequest('post', '/api/invite', { id_project, id_user }, searchAcceptInviteHandler)
+>>>>>>> e2c6ac1af61f9623d18b6623b04941afdda05dcd
 }
 
 
@@ -724,6 +760,7 @@ function sendInviteHandler() {
 }
 
 function searchAcceptInviteHandler() {
+<<<<<<< HEAD
     let invite = JSON.parse(this.responseText);
     sendAjaxRequest('post','/api/invites/' + invite.id + '/accept', null, null);
     sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
@@ -732,6 +769,10 @@ function searchAcceptInviteHandler() {
 function searchRejectInviteHandler() {
     let invite = JSON.parse(this.responseText);
     sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
+=======
+    let invite_id = JSON.parse(this.responseText);
+    sendAjaxRequest('delete', '/api/invite/' + invite_id, { invite_id }, null)
+>>>>>>> e2c6ac1af61f9623d18b6623b04941afdda05dcd
 }
 
 
@@ -981,6 +1022,17 @@ function CommentAddedHandler() {
     const message = JSON.parse(this.responseText);
     if (this.status === 201) {
         window.location = '/tasks/' + message.id_task;
+    } else if (this.status !== 200) {
+        window.location = '/';
+    }
+}
+
+/*--------------Label------------*/
+
+function LabelAddedHandler() {
+    const message = JSON.parse(this.responseText);
+    if (this.status === 201) {
+        window.location = '/projects/' + message.id_project + '/details';
     } else if (this.status !== 200) {
         window.location = '/';
     }
