@@ -17,16 +17,17 @@
         }
 
     </style>
-    <a class="link" href="/projects/{{$notification->project_id}}">
-        <div class="content">
+
+    <a href="/projects/{{$notification->id_project}}">
+        <div class="link" class="content">
             <div class="square id-{{$notification->id}}"></div>
             <span class="not-content">{{$notification->content}}</span>
         </div>
-        @if (!$notification->seen)
+        @if (Auth::user()->invites()->where('id_project',$notification->id_project)->first())
         <div class='not-buttons'>
             @if ($notification->content == "Invite to a new project!")
-                <button class="accept" type="submit">Accept</button>
-                <a class="cancel">Decline</a>
+                <button class="accept" data-id="{{$notification->id_project}}" type="submit">Accept</button>
+                <a class="cancel"  data-id="{{$notification->id_project}}">Decline</a>
             @else
                 <style>
                     #notifications article.notification.id-{{$notification->id}}:hover {

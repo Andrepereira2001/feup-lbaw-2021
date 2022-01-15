@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -116,4 +117,24 @@ class UserController extends Controller
       return $users->get();
     }
 
+
+    public function uploadImage($id, Request $request)
+    {
+        $user = User::find($id);
+
+        $file = $request->file('image');
+
+        error_log($file);
+        error_log($request->formData);
+        error_log($request->image);
+        error_log($request->file);
+        error_log($request->data);
+        error_log($request->input('boas'));
+
+        $file->store('images');
+
+        //$ret = Storage::disk('local')->put('test.png', file_get_contents($file));
+
+        return $file;
+    }
 }

@@ -135,6 +135,10 @@ function addEventListeners() {
         val.addEventListener('click', sendDeleteUserRequest);
     });
 
+    let imageUpload = document.querySelector('#user-edit #photo .confirm');
+    if (imageUpload != null)
+        imageUpload.addEventListener('click', sendImageUploadRequest);
+
     /*--------------invite------------*/
 
     let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
@@ -150,6 +154,11 @@ function addEventListeners() {
     let acceptInvite = document.querySelectorAll('#notifications .notification .accept');
     [].forEach.call(acceptInvite, function(invite) {
         invite.addEventListener('click', acceptInviteRequest);
+    })
+
+    let cancelInvite = document.querySelectorAll('#notifications .notification .cancel');
+    [].forEach.call(cancelInvite,function(invite) {
+        invite.addEventListener('click', rejectInviteRequest);
     })
 
     /*--------------email------------*/
@@ -370,7 +379,6 @@ function sendCompleteTaskRequest(event) {
     let time = new Date().toISOString().slice(11, 19);
 
     const today = day + ' ' + time;
-    console.log(day, time, today);
     if (id != undefined) //change route
         sendAjaxRequest('post', '/tasks/' + id + '/complete', { today }, taskEditHandler);
 
@@ -391,8 +399,6 @@ function taskAssignMemberHandler(event) {
     let user = document.querySelector('#task-details .assigned .user');
     let id = this.closest('section').getAttribute('data-id');
     let userId = this.getAttribute('data-id');
-    
-    console.log(user, id, userId);
     if (user === null) {
         sendAjaxRequest('post', '/tasks/' + id + '/edit', { userId }, taskEditHandler);
     } else {
@@ -429,7 +435,6 @@ function sendCreateCommentRequest(event) {
     let taskId = this.closest('section').getAttribute('data-id');
     let content = this.querySelector('input[name=content]').value;
     let userId = event.target.getAttribute('data-id');
-    console.log(content, taskId, userId);
     if (content != '')
         sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
 }
@@ -482,7 +487,22 @@ function sendDeleteUserRequest(event) {
     sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
 }
 
+function sendImageUploadRequest(event) {
+    event.preventDefault();
 
+    let image = document.querySelector('#photo .uploadPhoto input').files[0];
+    let id = this.getAttribute('data-id');
+
+    const formData = new FormData();
+    formData.append('image', image, Blob);
+    formData.append("boas","texto");
+    console.log(formData.get('image'));
+    console.log(formData);
+    console.log(formData.image)
+    if(image !== null){
+        sendAjaxRequest('post', '/api/users/' + id + '/uploadImage', formData, imageUploadRequestHandler);
+    }
+}
 /*--------------Invite------------*/
 
 function projectUserAddSearchChange(event) {
@@ -507,8 +527,17 @@ function sendInviteRequest(event) {
 function acceptInviteRequest(event) {
     event.preventDefault();
     let id_user = this.closest('.user').getAttribute('data-id');
-    let id_project = this.closest('section').getAttribute('data-id');
-    sendAjaxRequest('post', '/api/invite', { id_project, id_user }, searchAcceptInviteHandler)
+    let id_project = this.getAttribute('data-id');
+
+    sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchAcceptInviteHandler);
+}
+
+function rejectInviteRequest(event) {
+    event.preventDefault();
+    let id_user = this.closest('.user').getAttribute('data-id');
+    let id_project = this.getAttribute('data-id');
+
+    sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchRejectInviteHandler);
 }
 
 
@@ -516,10 +545,10 @@ function acceptInviteRequest(event) {
 
 function sendEmailRequest(event) {
     event.preventDefault();
-    let name = this.querySelector('input[name=name').value;
+    let name = this.querySelector('input[name=name]').value;
     let email = this.querySelector('input[name=email]').value;
-    let message = this.querySelector('textarea[name=message').value;
-    sendAjaxRequest('post', '/contact', { name, email, message }, sendEmailHandler)
+    let message = this.querySelector('textarea[name=message]').value;
+    sendAjaxRequest('post', '/contact/sendEmail', { name, email, message }, sendEmailHandler)
 }
 
 /*--------------Admin------------*/
@@ -543,11 +572,9 @@ function sendUserBlockRequest(event) {
 
 function seeNotification(event) {
     event.preventDefault();
-    console.log(event);
     let user_id = this.closest('.user').getAttribute('data-id');
     let notification_id = this.closest('article').getAttribute('data-id');
     let project_id = 0;
-    console.log(user_id, notification_id);
     sendAjaxRequest('post', '/users/' + user_id + '/notifications', { user_id, notification_id, project_id }, notificationHandler);
 
 }
@@ -606,8 +633,7 @@ function projectFavouriteHandler() {
 }
 
 function projectArchiveHandler() {
-    console.log(this.status)
-    console.log(this.responseText);
+
     if (this.status != 200) window.location = '/';
 
     let project = JSON.parse(this.responseText);
@@ -634,7 +660,6 @@ function addCoordinatorHandler() {
     let coordinator = document.createElement('div');
     coordinator.className = ('user');
     coordinator.setAttribute('data-id', user.id);
-    console.log(user.image_path);
     // if(user.image_path !== "./img/default"){
     //     console.log("entrie");
     //     coordinator.innerHTML = `
@@ -748,17 +773,28 @@ function sendInviteHandler() {
 }
 
 function searchAcceptInviteHandler() {
-    let invite_id = JSON.parse(this.responseText);
-    sendAjaxRequest('delete', '/api/invite/' + invite_id, { invite_id }, null)
+    let invite = JSON.parse(this.responseText);
+    sendAjaxRequest('post','/api/invites/' + invite.id + '/accept', null, null);
+    sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
+}
+
+function searchRejectInviteHandler() {
+    let invite = JSON.parse(this.responseText);
+    sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
 }
 
 
-function acceptInviteHandler() {
-    if (this.status != 201) window.location = '/';
-    let accept = document.querySelectorAll('#notifications .notification .accept');
-    accept.remove();
-    let decline = document.querySelectorAll('#notifications .notification .cancel');
-    decline.remove();
+function buttonsInviteHandler() {
+    if (this.status != 200) window.location = '/';
+    let invite = JSON.parse(this.responseText);
+    let accept = document.querySelectorAll('#notifications .notification .accept[data-id="' + invite.id_project +'"]');
+    accept.forEach(buttons => {
+        buttons.remove();
+    })
+    let decline = document.querySelectorAll('#notifications .notification .cancel[data-id="' + invite.id_project +'"]');
+    decline.forEach(buttons => {
+        buttons.remove();
+    })
 }
 
 function projectSearchTaskHandler() {
@@ -1039,6 +1075,11 @@ function userDeletedHandler() {
         alert("Error deleting account");
     }
 
+}
+
+function imageUploadRequestHandler(){
+    console.log(this.status);
+    console.log(this.responseText);
 }
 
 /*--------------Email------------*/

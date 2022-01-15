@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+# New Invite
 
     {{$userName}}, You were invited to the project: {{$projectName}} , click on the button below to accept or decline the invitation
 
