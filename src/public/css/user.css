@@ -47,7 +47,7 @@
     border-radius: 100%;
 }
 
-#user-edit .userIcon .profilePhoto {
+#user-edit .user-icon .profilePhoto {
     width: 150px;
     height: 150px;
     background-color: #62D2C5;
@@ -138,8 +138,11 @@
     opacity: 60%;
 }
 
-#user-edit .userIcon {
+#user-edit .user-icon {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #user-edit .editIconBlue {
@@ -218,7 +221,6 @@
 
 #photo .colors {
     margin-top: 30px;
-    display: none;
 }
 
 #photo .colors input[type="radio"] {
@@ -227,10 +229,15 @@
     width: 0;
 }
 
+#photo .colors input:checked+label{
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+}
+
 #photo .colors label {
     display: inline-block;
     padding: 40px 40px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 #photo .colors label.yellow {
@@ -250,45 +257,11 @@
 }
 
 #photo .upload {
+    color: black;
     background-color: #F2FEFD;
     border: 2px solid black;
     border-color: #C0F2EC;
     border-radius: 10px;
-}
-
-#photo .uploadPhoto {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-#photo .uploadPhoto input {
-    border-radius: 3px;
-    border-color: transparent;
-    background-color: rgba(171, 171, 171, 0.81);
-    height: 27px;
-    width: 350px;
-    color: white;
-}
-
-#photo .uploadPhoto button {
-    position: absolute;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    top: 0px;
-    right: 0px;
-    z-index: 2;
-    border: none;
-    height: 27px;
-    width: 65px;
-    cursor: pointer;
-    color: #808080;
-    background-color: #FBFBFB;
-}
-
-#photo .uploadPhoto button:hover {
-    background-color: rgba(240, 240, 240, 1);
 }
 
 #notifications .notification {

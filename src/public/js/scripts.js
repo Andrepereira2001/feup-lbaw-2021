@@ -140,10 +140,6 @@ function addEventListeners() {
         val.addEventListener('click', sendDeleteUserRequest);
     });
 
-    let imageUpload = document.querySelector('#user-edit #photo .confirm');
-    if (imageUpload != null)
-        imageUpload.addEventListener('click', sendImageUploadRequest);
-
     /*--------------invite------------*/
 
     let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
@@ -538,22 +534,6 @@ function sendDeleteUserRequest(event) {
     sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
 }
 
-function sendImageUploadRequest(event) {
-    event.preventDefault();
-
-    let image = document.querySelector('#photo .uploadPhoto input').files[0];
-    let id = this.getAttribute('data-id');
-
-    const formData = new FormData();
-    formData.append('image', image, Blob);
-    formData.append("boas", "texto");
-    console.log(formData.get('image'));
-    console.log(formData);
-    console.log(formData.image)
-    if (image !== null) {
-        sendAjaxRequest('post', '/api/users/' + id + '/uploadImage', formData, imageUploadRequestHandler);
-    }
-}
 /*--------------Invite------------*/
 
 function projectUserAddSearchChange(event) {
@@ -711,18 +691,22 @@ function addCoordinatorHandler() {
     let coordinator = document.createElement('div');
     coordinator.className = ('user');
     coordinator.setAttribute('data-id', user.id);
-    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     coordinator.innerHTML = `
 
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
-    // }
-    // else{
-    coordinator.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${user.id}/profile">${user.name}</a>`;
-    //}
+    if(user.image_path !== "./img/default"){
+        coordinator.innerHTML =`
+            <div class="usernames">
+                <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
+                <a href="/users/${user.id}/profile">${user.name}</a>
+            </div>`;
+    }
+
+    else {
+        coordinator.innerHTML =`
+            <div class="usernames">
+                <span class="profilePhoto">${user.name[0]}</span>
+                <a href="/users/${user.id}/profile">${user.name}</a>
+            </div>`;
+    }
 
     body.insertBefore(coordinator, button);
 
@@ -737,32 +721,29 @@ function projectCoordinatorAddSearchChangeHandler() {
     });
 
 
-    let body = document.querySelector('#add-coordinator .modal-body');
+    let body = document.querySelector('#add-coordinator .modal-body .all-users');
     users.map((user) => {
         let add_coordinator = document.createElement('div');
         add_coordinator.className = ('user invite');
         add_coordinator.setAttribute('data-id', user.id);
 
-        // if(user.image_path !== "./img/default"){
-        //     console.log("entrie");
-        //     add_coordinator.innerHTML = `
+        if(user.image_path !== "./img/default"){
+            add_coordinator.innerHTML =`
+                <div class="usernames">
+                    <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
+                    <a href="/users/${user.id}/profile">${user.name}</a>
+                </div>
+                <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        }
 
-        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-        //     <a href="/users/${user.id}/profile/">${user.name}</a>
-        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-        // }
-        // else{
-        add_coordinator.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${user.id}/profile/">${user.name}</a>
-        <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-        //}
-
-        // add_coordinator.innerHTML = `
-
-        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
-        //      <a href="/users/${user.id}/profile/">${user.name}</a>
-        //      <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        else {
+            add_coordinator.innerHTML =`
+                <div class="usernames">
+                    <span class="span profilePhoto">${user.name[0]}</span>
+                    <a href="/users/${user.id}/profile">${user.name}</a>
+                </div>
+                <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        }
 
         let add = add_coordinator.querySelector('button.confirm');
         add.addEventListener('click', createTaskAssignHandler);
@@ -785,7 +766,7 @@ function projectUserAddSearchChangeHandler() {
         let user_invite = document.createElement('div');
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
-        console.log(user);
+
         if(user.image_path !== "./img/default"){
             user_invite.innerHTML =`
                 <div class="usernames">
@@ -798,7 +779,7 @@ function projectUserAddSearchChangeHandler() {
         else {
             user_invite.innerHTML =`
                 <div class="usernames">
-                    <span class="profilePhoto"></span>
+                    <span class="span profilePhoto">${user.name[0]}</span>
                     <a href="/users/${user.id}/profile">${user.name}</a>
                 </div>
                 <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
@@ -812,6 +793,7 @@ function projectUserAddSearchChangeHandler() {
 }
 
 function sendInviteHandler() {
+    console.log(this.status);
     if (this.status != 201) window.location = '/';
     let invite = JSON.parse(this.responseText);
     let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
@@ -828,7 +810,6 @@ function searchRejectInviteHandler() {
     let invite = JSON.parse(this.responseText);
     sendAjaxRequest('delete', '/api/invites/' + invite.id, null, buttonsInviteHandler);
 }
-
 
 function buttonsInviteHandler() {
     if (this.status != 200) window.location = '/';
@@ -864,7 +845,6 @@ function projectSearchTaskHandler() {
         body.appendChild(taskLi);
     })
 }
-
 
 function projectRemoveMemberHandler() {
     if (this.status != 200) window.location = '/';
@@ -1141,11 +1121,6 @@ function userDeletedHandler() {
         alert("Error deleting account");
     }
 
-}
-
-function imageUploadRequestHandler(){
-    console.log(this.status);
-    console.log(this.responseText);
 }
 
 /*--------------Email------------*/

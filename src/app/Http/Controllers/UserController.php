@@ -124,17 +124,38 @@ class UserController extends Controller
         $user = User::find($id);
 
         $file = $request->file('image');
+        $color = $request->color;
 
-        $newImageName = time() . '.' . $file->extension();
+        if($file || $color){
+            if($user->image_path == "./img/default" ||
+                $user->image_path == "./img/blue_photo.png" ||
+                $user->image_path == "./img/pink_photo.png" ||
+                $user->image_path == "./img/yellow_photo.png" ||
+                $user->image_path == "./img/green_photo.png"
+                ){}
+            else {
+                File::delete(public_path($user->image_path));
+            }
+        }
 
-        $file->move(public_path('img'), $newImageName);
+        if($file){
+            $newImageName = time() . '.' . $file->extension();
 
-        if($user->image_path != "./img/default")
-        File::delete(public_path($user->image_path));
-        $user->image_path = './img/' . $newImageName;
+            $file->move(public_path('img'), $newImageName);
+
+            $user->image_path = './img/' . $newImageName;
+        }
+        else if($color == 'yellow'){
+            $user->image_path = "./img/yellow_photo.png";
+        }else if($color == 'blue'){
+            $user->image_path = "./img/blue_photo.png";
+        }else if($color == 'green'){
+            $user->image_path = "./img/green_photo.png";
+        }else if($color == 'pink'){
+            $user->image_path = "./img/pink_photo.png";
+        }
 
         $user->save();
-
 
         return redirect()->back();
     }
