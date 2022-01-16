@@ -27,22 +27,22 @@ class TaskController extends Controller
       if(!Auth::guard('admin')->user()){
         $this->authorize('show', $task);
       }
-      $labelInProject = $project ->labels();
-    //   $taskLabels = TaskLabel::where('id_label', 10);
-      $taskLabels = TaskLabel::where('id_task', $id)->first()->get();
-    //   $notAssignedLabels = Label::where('taskLabel.id_task', $id);
 
-    //   $notAssignedLabels = Label::whereDoesntHave('project', function($p) use($id){
-    //     $p->where('taskLabel.id_task',$id);
-    //     })->get();
-    echo $id;
-      echo $taskLabels;
-      echo "\n";
-      echo $labelInProject->get();
+      $labelInProject = $project ->labels()->get();
+
+      $taskLabels = TaskLabel::where('id_task', $id)->get();
+
+      $notAssignedLabels = array();
+
+      foreach ($labelInProject as &$val) {
+        $taskLabel = TaskLabel::where('id_label', $val->id)->where('id_task','!=' ,$id)->get();
+        if(!empty($taskLabel[0])){
+            array_push($notAssignedLabels, $val);
+        }
+      }
+
       $comments = $task->taskComments()->orderBy("created_at", "ASC")->get();
-      //$search = $request->input('search');
-
-      return view('pages.task', ['task' => $task, 'project' => $project, 'selected' => "selected-view", 'comments' => $comments ]);
+      return view('pages.task', ['task' => $task, 'project' => $project, 'selected' => "selected-view", 'comments' => $comments, 'notAssigned' => $notAssignedLabels ]);
     }
 
     /**

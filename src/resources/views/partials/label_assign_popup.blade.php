@@ -9,7 +9,7 @@
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
                 <input class= "search" type="text" data-id={{$project_id}} name="search" placeholder="Search for Label"/>
             </div>
-            @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
+            @each('partials.label_add', $notAssigned, 'label')
         </div>
         <div class="modal-footer">
             <button type="button" class="btn cancel" data-dismiss="modal">OK</button>
