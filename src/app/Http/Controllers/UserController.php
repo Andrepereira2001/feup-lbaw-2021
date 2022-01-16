@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Project;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -124,17 +125,17 @@ class UserController extends Controller
 
         $file = $request->file('image');
 
-        error_log($file);
-        error_log($request->formData);
-        error_log($request->image);
-        error_log($request->file);
-        error_log($request->data);
-        error_log($request->input('boas'));
+        $newImageName = time() . '.' . $file->extension();
 
-        $file->store('images');
+        $file->move(public_path('img'), $newImageName);
 
-        //$ret = Storage::disk('local')->put('test.png', file_get_contents($file));
+        if($user->image_path != "./img/default")
+        File::delete(public_path($user->image_path));
+        $user->image_path = './img/' . $newImageName;
 
-        return $file;
+        $user->save();
+
+
+        return redirect()->back();
     }
 }

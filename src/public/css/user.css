@@ -219,7 +219,7 @@
 
 #photo .colors {
     margin-top: 30px;
-    display: none;
+    /* display: none; */
 }
 
 #photo .colors input[type="radio"] {
