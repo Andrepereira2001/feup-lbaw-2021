@@ -137,7 +137,7 @@
     align-items: center;
 }
 
-#home .opinion img{
+#home .opinion img {
     border-radius: 20px;
     margin: 0.5em 3em 0.5em 3em;
     width: 30vw;
@@ -152,6 +152,7 @@
     margin: 0.5em 3em 0.5em 3em;
     padding: 1.5em 1rem 1.5em 1rem;
 }
+
 
 /* about */
 
@@ -529,13 +530,14 @@
     background: rgba(232, 232, 232, 0.9);
     border-radius: 20px;
     width: 450px;
-    height: 490px;
+    height: auto;
     margin: 60px auto;
     grid-row: 1/2;
     grid-column: 1/2;
 }
 
-#forgotPassword {
+#forgotPassword,
+#resetPassword {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
@@ -545,26 +547,27 @@
     background: rgba(232, 232, 232, 0.9);
     border-radius: 20px;
     width: 450px;
-    height: 390px;
+    height: auto;
     margin: 110px auto;
     grid-row: 1/2;
     grid-column: 1/2;
 }
 
 #forgotPassword .loginPhoto {
-    position: relative;
-    width: 130px;
     bottom: 79px;
+}
+
+#resetPassword .loginPhoto {
+    bottom: 40px;
 }
 
 #login .loginPhoto,
 #register .loginPhoto {
-    position: relative;
-    width: 130px;
     bottom: 70px;
 }
 
-#forgotPassword .textRecover {
+#forgotPassword .textRecover,
+#resetPassword .textRecover {
     position: relative;
     color: #505050;
     font-size: 20px;
@@ -584,9 +587,15 @@
     margin-bottom: 100px;
 }
 
+#resetPassword .sendEmail {
+    position: relative;
+    margin-bottom: 20px;
+}
+
 #login .loginEmail input,
 #login .loginPassword input,
-#register .registerInfo input {
+#register .registerInfo input,
+#resetPassword .sendEmail input {
     border-radius: 3px;
     border-color: transparent;
     height: 50px;
@@ -623,7 +632,8 @@
 
 #login .loginEmail input:focus,
 #login .loginPassword input:focus,
-#register .registerInfo input:focus {
+#register .registerInfo input:focus,
+#resetPassword .sendEmail input:focus {
     box-shadow: 0px 0px 5px 5px #888888;
     outline: none;
 }
@@ -632,7 +642,8 @@
     outline: none;
 }
 
-#register .registerInfo {
+#register .registerInfo,
+#resetPassword .sendEmail {
     display: flex;
     flex-flow: column;
     gap: 10px;
@@ -659,7 +670,8 @@
 }
 
 #login .loginButton,
-#register .registerButton {
+#register .registerButton,
+#resetPassword .resetButton {
     all: unset;
     cursor: pointer;
     border-radius: 5px;
@@ -717,6 +729,11 @@
 .loginHereSpan,
 .loginHere {
     color: #808080;
+}
+
+.loginHereSpan,
+.loginHere {
+    margin-bottom: 10px;
 }
 
 #login .registerHereSpan {

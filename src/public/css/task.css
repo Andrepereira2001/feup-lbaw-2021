@@ -147,7 +147,6 @@
     cursor: pointer;
 }
 
-
 #task-details .forum {
     all: unset;
     max-height: 35vh;
@@ -221,6 +220,13 @@
 #task-details .new-message img {
     width: 25px;
     height: 25px;
+}
+
+#task-details .labels .content span {
+    background-color: rgb(211, 211, 211, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    cursor: default;
 }
 
 
@@ -563,3 +569,4 @@
     right: 20px;
 }
 
+#c

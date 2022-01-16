@@ -6,5 +6,5 @@
         else echo '<span class="profilePhoto"></span>';
     ?>
     <a href="/users/{{$user->id}}/profile">{{ $user->name }}</a>
-    <button type="button" class="btn remove" data-id={{$user->id}}>Decrease</button>
+    <button type="button" class="btn remove" data-id={{$user->id}}>Demote</button>
 </div>

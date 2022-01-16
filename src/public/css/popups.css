@@ -19,7 +19,6 @@
     color: #505050;
 }
 
-
 #delete-user .modal-subtitle {
     width: 100%;
     text-align: center;
@@ -155,4 +154,33 @@
 #add-coordinator .confirm {
     position: absolute;
     right: 20px;
+}
+
+#assign-label .btn.assign-label {
+    position: absolute;
+    right: 10px;
+    background-color: #26C5B3;
+    width: 80px;
+}
+
+#assign-label .btn.assign-label:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+}
+
+button.btn.save {
+    background-color: #26C5B3 !important;
+}
+
+button.btn.cancel {
+    background-color: #A5B0AF !important;
+}
+
+button.btn:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
+}
+
+input.label {
+    border-radius: 9px;
+    height: 25px;
+    border: 1px solid #C4C4C4;
 }

@@ -137,3 +137,8 @@ footer section {
     height: 25px;
     border: 1px solid #C4C4C4;
 }
+
+.loginPhoto {
+    position: relative;
+    width: 130px;
+}

@@ -124,6 +124,11 @@ function addEventListeners() {
         user.addEventListener('click', sendAssignLabelRequest);
     });
 
+    let labelDeleter = document.querySelectorAll('#project-edit .labels .content .btn.remove');
+    [].forEach.call(labelDeleter, function(user) {
+        user.addEventListener('click', sendDeleteLabelRequest);
+    });
+
     /*--------------user------------*/
 
     let userEdit = document.querySelector('#user-edit form.info');
@@ -157,7 +162,7 @@ function addEventListeners() {
     })
 
     let cancelInvite = document.querySelectorAll('#notifications .notification .cancel');
-    [].forEach.call(cancelInvite,function(invite) {
+    [].forEach.call(cancelInvite, function(invite) {
         invite.addEventListener('click', rejectInviteRequest);
     })
 
@@ -227,9 +232,24 @@ function sendCreateProjectRequest(event) {
     let name = this.querySelector('input[name=name]').value;
     let description = this.querySelector('input[name=description]').value;
     let color = this.querySelector('input[name=color]').value;
+    if (name == '') {
 
-    if (name != '')
+        let message = document.querySelectorAll('#project-create form .buttons .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+        console.log("project does not have a name");
+        let buttonsDiv = document.querySelector('#project-create form .buttons');
+        let buttonSave = document.querySelector('#project-create form .buttons button.save');
+
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Project does not have a name!`;
+
+        buttonsDiv.insertBefore(errorMessage, buttonSave);
+    } else if (name != '') {
         sendAjaxRequest('post', '/projects/', { name, description, color }, projectAddedHandler);
+    }
 
     event.preventDefault();
 }
@@ -351,10 +371,20 @@ function sendCreateTaskRequest(event) {
     let description = this.querySelector('input[name=description]').value;
     let priority = this.querySelector('input[name=priority]').value;
     let dueDate = this.querySelector('input[name=date]').value;
-    let userId = this.querySelector('input[name=user-id]').value;
+    let users = this.querySelectorAll("input[name='user-id[]']");
 
-    if (name != '')
-        sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId }, taskAddedHandler);
+    users.forEach((user) => {
+        console.log(user.value);
+        if (user.value === '' && users.length === 1) {
+            if (name != '')
+                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId: '' }, taskAddedHandler);
+        } else if (user.value !== '') {
+            let userId = user.value
+            if (name != '')
+                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId }, taskAddedHandler);
+        }
+
+    })
 }
 
 function sendEditTaskRequest(event) {
@@ -455,9 +485,16 @@ function sendAssignLabelRequest(event) {
     let taskId = this.closest('section').getAttribute('data-id');
     let labelId = this.closest('div').getAttribute('data-id');
 
-    console.log(taskId, labelId);
     if (taskId != undefined)
         sendAjaxRequest('post', '/labels/assign', { taskId, labelId }, LabelAssignedHandler);
+}
+
+function sendDeleteLabelRequest(event) {
+    event.preventDefault();
+    let projectId = this.closest('section').getAttribute('data-id');
+    let labelId = this.closest('div').getAttribute('data-id');
+    if (projectId != undefined)
+        sendAjaxRequest('delete', '/labels/' + labelId, { projectId, labelId }, LabelDeletedHandler);
 }
 
 /*--------------User------------*/
@@ -495,11 +532,11 @@ function sendImageUploadRequest(event) {
 
     const formData = new FormData();
     formData.append('image', image, Blob);
-    formData.append("boas","texto");
+    formData.append("boas", "texto");
     console.log(formData.get('image'));
     console.log(formData);
     console.log(formData.image)
-    if(image !== null){
+    if (image !== null) {
         sendAjaxRequest('post', '/api/users/' + id + '/uploadImage', formData, imageUploadRequestHandler);
     }
 }
@@ -529,7 +566,7 @@ function acceptInviteRequest(event) {
     let id_user = this.closest('.user').getAttribute('data-id');
     let id_project = this.getAttribute('data-id');
 
-    sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchAcceptInviteHandler);
+    sendAjaxRequest('post', '/api/invites/search', { id_project, id_user }, searchAcceptInviteHandler);
 }
 
 function rejectInviteRequest(event) {
@@ -537,7 +574,7 @@ function rejectInviteRequest(event) {
     let id_user = this.closest('.user').getAttribute('data-id');
     let id_project = this.getAttribute('data-id');
 
-    sendAjaxRequest('post','/api/invites/search', {id_project, id_user}, searchRejectInviteHandler);
+    sendAjaxRequest('post', '/api/invites/search', { id_project, id_user }, searchRejectInviteHandler);
 }
 
 
@@ -774,24 +811,24 @@ function sendInviteHandler() {
 
 function searchAcceptInviteHandler() {
     let invite = JSON.parse(this.responseText);
-    sendAjaxRequest('post','/api/invites/' + invite.id + '/accept', null, null);
-    sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
+    sendAjaxRequest('post', '/api/invites/' + invite.id + '/accept', null, null);
+    sendAjaxRequest('delete', '/api/invites/' + invite.id, null, buttonsInviteHandler);
 }
 
 function searchRejectInviteHandler() {
     let invite = JSON.parse(this.responseText);
-    sendAjaxRequest('delete','/api/invites/' + invite.id, null, buttonsInviteHandler);
+    sendAjaxRequest('delete', '/api/invites/' + invite.id, null, buttonsInviteHandler);
 }
 
 
 function buttonsInviteHandler() {
     if (this.status != 200) window.location = '/';
     let invite = JSON.parse(this.responseText);
-    let accept = document.querySelectorAll('#notifications .notification .accept[data-id="' + invite.id_project +'"]');
+    let accept = document.querySelectorAll('#notifications .notification .accept[data-id="' + invite.id_project + '"]');
     accept.forEach(buttons => {
         buttons.remove();
     })
-    let decline = document.querySelectorAll('#notifications .notification .cancel[data-id="' + invite.id_project +'"]');
+    let decline = document.querySelectorAll('#notifications .notification .cancel[data-id="' + invite.id_project + '"]');
     decline.forEach(buttons => {
         buttons.remove();
     })
@@ -931,13 +968,16 @@ function projectFilterChangeHandler() {
 function createTaskAssignHandler(event) {
     event.preventDefault();
 
-    let remove = document.querySelectorAll('#task-create .coordinators .user');
-    [].forEach.call(remove, function(del) {
-        del.remove();
-    });
+    // let remove = document.querySelectorAll('#task-create .coordinators .user');
+    // [].forEach.call(remove, function(del) {
+    //     del.remove();
+    // });
 
     let id_user = event.target.getAttribute('data-id');
-    document.querySelector('#task-create input[name=user-id]').value = id_user;
+    //document.querySelector('#task-create input[name=user-id[]]').value = id_user;
+
+    let input = document.querySelector('#task-create .coordinators input').cloneNode(true);
+    input.value = id_user
 
     let user = document.querySelector('#task-create .user[data-id="' + id_user + '"]').cloneNode(true);
     // user.remove();
@@ -947,6 +987,7 @@ function createTaskAssignHandler(event) {
     let button = document.querySelector('#task-create .coordinators .content button');
 
     body.insertBefore(user, button);
+    body.appendChild(input);
 
 }
 
@@ -1038,23 +1079,39 @@ function CommentAddedHandler() {
 /*--------------Label------------*/
 
 function LabelAddedHandler() {
-    const message = JSON.parse(this.responseText);
-    console.log(message);
-    if (this.status === 201) {
-        window.location = '/projects/' + message.id_project + '/details';
-    } else if (this.status !== 200) {
-        window.location = '/';
-    }
+
+    if (this.status != 201) window.location = '/';
+
+    let label = JSON.parse(this.responseText);
+
+    let body = document.querySelector('#project-details .labels .content');
+    let button = document.querySelector('#project-details .labels .content button');
+
+    let labelHTML = document.createElement('div');
+    labelHTML.className = ('user');
+    labelHTML.setAttribute('data-id', label.id);
+
+    labelHTML.innerHTML = `<span>${label.name}</span>`;
+
+    body.insertBefore(labelHTML, button);
+
 }
 
 function LabelAssignedHandler() {
     const message = JSON.parse(this.responseText);
-    console.log(message);
     if (this.status === 201) {
         window.location = '/tasks/' + message.id_task;
     } else if (this.status !== 200) {
         window.location = '/';
     }
+}
+
+function LabelDeletedHandler() {
+    if (this.status !== 200) {
+        window.location = '/';
+    }
+    let label = JSON.parse(this.responseText);
+    document.querySelector('#project-edit .labels .content .user[data-id="' + label + '"]').remove();
 }
 
 /*--------------User------------*/

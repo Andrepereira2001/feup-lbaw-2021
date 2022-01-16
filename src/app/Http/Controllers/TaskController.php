@@ -35,10 +35,14 @@ class TaskController extends Controller
       $notAssignedLabels = array();
 
       foreach ($labelInProject as &$val) {
-        $taskLabel = TaskLabel::where('id_label', $val->id)->where('id_task','!=' ,$id)->get();
-        if(!empty($taskLabel[0])){
+        $taskLabel = TaskLabel::where('id_label', $val->id)->where('id_task','=' ,$id)->get();
+        if(empty($taskLabel[0])){
             array_push($notAssignedLabels, $val);
         }
+      }
+
+      foreach ($notAssignedLabels as $val1) {
+        //   echo $val1;
       }
 
       $comments = $task->taskComments()->orderBy("created_at", "ASC")->get();

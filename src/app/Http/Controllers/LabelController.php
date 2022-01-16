@@ -95,4 +95,11 @@ class LabelController extends Controller
       return $taskLabel;
     }
 
+    public function delete(Request $request, $id)
+    {
+      $label = Label::find($id);
+      $label->delete();
+      return $id;
+    }
+
 }

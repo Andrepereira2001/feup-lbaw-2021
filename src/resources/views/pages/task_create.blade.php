@@ -23,7 +23,7 @@
             </div>
             <div class="coordinators">
                 <span>Assigned To</span>
-                <input type="hidden" name="user-id">
+                <input type="hidden" name="user-id[]">
                 <div class="content">
                     {{-- @include('partials.user', ['user' => $user]) --}}
                     <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
@@ -36,3 +36,4 @@
         </form>
     </section>
 @endsection
+}
