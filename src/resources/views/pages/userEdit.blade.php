@@ -29,7 +29,7 @@
         </div>
         <div class="userInfo" id="edit">
             <form class="info">
-                <a class="userIcon">
+                <a class="user-icon">
                     <?php
                         if ($user->image_path != "./img/default") {
                         echo '<img src=' . asset($user->image_path) . ' class="profilePhoto" >';

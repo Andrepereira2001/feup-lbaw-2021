@@ -4,7 +4,7 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-body">
-                    <a class="userIcon">
+                    <a class="user-icon">
                         <?php
                             if ($user->image_path != "./img/default") {
                             echo '<img src=' . asset($user->image_path) . ' class="profilePhoto" >';
@@ -17,13 +17,13 @@
                         <label for="file" class="btn upload">Upload photo</label>
                         <input id="file" type="file" name="image" style="display:none">
 
-                        <button type="button" class="upload">Choose color</button>
+                        {{-- <button type="button" class="upload">Choose color</button> --}}
                     </div>
                     <div class="colors">
                         <input type="radio" id="yellow" name="color" value="yellow">
                         <label for="yellow" class="yellow"></label>
-                        <input type="radio" id="red" name="color" value="red">
-                        <label for="red" class="red"></label>
+                        <input type="radio" id="green" name="color" value="green">
+                        <label for="green" class="red"></label>
                         <input type="radio" id="blue" name="color" value="blue">
                         <label for="blue" class="blue"></label>
                         <input type="radio" id="pink" name="color" value="pink">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" sclass="btn confirm">Save</button>
+                    <button type="submit" class="btn confirm">Save</button>
                     <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
