@@ -2,16 +2,15 @@
 
 #user .user,
 #user-edit .user,
-#notifications .user  {
+#notifications .user {
     display: flex;
     flex-flow: row;
 }
 
-#notifications header span{
+#notifications header span {
     font-size: xx-large;
     font-weight: bold;
 }
-
 
 #user .userInfo,
 #user-edit .userInfo,
@@ -292,7 +291,6 @@
     background-color: rgba(240, 240, 240, 1);
 }
 
-
 #notifications .notification {
     display: flex;
     flex-flow: column;
@@ -357,6 +355,7 @@
     font-size: 15px;
 }
 
+
 /* Admin */
 
 #admin {
@@ -371,7 +370,8 @@
     display: flex;
     flex-flow: row;
     align-items: center;
-    justify-content: space-between;;
+    justify-content: space-between;
+    ;
     margin-right: 30px;
 }
 

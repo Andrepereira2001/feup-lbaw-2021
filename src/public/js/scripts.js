@@ -373,18 +373,32 @@ function sendCreateTaskRequest(event) {
     let dueDate = this.querySelector('input[name=date]').value;
     let users = this.querySelectorAll("input[name='user-id[]']");
 
-    users.forEach((user) => {
-        console.log(user.value);
-        if (user.value === '' && users.length === 1) {
-            if (name != '')
-                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId: '' }, taskAddedHandler);
-        } else if (user.value !== '') {
-            let userId = user.value
-            if (name != '')
-                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId }, taskAddedHandler);
-        }
+    if (name == '') {
+        let message = document.querySelectorAll('#task-create form .buttons .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+        console.log("project does not have a name");
+        let buttonsDiv = document.querySelector('#task-create form .buttons');
+        let buttonSave = document.querySelector('#task-create form .buttons button.save');
 
-    })
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Task does not have a name!`;
+
+        buttonsDiv.insertBefore(errorMessage, buttonSave);
+    } else {
+        users.forEach((user) => {
+            if (user.value === '' && users.length === 1) {
+
+                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId: '' }, taskAddedHandler);
+            } else if (user.value !== '') {
+                let userId = user.value
+                sendAjaxRequest('post', '/tasks', { name, description, priority, projectId, dueDate, userId }, taskAddedHandler);
+            }
+
+        })
+    }
 }
 
 function sendEditTaskRequest(event) {
