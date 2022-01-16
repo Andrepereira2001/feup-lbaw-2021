@@ -78,13 +78,6 @@
     text-align: center;
 }
 
-#assign-member .confirm,
-#invite-member .confirm,
-#add-coordinator .confirm {
-    position: absolute;
-    right: 20px;
-}
-
 .modal-title {
     width: 100%;
     text-align: center;
@@ -149,13 +142,6 @@
     text-align: center;
 }
 
-#assign-member .confirm,
-#invite-member .confirm,
-#add-coordinator .confirm {
-    position: absolute;
-    right: 20px;
-}
-
 #assign-label .btn.assign-label {
     position: absolute;
     right: 10px;
@@ -171,6 +157,10 @@ button.btn.save {
     background-color: #26C5B3 !important;
 }
 
+button.btn.confirm {
+    background-color: #26C5B3 !important;
+}
+
 button.btn.cancel {
     background-color: #A5B0AF !important;
 }
@@ -183,4 +173,20 @@ input.label {
     border-radius: 9px;
     height: 25px;
     border: 1px solid #C4C4C4;
+}
+
+.all-users {
+    overflow-y: scroll;
+    height: 450px;
+}
+
+.usernames {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.invite {
+    justify-content: space-between;
+    margin-right: 10px;
 }

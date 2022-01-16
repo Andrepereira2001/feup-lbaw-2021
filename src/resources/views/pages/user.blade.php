@@ -38,12 +38,11 @@
         @endif
         <div class="userInfo" id="view">
             <form class="info">
-                <?php
-                    if ($user->image_path != "./img/default") {
-                       echo '<img src=' . asset($user->image_path) . ' class="profilePhoto" >';
-                    }
-                    else echo '<span class="profilePhoto"></span>';
-                ?>
+                @if($user->image_path != "./img/default")
+                    <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
+                @else
+                    <span class="span profilePhoto">{{$user->name[0]}}</span>
+                @endif
                 <div class="writtenInfo">
                     <section>
                         <div class="full">

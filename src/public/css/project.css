@@ -573,14 +573,6 @@
     color: black;
 }
 
-#project-details .user .profilePhoto {
-    width: 70px;
-    height: 70px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
-}
-
 #project-details .user img,
 #project-details .user span {
     border-radius: 50%;
@@ -711,14 +703,6 @@
     color: black;
 }
 
-#project-create .user .profilePhoto {
-    width: 70px;
-    height: 70px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
-}
-
 #project-create .user img,
 #project-create .user span {
     border-radius: 50%;
@@ -837,14 +821,6 @@
     color: black;
 }
 
-#project-edit .user .profilePhoto {
-    width: 70px;
-    height: 70px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
-}
-
 #project-edit .user img,
 #project-edit .user span {
     border-radius: 50%;
@@ -897,5 +873,3 @@
     border-radius: 10px;
     cursor: default;
 }
-
-p

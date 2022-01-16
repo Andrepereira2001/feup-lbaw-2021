@@ -46,7 +46,7 @@
       <div class="content">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
         @if ($isCoordinator && $project->archived_at == null)
-            <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }}></button>
+            <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }} width="50px"></button>
         @endif
       </div>
     </div>
@@ -55,7 +55,7 @@
         <div class="content">
             @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
             @if($isCoordinator && $project->archived_at == null)
-                <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }}></button>
+                <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }} width="50px"></button>
             @endif
         </div>
     </div>
@@ -64,7 +64,7 @@
         <div class="content">
             @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
             @if($isCoordinator && $project->archived_at == null)
-                <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img src={{ asset('img/add.png') }}></button>
+                <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img src={{ asset('img/add.png') }} width="50px"></button>
             @endif
         </div>
     </div>

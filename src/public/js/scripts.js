@@ -780,34 +780,29 @@ function projectUserAddSearchChangeHandler() {
     });
 
 
-    let body = document.querySelector('#invite-member .modal-body');
+    let body = document.querySelector('#invite-member .modal-body .all-users');
     users.map((user) => {
         let user_invite = document.createElement('div');
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
+        console.log(user);
+        if(user.image_path !== "./img/default"){
+            user_invite.innerHTML =`
+                <div class="usernames">
+                    <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
+                    <a href="/users/${user.id}/profile">${user.name}</a>
+                </div>
+                <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        }
 
-        // if(user.image_path !== "./img/default"){
-        //     console.log("entrie");
-        //     user_invite.innerHTML = `
-
-        //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-        //     <a href="/users/${user.id}/profile/">${user.name}</a>
-        //     <a href="/users/${user.id}/profile/">${user.name}</a>
-        //     <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-        // }
-        // else{
-        user_invite.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${user.id}/profile/">${user.name}</a>
-        <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
-        //}
-
-
-        // user_invite.innerHTML = `
-
-        //     <img src="https://picsum.photos/200" alt="User image" width="70px">
-        //      <a href="/users/${user.id}/profile/">${user.name}</a>
-        //      <button type="button" class="btn confirm" data-id=${user.id}>Invite</button>`;
+        else {
+            user_invite.innerHTML =`
+                <div class="usernames">
+                    <span class="profilePhoto"></span>
+                    <a href="/users/${user.id}/profile">${user.name}</a>
+                </div>
+                <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
+        }
 
         let invite = user_invite.querySelector('button.confirm');
         invite.addEventListener('click', sendInviteRequest);

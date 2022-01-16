@@ -9,10 +9,12 @@
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="30px"> </label>
                 <input class= "search" type="text" data-id={{$project_id}} name="search" placeholder="Search for User"/>
             </div>
-            @each('partials.user_invite', $users, 'user')
+            <div class="all-users">
+                @each('partials.user_invite', $users, 'user')
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn cancel" data-dismiss="modal">OK</button>
+            <button type="button" class="btn confirm" data-dismiss="modal">OK</button>
             <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
         </div>
       </div>
