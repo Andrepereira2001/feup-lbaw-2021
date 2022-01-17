@@ -37,7 +37,7 @@
     <main>
       <section id="static">
         <header>
-            <a href="/"><img src={{ asset('img/logo_sem_letras.png') }}></a>
+            <a href="/"><img alt="Logo" src={{ asset('img/logo_sem_letras.png') }}></a>
             <section class="buttons">
                 <a class="button" href="/about">about</a>
                 <a class="button" href="/services">services</a>

@@ -11,19 +11,19 @@
         <div id="sidenav" class="sidenav">
             <div id="sidenavleft" class="sidenavleft">
                 <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Profile" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="{{$selected}}">
                 <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Notifications" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
                 <a data-toggle="modal" data-target="#delete">Delete Profile
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Delete" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
                 <a data-toggle="modal" data-target="#logout">Logout
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
         <div class="notifications-info">

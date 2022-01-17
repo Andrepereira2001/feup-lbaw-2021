@@ -27,11 +27,11 @@
     <div id="sidenav" class="sidenav">
         <div id="sidenavleft" class="{{$selected}}">
             <a  href="/tasks/{{$task->id}}" id="view">Task Details
-            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+            <img alt="Task Details" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
         <div id="sidenavleft" class="sidenavleft">
             <a href="/projects/{{$task->id_project}}" id="notification">Project Page
-            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+            <img alt="Project" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
     </div>
 

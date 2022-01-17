@@ -26,7 +26,7 @@
                 <input type="hidden" name="user-id[]">
                 <div class="content">
                     {{-- @include('partials.user', ['user' => $user]) --}}
-                    <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
+                    <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign Member" src={{ asset('img/add.png') }}></button>
                 </div>
             </div>
             <div class="coordinator-buttons">

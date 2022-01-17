@@ -1,10 +1,10 @@
 # PA: Product and Presentation
 
-> Project vision.
+With the development of toEaseManage we intend to create a useful and acessible platform that helps users to organize projects as well as grow as web developers throughout the curricular unit. The website is for everyone, it can be used personally, for business, school, or even among friends.
 
 ## A9: Product
 
-> Brief presentation of the product developed.  
+This artefact has the final version of product developed. All features implemented are identified below as well as the main usage, administration credentials and application help. 
 
 ### 1. Installation
 
@@ -19,16 +19,16 @@
 
 > Administration URL: URL  
 
-| Username | Password |
-| -------- | -------- |
-| admin    | password |
+| Email | Password |
+| ----- | -------- |
+| admin@admin.com | 123456 |
 
 #### 2.2. User Credentials
 
-| Type          | Username  | Password |
+| Type          | Email  | Password |
 | ------------- | --------- | -------- |
-| basic account | user 1    | password |
-| news editor   | user 1    | password |
+| Coordinator/Member | sbennallck2@is.gd | 123456 |
+| Member | mferries0@yellowpages.com | 123456 |
 
 ### 3. Application Help
 

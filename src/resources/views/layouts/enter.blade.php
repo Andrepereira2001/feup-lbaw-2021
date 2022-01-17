@@ -36,7 +36,7 @@
   <body>
     <main>
       <header>
-        <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
+        <h1><a href="/users"><img alt="Logo" src={{ asset('img/logo.png') }} width="250px"></a></h1>
 
       </header>
       <section id="content">

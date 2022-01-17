@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="logo1">
-    <img src={{asset("./img/logo_sem_letras.png")}} class="logo" >
+    <img alt="Logo" src={{asset("./img/logo_sem_letras.png")}} class="logo" >
     <form id="resetPassword" method="POST" action="{{ route('resetPassword') }}">
         {{ csrf_field() }}
         <div class="loginPhoto1">
-            <img src={{asset("./img/loginPhoto.png")}} class="loginPhoto" >
+            <img alt="Logo" src={{asset("./img/loginPhoto.png")}} class="loginPhoto" >
         </div>
         <span class="textRecover">Insert a new password<br/>for your account</span>
 
