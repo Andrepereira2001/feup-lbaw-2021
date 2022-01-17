@@ -34,7 +34,7 @@
             <div class="assigned">
                 <span>Assigned To</span>
                 <div class="content">
-                  @each('partials.user_remove', $task->user()->get() , 'user')
+                  @each('partials.user_remove', ['action' => "Remove", 'user' => $task->user()->get()])
                 </div>
             </div>
             <div class="labels">
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="buttons">
+            <div class="coordinator-buttons">
                 <button class="save" type="submit">Save</button>
                 <a href="/tasks/{{$task->id}}" class="cancel">Cancel</a>
             </div>

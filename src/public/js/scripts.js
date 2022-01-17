@@ -45,7 +45,7 @@ function addEventListeners() {
         search.addEventListener('input', projectSearchTaskChange);
     });
 
-    let projectRemoveMember = document.querySelectorAll('#project-edit .user.remove button');
+    let projectRemoveMember = document.querySelectorAll('#project-edit .info-remove.user button');
     [].forEach.call(projectRemoveMember, function(user) {
         user.addEventListener('click', projectRemoveMemberRequest);
     });
@@ -96,7 +96,7 @@ function addEventListeners() {
         taskComplete.addEventListener('click', sendCompleteTaskRequest);
     }
 
-    let taskRemoveMember = document.querySelectorAll('#task-edit .user.remove button');
+    let taskRemoveMember = document.querySelectorAll('#task-edit .info-remove.user button');
     [].forEach.call(taskRemoveMember, function(user) {
         user.addEventListener('click', taskRemoveMemberRequest);
     });
@@ -703,7 +703,7 @@ function addCoordinatorHandler() {
     else {
         coordinator.innerHTML =`
             <div class="usernames">
-                <span class="profilePhoto">${user.name[0]}</span>
+                <span class="span profilePhoto">${user.name[0]}</span>
                 <a href="/users/${user.id}/profile">${user.name}</a>
             </div>`;
     }
@@ -969,7 +969,7 @@ function createTaskAssignHandler(event) {
     input.value = id_user
 
     let user = document.querySelector('#task-create .user[data-id="' + id_user + '"]').cloneNode(true);
-    // user.remove();
+
     user.querySelector('button').remove();
 
     let body = document.querySelector('#task-create .coordinators .content');

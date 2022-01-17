@@ -1,35 +1,38 @@
 @extends('layouts.app')
+<?php
+    $projectColor = "{$project->color}cc";
+?>
 
 <style>
-    #project-edit.id-{{$project->id}} .content{
-        border-color: {{$project->color}};
+    #project-edit.id-{{$project->id}} .content-inside {
+        border-color: {{$projectColor}};
     }
 
-    #project-edit.id-{{$project->id}} .info{
-        background-color: {{$project->color}};
+    #project-edit.id-{{$project->id}} .info-created {
+        background-color: {{$projectColor}};
     }
 </style>
 @section('content')
     <section id="project-edit" class="id-{{$project->id}}" data-id={{$project->id}} >
         <form class="edit">
 
-            <div class="info">
+            <div class="info-created">
                 <input class="name" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
                 <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$project->description}}">
                 <input class="color" type="color" name="color" value={{$project->color}}>
             </div>
 
             <div class="coordinators">
-                <span>Coordinators</span>
-                <div class="content">
+                <span class="section-title">Coordinators</span>
+                <div class="content-inside">
                   @each('partials.user_decrease', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
                 </div>
             </div>
 
             @if (!empty($project->users()->wherePivot("role","Member")->get()[0]))
                 <div class="members">
-                    <span>Members</span>
-                    <div class="content">
+                    <span class="section-title">Members</span>
+                    <div class="content-inside">
                         @each('partials.user_remove', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
                     </div>
                 </div>
@@ -37,16 +40,16 @@
 
             @if (!empty($project->labels()->orderBy('id')->get()[0]))
                 <div class="labels">
-                    <span>Labels</span>
-                    <div class="content">
+                    <span class="section-title">Labels</span>
+                    <div class="content-inside">
                         @each('partials.label_remove', $project->labels()->orderBy('id')->get(), 'label')
                     </div>
                 </div>
             @endif
 
-            <div class="buttons">
-                <button class="save" type="submit">Save</button>
-                <a href="/projects/{{$project->id}}/details" class="cancel">Cancel</a>
+            <div class="coordinator-buttons">
+                <button class="btn save" type="submit">Save</button>
+                <a href="/projects/{{$project->id}}/details" class="btn cancel">Cancel</a>
             </div>
         </form>
     </section>

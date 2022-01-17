@@ -75,7 +75,7 @@
             </form>
         </div>
     </div>
-    <div class="buttons">
+    <div class="coordinator-buttons">
         @if($task->finished_at === null  && !Auth::guard('admin')->user())
             <a href="/tasks/{{$task->id}}/edit/" class="edit">Edit</a>
             <button type="button" class="complete">Complete</a>

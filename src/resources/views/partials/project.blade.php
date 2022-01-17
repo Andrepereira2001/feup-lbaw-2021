@@ -1,7 +1,11 @@
+<?php
+    $projectColor = "{$project->color}cc";
+?>
+
 <style>
 
 #projects article.project.id-{{$project->id}}{
-    background-color: {{$project->color}};
+    background-color: {{$projectColor}};
 }
 
 </style>

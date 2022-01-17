@@ -512,55 +512,15 @@
     background-color: rgba(165, 176, 175, 0.3);
 }
 
-#project-details .info {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    border-radius: 10px;
-    margin-top: 40px;
-    padding-bottom: 30px;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-}
-
-#project-details .info h1 {
+#project-details .info-created h1 {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.4);
     font-size: 2.3em;
 }
 
-#project-details .info span {
-    margin: 0px 10px 0px 10px;
-}
-
-#project-details .coordinators {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
-    margin: 10px;
-}
-
-#project-details .members {
-    grid-column: 1 / 3;
-    grid-row: 3 / 4;
-    margin: 10px;
-}
-
-#project-details .labels {
-    grid-column: 3 / 5;
-    grid-row: 2 / 4;
-    margin: 10px;
-}
-
-#project-details .content {
-    border: 3px solid;
-    border-radius: 10px;
-    display: flex;
-    flex-flow: column;
-    justify-content: start;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
-}
-
-#project-details .user {
-    display: flex;
-    align-items: center;
+#project-details .info-created span {
+    display: inline-block;
+    padding: 0px 10px;
 }
 
 #project-details .user a {
@@ -568,53 +528,8 @@
     color: black;
 }
 
-#project-details .user img,
-#project-details .user span {
-    margin: 10px;
-}
-
-#project-details .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-    margin-top: 40px;
-}
-
-#project-details .edit,
-#project-details button {
-    all: unset;
-    width: 100px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#project-details a.edit {
-    background-color: #26C5B3;
-}
-
-#project-details button.delete {
-    background-color: #A5B0AF;
-}
-
 #project-details button.leave {
     background-color: #C86660;
-    margin-bottom: 10px;
-}
-
-#project-details button.leave:hover,
-#project-details button.delete:hover,
-#project-details a.edit:hover {
-    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
 }
 
 #project-details .add {
@@ -622,18 +537,6 @@
     align-self: end;
     margin: 10px;
     cursor: pointer;
-}
-
-#project-details .section-title {
-    padding-left: 10px;
-}
-
-#project-details .labels .content span,
-.user .label-text {
-    background-color: rgb(211, 211, 211, 0.3);
-    padding: 10px;
-    border-radius: 10px !important;
-    cursor: default;
 }
 
 
@@ -703,24 +606,7 @@
     color: black;
 }
 
-#project-create .user img,
-#project-create .user span {
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#project-create .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-}
-
-#project-create button,
+/* #project-create button,
 #project-create a {
     all: unset;
     width: 100px;
@@ -729,20 +615,7 @@
     color: white;
     height: 30px;
     cursor: pointer;
-}
-
-#project-create .save {
-    background-color: #26C5B3;
-}
-
-#project-create .cancel {
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
+} */
 
 /* project-edit */
 
@@ -756,17 +629,12 @@
     border: 0;
 }
 
-#project-edit .info {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    border-radius: 10px;
+#project-edit .info-created {
     display: flex;
     flex-flow: column;
-    margin-top: 40px;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
-#project-edit .info .name {
+#project-edit .info-created .name {
     all: unset;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.4);
@@ -775,23 +643,17 @@
     padding: 0px 10px;
 }
 
-#project-edit .info input:focus {
+#project-edit .info-created input:focus {
     outline: none;
 }
 
-#project-edit .info .description {
+#project-edit .info-created .description {
     background-color: transparent;
     margin: 0px 10px 0px 10px;
 }
 
-#project-edit .info .color {
-    display: flex;
-    flex-flow: row;
+#project-edit .info-created .color {
     margin: 10px;
-}
-
-#project-edit .color {
-    margin: 20px;
 }
 
 #project-edit .coordinators {
@@ -806,18 +668,6 @@
     margin: 10px;
 }
 
-#project-edit .labels {
-    grid-column: 3 / 5;
-    grid-row: 2 / 4;
-    margin: 10px;
-}
-
-#project-edit .content {
-    border: 4px solid;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
-}
-
 #project-edit .user {
     display: flex;
     align-items: center;
@@ -829,60 +679,6 @@
     color: black;
 }
 
-#project-edit .user img,
-#project-edit .user span {
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#project-edit .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-}
-
-#project-edit button,
-#project-edit a {
-    all: unset;
-    width: 100px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    height: 30px;
-    cursor: pointer;
-}
-
-#project-edit button.save:hover,
-#project-edit a.cancel:hover {
-    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
-}
-
-#project-edit button.save {
-    background-color: #26C5B3;
-}
-
-#project-edit a.cancel {
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 #project-edit button.remove {
-    position: absolute;
     background-color: #C86660;
-    right: 20px;
-}
-
-#project-edit .labels .content span {
-    background-color: rgb(211, 211, 211, 0.3);
-    padding: 10px;
-    border-radius: 10px;
-    cursor: default;
 }

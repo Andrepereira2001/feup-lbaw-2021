@@ -287,7 +287,7 @@ insert into Participation (favourite, role, id_project, id_user) values (true, '
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Member', 30, 3);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 31, 3);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 32, 3);
-insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 3);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 33, 3);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 34, 4);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Member', 35, 5);
 insert into Participation (favourite, role, id_project, id_user) values (true, 'Coordinator', 36, 6);
@@ -356,6 +356,19 @@ insert into Participation (favourite, role, id_project, id_user) values (false, 
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Member', 49, 19);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 50, 30);
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 2, 10);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 34);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 35);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 36);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 37);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 38);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 39);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 40);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 44);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 45);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 46);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 47);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 48);
+insert into Participation (favourite, role, id_project, id_user) values (true, 'Member', 33, 49);
 
 
 insert into Participation (favourite, role, id_project, id_user) values (false, 'Coordinator', 4, 90);

@@ -14,9 +14,9 @@
                     @include('partials.user', ['user' => $user])
                 </div>
             </div>
-            <div class="buttons">
-                <button class="save" type="submit">Save</button>
-                <a href="/users" class="cancel">Cancel</a>
+            <div class="coordinator-buttons">
+                <button class="btn save" type="submit">Save</button>
+                <a href="/users" class="btn cancel">Cancel</a>
             </div>
         </form>
     </section>

@@ -29,7 +29,7 @@
                     <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }}></button>
                 </div>
             </div>
-            <div class="buttons">
+            <div class="coordinator-buttons">
                 <button class="save" type="submit">Save</button>
                 <a href="/projects/{{ $project->id }}" class="cancel">Cancel</a>
             </div>

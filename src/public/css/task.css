@@ -65,7 +65,6 @@
 #task-details .labels {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
-    margin: 10px;
 }
 
 #task-details .comments {
@@ -82,41 +81,7 @@
     justify-content: start;
 }
 
-#task-details .user {
-    display: flex;
-    align-items: center;
-}
-
-#task-details .user a {
-    width: auto;
-    color: black;
-}
-
-#task-details .user.invite .profilePhoto {
-    width: 70px;
-    height: 70px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
-}
-
-#task-details .user img,
-#task-details .user span {
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#task-details .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-}
-
+/*
 #task-details .edit,
 #task-details button {
     all: unset;
@@ -129,7 +94,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 #task-details a.edit {
     background-color: #26C5B3;
@@ -165,8 +130,6 @@
 #task-details .forum .user-info {
     font-size: x-small;
     color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-flow: row;
     justify-content: start;
     align-items: center;
     gap: 20px;
@@ -220,13 +183,6 @@
 #task-details .new-message img {
     width: 25px;
     height: 25px;
-}
-
-#task-details .labels .content span {
-    background-color: rgb(211, 211, 211, 0.3);
-    padding: 10px;
-    border-radius: 10px;
-    cursor: default;
 }
 
 
@@ -353,46 +309,6 @@
     border-radius: 100%;
 }
 
-#task-create .user img,
-#task-create .user span {
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#task-create .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-}
-
-#task-create button,
-#task-create a {
-    all: unset;
-    width: 100px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    height: 30px;
-    cursor: pointer;
-}
-
-#task-create .save {
-    background-color: #26C5B3;
-}
-
-#task-create .cancel {
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 #task-create .add {
     all: unset;
     align-self: end;
@@ -499,7 +415,6 @@
 #task-edit .labels {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
-    margin: 10px;
 }
 
 #task-edit .comments {
@@ -524,49 +439,8 @@
     color: black;
 }
 
-#task-edit .user img {
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#task-edit .buttons {
-    grid-column: 4 / 5;
-    grid-row: 1 / 2;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
-}
-
-#task-edit button,
-#task-edit a {
-    all: unset;
-    width: 100px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    height: 30px;
-    cursor: pointer;
-}
-
-#task-edit .save {
-    background-color: #26C5B3;
-}
-
-#task-edit .cancel {
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 #task-edit button.remove {
     position: absolute;
     background-color: #C86660;
     right: 20px;
 }
-
-#c

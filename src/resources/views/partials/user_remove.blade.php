@@ -1,10 +1,11 @@
-<div class="user remove" data-id={{$user->id}}>
-    <?php
-        if ($user->image_path != "./img/default") {
-            echo '<img src=' . asset($user->image_path) . ' alt="User image" width="70px" class="profilePhoto" >';
-        }
-        else echo '<span class="profilePhoto"></span>';
-    ?>
-    <a href="/users/{{$user->id}}/profile">{{ $user->name }}</a>
+<div class="info-remove user" data-id={{$user->id}}>
+    <div class="user-info">
+        @if($user->image_path != "./img/default")
+            <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
+        @else
+            <span class="span profilePhoto">{{$user->name[0]}}</span>
+        @endif
+        <a href="/users/{{$user->id}}/profile">{{ $user->name }}</a>
+    </div>
     <button type="button" class="btn remove" data-id={{$user->id}}>Remove</button>
 </div>

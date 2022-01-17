@@ -100,12 +100,11 @@
     box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
 }
 
-button.btn.confirm,
-button.btn.save  {
+button.btn.confirm {
     background-color: #26C5B3 !important;
 }
 
-button.btn.cancel {
+button.btn.close {
     background-color: #A5B0AF !important;
 }
 
@@ -115,7 +114,7 @@ button.btn:hover {
 
 .all-users {
     overflow-y: scroll;
-    height: 450px;
+    max-height: 300px;
 }
 
 .usernames {

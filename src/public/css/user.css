@@ -175,7 +175,6 @@
     height: 30px;
     text-align: center;
     color: white;
-    background-color: rgba(38, 197, 179, 0.7);
     cursor: pointer;
 }
 
@@ -192,12 +191,7 @@
     width: 70px;
     height: 30px;
     color: white;
-    background-color: rgba(165, 176, 175, 0.7);
     cursor: pointer;
-}
-
-#user-edit .cancel:hover {
-    background-color: #A5B0AF;
 }
 
 #user-edit #error {

@@ -1,4 +1,4 @@
-<div class="user" data-id={{$user->id}}>
+<div class="user-info" data-id={{$user->id}}>
     @if($user->image_path != "./img/default")
         <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
     @else
