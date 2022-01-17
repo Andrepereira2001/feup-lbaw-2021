@@ -43,12 +43,6 @@
     gap: 8px;
 }
 
-#projects .order #search {
-    border-radius: 9px;
-    height: 25px;
-    border: 1px solid #C4C4C4;
-}
-
 #projects .order [type="radio"] {
     display: none;
 }
@@ -561,6 +555,7 @@
     display: flex;
     flex-flow: column;
     justify-content: start;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 #project-details .user {
@@ -575,9 +570,7 @@
 
 #project-details .user img,
 #project-details .user span {
-    border-radius: 50%;
     margin: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 #project-details .buttons {
@@ -588,6 +581,7 @@
     gap: 10px;
     justify-content: end;
     align-items: center;
+    margin-top: 40px;
 }
 
 #project-details .edit,
@@ -615,6 +609,12 @@
 #project-details button.leave {
     background-color: #C86660;
     margin-bottom: 10px;
+}
+
+#project-details button.leave:hover,
+#project-details button.delete:hover,
+#project-details a.edit:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
 }
 
 #project-details .add {
@@ -762,6 +762,8 @@
     border-radius: 10px;
     display: flex;
     flex-flow: column;
+    margin-top: 40px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 #project-edit .info .name {
@@ -770,6 +772,11 @@
     background-color: rgba(255, 255, 255, 0.4);
     font-size: 2.3em;
     line-height: 1.2;
+    padding: 0px 10px;
+}
+
+#project-edit .info input:focus {
+    outline: none;
 }
 
 #project-edit .info .description {
@@ -808,6 +815,7 @@
 #project-edit .content {
     border: 4px solid;
     border-radius: 10px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 #project-edit .user {
@@ -849,11 +857,16 @@
     cursor: pointer;
 }
 
-#project-edit .save {
+#project-edit button.save:hover,
+#project-edit a.cancel:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
+}
+
+#project-edit button.save {
     background-color: #26C5B3;
 }
 
-#project-edit .cancel {
+#project-edit a.cancel {
     background-color: lightgray;
     display: flex;
     justify-content: center;

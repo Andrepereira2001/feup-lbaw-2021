@@ -35,15 +35,8 @@
     gap: 10px;
 }
 
-#assign-member .confirm,
-#invite-member .confirm,
-#add-coordinator .confirm,
-#leave-project .confirm,
-#delete-project .confirm,
-#logout .confirm,
-#delete-user .delete,
-#photo .confirm {
-    background-color: #26C5B3;
+#delete-user .delete
+ {
     border-radius: 50px;
     height: 30px;
     line-height: 17px;
@@ -53,22 +46,6 @@
 
 #delete-user .delete {
     background-color: #C86660;
-}
-
-#assign-member .cancel,
-#invite-member .cancel,
-#add-coordinator .cancel,
-#leave-project .cancel,
-#delete-project .cancel,
-#logout .cancel,
-#delete-user .cancel,
-#photo .cancel {
-    background-color: #A5B0AF;
-    border-radius: 50px;
-    color: white;
-    height: 30px;
-    text-align: center;
-    line-height: 17px;
 }
 
 .modal-body {
@@ -101,38 +78,8 @@
     gap: 10px;
 }
 
-#assign-member .confirm,
-#invite-member .confirm,
-#add-coordinator .confirm,
-#leave-project .confirm,
-#delete-project .confirm,
-#logout .confirm,
-#delete-user .delete {
-    background-color: #26C5B3;
-    border-radius: 50px;
-    height: 30px;
-    line-height: 17px;
-    text-align: center;
-    color: white;
-}
-
 #delete-user .delete {
     background-color: #C86660;
-}
-
-#assign-member .cancel,
-#invite-member .cancel,
-#add-coordinator .cancel,
-#leave-project .cancel,
-#delete-project .cancel,
-#logout .cancel,
-#delete-user .cancel {
-    background-color: #A5B0AF;
-    border-radius: 50px;
-    color: white;
-    height: 30px;
-    text-align: center;
-    line-height: 17px;
 }
 
 .modal-body {
@@ -153,11 +100,8 @@
     box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
 }
 
-button.btn.save {
-    background-color: #26C5B3 !important;
-}
-
-button.btn.confirm {
+button.btn.confirm,
+button.btn.save  {
     background-color: #26C5B3 !important;
 }
 
@@ -167,12 +111,6 @@ button.btn.cancel {
 
 button.btn:hover {
     box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%) !important;
-}
-
-input.label {
-    border-radius: 9px;
-    height: 25px;
-    border: 1px solid #C4C4C4;
 }
 
 .all-users {

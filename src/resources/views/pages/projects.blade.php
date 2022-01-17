@@ -5,11 +5,11 @@
 @section('content')
 
 <section id="projects">
-    <form class="search">
+    <form class="search-tab">
         <div class="order">
             <div>
                 <label for = "search"> <img src={{ asset('img/lupa.png') }} width="20px"> </label>
-                <input type="text" id="search" class="search-tab" name="search" placeholder="Search for Project" value="{{$search}}"/>
+                <input type="text" id="search" class="search" name="search" placeholder="Search for Project" value="{{$search}}"/>
             </div>
 
             <div>

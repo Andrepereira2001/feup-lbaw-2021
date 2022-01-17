@@ -238,10 +238,8 @@ class ProjectController extends Controller
      * @return Project The project created.
      */
     public function editShow(Request $request, $id){
-
         $project = Project::find($id);
         $this->authorize('edit', $project);
-
         return view('pages.project_edit', ['project' => $project]);
     }
 
