@@ -45,7 +45,6 @@
     <div class="done-box">
       <h2>DONE</h2>
       <ul class="tasksDone">
-        {{-- !!! to change to Done --}}
         @each('partials.taskDone', $tasksDone, 'task')
       </ul>
     </div>
@@ -57,7 +56,7 @@
         </ul>
         @if($project->archived_at == null)
             <form class="new-message" data-id={{ Auth::user()->id}}>
-                <input type="text" class="search-tab" name="content" placeholder="Message">
+                <input type="text" class="search" name="content" placeholder="Message">
                 <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
             </form>
         @endif
