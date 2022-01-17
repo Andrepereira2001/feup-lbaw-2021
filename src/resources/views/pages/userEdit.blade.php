@@ -12,19 +12,19 @@
         <div id="sidenav" class="sidenav">
             <div id="sidenavleft" class="{{$selected}}">
                 <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Profile" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
                 <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Notifications" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
                 <a data-toggle="modal" data-target="#delete">Delete Profile
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Delete Account" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
             <div id="sidenavleft" class="sidenavleft">
                 <a data-toggle="modal" data-target="#logout">Logout
-                <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
         <div class="userInfo" id="edit">
@@ -35,7 +35,7 @@
                     @else
                         <span class="span profilePhoto">{{$user->name[0]}}</span>
                     @endif
-                    <img src={{ asset('img/editBlue.png') }} data-toggle="modal" data-target="#photo" class="editIconBlue">
+                    <img alt="Edit image" src={{ asset('img/editBlue.png') }} data-toggle="modal" data-target="#photo" class="editIconBlue">
                 </a>
                 <section class="writtenInfo">
                     <div>

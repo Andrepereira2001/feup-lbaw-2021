@@ -12,26 +12,26 @@
             <div id="sidenav" class="sidenav">
                 <div id="sidenavleft" class="{{$selected}}">
                     <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
-                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                    <img alt="Profile" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
                     <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
-                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                    <img alt="Notifications" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
                     <a data-toggle="modal" data-target="#delete-user">Delete Profile
-                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                    <img alt="Delete Account" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
                 <div id="sidenavleft" class="sidenavleft">
                     <a data-toggle="modal" data-target="#logout">Logout
-                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                    <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
             </div>
         @elseif (Auth::guard('admin')->user())
             <div id="sidenav" class="sidenav">
                 <div id="sidenavleft" class="sidenavleft">
                     <a data-toggle="modal" data-target="#delete-user">Delete Profile
-                    <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+                    <img alt="Delete" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
         <div class="userInfo" id="view">
             <form class="info">
                 @if($user->image_path != "./img/default")
-                    <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
+                    <img alt="User Image" src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
                 @else
                     <span class="span profilePhoto">{{$user->name[0]}}</span>
                 @endif
@@ -60,7 +60,7 @@
                     </div>
                     @if (Auth::user() && Auth::user()->id == $user->id)
                         <div>
-                            <a href="/users/{{$user->id}}/update"><img src={{ asset('img/edit.png') }} class="editIcon"></a>
+                            <a href="/users/{{$user->id}}/update"><img alt="Edit" src={{ asset('img/edit.png') }} class="editIcon"></a>
                         </div>
 
                     @endif

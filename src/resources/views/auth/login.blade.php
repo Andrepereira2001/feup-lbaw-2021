@@ -13,15 +13,15 @@
 @endif
 
 <div class="logo1">
-    <img src={{"./img/logo_sem_letras.png"}} class="logo" >
+    <img alt="Logo" src={{"./img/logo_sem_letras.png"}} class="logo" >
     <form id="login" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
         <div class="loginPhoto1">
-            <img src={{"./img/loginPhoto.png"}} class="loginPhoto" >
+            <img alt="Logo" src={{"./img/loginPhoto.png"}} class="loginPhoto" >
         </div>
         <div class="loginEmail">
             <input id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
-            <img src={{"./img/loginUser.png"}} class="loginUser" >
+            <label for="email"><img alt="User" src={{"./img/loginUser.png"}} class="loginUser" ></label>
 
 
             @if ($errors->has('email'))
@@ -33,7 +33,7 @@
 
         <div class="loginPassword">
             <input id="password" type="password" name="password" placeholder="Password" required>
-            <img src={{"./img/loginPassword.png"}} class="loginPasswordImg" >
+            <label for="password"><img alt="Password" src={{"./img/loginPassword.png"}} class="loginPasswordImg" ></label>
 
         @if ($errors->has('password'))
             <span class="error">

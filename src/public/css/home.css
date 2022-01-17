@@ -672,7 +672,7 @@
 #login .loginButton,
 #register .registerButton,
 #resetPassword .resetButton {
-    all: unset;
+    border: none;
     cursor: pointer;
     border-radius: 5px;
     width: 275px;

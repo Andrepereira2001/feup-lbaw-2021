@@ -31,7 +31,7 @@
       <div class="todo-search">
         <h2>TO-DO</h2>
         <form>
-          <label for="task-search"> <img src={{ asset('img/lupa.png') }}> </label>
+          <label for="task-search"> <img alt="Search" src={{ asset('img/lupa.png') }}> </label>
           <input type="text" id="task-search" name="search" placeholder="Search for Task"/>
         </form>
       </div>
@@ -39,12 +39,13 @@
         @each('partials.task', $tasksTodo, 'task')
       </ul>
       @if(Auth::user() && $project->archived_at == null)
-        <a href="/projects/{{$project->id}}/tasks" class="add-task"><img src={{ asset('img/add.png') }} width="30px"></a>
+        <a href="/projects/{{$project->id}}/tasks" class="add-task"><img alt="Add task" src={{ asset('img/add.png') }} width="30px"></a>
       @endif
     </div>
     <div class="done-box">
       <h2>DONE</h2>
       <ul class="tasksDone">
+        {{-- !!! to change to Done --}}
         @each('partials.taskDone', $tasksDone, 'task')
       </ul>
     </div>
@@ -56,8 +57,8 @@
         </ul>
         @if($project->archived_at == null)
             <form class="new-message" data-id={{ Auth::user()->id}}>
-                <input type="text" class="search" name="content" placeholder="Message">
-                <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
+                <input type="text" class="search-tab" name="content" placeholder="Message">
+                <button class="submit" type="submit"><img alt="Send message" src={{ asset('img/send.png') }}></button>
             </form>
         @endif
       </div>

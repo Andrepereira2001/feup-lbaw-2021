@@ -31,16 +31,16 @@
     <div id="sidenav" class="sidenav">
         <div id="sidenavleft" class="{{$selected}}">
             <a  href="/projects/{{$project->id}}/details" id="view">Project Details
-            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+            <img alt="Details" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
         <div id="sidenavleft" class="sidenavleft">
             <a href="/projects/{{$project->id}}" id="notification">Project Page
-            <img src={{ asset('img/arrow.png') }} class="arrow"></a>
+            <img alt="Project" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
     </div>
 
     <div class="info-created">
-        <h1 class="name-proj">{{ $project->name }}</h1>
+        <h1>{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>
     </div>
 
@@ -49,7 +49,7 @@
       <div class="content-inside">
         @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
         @if ($isCoordinator && $project->archived_at == null)
-            <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img src={{ asset('img/add.png') }} width="30px"></button>
+            <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img alt="Add Coordinator" src={{ asset('img/add.png') }} width="30px"></button>
         @endif
       </div>
     </div>
@@ -60,7 +60,7 @@
             <div class="content-inside">
                 @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
                 @if($isCoordinator && $project->archived_at == null)
-                    <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img src={{ asset('img/add.png') }} width="30px"></button>
+                    <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img alt="Invite Member" src={{ asset('img/add.png') }} width="30px"></button>
                 @endif
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="content-inside">
                 @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
                 @if($isCoordinator && $project->archived_at == null)
-                    <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img src={{ asset('img/add.png') }} width="30px"></button>
+                    <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img alt="Add Labels" src={{ asset('img/add.png') }} width="30px"></button>
                 @endif
             </div>
         </div>

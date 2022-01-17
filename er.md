@@ -106,6 +106,7 @@ In the following tables we present the user stories for the actors described abo
 | US3.11 | Browse the Project Forum | medium | As a Member, I want to be able to navigate in the project forum so that I can be part of current discussions |
 | US3.12 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
 | US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
+| US3.14 | Assign Label to Task | low | As a Member, I want to assign labels of my project to a task, so that I can identify the tasks with labels |
 > Table 5: Member User Stories
 
 #### 2.4. Coordinator
@@ -118,6 +119,8 @@ In the following tables we present the user stories for the actors described abo
 | US4.4 | Archive Project | high | As a Coordinator, I want store all data relative to the project, so that I can safely record finished projects|
 | US4.5 | Invite Users | low | As a Coordinator, I want to invite other persons to my project by email , so that I can have more members in my project|
 | US4.6 | Manage Members Permissions | low | As a Coordinator, I want manage project Members permissions, so that I can control what members can manage|
+| US4.7 | Create Label | low | As a Coordinator, I want to create new labels for my project, so that I can assign them to tasks |
+| US4.8 | Delete Label | low | As a Coordinator, I want to delete existing labels of my project, so that I remove them from the project development |
 > Table 6: Coordinator User Stories
 
 #### 2.5. PostAuthor
@@ -247,6 +250,9 @@ Changes made to the first submission:
 4. Search in sitemap
 5. Footer on the wireframe
 6. Search in project wireframe
+
+17/01/2022
+1. Added user stories of labels
 
 ---
 

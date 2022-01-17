@@ -71,16 +71,69 @@ This artefact has the final version of product developed. All features implement
 > The owner of the user story should have the name in **bold**.
 > This table should be updated when a user story is completed and another one started. 
 
+
 | US Identifier | Name    | Module | Priority                       | Team Members               | State  |
-| ------------- | ------- | ------ | ------------------------------ | -------------------------- | ------ |
-|  US01          | US Name 1 | Module A | High/Mandatory | **John Silva**, Ana Alice   |  100%  |
-|  US02          | US Name 2 | Module A | Medium/Important | **Ana Alice**, John Silva                 |   75%  | 
-|  US03          | US Name 3 | Module B | Low/Optional | **Francisco Alves**                 |   5%  | 
-|  US04          | US Name 4 | Module A | Low/Optional | -                 |   0%  | 
+| - | - | - | - | - | - |
+| US0.1 | See Home | M07: Static Pages | high | Beatriz Santos, Ricardo Ferreira | 100% |
+| US0.2 | See About| M07: Static Pages | high | Ricardo Ferreira | 100% |
+| US0.3 | Consult Contacts | M07: Static Pages | medium | Ricardo Ferreira | 100% |
+| US0.4 | Consult Services | M07: Static Pages | medium | Ricardo Ferreira | 100% |
 
 
----
+| US1.1 | Sign-in | M01: Authentication and Individual Profile | high | Beatriz Santos | 100% |
+| US1.2 | Sign-up | M01: Authentication and Individual Profile | high | Beatriz Santos | 100% |
+| US1.3 | OAuth API Sign-up | M01: Authentication and Individual Profile | very low | 
+| US1.4 | OAuth API Sign-in | M01: Authentication and Individual Profile | very low |
 
+| US2.1 | Create projects | M02: Project | high | Matilde Oliveira | 100% |
+| US2.2 | View projects | M02: Project | high | André Pereira, Beatriz Santos | 100% |
+| US2.3 | Mark project as favorite | M02: Project | high | André Pereira | 100% |
+| US2.4 | Logout | high | Beatriz Santos | 100% |
+| US2.5 | Delete account | high | Beatriz Santos, André Pereira | 100% |
+| US2.6 | View profile | high | Beatriz Santos | 100% |
+| US2.7 | Edit profile | high | Beatriz Santos | 100% |
+| US2.8 | Upload Profile Pictures | high | André Pereira, Beatriz Santos | 100% |
+| US2.9 | View notifications | M05: Invites and Notifications | high | Beatriz Santos | 100% |
+| US2.10 | Appeal for unblock | high | | 0% |
+| US2.11 | Receive Notifications | M05: Invites and Notifications | high | Beatriz Santos | 100% |
+| US2.12 | Accept project invitations | M05: Invites and Notifications | high | Ricardo Ferreira, Beatriz Santos | 100% |
+| US2.13 | Project Invitation | M05: Invites and Notifications | low | Ricardo Ferreira | 100% |
+| US2.14 | Order Project | M02: Project | low | André Pereira | 100% |
+
+| US3.1 | Create Tasks | high | Matilde Oliveira | 100% |
+| US3.2 | Manage Tasks | high | Matilde Oliveira | 100% |
+| US3.3 | Assign Tasks | high | André Pereira | 100% |
+| US3.4 | View Tasks | high | Matilde Oliveira | 100% |
+| US3.5 | Comment Tasks | high | Matilde Oliveira | 100% |
+| US3.6 | Complete Tasks | high | Matilde Oliveira | 100% |
+| US3.7 | Search Tasks | high | André Pereira | 100% |
+| US3.8 | Leave Project | M02: Project | high | André Pereira | 100% |
+| US3.9 | View Project Details | M02: Project | high | Matilde Oliveira | 100% |
+| US3.10 | View Team Profiles | high | André Pereira, Matilde Oliveira | 100% |
+| US3.11 | Browse the Project Forum | medium | Matilde Oliveira | 50% |
+| US3.12 | Post messages to Project Forum | medium | Matilde Oliveira | 100% |
+| US3.13 | View Project Timeline | medium | Matilde Oliveira | 100% |
+| US3.14 | Assign Label to Task | low | Matilde Oliveira, Beatriz Santos | 100% |
+
+| US4.1 | Assign Coordinator | high | André Pereira | 100% |
+| US4.2 | Edit Project Details | high | André Pereira, Beatriz Santos | 100% |
+| US4.3 | Remove Member | high | André Pereira | 100% |
+| US4.4 | Archive Project | high | André Pereira, Matilde Oliveira | 100% |
+| US4.5 | Invite Users | M05: Invites and Notifications | low | André Pereira | 100% |
+| US4.6 | Manage Members Permissions | low | 0% |
+| US4.7 | Create Label | low | Matilde Oliveira, Beatriz Santos | 100% |
+| US4.8 | Delete Label | low | Matilde Oliveira, Beatriz Santos | 100% |
+
+| US5.1 | Edit Post | low | 0% |
+| US5.2 | Delete Post | low | 0% |
+
+| US6.1 | Login Admin Account | high | André Pereira | 100% |
+| US6.2 | Administer User | high | André Pereira | 100% |
+| US6.3 | Block User | high |  André Pereira | 100% |
+| US6.4 | Unblock User | high |  André Pereira | 100% |
+| US6.5 | Delete User | high |  André Pereira | 100% |
+| US6.6 | Browse Projects | high | André Pereira | 100% |
+| US6.7 | View Project | high | André Pereira | 100% |
 
 ## A10: Presentation
  

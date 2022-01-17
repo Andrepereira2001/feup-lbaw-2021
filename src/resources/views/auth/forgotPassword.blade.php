@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="logo1">
-    <img src={{"./img/logo_sem_letras.png"}} class="logo" >
+    <img alt="Logo" src={{"./img/logo_sem_letras.png"}} class="logo" >
     <form id="forgotPassword" method="POST" action="{{ route('recoverPassword') }}">
         {{ csrf_field() }}
         <div class="loginPhoto1">
-            <img src={{"./img/loginPhoto.png"}} class="loginPhoto" >
+            <img alt="Logo" src={{"./img/loginPhoto.png"}} class="loginPhoto" >
         </div>
         <span class="textRecover">Insert the email associated<br/>to your account</span>
         @if($errors->has('status'))
@@ -16,6 +16,7 @@
             </div>
         @else
             <div class="sendEmail">
+                <label for="email" style="display:none">Email</label>
                 <input id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
                 <button type="submit">Send</button>
 

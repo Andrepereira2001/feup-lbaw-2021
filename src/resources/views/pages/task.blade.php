@@ -50,7 +50,7 @@
       <div class="content">
           @each('partials.user', $task->user()->get()  , 'user')
           @if ($task->finished_at == null && !Auth::guard('admin')->user())
-            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img src={{ asset('img/add.png') }} width="30px"></button>
+            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign member" src={{ asset('img/add.png') }} width="30px"></button>
           @endif
       </div>
     </div>
@@ -59,7 +59,7 @@
         <div class="content">
             @each('partials.label', $task->labels()->orderBy('id')->get() , 'label')
             @if ($task->finished_at == null && !Auth::guard('admin')->user())
-                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img src={{ asset('img/add.png') }} width="30px"></button>
+                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img alt="Assing label" src={{ asset('img/add.png') }} width="30px"></button>
             @endif
         </div>
     </div>
@@ -71,7 +71,7 @@
             </ul>
             <form class="new-message" data-id={{ Auth::user()->id}}>
                 <input type="text" name="content" placeholder="New Comment">
-                <button class="submit" type="submit"><img src={{ asset('img/send.png') }}></button>
+                <button class="submit" type="submit"><img alt="Send Comment" src={{ asset('img/send.png') }}></button>
             </form>
         </div>
     </div>

@@ -37,15 +37,15 @@
   <body>
     <main>
       <header id="header">
-        <h1><a href="/users"><img src={{ asset('img/logo.png') }} width="250px"></a></h1>
+        <h1><a href="/users"><img alt="Logo" src={{ asset('img/logo.png') }} width="250px"></a></h1>
         @if (Auth::check())
         <section class="buttons">
-            <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img src={{ asset('img/notification.png') }} width="25px"></a>
+            <a class= "notification" href="/users/{{Auth::user()->id}}/notifications"><img alt="Logo" src={{ asset('img/notification.png') }} width="25px"></a>
 
             <a href="/users/{{Auth::user()->id}}/profile">
                 <?php
                     if (Auth::user()->image_path != "./img/default") {
-                        echo '<img src=' . asset(Auth::user()->image_path) . ' class="profilePhoto" >';
+                        echo '<img alt="Profile Image" src=' . asset(Auth::user()->image_path) . ' class="profilePhoto" >';
                     }
                     else echo '<span class="smallIcon">' . Auth::user()->name[0] . '</span>';
                 ?>

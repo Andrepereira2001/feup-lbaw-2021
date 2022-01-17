@@ -12,8 +12,11 @@
         <span class="textRecover">Insert a new password<br/>for your account</span>
 
         <div class="sendEmail">
+            <label for="password" style="display:none">Password</label>
             <input id="password" type="password" name="password" placeholder="Password" required autofocus>
+            <label for="passwordConfirm" style="display:none">Password Confirm</label>
             <input id="passwordConfirm" type="password" name="passwordConfirm" placeholder="Confirm password" required autofocus>
+            <label for="token" style="display:none">Token</label>
             <input id="token" type="hidden" name="token" value={{$token}}>
 
         @if ($errors->has('email'))
