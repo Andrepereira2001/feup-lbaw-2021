@@ -40,7 +40,7 @@
     </div>
 
     <div class="info-created">
-        <h1>{{ $project->name }}</h1>
+        <h1 class="name-proj">{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>
     </div>
 

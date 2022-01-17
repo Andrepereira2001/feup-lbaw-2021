@@ -25,11 +25,6 @@
     width: 100%;
 }
 
-.selected-view,
-.selected-edit {
-    background-color: rgba(165, 176, 175, 0.3);
-}
-
 #user .info,
 #user-edit .info {
     display: flex;

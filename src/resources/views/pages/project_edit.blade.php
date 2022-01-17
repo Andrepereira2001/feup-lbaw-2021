@@ -17,8 +17,8 @@
         <form class="edit">
 
             <div class="info-created">
-                <input class="name" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
-                <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$project->description}}">
+                <input class="name-proj" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
+                <input class="description-proj" type="text" placeholder="Add a description..." name="description" value="{{$project->description}}">
                 <input class="color" type="color" name="color" value={{$project->color}}>
             </div>
 
