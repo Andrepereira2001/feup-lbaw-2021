@@ -8,7 +8,7 @@
             </div>
         </div>
         @if($forumMessage->user->image_path != "./img/default")
-        <img src="{{asset($forumMessage->user->image_path)}}" alt="User image" width="70px" class="profilePhoto" >
+        <img src="{{asset($forumMessage->user->image_path)}}" alt="User image" width="70" class="profilePhoto" >
         @else
             <span class="profilePhoto"></span>
         @endif
@@ -16,7 +16,7 @@
 @else
 <li class="forumMessage">
         @if($forumMessage->user->image_path != "./img/default")
-            <img src="{{asset($forumMessage->user->image_path)}}" alt="User image" width="70px" class="profilePhoto" >
+            <img src="{{asset($forumMessage->user->image_path)}}" alt="User image" width="70" class="profilePhoto" >
         @else
             <span class="profilePhoto"></span>
         @endif

@@ -40,7 +40,7 @@
         @each('partials.task', $tasksTodo, 'task')
       </ul>
       @if(Auth::user() && $project->archived_at == null)
-        <a href="/projects/{{$project->id}}/tasks" class="add-task"><img alt="Add task" src={{ asset('img/add.png') }} width="30px"></a>
+        <a href="/projects/{{$project->id}}/tasks" class="add-task"><img alt="Add task" src={{ asset('img/add.png') }} width="30"></a>
       @endif
     </div>
     <div class="done-box">

@@ -69,7 +69,7 @@
 
     @if ((!$isCoordinator && !empty($project->labels()->orderBy('id')->get()[0])) || $isCoordinator)
         <div class="labels">
-            <span class="section-title">Labels<img src={{asset("./img/help.png")}} width="20px"><span class="help-labels">You can define labels inside your project, so that the project members can identify tasks by a meaningful label that describes a group of tasks.</span></span>
+            <span class="section-title">Labels<img src={{asset("./img/help.png")}} width="20"><span class="help-labels">You can define labels inside your project, so that the project members can identify tasks by a meaningful label that describes a group of tasks.</span></span>
             <div class="content-inside">
                 @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
                 @if($isCoordinator && $project->archived_at == null)

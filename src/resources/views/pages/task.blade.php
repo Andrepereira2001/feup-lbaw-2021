@@ -52,7 +52,7 @@
       <div class="content">
           @each('partials.user', $task->user()->get()  , 'user')
           @if ($task->finished_at == null && !Auth::guard('admin')->user())
-            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign member" src={{ asset('img/add.png') }} width="30px"></button>
+            <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign member" src={{ asset('img/add.png') }} width="30"></button>
           @endif
       </div>
     </div>
@@ -61,7 +61,7 @@
         <div class="content">
             @each('partials.label', $task->labels()->orderBy('id')->get() , 'label')
             @if ($task->finished_at == null && !Auth::guard('admin')->user())
-                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img alt="Assing label" src={{ asset('img/add.png') }} width="30px"></button>
+                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img alt="Assing label" src={{ asset('img/add.png') }} width="30"></button>
             @endif
         </div>
     </div>

@@ -61,7 +61,9 @@ class ProjectController extends Controller
             $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
         }
         $noMembers = User::whereDoesntHave('projects', function($p) use($id){
-            $p->where('participation.id_project',$id);;
+            $p->where('participation.id_project',$id);
+        })->whereDoesntHave('invites', function($p) use($id){
+            $p->where('id_project',$id);
         })->get();
 
         return view('pages.project_details', ['project' => $project, 'isCoordinator' => $isCoordinator, 'noMembers' => $noMembers, 'selected' => "selected-view"]);

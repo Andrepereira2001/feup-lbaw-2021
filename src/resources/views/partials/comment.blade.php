@@ -1,6 +1,6 @@
 <li class="comment">
     @if($comment->user->image_path != "./img/default")
-        <img src="{{asset($comment->user->image_path)}}" alt="User image" width="70px" class="profilePhoto" >
+        <img src="{{asset($comment->user->image_path)}}" alt="User image" width="70" class="profilePhoto" >
     @else
         <span class="profilePhoto"></span>
     @endif

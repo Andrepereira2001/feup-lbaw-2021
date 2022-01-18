@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div>
-                <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} width="30px"> </label>
+                <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} width="30"> </label>
                 <input class= "search" type="text" data-id={{$project_id}} name="search" placeholder="Search for User"/>
             </div>
             <div class="all-users">

@@ -4,12 +4,10 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Project;
-use App\Models\Participation;
-use App\Models\Label;
+
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
+
 
 class ProjectPolicy
 {

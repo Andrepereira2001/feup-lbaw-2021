@@ -47,7 +47,9 @@
             <div class="comments">
                 <span>Comments</span>
                 <div class="content">
-                    @each('partials.comment', $task->taskComments()->orderBy('id')->get(), 'comment')
+                    <ul class="forum">
+                        @each('partials.comment', $task->taskComments()->orderBy('id')->get(), 'comment')
+                    </ul>
                 </div>
             </div>
 

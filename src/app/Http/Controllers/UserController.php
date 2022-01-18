@@ -100,6 +100,8 @@ class UserController extends Controller
         else if($notInProject){
             $users = User::whereDoesntHave('projects', function($p) use($notInProject){
                 $p->where('participation.id_project',$notInProject);
+            })->whereDoesntHave('invites', function($p) use($notInProject){
+                $p->where('id_project',$notInProject);
             });
         }
         else{

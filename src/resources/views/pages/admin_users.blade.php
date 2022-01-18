@@ -8,7 +8,7 @@
     <!-- Button trigger modal -->
     <div class="search-container">
         <input class= "search" type="text" name="search" placeholder="User name..."/>
-        <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} width="30px"> </label>
+        <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} width="30"> </label>
     </div>
 
     <div class="sidenav">
