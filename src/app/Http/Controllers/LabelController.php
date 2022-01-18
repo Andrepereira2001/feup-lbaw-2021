@@ -11,6 +11,8 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskLabel;
 
+use App\Http\Controllers\Response;
+
 class LabelController extends Controller
 {
     /**
@@ -38,21 +40,22 @@ class LabelController extends Controller
      */
     public function create(Request $request)
     {
-        error_log($request);
+
       $label = new Label();
 
-      //$project = Project::find($request->input('projectId'));
+      $project = Project::find($request->input('projectId'))->labels()->where('name', $request->name)->first();
+      if($project){
+          return "Label already exists";
+      } else {
+        //$this->authorize('create', $project);
 
-      //$this->authorize('create', $project);
+        $label->name = $request->name;
+        $label->id_project = $request->projectId;
 
-      //error_log("entrei--------------------------------------------------------------------------------");
+        $label->save();
 
-      $label->name = $request->name;
-      $label->id_project = $request->projectId;
-
-      $label->save();
-
-      return $label;
+        return $label;
+      }
     }
 
     /**

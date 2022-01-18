@@ -8,18 +8,18 @@
     <form class="search-tab">
         <div class="order">
             <div>
-                <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} width="20px"> </label>
+                <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} > </label>
                 <input type="text" id="search" class="search" name="search" placeholder="Search for Project" value="{{$search}}"/>
             </div>
 
             <div>
                 <input type="radio" id = "alphabetic" name="order" value="name" {{$name}}/>
-                <label for= "alphabetic" class="button_projects"> <img alt="Alphabetic sort" src={{ asset('img/sort-az.png') }} width="20px"> </label>
+                <label for= "alphabetic" class="button_projects"> <img alt="Alphabetic sort" src={{ asset('img/sort-az.png') }} > </label>
             </div>
 
             <div>
                 <input type="radio" id = "creation" name="order" value="created_at" {{$created_at}}/>
-                <label for= "creation" class="button_projects"> <img alt="Date sort" src={{ asset('img/recent.png') }} width="20px"> </label>
+                <label for= "creation" class="button_projects"> <img alt="Date sort" src={{ asset('img/recent.png') }} > </label>
             </div>
 
             <button type="submit" >Search</button>

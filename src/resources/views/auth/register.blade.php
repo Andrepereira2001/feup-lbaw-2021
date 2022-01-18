@@ -48,6 +48,4 @@
         <span class="loginHereSpan"> Already have an account? <a class="loginHere" href="{{ route('login') }}"> Login here</a></span>
     </form>
 </div>
-
-</form>
 @endsection

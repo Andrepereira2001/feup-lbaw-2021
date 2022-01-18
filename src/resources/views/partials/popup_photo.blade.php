@@ -6,7 +6,7 @@
                 <div class="modal-body">
                     <a class="userIcon">
                         @if($user->image_path != "./img/default")
-                        <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
+                        <img id="output" src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
                         @else
                             <span class="span profilePhoto">{{$user->name[0]}}</span>
                         @endif

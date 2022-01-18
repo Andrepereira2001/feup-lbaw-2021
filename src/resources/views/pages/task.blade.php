@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+
+@section('content')
+
 <style>
 
     #task-details.id-{{$task->id}} .content{
@@ -11,8 +15,6 @@
     }
 
 </style>
-
-@section('content')
 
 <?php
     $date = "";
@@ -40,7 +42,7 @@
         <div class="box-descript">
             <span class="description">{{ $task->description }}</span>
             <div class="config">
-                <span class="date" type="date">Due Date: {{$date }}</span>
+                <span class="date">Due Date: {{$date }}</span>
                 <span class="priority">Priority: {{ $task->priority }}</span>
             </div>
         </div>
@@ -77,8 +79,8 @@
     </div>
     <div class="coordinator-buttons">
         @if($task->finished_at === null  && !Auth::guard('admin')->user())
-            <a href="/tasks/{{$task->id}}/edit/" class="edit">Edit</a>
-            <button type="button" class="complete">Complete</a>
+            <a href="/tasks/{{$task->id}}/edit/" class="btn edit">Edit</a>
+            <button type="button" class="btn complete">Complete</button>
         @endif
     </div>
   </section>

@@ -35,8 +35,7 @@
     gap: 10px;
 }
 
-#delete-user .delete
- {
+#delete-user .delete {
     border-radius: 50px;
     height: 30px;
     line-height: 17px;
@@ -117,11 +116,12 @@ button.btn:hover {
     max-height: 300px;
 }
 
-.usernames {
+
+/* .usernames {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
+} */
 
 .invite {
     justify-content: space-between;

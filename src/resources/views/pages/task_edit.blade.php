@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('content')
+
 <style>
 
     #task-edit.id-{{$task->id}} .content{
@@ -12,7 +14,6 @@
 
 </style>
 
-@section('content')
     <section id="task-edit" class="id-{{$task->id}}" data-id={{$task->id}} >
         <form class="edit">
             <div class="info">
@@ -25,7 +26,7 @@
                             <input class="date" type="date" name="date" value="{{$task->due_date}}">
                         </div>
                         <div class="priority">
-                            <span>Priority:<span>
+                            <span>Priority:</span>
                             <input class="number" type="number" name="priority" value="{{$task->priority}}">
                         </div>
                     </div>
@@ -34,27 +35,25 @@
             <div class="assigned">
                 <span>Assigned To</span>
                 <div class="content">
-                  @each('partials.user_remove', ['action' => "Remove", 'user' => $task->user()->get()])
+                  @each('partials.user_remove', $task->user()->get(), 'user')
                 </div>
             </div>
             <div class="labels">
                 <span>Labels</span>
                 <div class="content">
-                    To be defined
-                    {{-- @each('partials.label', $task->labels()->orderBy('id')->get() , 'label') --}}
+                    @each('partials.label_remove', $task->labels()->orderBy('id')->get() , 'label')
                 </div>
             </div>
             <div class="comments">
                 <span>Comments</span>
                 <div class="content">
-                    TO BE DEFINED
-                    {{-- @each('partials.taskComment', $task->taskComments()->orderBy('id')->get(), 'taskComment') --}}
+                    @each('partials.taskComment', $task->taskComments()->orderBy('id')->get(), 'taskComment')
                 </div>
             </div>
 
             <div class="coordinator-buttons">
-                <button class="save" type="submit">Save</button>
-                <a href="/tasks/{{$task->id}}" class="cancel">Cancel</a>
+                <button class="btn save" type="submit">Save</button>
+                <a href="/tasks/{{$task->id}}" class="btn cancel">Cancel</a>
             </div>
         </form>
     </section>

@@ -32,7 +32,8 @@
 
 #projects .order button:hover {
     background: linear-gradient(180deg, rgba(196, 196, 196, 0) -210.81%, #C4C4C4 305.41%);
-    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
+    ;
 }
 
 #projects .order div {
@@ -145,6 +146,18 @@
 }
 
 #projects .project .content a {
+    margin-right: 10px;
+}
+
+#projects .project .content .help {
+    margin-right: 10px;
+}
+
+#projects .project .content .help-labels {
+    display: none;
+}
+
+#projects .project .content .help {
     margin-right: 10px;
 }
 
@@ -351,7 +364,6 @@
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-flow: column;
     padding-bottom: 15px;
 }
@@ -368,6 +380,7 @@
     width: 90%;
     display: flex;
     flex-flow: column;
+    height: 100%;
 }
 
 #project .forum-box .forum {
@@ -498,6 +511,7 @@
     height: 25px;
 }
 
+
 /* project-details */
 
 #project-details .info-created span {
@@ -512,6 +526,7 @@
     cursor: pointer;
 }
 
+
 /* project-create */
 
 #project-create .info-not-created {
@@ -522,6 +537,7 @@
     border: 4px solid lightgray;
     border-radius: 10px;
 }
+
 
 /* Project generals */
 
@@ -576,7 +592,8 @@
     margin: 10px;
 }
 
-.info-remove {
+.info-remove,
+.user.invite {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -619,4 +636,24 @@
 
 .section-title {
     padding-left: 10px;
+}
+
+.section-title img {
+    margin-left: 7.5px;
+}
+
+.section-title .help-labels {
+    display: none;
+}
+
+.section-title img:hover+.help-labels,
+#projects .project .content .help:hover+.help-labels {
+    display: block;
+    position: absolute;
+    width: 435px;
+    height: 75px;
+    background-color: #f8fafc;
+    border: 1px solid #dee2e6;
+    padding: 2.5px;
+    border-radius: 10px;
 }

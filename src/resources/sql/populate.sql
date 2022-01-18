@@ -1102,8 +1102,3 @@ insert into Invite (created_at, id_user, id_project) values ('2020-07-29', 28, 2
 insert into Invite (created_at, id_user, id_project) values ('2020-07-04', 29, 28);
 insert into Invite (created_at, id_user, id_project) values ('2020-08-22', 4, 29);
 insert into Invite (created_at, id_user, id_project) values ('2020-10-07', 4, 30);
-
-
-insert into Notification (content, created_at, id_project) values ('you have a notification', '2020-10-07', 3);
-
-insert into Seen (seen, id_user, id_notification) values (true, 3, 1);

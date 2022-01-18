@@ -81,6 +81,7 @@
     justify-content: start;
 }
 
+
 /*
 #task-details .edit,
 #task-details button {
@@ -437,10 +438,4 @@
 #task-edit .user a {
     width: auto;
     color: black;
-}
-
-#task-edit button.remove {
-    position: absolute;
-    background-color: #C86660;
-    right: 20px;
 }

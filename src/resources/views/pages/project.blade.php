@@ -1,26 +1,27 @@
 @extends('layouts.app')
 
 @section('title', $project->name)
-<?php
-    $projectColor = "{$project->color}40";
-?>
-<style>
-
-    #project.id-{{$project->id}} .todo-box{
-        background-color: {{$projectColor}};
-    }
-
-    #project.id-{{$project->id}} .done-box{
-        background-color: {{$projectColor}};
-    }
-
-    #project.id-{{$project->id}} .forum-box{
-        background-color: {{$projectColor}};
-    }
-
-</style>
 
 @section('content')
+
+  <?php
+      $projectColor = "{$project->color}40";
+  ?>
+  <style>
+
+      #project.id-{{$project->id}} .todo-box{
+          background-color: {{$projectColor}};
+      }
+
+      #project.id-{{$project->id}} .done-box{
+          background-color: {{$projectColor}};
+      }
+
+      #project.id-{{$project->id}} .forum-box{
+          background-color: {{$projectColor}};
+      }
+
+  </style>
 
   <section id="project" class="id-{{$project->id}}" data-id={{$project->id}}>
     <div class="title-box">

@@ -37,7 +37,7 @@
                     @endif
                     <img alt="Edit image" src={{ asset('img/editBlue.png') }} data-toggle="modal" data-target="#photo" class="editIconBlue">
                 </a>
-                <section class="writtenInfo">
+                <section class="Info">
                     <div>
                         <label for="name">Name</label>
                         <input class="focusName" id="name" type="text" name="name" value="{{$user->name}}"/>

@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="click" class="btn save" data-dismiss="modal">Save</button>
+            <button type="button" class="btn save" data-dismiss="modal">Save</button>
             <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
         </div>
       </div>

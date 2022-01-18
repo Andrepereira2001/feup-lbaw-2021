@@ -32,9 +32,8 @@
       <div class="submit">
         <input class="submit-button" type="submit" name="submit" value="Send">
       </div>
-    </div>
-  </form>
-
+    </form>
+  </div>
 </section>
 
 

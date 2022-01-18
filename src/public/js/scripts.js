@@ -129,6 +129,12 @@ function addEventListeners() {
         user.addEventListener('click', sendDeleteLabelRequest);
     });
 
+    let labelDeleterTask = document.querySelectorAll('#task-edit .labels .content .label .btn.remove');
+    console.log(labelDeleterTask);
+    [].forEach.call(labelDeleterTask, function(user) {
+        user.addEventListener('click', sendDeleteLabelRequest);
+    });
+
     /*--------------user------------*/
 
     let userEdit = document.querySelector('#user-edit form.info');
@@ -140,6 +146,10 @@ function addEventListeners() {
         val.addEventListener('click', sendDeleteUserRequest);
     });
 
+    let userImage = document.querySelector("#user-edit #photo #file");
+    if (userImage != null)
+        userImage.addEventListener('input', changePhotoUpload);
+
     /*--------------invite------------*/
 
     let projectUserAddSearch = document.querySelectorAll('#invite-member .search');
@@ -148,6 +158,7 @@ function addEventListeners() {
     });
 
     let userInvite = document.querySelectorAll('#invite-member button.confirm');
+
     [].forEach.call(userInvite, function(user) {
         user.addEventListener('click', sendInviteRequest);
     });
@@ -534,6 +545,11 @@ function sendDeleteUserRequest(event) {
     sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
 }
 
+function changePhotoUpload(event){
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+}
+
 /*--------------Invite------------*/
 
 function projectUserAddSearchChange(event) {
@@ -551,7 +567,7 @@ function sendInviteRequest(event) {
 
     let id_user = event.target.getAttribute('data-id');
     let id_project = this.closest('section').getAttribute('data-id');
-
+    console.log(id_user, id_project);
     sendAjaxRequest('post', '/api/invites', { id_user, id_project }, sendInviteHandler);
 }
 
@@ -682,27 +698,25 @@ function addCoordinatorHandler() {
     let element = document.querySelector('.user.invite[data-id="' + user.id + '"]');
     element.remove();
 
-    let member = document.querySelector('#project-details .members .user[data-id="' + user.id + '"]');
+    let member = document.querySelector('#project-details .members .user-info[data-id="' + user.id + '"]');
     member.remove();
 
-    let body = document.querySelector('#project-details .coordinators .content');
-    let button = document.querySelector('#project-details .coordinators .content button');
+    let body = document.querySelector('#project-details .coordinators .content-inside');
+    let button = document.querySelector('#project-details .coordinators .content-inside button');
 
     let coordinator = document.createElement('div');
-    coordinator.className = ('user');
+    coordinator.className = ('user-info');
     coordinator.setAttribute('data-id', user.id);
 
-    if(user.image_path !== "./img/default"){
-        coordinator.innerHTML =`
-            <div class="usernames">
+    if (user.image_path !== "./img/default") {
+        coordinator.innerHTML = `
+            <div class="user-info">
                 <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
                 <a href="/users/${user.id}/profile">${user.name}</a>
             </div>`;
-    }
-
-    else {
-        coordinator.innerHTML =`
-            <div class="usernames">
+    } else {
+        coordinator.innerHTML = `
+            <div class="user-info">
                 <span class="span profilePhoto">${user.name[0]}</span>
                 <a href="/users/${user.id}/profile">${user.name}</a>
             </div>`;
@@ -727,18 +741,16 @@ function projectCoordinatorAddSearchChangeHandler() {
         add_coordinator.className = ('user invite');
         add_coordinator.setAttribute('data-id', user.id);
 
-        if(user.image_path !== "./img/default"){
-            add_coordinator.innerHTML =`
-                <div class="usernames">
+        if (user.image_path !== "./img/default") {
+            add_coordinator.innerHTML = `
+                <div class="user-info">
                     <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
                     <a href="/users/${user.id}/profile">${user.name}</a>
                 </div>
                 <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-        }
-
-        else {
-            add_coordinator.innerHTML =`
-                <div class="usernames">
+        } else {
+            add_coordinator.innerHTML = `
+                <div class="user-info">
                     <span class="span profilePhoto">${user.name[0]}</span>
                     <a href="/users/${user.id}/profile">${user.name}</a>
                 </div>
@@ -767,18 +779,16 @@ function projectUserAddSearchChangeHandler() {
         user_invite.className = ('user invite');
         user_invite.setAttribute('data-id', user.id);
 
-        if(user.image_path !== "./img/default"){
-            user_invite.innerHTML =`
-                <div class="usernames">
+        if (user.image_path !== "./img/default") {
+            user_invite.innerHTML = `
+                <div class="user-info">
                     <img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" >
                     <a href="/users/${user.id}/profile">${user.name}</a>
                 </div>
                 <button type="button" class="btn confirm" data-id=${user.id}>Add</button>`;
-        }
-
-        else {
-            user_invite.innerHTML =`
-                <div class="usernames">
+        } else {
+            user_invite.innerHTML = `
+                <div class="user-info">
                     <span class="span profilePhoto">${user.name[0]}</span>
                     <a href="/users/${user.id}/profile">${user.name}</a>
                 </div>
@@ -793,11 +803,22 @@ function projectUserAddSearchChangeHandler() {
 }
 
 function sendInviteHandler() {
-    console.log(this.status);
-    if (this.status != 201) window.location = '/';
-    let invite = JSON.parse(this.responseText);
-    let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
-    element.remove();
+    let body = document.querySelector('#project-details .user');
+    let errorMessages = body.querySelector(".invite-error");
+    if(errorMessages !== null){
+        errorMessages.remove();
+    }
+    if (this.status === 200) {
+        errorMessage = document.createElement('span');
+        errorMessage.className = ('invite-error');
+        errorMessage.innerHTML = `Label already exists!`;
+        body.appendChild(errorMessage);
+    } else if (this.status != 201) window.location = '/';
+    else {
+        let invite = JSON.parse(this.responseText);
+        let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
+        element.remove();
+    }
 }
 
 function searchAcceptInviteHandler() {
@@ -1069,21 +1090,33 @@ function CommentAddedHandler() {
 
 function LabelAddedHandler() {
 
-    if (this.status != 201) window.location = '/';
+    let body = document.querySelector('#project-details .labels .content-inside');
+    let errorMessages = body.querySelector(".label-error");
+    if(errorMessages !== null){
+        errorMessages.remove();
+    }
+    if(this.status === 200){
+        errorMessage = document.createElement('span');
+        errorMessage.className = ('label-error');
+        errorMessage.innerHTML = `Label already exists!`;
+        body.appendChild(errorMessage);
+    } else if(this.status != 201) {
+        window.location = '/';
+    } else {
+        let label = JSON.parse(this.responseText);
 
-    let label = JSON.parse(this.responseText);
 
-    let body = document.querySelector('#project-details .labels .content');
-    let button = document.querySelector('#project-details .labels .content button');
+        let button = document.querySelector('#project-details .labels .content-inside button');
 
-    let labelHTML = document.createElement('div');
-    labelHTML.className = ('user');
-    labelHTML.setAttribute('data-id', label.id);
+        let labelHTML = document.createElement('div');
 
-    labelHTML.innerHTML = `<span>${label.name}</span>`;
+        labelHTML.className = ('label-info');
+        labelHTML.setAttribute('data-id', label.id);
 
-    body.insertBefore(labelHTML, button);
-
+        labelHTML.innerHTML = `<span class='label-text'>${label.name}</span>`;
+        console.log(labelHTML, body, button);
+        body.insertBefore(labelHTML, button);
+    }
 }
 
 function LabelAssignedHandler() {
@@ -1096,6 +1129,14 @@ function LabelAssignedHandler() {
 }
 
 function LabelDeletedHandler() {
+    if (this.status !== 200) {
+        window.location = '/';
+    }
+    let label = JSON.parse(this.responseText);
+    document.querySelector('#project-edit .labels .content .user[data-id="' + label + '"]').remove();
+}
+
+function LabelDeletedTaskHandler() {
     if (this.status !== 200) {
         window.location = '/';
     }
@@ -1222,4 +1263,4 @@ function notificationHandler() {
     }
 }
 
-addEventListeners();
+addEventListeners();addEventListeners();

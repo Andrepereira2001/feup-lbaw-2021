@@ -29,19 +29,27 @@ class InviteController extends Controller
      */
     public function create(Request $request)
     {
-      $invite = new Invite();
-
-
       Auth::check();
-      $invite->id_user = $request->id_user;
-      $invite->id_project = $request->id_project;
-      $invite->save();
-      $url = App::make('url')->to('login');
 
+      $checkInvite = Invite::where('id_user', $request->id_user)->where('id_project',$request->id_project)->first();
 
-        Mail::to(User::find($invite->id_user)->email)->send(new InviteMail($invite, $url));
+      if($checkInvite){
+        return "Invite already exists";
+      }
+      else {
+          $invite = new Invite();
 
-      return $invite;
+          $invite->id_user = $request->id_user;
+          $invite->id_project = $request->id_project;
+
+          $invite->save();
+
+          $url = App::make('url')->to('users/'. $invite->id_user .'/notifications');
+
+          Mail::to(User::find($invite->id_user)->email)->send(new InviteMail($invite, $url));
+
+          return $invite;
+      }
     }
 
     /**

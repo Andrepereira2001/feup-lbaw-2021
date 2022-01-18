@@ -78,13 +78,10 @@ This artefact has the final version of product developed. All features implement
 | US0.2 | See About| M07: Static Pages | high | Ricardo Ferreira | 100% |
 | US0.3 | Consult Contacts | M07: Static Pages | medium | Ricardo Ferreira | 100% |
 | US0.4 | Consult Services | M07: Static Pages | medium | Ricardo Ferreira | 100% |
-
-
 | US1.1 | Sign-in | M01: Authentication and Individual Profile | high | Beatriz Santos | 100% |
 | US1.2 | Sign-up | M01: Authentication and Individual Profile | high | Beatriz Santos | 100% |
 | US1.3 | OAuth API Sign-up | M01: Authentication and Individual Profile | very low | 
 | US1.4 | OAuth API Sign-in | M01: Authentication and Individual Profile | very low |
-
 | US2.1 | Create projects | M02: Project | high | Matilde Oliveira | 100% |
 | US2.2 | View projects | M02: Project | high | André Pereira, Beatriz Santos | 100% |
 | US2.3 | Mark project as favorite | M02: Project | high | André Pereira | 100% |

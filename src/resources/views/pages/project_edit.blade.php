@@ -1,18 +1,21 @@
 @extends('layouts.app')
+
+@section('content')
+
 <?php
-    $projectColor = "{$project->color}cc";
+$projectColor = "{$project->color}cc";
 ?>
 
 <style>
-    #project-edit.id-{{$project->id}} .content-inside {
-        border-color: {{$projectColor}};
-    }
+#project-edit.id-{{$project->id}} .content-inside {
+    border-color: {{$projectColor}};
+}
 
-    #project-edit.id-{{$project->id}} .info-created {
-        background-color: {{$projectColor}};
-    }
+#project-edit.id-{{$project->id}} .info-created {
+    background-color: {{$projectColor}};
+}
 </style>
-@section('content')
+
     <section id="project-edit" class="id-{{$project->id}}" data-id={{$project->id}} >
         <form class="edit">
 

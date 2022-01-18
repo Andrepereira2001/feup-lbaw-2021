@@ -39,7 +39,7 @@
         <div class="userInfo" id="view">
             <form class="info">
                 @if($user->image_path != "./img/default")
-                    <img alt="User Image" src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
+                    <img alt="User Image" src="{{asset($user->image_path)}}" width="55px" class="profilePhoto" >
                 @else
                     <span class="span profilePhoto">{{$user->name[0]}}</span>
                 @endif

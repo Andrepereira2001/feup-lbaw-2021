@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('title', $project->name)
+
+@section('content')
+
 <?php
     $projectColor = "{$project->color}cc";
 ?>
@@ -16,8 +19,6 @@
     }
 
 </style>
-
-@section('content')
 
 <section id="project-details" class="id-{{$project->id}}" data-id={{$project->id}}>
     @if (!Auth::guard('admin')->user())
@@ -40,7 +41,7 @@
     </div>
 
     <div class="info-created">
-        <h1>{{ $project->name }}</h1>
+        <h1 class="name-proj">{{ $project->name }}</h1>
         <span>{{ $project->description }}</span>
     </div>
 
@@ -68,7 +69,7 @@
 
     @if ((!$isCoordinator && !empty($project->labels()->orderBy('id')->get()[0])) || $isCoordinator)
         <div class="labels">
-            <span class="section-title">Labels</span>
+            <span class="section-title">Labels<img src={{asset("./img/help.png")}} width="20px"><span class="help-labels">You can define labels inside your project, so that the project members can identify tasks by a meaningful label that describes a group of tasks.</span></span>
             <div class="content-inside">
                 @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
                 @if($isCoordinator && $project->archived_at == null)

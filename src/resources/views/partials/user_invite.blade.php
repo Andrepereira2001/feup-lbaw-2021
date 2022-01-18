@@ -1,5 +1,5 @@
 <div class="user invite" data-id={{$user->id}}>
-    <div class="usernames">
+    <div class="user-info">
         @if($user->image_path != "./img/default")
         <img src="{{asset($user->image_path)}}" alt="User image" width="55px" class="profilePhoto" >
         @else
