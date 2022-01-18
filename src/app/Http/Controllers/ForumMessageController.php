@@ -17,14 +17,14 @@ class ForumMessageController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id,Request $request)
+    public function show($id)
     {
       $forumMessage = ForumMessage::find($id);
-      $project = Project::find($forumMessage->id_project);
 
       if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $forumMessage);
+        $this->authorize('member', Project::find($forumMessage->project->id));
       }
+
       return $forumMessage;
     }
 
@@ -35,6 +35,10 @@ class ForumMessageController extends Controller
      */
     public function create(Request $request)
     {
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', Project::find($request->projectId));
+        }
+
       $forumMessage = new ForumMessage();
 
       $forumMessage->id_project = $request->projectId;

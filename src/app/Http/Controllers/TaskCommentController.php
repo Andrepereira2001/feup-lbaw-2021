@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +21,9 @@ class TaskCommentController extends Controller
     public function show($id,Request $request)
     {
       $comment = TaskComment::find($id);
-      $task = Task::find($comment->id_task);
 
       if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $comment);
+        $this->authorize('member', Project::find($comment->task->project->id));
       }
 
       return $comment;
@@ -36,23 +36,19 @@ class TaskCommentController extends Controller
      */
     public function create(Request $request)
     {
-      $comment = new TaskComment();
+        $comment = new TaskComment();
 
-      //$project = Project::find($request->input('projectId'));
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', Project::find(Task::find($request->taskId)->project->id));
+        }
 
-      //$this->authorize('create', $project);
+        $comment->content = $request->content;
+        $comment->id_task = $request->taskId;
+        $comment->id_user = $request->userId;
 
-      error_log("entrei--------------------------------------------------------------------------------");
+        $comment->save();
 
-      $comment->content = $request->content;
-      $comment->id_task = $request->taskId;
-      $comment->id_user = $request->userId;
-
-      error_log("$comment->content--------------------------------------------------------------------------------");
-
-      $comment->save();
-
-      return $comment;
+        return $comment;
     }
 
 }

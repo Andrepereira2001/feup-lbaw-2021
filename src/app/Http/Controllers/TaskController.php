@@ -19,18 +19,16 @@ class TaskController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id,Request $request)
+    public function show($id)
     {
       $task = Task::find($id);
       $project = Project::find($task->id_project);
 
       if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $task);
+        $this->authorize('member', $project);
       }
 
       $labelInProject = $project ->labels()->get();
-
-      $taskLabels = TaskLabel::where('id_task', $id)->get();
 
       $notAssignedLabels = array();
 
@@ -54,7 +52,7 @@ class TaskController extends Controller
         $project = Project::find($project_id);
         $user = Auth::user();
         if(!Auth::guard('admin')->user()){
-            $this->authorize('create', $project);
+            $this->authorize('member', $project);
         }
 
         return view('pages.task_create', ['user' => $user, 'project' => $project]);
@@ -71,7 +69,9 @@ class TaskController extends Controller
 
       $project = Project::find($request->input('projectId'));
 
-      $this->authorize('create', $project);
+      if(!Auth::guard('admin')->user()){
+        $this->authorize('member', $project);
+    }
 
       $task->name = $request->input('name');
       $task->description = $request->input('description');
@@ -100,11 +100,12 @@ class TaskController extends Controller
      * @param  int  $id
      * @return Task The project created.
      */
-    public function editShow(Request $request, $id){
+    public function editShow($id){
 
         $task = Task::find($id);
+
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $task);
+            $this->authorize('member', Project::find($task->project->id));
         }
 
         return view('pages.task_edit', ['task' => $task]);
@@ -121,7 +122,7 @@ class TaskController extends Controller
 
         $task = Task::find($id);
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $task);
+            $this->authorize('member', Project::find($task->project->id));
         }
 
         if($request->name){
@@ -160,17 +161,13 @@ class TaskController extends Controller
      */
     public function complete(Request $request,$id){
 
-        error_log($request->today);
         $task = Task::find($id);
-        error_log($task->created_at);
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $task);
+            $this->authorize('member', Project::find($task->project->id));
         }
-        error_log("INNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+
         $task->finished_at = $request->today;
-        error_log($task->finished_at);
         $task->save();
-        error_log("oi");
 
         return $task;
     }
@@ -189,7 +186,7 @@ class TaskController extends Controller
 
         $task = new Task();
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $original);
+            $this->authorize('member', Project::find($original->project->id));
         }
         $task->id_project = $original->id_project;
 
@@ -217,9 +214,15 @@ class TaskController extends Controller
     }
 
     public function search(Request $request){
-        Auth::check();
-        $search = $request->search;
+
         $project = Project::find($request->project_id);
+
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', $project);
+        }
+
+        $search = $request->search;
+
         $finished = $request->finished;
         $tasks = $project->tasks();
 

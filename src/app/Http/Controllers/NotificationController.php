@@ -22,21 +22,19 @@ class NotificationController extends Controller
      */
     public function list($id)
     {
+        Auth::check();
         $user = User::find($id);
         $notifications = $user->notifications();
-        // if(!Auth::guard('admin')->user()){
-        //     // $this->authorize('show',$user);
-        // }
 
         return view('pages.user', ['notifications' => $notifications, 'view' => "View"]);
     }
 
     public function showNotifications($id)
     {
+        Auth::check();
+
         $user = User::find($id);
-        // if(!Auth::guard('admin')->user()){
-        //     $this->authorize('edit', $user);
-        // }
+
         $notifications = $user->notifications();
         $notifications = $notifications->orderBy("created_at", "DESC")->get();
         foreach ($notifications as &$not) {
@@ -49,6 +47,10 @@ class NotificationController extends Controller
 
     public function seen(Request $request)
     {
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('self', User::find($request->user_id));
+        }
+
         $seen = Seen::where('id_notification', $request->notification_id)->where('id_user', $request->user_id)->first();
 
         $seen->seen = true;

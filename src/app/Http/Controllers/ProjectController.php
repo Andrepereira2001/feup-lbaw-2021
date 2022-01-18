@@ -26,7 +26,7 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $project);
+            $this->authorize('show', $project);
         }
 
         $search = $request->input('search');
@@ -56,8 +56,8 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $isCoordinator = false;
 
-        if(Auth::guard('admin')->user() == null){
-            $this->authorize('show', $project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', $project);
             $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
         }
         $noMembers = User::whereDoesntHave('projects', function($p) use($id){
@@ -76,7 +76,6 @@ class ProjectController extends Controller
     public function list(Request $request){
 
         if (!Auth::check()) return redirect('/login');
-        $this->authorize('list', Project::class);
 
 
         $search = $request->input('search');
@@ -121,13 +120,6 @@ class ProjectController extends Controller
             $projects->orderBy($order);
         endif;
 
-        /*--Todo on click search--*/
-
-        // $favouriteProjects = $projects->wherePivot("favourite",true);
-        // $archivedProjects = $projects->whereNotNull("archived_at");
-        // $coordinatorProjects = $projects->wherePivot("role","Coordinator");
-        // $memberProjects = $projects->wherePivot("role","Member");
-
         $projects = $projects->get();
 
         return view('pages.projects', ['projects' => $projects, 'search' => $search /*, 'favouriteProjects'=> $favouriteProjects, 'archivedProjects'=> $archivedProjects, 'coordinatorProjects'=> $coordinatorProjects, 'memberProjects' => $memberProjects*/ ] + $checkbox);
@@ -154,8 +146,6 @@ class ProjectController extends Controller
         $project = new Project();
         $participation = new Participation();
 
-        $this->authorize('create', $project);
-
         $project->name = $request->input('name');
         $project->description = $request->input('description');
         $project->color = $request->input('color');
@@ -176,14 +166,14 @@ class ProjectController extends Controller
      * @return Project the project deleted
      */
     public function delete($id){
-      $project = Project::find($id);
+        $project = Project::find($id);
 
-      if(!Auth::guard('admin')->user()){
-        $this->authorize('delete', $project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', $project);
         }
-      $project->delete();
+        $project->delete();
 
-      return $project;
+        return $project;
     }
 
     /**
@@ -197,7 +187,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
 
         if(!Auth::guard('admin')->user()){
-            $this->authorize('participant', $project);
+            $this->authorize('member', $project);
         }
 
         $participation = Participation::where('id_project', $id)
@@ -222,7 +212,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
 
         if(!Auth::guard('admin')->user()){
-            $this->authorize('archive', $project);
+            $this->authorize('coordinator', $project);
         }
 
         $project->archived_at = date('Y-m-d h:i:sa');
@@ -237,9 +227,12 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return Project The project created.
      */
-    public function editShow(Request $request, $id){
+    public function editShow($id){
         $project = Project::find($id);
-        $this->authorize('edit', $project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', $project);
+        }
+
         return view('pages.project_edit', ['project' => $project]);
     }
 
@@ -253,7 +246,9 @@ class ProjectController extends Controller
     public function edit(Request $request,$id){
 
         $project = Project::find($id);
-        $this->authorize('edit', $project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', $project);
+        }
 
         $project->name = $request->name;
         $project->description = $request->description;
@@ -274,7 +269,9 @@ class ProjectController extends Controller
     public function leave($id){
         if (!Auth::check()) return redirect('/login');
         $project = Project::find($id);
-        $this->authorize('participant', $project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', $project);
+        }
 
         $participation = Participation::where('id_project', $id)
                                         ->where('id_user', Auth::user()->id)
@@ -305,7 +302,9 @@ class ProjectController extends Controller
 
         $project = Project::find($request->id_project);
 
-        $this->authorize('edit',$project);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', $project);
+        }
 
         $participation = Participation::where('id_project', $request->id_project)
                                         ->where('id_user', $request->id_user)
@@ -333,7 +332,9 @@ class ProjectController extends Controller
                                         ->where('id_user', $user_id)
                                         ->first();
 
-        //$this->authorize('participantControl', $participation);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', Project::find($id));
+        }
 
         if($participation->role == "Coordinator"){
             if(Participation::where('id_project', $id)->where("id_user", '!=', $user_id)->where("role","Coordinator")->first()){
@@ -361,8 +362,6 @@ class ProjectController extends Controller
     public function search(Request $request){
 
         if (!Auth::check()) return redirect('/login');
-        $this->authorize('list', Project::class);
-
 
         $search = $request->search;
         $order = $request->order;

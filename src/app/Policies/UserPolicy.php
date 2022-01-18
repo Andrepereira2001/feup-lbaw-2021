@@ -17,7 +17,7 @@ class UserPolicy
         return true;
     }
 
-    public function edit(User $logedUser, User $user)
+    public function self(User $logedUser, User $user)
     {
         return $logedUser->id == $user->id;
     }

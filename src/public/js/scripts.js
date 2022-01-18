@@ -130,7 +130,6 @@ function addEventListeners() {
     });
 
     let labelDeleterTask = document.querySelectorAll('#task-edit .labels .content .label .btn.remove');
-    console.log(labelDeleterTask);
     [].forEach.call(labelDeleterTask, function(user) {
         user.addEventListener('click', sendDeleteLabelRequest);
     });
@@ -486,6 +485,8 @@ function sendCreateCommentRequest(event) {
     let taskId = this.closest('section').getAttribute('data-id');
     let content = this.querySelector('input[name=content]').value;
     let userId = event.target.getAttribute('data-id');
+
+    //NOTA: não deixar enviar sem content, devia dar erro?
     if (content != '')
         sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
 }
@@ -545,7 +546,7 @@ function sendDeleteUserRequest(event) {
     sendAjaxRequest('delete', '/users/' + id, null, userDeletedHandler);
 }
 
-function changePhotoUpload(event){
+function changePhotoUpload(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
 }
@@ -805,7 +806,7 @@ function projectUserAddSearchChangeHandler() {
 function sendInviteHandler() {
     let body = document.querySelector('#project-details .user');
     let errorMessages = body.querySelector(".invite-error");
-    if(errorMessages !== null){
+    if (errorMessages !== null) {
         errorMessages.remove();
     }
     if (this.status === 200) {
@@ -1078,6 +1079,7 @@ function ForumMessageAddedHandler() {
 /*--------------Task Comment------------*/
 
 function CommentAddedHandler() {
+    console.log(this.responseText);
     const message = JSON.parse(this.responseText);
     if (this.status === 201) {
         window.location = '/tasks/' + message.id_task;
@@ -1114,7 +1116,6 @@ function LabelAddedHandler() {
         labelHTML.setAttribute('data-id', label.id);
 
         labelHTML.innerHTML = `<span class='label-text'>${label.name}</span>`;
-        console.log(labelHTML, body, button);
         body.insertBefore(labelHTML, button);
     }
 }

@@ -15,94 +15,87 @@ use App\Http\Controllers\Response;
 
 class LabelController extends Controller
 {
-    /**
-     * Shows the forumMessage for a given id.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id,Request $request)
-    {
-      $label = Label::find($id);
-      $project = Project::find($label->id_project);
+  /**
+   * Shows the forumMessage for a given id.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function show($id)
+  {
+    $label = Label::find($id);
+    $project = Project::find($label->id_project);
 
-      if(!Auth::guard('admin')->user()){
-        $this->authorize('show', $project);
-      }
+    if(!Auth::guard('admin')->user()){
+      $this->authorize('member', $project);
+    }
+
+    return $label;
+  }
+
+  /**
+   * Creates a new Label.
+   *
+   * @return Label The forumMessage created.
+   */
+  public function create(Request $request)
+  {
+
+    if(!Auth::guard('admin')->user()){
+        $this->authorize('coordinator', Project::find($request->input('projectId')));
+    }
+
+    $label = new Label();
+
+    $labels = Project::find($request->input('projectId'))->labels()->where('name', $request->name)->first();
+
+    if($labels){
+        return "Label already exists";
+    } else {
+
+      $label->name = $request->name;
+      $label->id_project = $request->projectId;
+
+      $label->save();
 
       return $label;
     }
+  }
 
-    /**
-     * Creates a new Label.
-     *
-     * @return Label The forumMessage created.
-     */
-    public function create(Request $request)
-    {
-
-      $label = new Label();
-
-      $project = Project::find($request->input('projectId'))->labels()->where('name', $request->name)->first();
-      if($project){
-          return "Label already exists";
-      } else {
-        //$this->authorize('create', $project);
-
-        $label->name = $request->name;
-        $label->id_project = $request->projectId;
-
-        $label->save();
-
-        return $label;
-      }
-    }
-
-    /**
-     * Creates a new forumMessage.
-     *
-     * @return Label The forumMessage created.
-     */
+  /**
+   * Creates a new forumMessage.
+   *
+   * @return Label The forumMessage created.
+   */
     public function assignToTask(Request $request)
     {
-      $label = Label::find($request->input('labelId'));
-      $task = Task::find($request->input('taskId'));
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('member', Project::find(Label::find($request->input('labelId'))->id_project));
+        }
 
-      error_log($label);
-      error_log($task);
+        $label = Label::find($request->input('labelId'));
+        $task = Task::find($request->input('taskId'));
 
-    //   $taskLabel = array('id_label' => $label->id, 'id_task' => $task->id);
-      error_log($label);
-      error_log($task);
-        // print_r($taskLabel);
-    //   TaskLabel::create($taskLabel);
-      $taskLabel = new TaskLabel;
+        $taskLabel = new TaskLabel;
 
-      $taskLabel->id_label =  $label->id;
+        $taskLabel->id_label =  $label->id;
 
-      $taskLabel->id_task =  $task->id;
-      $taskLabel->save();
+        $taskLabel->id_task =  $task->id;
+        $taskLabel->save();
 
-      error_log($label);
-      error_log($task);
-      error_log($taskLabel);
-
-      //$project = Project::find($request->input('projectId'));
-
-      //$this->authorize('create', $project);
-
-      //error_log("entrei--------------------------------------------------------------------------------");
-
-
-
-      return $taskLabel;
+        return $taskLabel;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-      $label = Label::find($id);
-      $label->delete();
-      return $id;
+
+        $label = Label::find($id);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', Project::find($label->id_project));
+        }
+
+        $label->delete();
+        return $id;
     }
 
 }

@@ -123,6 +123,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('edit', $user);
+        }
+
         $file = $request->file('image');
         $color = $request->color;
 

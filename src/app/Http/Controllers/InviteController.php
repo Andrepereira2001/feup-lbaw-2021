@@ -29,27 +29,29 @@ class InviteController extends Controller
      */
     public function create(Request $request)
     {
-      Auth::check();
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('coordinator', Project::find($request->id_project));
+        }
 
-      $checkInvite = Invite::where('id_user', $request->id_user)->where('id_project',$request->id_project)->first();
+        $checkInvite = Invite::where('id_user', $request->id_user)->where('id_project',$request->id_project)->first();
 
-      if($checkInvite){
-        return "Invite already exists";
-      }
-      else {
-          $invite = new Invite();
+        if($checkInvite){
+            return "Invite already exists";
+        }
+        else {
+            $invite = new Invite();
 
-          $invite->id_user = $request->id_user;
-          $invite->id_project = $request->id_project;
+            $invite->id_user = $request->id_user;
+            $invite->id_project = $request->id_project;
 
-          $invite->save();
+            $invite->save();
 
-          $url = App::make('url')->to('users/'. $invite->id_user .'/notifications');
+            $url = App::make('url')->to('users/'. $invite->id_user .'/notifications');
 
-          Mail::to(User::find($invite->id_user)->email)->send(new InviteMail($invite, $url));
+            Mail::to(User::find($invite->id_user)->email)->send(new InviteMail($invite, $url));
 
-          return $invite;
-      }
+            return $invite;
+        }
     }
 
     /**
@@ -61,6 +63,9 @@ class InviteController extends Controller
     public function accept($id){
 
         $invite = Invite::find($id);
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('self', User::find($invite->id_user));
+        }
 
         $participation = new Participation();
         $participation->id_user = $invite->id_user;
@@ -70,6 +75,12 @@ class InviteController extends Controller
         return $participation;
     }
 
+    /**
+     * Search for an Invite.
+     *
+     * @param  Request  request
+     *
+     */
     public function search(Request $request){
         $user_id = $request->id_user;
         $project_id = $request->id_project;
@@ -77,10 +88,20 @@ class InviteController extends Controller
         return $invite;
     }
 
+    /**
+     * Declines an Invite.
+     *
+     * @param
+     *
+     */
     public function delete($id){
         $invite = Invite::find($id);
-        $invite->delete();
 
+        if(!Auth::guard('admin')->user()){
+            $this->authorize('self', User::find($invite->id_user));
+        }
+
+        $invite->delete();
         return $invite;
-      }
+    }
 }
