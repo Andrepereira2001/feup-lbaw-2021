@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $user);
+            $this->authorize('self', $user);
         }
         $fname = strtok($user->name, " ");
         $lname = strrchr($user->name,' ');
@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $user);
+            $this->authorize('self', $user);
         }
 
         if ($request->input('password')) {
@@ -72,7 +72,7 @@ class UserController extends Controller
       $user = User::find($id);
 
       if(!Auth::guard('admin')->user()){
-        $this->authorize('delete', $user);
+        $this->authorize('self', $user);
         Auth::logout();
       }
 
@@ -126,7 +126,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if(!Auth::guard('admin')->user()){
-            $this->authorize('edit', $user);
+            $this->authorize('self', $user);
         }
 
         $file = $request->file('image');
