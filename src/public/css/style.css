@@ -157,7 +157,6 @@ input[type="color"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
@@ -185,7 +184,8 @@ input[type="color"] {
     font-weight: bold;
 }
 
-.search {
+.search,
+.message-input {
     border-radius: 9px;
     height: 25px;
     border: 1px solid #C4C4C4;
@@ -226,16 +226,19 @@ input[type="color"] {
 }
 
 .save,
-.btn.edit {
+.btn.edit,
+.confirm {
     background-color: #26C5B3;
 }
 
 .cancel,
-.delete {
+.delete,
+.close {
     background-color: lightgray;
 }
 
 .remove,
-.leave {
+.leave,
+.complete {
     background-color: #C86660;
 }

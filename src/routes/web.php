@@ -77,7 +77,7 @@ Route::post('labels/assign', 'LabelController@assignToTask'); //create label
 // Route::post('labels/{id}', 'LabelController@'); //edit label
 Route::delete('labels/{id}', 'LabelController@delete'); //delete label
 // Route::post('tasks/labels', 'LabelController@'); //edit label view if controller is right
-// Route::delete('tasks/labels', 'LabelController@delete'); //delete label
+Route::delete('tasks/labels/{id}', 'LabelController@deleteFromTask'); //delete label
 
 
 

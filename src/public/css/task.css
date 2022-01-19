@@ -1,39 +1,22 @@
 /* task-details */
 
-#task-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-}
-
-#task-details .selected-view {
-    background-color: rgba(165, 176, 175, 0.3);
-}
-
-#task-details .info {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-#task-details .info h1 {
+#task-details .info-created h1 {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-#task-details .info .box-descript {
+#task-details .info-created .box-descript {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: space-between;
 }
 
-#task-details .info .box-descript .description {
+#task-details .info-created .box-descript .description {
     margin-left: 10px;
 }
 
-#task-details .info .box-descript .config {
+#task-details .info-created .box-descript .config {
     margin-left: 10px;
     margin: 0px 10px 0px 10px;
     display: flex;
@@ -42,68 +25,39 @@
     width: 100%;
 }
 
-#task-details .info .box-descript .priority {
+#task-details .info-created .box-descript .priority {
     font-weight: bold;
     font-size: x-large;
     margin-right: 20px;
     align-self: end;
 }
 
-#task-details .info .box-descript .date {
+#task-details .info-created .box-descript .date {
     font-weight: bold;
     font-size: x-large;
     display: inline-flex;
     align-items: center;
 }
 
-#task-details .assigned {
+.task.assigned {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
     margin: 10px;
 }
 
-#task-details .labels {
+.task.labels {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
 }
 
-#task-details .comments {
+.task.comments {
     grid-column: 3 / 5;
     grid-row: 2 / 4;
     margin: 10px;
 }
 
-#task-details .content {
-    border: 4px solid;
-    border-radius: 10px;
-    display: flex;
-    flex-flow: column;
-    justify-content: start;
-}
-
-
-/*
-#task-details .edit,
-#task-details button {
-    all: unset;
-    width: 100px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
 #task-details a.edit {
     background-color: #26C5B3;
-}
-
-#task-details button.complete {
-    background-color: #C86660;
-    margin-bottom: 10px;
 }
 
 #task-details .add {
@@ -188,12 +142,6 @@
 
 
 /* project-create */
-
-#task-create form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-}
 
 #task-create input {
     border: 0;
@@ -324,45 +272,30 @@
 
 /* task-edit */
 
-#task-edit form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-}
-
 #task-edit input {
     border: 0;
 }
 
-#task-edit .info {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    border-radius: 10px;
-    margin: 10px;
-    display: flex;
-    flex-flow: column;
-}
-
-#task-edit .info .name {
+#task-edit .info-created .name {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.4);
     font-size: 2.3em;
     line-height: 1.2;
 }
 
-#task-edit .info .box-descript {
+#task-edit .info-created .box-descript {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: space-between;
 }
 
-#task-edit .info .box-descript .description {
+#task-edit .info-created .box-descript .description {
     margin: 0px 10px 20px 10px;
     background-color: transparent;
 }
 
-#task-edit .info .box-descript .config {
+#task-edit .info-created .box-descript .config {
     margin-left: 10px;
     margin: 0px 10px 0px 10px;
     background-color: transparent;
@@ -372,7 +305,7 @@
     width: 100%;
 }
 
-#task-edit .info .box-descript .priority {
+#task-edit .info-created .box-descript .priority {
     font-weight: bold;
     font-size: x-large;
     margin-right: 10px;
@@ -381,14 +314,14 @@
     flex-direction: row;
 }
 
-#task-edit .info .box-descript .due-date {
+#task-edit .info-created .box-descript .due-date {
     font-weight: bold;
     font-size: x-large;
     display: inline-flex;
     align-items: center;
 }
 
-#task-edit .info .box-descript .due-date input {
+#task-edit .info-created .box-descript .due-date input {
     all: unset;
     color: #212529;
     font-weight: medium;
@@ -399,29 +332,12 @@
     flex-direction: row-reverse;
 }
 
-#task-edit .info .box-descript .number {
+#task-edit .info-created .box-descript .number {
     all: unset;
     width: 35px;
     font-weight: bold;
     font-size: x-large;
     height: 20px;
-}
-
-#task-edit .assigned {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
-    margin: 10px;
-}
-
-#task-edit .labels {
-    grid-column: 1 / 3;
-    grid-row: 3 / 4;
-}
-
-#task-edit .comments {
-    grid-column: 3 / 5;
-    grid-row: 2 / 4;
-    margin: 10px;
 }
 
 #task-edit .content {

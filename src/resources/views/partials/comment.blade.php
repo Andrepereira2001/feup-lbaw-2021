@@ -2,7 +2,7 @@
     @if($comment->user->image_path != "./img/default")
         <img src="{{asset($comment->user->image_path)}}" alt="User image" width="70" class="profilePhoto" >
     @else
-        <span class="profilePhoto"></span>
+        <span class="span profilePhoto"></span>
     @endif
     <div class="message">
         <div class="user-info">

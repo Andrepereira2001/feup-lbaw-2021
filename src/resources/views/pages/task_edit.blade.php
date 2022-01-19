@@ -2,21 +2,25 @@
 
 @section('content')
 
+<?php
+    $projectColor = "{$task->project->color}cc";
+?>
+
 <style>
 
     #task-edit.id-{{$task->id}} .content{
-        border-color: {{$task->project->color}};
+        border-color: {{$projectColor}};
     }
 
-    #task-edit.id-{{$task->id}} .info{
-        background-color: {{$task->project->color}};
+    #task-edit.id-{{$task->id}} .info-created {
+        background-color: {{$projectColor}};
     }
 
 </style>
 
     <section id="task-edit" class="id-{{$task->id}}" data-id={{$task->id}} >
         <form class="edit">
-            <div class="info">
+            <div class="info-created">
                 <input class="name" type="text" placeholder="Task ..." name="name" size="30" value="{{$task->name}}">
                 <div class="box-descript">
                     <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$task->description}}">
@@ -32,26 +36,31 @@
                     </div>
                 </div>
             </div>
-            <div class="assigned">
+            <div class="task assigned">
                 <span>Assigned To</span>
                 <div class="content">
                   @each('partials.user_remove', $task->user()->get(), 'user')
                 </div>
             </div>
-            <div class="labels">
-                <span>Labels</span>
-                <div class="content">
-                    @each('partials.label_remove', $task->labels()->orderBy('id')->get() , 'label')
+            @if (!empty($task->labels()->orderBy('id')->get()[0]))
+                <div class="task labels">
+                    <span>Labels</span>
+                    <div class="content">
+                        @each('partials.label_remove', $task->labels()->orderBy('id')->get() , 'label')
+                    </div>
                 </div>
-            </div>
-            <div class="comments">
-                <span>Comments</span>
-                <div class="content">
-                    <ul class="forum">
-                        @each('partials.comment', $task->taskComments()->orderBy('id')->get(), 'comment')
-                    </ul>
+            @endif
+
+            @if (!empty($task->taskComments()->orderBy('id')->get()[0]))
+                <div class="task comments">
+                    <span>Comments</span>
+                    <div class="content">
+                        <ul class="forum">
+                            @each('partials.comment', $task->taskComments()->orderBy('id')->get(), 'comment')
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <div class="coordinator-buttons">
                 <button class="btn save" type="submit">Save</button>

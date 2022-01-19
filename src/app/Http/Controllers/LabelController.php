@@ -67,35 +67,49 @@ class LabelController extends Controller
    *
    * @return Label The forumMessage created.
    */
-    public function assignToTask(Request $request)
-    {
-        if(!Auth::guard('admin')->user()){
-            $this->authorize('member', Project::find(Label::find($request->input('labelId'))->id_project));
-        }
-
-        $label = Label::find($request->input('labelId'));
-        $task = Task::find($request->input('taskId'));
-
-        $taskLabel = new TaskLabel;
-
-        $taskLabel->id_label =  $label->id;
-
-        $taskLabel->id_task =  $task->id;
-        $taskLabel->save();
-
-        return $taskLabel;
+  public function assignToTask(Request $request)
+  {
+    if(!Auth::guard('admin')->user()){
+        $this->authorize('member', Project::find(Label::find($request->input('labelId'))->id_project));
     }
 
-    public function delete($id)
-    {
+    $label = Label::find($request->input('labelId'));
+    $task = Task::find($request->input('taskId'));
 
-        $label = Label::find($id);
-        if(!Auth::guard('admin')->user()){
-            $this->authorize('coordinator', Project::find($label->id_project));
-        }
+    $taskLabel = new TaskLabel;
 
-        $label->delete();
-        return $id;
+    $taskLabel->id_label =  $label->id;
+
+    $taskLabel->id_task =  $task->id;
+    $taskLabel->save();
+
+    return $label;
+  }
+
+  public function delete($id)
+  {
+    $label = Label::find($id);
+    if(!Auth::guard('admin')->user()){
+        $this->authorize('coordinator', Project::find($label->id_project));
     }
 
+    $label->delete();
+    return $id;
+  }
+
+
+  public function deleteFromTask($id, Request $request){
+    $label = Label::find($id);
+    if(!Auth::guard('admin')->user()){
+      $this->authorize('member', Project::find($label->id_project));
+    }
+    error_log("autorizei");
+
+    //$participation = Participation::where('id_project', $id)->where('id_user', Auth::user()->id)->first();
+    $taskLabel = TaskLabel::where('id_task', $request->taskId)->where('id_label', $label->id)->first();
+    error_log("$taskLabel _____________________________________________________________________");
+    $taskLabel->delete();
+
+    return $id;
+  }
 }

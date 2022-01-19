@@ -7,7 +7,7 @@
         <div class="modal-body">
             <div>
                 <label for="label"> Label name </label>
-                <input class="search" type="text" name="label"/>
+                <input class="message-input" type="text" name="label"/>
             </div>
         </div>
         <div class="modal-footer">

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\TaskComment;
+use App\Models\User;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class TaskCommentController extends Controller
 {
@@ -42,13 +44,19 @@ class TaskCommentController extends Controller
             $this->authorize('member', Project::find(Task::find($request->taskId)->project->id));
         }
 
+
+
         $comment->content = $request->content;
         $comment->id_task = $request->taskId;
         $comment->id_user = $request->userId;
 
         $comment->save();
 
-        return $comment;
+        $user = User::find($request->userId);
+
+        $response = [$comment, $user];
+
+        return $response;
     }
 
 }

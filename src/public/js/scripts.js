@@ -45,12 +45,12 @@ function addEventListeners() {
         search.addEventListener('input', projectSearchTaskChange);
     });
 
-    let projectRemoveMember = document.querySelectorAll('#project-edit .info-remove.user button');
+    let projectRemoveMember = document.querySelectorAll('#project-edit .members .info-remove.user button');
     [].forEach.call(projectRemoveMember, function(user) {
         user.addEventListener('click', projectRemoveMemberRequest);
     });
 
-    let projectRemoveCoordinator = document.querySelectorAll('#project-edit .user.decrease button');
+    let projectRemoveCoordinator = document.querySelectorAll('#project-edit .coordinators .info-remove.user button');
     [].forEach.call(projectRemoveCoordinator, function(user) {
         user.addEventListener('click', projectRemoveCoordinatorRequest);
     });
@@ -119,19 +119,23 @@ function addEventListeners() {
     if (labelCreator != null)
         labelCreator.addEventListener('click', sendCreateLabelRequest);
 
-    let labelAssigner = document.querySelectorAll('#assign-label .modal-body .btn.assign-label');
+    let labelCreatorCancel = document.querySelector('#add-label .modal-footer .btn.cancel');
+    if (labelCreatorCancel != null)
+    labelCreatorCancel.addEventListener('click', cleanCreateLabelInput);
+
+    let labelAssigner = document.querySelectorAll('#assign-label .modal-body .btn.confirm');
     [].forEach.call(labelAssigner, function(user) {
         user.addEventListener('click', sendAssignLabelRequest);
     });
 
-    let labelDeleter = document.querySelectorAll('#project-edit .labels .content .btn.remove');
+    let labelDeleter = document.querySelectorAll('#project-edit .labels .info-remove.label .btn.remove');
     [].forEach.call(labelDeleter, function(user) {
         user.addEventListener('click', sendDeleteLabelRequest);
     });
 
     let labelDeleterTask = document.querySelectorAll('#task-edit .labels .content .label .btn.remove');
     [].forEach.call(labelDeleterTask, function(user) {
-        user.addEventListener('click', sendDeleteLabelRequest);
+        user.addEventListener('click', sendDeleteLabelTaskRequest);
     });
 
     /*--------------user------------*/
@@ -195,6 +199,9 @@ function addEventListeners() {
     [].forEach.call(notification, function(id) {
         id.addEventListener('click', seeNotification);
     });
+
+    let scroll = document.querySelector('#task-details .task.comments .forum');
+    scroll.scrollTop = scroll.scrollHeight;
 }
 
 /*--------------Utils------------*/
@@ -486,7 +493,6 @@ function sendCreateCommentRequest(event) {
     let content = this.querySelector('input[name=content]').value;
     let userId = event.target.getAttribute('data-id');
 
-    //NOTA: não deixar enviar sem content, devia dar erro?
     if (content != '')
         sendAjaxRequest('post', '/comments', { taskId, content, userId }, CommentAddedHandler);
 }
@@ -500,6 +506,11 @@ function sendCreateLabelRequest(event) {
 
     if (name != '')
         sendAjaxRequest('post', '/labels', { projectId, name }, LabelAddedHandler);
+}
+
+function cleanCreateLabelInput(event) {
+    event.preventDefault();
+    document.querySelector('#add-label .message-input').value = '';
 }
 
 function sendAssignLabelRequest(event) {
@@ -519,6 +530,14 @@ function sendDeleteLabelRequest(event) {
         sendAjaxRequest('delete', '/labels/' + labelId, { projectId, labelId }, LabelDeletedHandler);
 }
 
+function sendDeleteLabelTaskRequest(event) {
+    event.preventDefault();
+    let taskId = this.closest('section').getAttribute('data-id');
+    let labelId = this.closest('div').getAttribute('data-id');
+    console.log(taskId, labelId);
+    if (taskId != undefined)
+        sendAjaxRequest('delete', '/tasks/labels/' + labelId, { taskId, labelId }, LabelDeletedTaskHandler);
+}
 /*--------------User------------*/
 
 function sendEditUserRequest(event) {
@@ -874,7 +893,7 @@ function projectRemoveMemberHandler() {
     if (this.status != 200) window.location = '/';
     let userData = JSON.parse(this.responseText);
 
-    let member = document.querySelector('#project-edit .members .user[data-id="' + userData.id + '"]');
+    let member = document.querySelector('#project-edit .info-remove.user[data-id="' + userData.id + '"]');
     member.remove();
 }
 
@@ -899,24 +918,32 @@ function projectRemoveCoordinatorHandler() {
     let member = document.querySelector('#project-edit .coordinators .user[data-id="' + userData.id + '"]');
     member.remove();
 
-    let body = document.querySelector('#project-edit .members .content');
+    let body = document.querySelector('#project-edit .members .content-inside');
 
     let user = document.createElement('div');
-    user.className = ('user remove');
+    user.className = ('info-remove user');
     user.setAttribute('data-id', userData.id);
-    // if(user.image_path !== "./img/default"){
-    //     console.log("entrie");
-    //     coordinator.innerHTML = `
-
-    //     <img src="{{asset(./img/andre.png)}}" alt="User image" width="70px" class="profilePhoto">
-    //     <a href="/users/${user.id}/profile">${user.name}</a>`;
-    // }
-    // else{
-    user.innerHTML = `
-        <span class="profilePhoto"></span>
-        <a href="/users/${userData.id}/profile">${userData.name}</a>
-        <button type="button" class="btn remove" data-id=${userData.id}>Remove</button>`;
-    //}
+    console.log(userData);
+    console.log(user);
+    if (userData.image_path !== "./img/default") {
+        user.innerHTML = `
+            <div class="user-info">
+                <img src='/${userData.image_path}' alt="User image" width="55px" class="profilePhoto" >
+                <a href="/users/${userData.id}/profile">${userData.name}</a>
+            </div>
+            <button type="button" class="btn remove" data-id=${user.id}>Remove</button>`;
+    } else {
+        user.innerHTML = `
+            <div class="user-info">
+                <span class="span profilePhoto">${userData.name[0]}</span>
+                <a href="/users/${userData.id}/profile">${userData.name}</a>
+            </div>
+            <button type="button" class="btn remove" data-id=${user.id}>Remove</button>`;
+    }
+    // user.innerHTML = `
+    //     <span class="profilePhoto"></span>
+    //     <a href="/users/${userData.id}/profile">${userData.name}</a>
+    //     <button type="button" class="btn remove" data-id=${userData.id}>Remove</button>`;
 
     body.appendChild(user);
 }
@@ -1075,10 +1102,60 @@ function ForumMessageAddedHandler() {
 /*--------------Task Comment------------*/
 
 function CommentAddedHandler() {
-    console.log(this.responseText);
-    const message = JSON.parse(this.responseText);
-    if (this.status === 201) {
-        window.location = '/tasks/' + message.id_task;
+    console.log(this.status);
+    const status = JSON.parse(this.responseText);
+    const user = status[1];
+    const message = status[0];
+    console.log(user, message);
+    var currentdate = new Date();
+    if (this.status === 200) {
+        let body = document.querySelector('#task-details .task.comments .forum');
+        console.log(body);
+        let comment = document.createElement('li');
+        comment.className = ('comment');
+
+        if (user.image_path !== "./img/default") {
+            comment.innerHTML = `
+                <img src='/${user.image_path}' alt="User image" width="70" class="profilePhoto" >`;
+        } else {
+            comment.innerHTML = `
+                <span class="span profilePhoto">${user.name[0]}</span>`;
+        }
+
+        let msg = document.createElement('div');
+        msg.className = ('message');
+
+        let userInfo = document.createElement('div');
+        userInfo.className = ('user-info');
+
+        let userProfile = document.createElement('a');
+        userProfile.className = ('name');
+        userProfile.href = "/users/" + message.id_user + "/profile";
+        userProfile.innerText = user.name;
+
+        let date = document.createElement('span');
+        date.className = ('date');
+        date.innerText = ((currentdate.getDate() < 10)?"0":"") + currentdate.getDate() + "/" + (((currentdate.getMonth()+1) < 10)?"0":"") + (currentdate.getMonth()+1) + " " + ((currentdate.getHours() < 10)?"0":"") + currentdate.getHours() + "h" + ((currentdate.getMinutes() < 10)?"0":"") + currentdate.getMinutes();
+
+        userInfo.appendChild(userProfile);
+        userInfo.appendChild(date);
+
+        let number = document.createElement('span');
+        number.className = ('number');
+        number.innerText = message.content;
+
+        msg.appendChild(userInfo);
+        msg.appendChild(number);
+
+        comment.appendChild(msg);
+
+        body.appendChild(comment);
+
+        document.querySelector('#task-details .task.comments .message-input').value = '';
+
+        let scroll = document.querySelector('#task-details .task.comments .forum');
+        scroll.scrollTop = scroll.scrollHeight;
+
     } else if (this.status !== 200) {
         window.location = '/';
     }
@@ -1089,6 +1166,7 @@ function CommentAddedHandler() {
 function LabelAddedHandler() {
 
     let body = document.querySelector('#project-details .labels .content-inside');
+    document.querySelector('#add-label .message-input').value = '';
     let errorMessages = body.querySelector(".label-error");
     if(errorMessages !== null){
         errorMessages.remove();
@@ -1117,10 +1195,17 @@ function LabelAddedHandler() {
 }
 
 function LabelAssignedHandler() {
-    const message = JSON.parse(this.responseText);
-    if (this.status === 201) {
-        window.location = '/tasks/' + message.id_task;
-    } else if (this.status !== 200) {
+    const label = JSON.parse(this.responseText);
+    if (this.status === 200) {
+        document.querySelector('#assign-label .info-remove.label[data-id="' + label.id + '"]').remove();
+        let body = document.querySelector('#task-details .labels .content-inside');
+        let button = document.querySelector('#task-details .labels .content-inside button');
+        let labelHTML = document.createElement('div');
+        labelHTML.className = ('label-info');
+        labelHTML.setAttribute('data-id', label.id);
+        labelHTML.innerHTML = `<span class='label-text'>${label.name}</span>`;
+        body.insertBefore(labelHTML, button);
+    } else {
         window.location = '/';
     }
 }
@@ -1130,7 +1215,7 @@ function LabelDeletedHandler() {
         window.location = '/';
     }
     let label = JSON.parse(this.responseText);
-    document.querySelector('#project-edit .labels .content .user[data-id="' + label + '"]').remove();
+    document.querySelector('#project-edit .labels .info-remove.label[data-id="' + label + '"]').remove();
 }
 
 function LabelDeletedTaskHandler() {
@@ -1138,7 +1223,7 @@ function LabelDeletedTaskHandler() {
         window.location = '/';
     }
     let label = JSON.parse(this.responseText);
-    document.querySelector('#project-edit .labels .content .user[data-id="' + label + '"]').remove();
+    document.querySelector('#task-edit .labels .content .info-remove.label[data-id="' + label + '"]').remove();
 }
 
 /*--------------User------------*/
@@ -1260,4 +1345,4 @@ function notificationHandler() {
     }
 }
 
-addEventListeners();addEventListeners();
+addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();

@@ -4,14 +4,18 @@
 
 @section('content')
 
+<?php
+    $projectColor = "{$task->project->color}cc";
+?>
+
 <style>
 
-    #task-details.id-{{$task->id}} .content{
-        border-color: {{$task->project->color}};
+    #task-details.id-{{$task->id}} .content {
+        border-color: {{$projectColor}};
     }
 
-    #task-details.id-{{$task->id}} .info{
-        background-color: {{$task->project->color}};
+    #task-details.id-{{$task->id}} .info-created {
+        background-color: {{$projectColor}};
     }
 
 </style>
@@ -37,7 +41,7 @@
         </div>
     </div>
 
-    <div class="info">
+    <div class="info-created">
         <h1>{{ $task->name }}</h1>
         <div class="box-descript">
             <span class="description">{{ $task->description }}</span>
@@ -47,32 +51,35 @@
             </div>
         </div>
     </div>
-    <div class="assigned">
+    <div class="task assigned">
       <span>Assigned To</span>
-      <div class="content">
+      <div class="content-inside">
           @each('partials.user', $task->user()->get()  , 'user')
           @if ($task->finished_at == null && !Auth::guard('admin')->user())
             <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign member" src={{ asset('img/add.png') }} width="30"></button>
           @endif
       </div>
     </div>
-    <div class="labels">
-        <span>Labels</span>
-        <div class="content">
-            @each('partials.label', $task->labels()->orderBy('id')->get() , 'label')
-            @if ($task->finished_at == null && !Auth::guard('admin')->user())
-                <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img alt="Assing label" src={{ asset('img/add.png') }} width="30"></button>
-            @endif
+    {{-- @if ($task->finished_at != null && !empty($task->labels()->get()[0])) --}}
+        <div class="task labels">
+            <span>Labels</span>
+            <div class="content-inside">
+                @each('partials.label', $task->labels()->orderBy('id')->get() , 'label')
+                @if ($task->finished_at == null && !Auth::guard('admin')->user())
+                    <button type="button" class="add" data-toggle="modal" data-target="#assign-label"><img alt="Assing label" src={{ asset('img/add.png') }} width="30"></button>
+                @endif
+            </div>
         </div>
-    </div>
-    <div class="comments">
+    {{-- @endif
+    @elseif  --}}
+    <div class="task comments">
         <span>Comments</span>
-        <div class="content">
+        <div class="content-inside">
             <ul class="forum">
                 @each('partials.comment', $comments, 'comment')
             </ul>
             <form class="new-message" data-id={{ Auth::user()->id}}>
-                <input type="text" name="content" placeholder="New Comment">
+                <input class="message-input" type="text" name="content" placeholder="New Comment">
                 <button class="submit" type="submit"><img alt="Send Comment" src={{ asset('img/send.png') }}></button>
             </form>
         </div>

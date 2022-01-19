@@ -8,8 +8,7 @@
             @each('partials.label_add', $notAssigned, 'label')
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn cancel" data-dismiss="modal">OK</button>
-            <button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn close" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
