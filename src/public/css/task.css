@@ -1,10 +1,5 @@
 /* task-details */
 
-#task-details .info-created h1 {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
 #task-details .info-created .box-descript {
     display: flex;
     flex-direction: column;
@@ -16,61 +11,15 @@
     margin-left: 10px;
 }
 
-#task-details .info-created .box-descript .config {
-    margin-left: 10px;
-    margin: 0px 10px 0px 10px;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#task-details .info-created .box-descript .priority {
-    font-weight: bold;
-    font-size: x-large;
-    margin-right: 20px;
-    align-self: end;
-}
-
 #task-details .info-created .box-descript .date {
     font-weight: bold;
-    font-size: x-large;
+    font-size: large;
     display: inline-flex;
     align-items: center;
 }
 
-.task.assigned {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
-    margin: 10px;
-}
-
-.task.labels {
-    grid-column: 1 / 3;
-    grid-row: 3 / 4;
-}
-
-.task.comments {
-    grid-column: 3 / 5;
-    grid-row: 2 / 4;
-    margin: 10px;
-}
-
-#task-details a.edit {
-    background-color: #26C5B3;
-}
-
-#task-details .add {
-    all: unset;
-    align-self: end;
-    margin: 10px;
-    cursor: pointer;
-}
-
 #task-details .forum {
     all: unset;
-    max-height: 35vh;
-    /* height: 35vh; */
     list-style-type: none;
     display: flex;
     flex-flow: column;
@@ -106,10 +55,8 @@
     height: 40px;
     min-width: 40px;
     min-height: 40px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
     margin: 10px;
+    font-size: 20px;
 }
 
 #task-details .new-message {
@@ -132,12 +79,10 @@
     border: none;
     width: 25px;
     height: 25px;
-    margin: 10px;
-}
-
-#task-details .new-message img {
-    width: 25px;
-    height: 25px;
+    margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -147,82 +92,26 @@
     border: 0;
 }
 
-#task-create .info {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    border-radius: 10px;
-    margin: 10px;
+#task-create .info-created {
     background-color: lightgray;
-    display: flex;
-    flex-flow: column;
 }
 
-#task-create .info .project-id {
+#task-create .info-created .project-id {
     display: none;
 }
 
-#task-create .info .name {
+#task-create .info-created .name {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.4);
     font-size: large;
     line-height: 1.2;
 }
 
-#task-create .info .box-descript {
+#task-create .info-created .box-descript {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: space-between;
-}
-
-#task-create .info .box-descript .description {
-    margin: 0px 10px 20px 10px;
-    background-color: transparent;
-}
-
-#task-create .info .box-descript .config {
-    margin-left: 10px;
-    margin: 0px 10px 0px 10px;
-    background-color: transparent;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#task-create .info .box-descript .priority {
-    font-weight: bold;
-    font-size: x-large;
-    margin-right: 10px;
-    align-self: end;
-    display: flex;
-    flex-direction: row;
-}
-
-#task-create .info .box-descript .due-date {
-    font-weight: bold;
-    font-size: x-large;
-    display: inline-flex;
-    align-items: center;
-}
-
-#task-create .info .box-descript .due-date input {
-    all: unset;
-    color: #212529;
-    font-weight: medium;
-    font-size: medium;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-}
-
-#task-create .info .box-descript .number {
-    all: unset;
-    width: 35px;
-    font-weight: bold;
-    font-size: x-large;
-    height: 20px;
 }
 
 #task-create .coordinators {
@@ -250,21 +139,6 @@
     color: black;
 }
 
-#task-create .user.invite .profilePhoto {
-    width: 70px;
-    height: 70px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
-}
-
-#task-create .add {
-    all: unset;
-    align-self: end;
-    margin: 10px;
-    cursor: pointer;
-}
-
 #task-create .add img {
     width: 50px;
 }
@@ -272,30 +146,54 @@
 
 /* task-edit */
 
-#task-edit input {
-    border: 0;
-}
-
-#task-edit .info-created .name {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.4);
-    font-size: 2.3em;
-    line-height: 1.2;
-}
-
 #task-edit .info-created .box-descript {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: space-between;
 }
 
-#task-edit .info-created .box-descript .description {
-    margin: 0px 10px 20px 10px;
-    background-color: transparent;
+#task-edit .labels .content-inside {
+    max-height: 376px;
 }
 
-#task-edit .info-created .box-descript .config {
+
+/* generic*/
+
+.task.single:hover {
+    border: 2px solid #00000080;
+}
+
+.task.assigned {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    margin: 10px;
+}
+
+.task.labels {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+.task.comments {
+    grid-column: 3 / 5;
+    grid-row: 2 / 4;
+    margin: 10px;
+}
+
+.task.labels .content-inside {
+    max-height: 216px;
+}
+
+.task.comments .content-inside {
+    max-height: 400px;
+}
+
+.task.labels .list {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.config {
     margin-left: 10px;
     margin: 0px 10px 0px 10px;
     background-color: transparent;
@@ -305,53 +203,65 @@
     width: 100%;
 }
 
-#task-edit .info-created .box-descript .priority {
-    font-weight: bold;
-    font-size: x-large;
-    margin-right: 10px;
+.box-descript .number {
+    all: unset;
+    width: 35px;
+    font-weight: normal;
+    font-size: large;
+}
+
+.title-input {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* #task-edit .title-input,
+#project-edit .title-input {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+} */
+
+.box-descript .description {
+    margin: 0px 10px 20px 10px;
+    background-color: transparent;
+}
+
+.box-descript .config {
+    margin-left: 10px;
+    margin: 0px 10px 0px 10px;
+    background-color: transparent;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.priority {
+    font-size: large;
+    margin-right: 20px;
     align-self: end;
     display: flex;
     flex-direction: row;
 }
 
-#task-edit .info-created .box-descript .due-date {
-    font-weight: bold;
-    font-size: x-large;
-    display: inline-flex;
-    align-items: center;
+.priority .number {
+    margin-left: 5px;
 }
 
-#task-edit .info-created .box-descript .due-date input {
+.due-date {
+    font-size: medium;
+    display: inline-flex;
+    align-items: center;
+    cursor: default;
+}
+
+.due-date input {
     all: unset;
+    box-shadow: 0;
     color: #212529;
     font-weight: medium;
     font-size: medium;
     display: flex;
-    flex-flow: row;
-    justify-content: space-between;
     flex-direction: row-reverse;
-}
-
-#task-edit .info-created .box-descript .number {
-    all: unset;
-    width: 35px;
-    font-weight: bold;
-    font-size: x-large;
-    height: 20px;
-}
-
-#task-edit .content {
-    border: 4px solid;
-    border-radius: 10px;
-}
-
-#task-edit .user {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-#task-edit .user a {
-    width: auto;
-    color: black;
 }

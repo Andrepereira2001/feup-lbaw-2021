@@ -81,7 +81,7 @@ function addEventListeners() {
         val.addEventListener('click', createTaskAssignHandler);
     });
 
-    let taskAssignMember = document.querySelectorAll('#task-details .modal .confirm');
+    let taskAssignMember = document.querySelectorAll('#assign-member .confirm');
     [].forEach.call(taskAssignMember, function(val) {
         val.addEventListener('click', taskAssignMemberHandler);
     });
@@ -121,7 +121,7 @@ function addEventListeners() {
 
     let labelCreatorCancel = document.querySelector('#add-label .modal-footer .btn.cancel');
     if (labelCreatorCancel != null)
-    labelCreatorCancel.addEventListener('click', cleanCreateLabelInput);
+        labelCreatorCancel.addEventListener('click', cleanCreateLabelInput);
 
     let labelAssigner = document.querySelectorAll('#assign-label .modal-body .btn.confirm');
     [].forEach.call(labelAssigner, function(user) {
@@ -133,7 +133,7 @@ function addEventListeners() {
         user.addEventListener('click', sendDeleteLabelRequest);
     });
 
-    let labelDeleterTask = document.querySelectorAll('#task-edit .labels .content .label .btn.remove');
+    let labelDeleterTask = document.querySelectorAll('#task-edit .labels .content-inside .label .btn.remove');
     [].forEach.call(labelDeleterTask, function(user) {
         user.addEventListener('click', sendDeleteLabelTaskRequest);
     });
@@ -200,8 +200,8 @@ function addEventListeners() {
         id.addEventListener('click', seeNotification);
     });
 
-    let scroll = document.querySelector('#task-details .task.comments .forum');
-    scroll.scrollTop = scroll.scrollHeight;
+    // let scroll = document.querySelector('#task-details .task.comments .forum');
+    // scroll.scrollTop = scroll.scrollHeight;
 }
 
 /*--------------Utils------------*/
@@ -453,9 +453,10 @@ function taskAssignSearchChange(event) {
 function taskAssignMemberHandler(event) {
     event.preventDefault();
 
-    let user = document.querySelector('#task-details .assigned .user');
+    let user = document.querySelector('#task-details .assigned .user-info');
     let id = this.closest('section').getAttribute('data-id');
     let userId = this.getAttribute('data-id');
+
     if (user === null) {
         sendAjaxRequest('post', '/tasks/' + id + '/edit', { userId }, taskEditHandler);
     } else {
@@ -467,10 +468,10 @@ function taskAssignMemberHandler(event) {
 function taskRemoveMemberRequest(event) {
     event.preventDefault();
 
-    let id_user = null;
+    let userId = -1;
     let task_id = this.closest('section').getAttribute('data-id');
 
-    sendAjaxRequest('post', '/tasks/' + task_id + '/edit', { id_user }, taskRemoveMemberHandler);
+    sendAjaxRequest('post', '/tasks/' + task_id + '/edit', { userId }, taskRemoveMemberHandler);
 }
 
 /*--------------Forum Messages------------*/
@@ -534,7 +535,7 @@ function sendDeleteLabelTaskRequest(event) {
     event.preventDefault();
     let taskId = this.closest('section').getAttribute('data-id');
     let labelId = this.closest('div').getAttribute('data-id');
-    console.log(taskId, labelId);
+
     if (taskId != undefined)
         sendAjaxRequest('delete', '/tasks/labels/' + labelId, { taskId, labelId }, LabelDeletedTaskHandler);
 }
@@ -672,7 +673,7 @@ function projectAddedHandler() {
     if (this.status === 201) {
         window.location = '/projects/' + project.id;
     } else if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
@@ -681,12 +682,12 @@ function projectEditHandler() {
     if (this.status === 201 || this.status === 200) {
         window.location = '/projects/' + project.id + '/details';
     } else {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
 function projectFavouriteHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
 
     let participation = JSON.parse(this.responseText);
     const img = document.querySelector('article.project[data-id="' + participation.id_project + '"] .content .fav img');
@@ -700,7 +701,7 @@ function projectFavouriteHandler() {
 
 function projectArchiveHandler() {
 
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
 
     let project = JSON.parse(this.responseText);
     const img = document.querySelector('article.project[data-id="' + project.id + '"] .content .archive img');
@@ -712,7 +713,7 @@ function projectArchiveHandler() {
 }
 
 function addCoordinatorHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
     let user = JSON.parse(this.responseText);
     let element = document.querySelector('.user.invite[data-id="' + user.id + '"]');
     element.remove();
@@ -720,8 +721,7 @@ function addCoordinatorHandler() {
     let member = document.querySelector('#project-details .members .user-info[data-id="' + user.id + '"]');
     member.remove();
 
-    let body = document.querySelector('#project-details .coordinators .content-inside');
-    let button = document.querySelector('#project-details .coordinators .content-inside button');
+    let body = document.querySelector('#project-details .coordinators .content-inside .list');
 
     let coordinator = document.createElement('div');
     coordinator.className = ('user-info');
@@ -741,12 +741,15 @@ function addCoordinatorHandler() {
             </div>`;
     }
 
-    body.insertBefore(coordinator, button);
+    body.appendChild(coordinator);
+
+    let scroll = document.querySelector('#project-details .coordinators .content-inside .list');
+    scroll.scrollTop = scroll.scrollHeight;
 
 }
 
 function projectCoordinatorAddSearchChangeHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
     const users = JSON.parse(this.responseText);
 
     let addCoordinator = document.querySelectorAll('#add-coordinator .user.invite');
@@ -781,11 +784,13 @@ function projectCoordinatorAddSearchChangeHandler() {
         add.addEventListener('click', createTaskAssignHandler);
 
         body.appendChild(add_coordinator);
+
     })
+
 }
 
 function projectUserAddSearchChangeHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
     const users = JSON.parse(this.responseText);
 
     let userInvite = document.querySelectorAll('#invite-member .user.invite');
@@ -835,7 +840,7 @@ function sendInviteHandler() {
         errorMessage.className = ('invite-error');
         errorMessage.innerHTML = `Invite already sent!`;
         body.appendChild(errorMessage);
-    } else if (this.status != 201) window.location = '/';
+    } else if (this.status != 201) window.location = '/users';
     else {
         let invite = JSON.parse(this.responseText);
         let element = document.querySelector('.user.invite[data-id="' + invite.id_user + '"]');
@@ -855,7 +860,7 @@ function searchRejectInviteHandler() {
 }
 
 function buttonsInviteHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
     let invite = JSON.parse(this.responseText);
     let accept = document.querySelectorAll('#notifications .notification .accept[data-id="' + invite.id_project + '"]');
     accept.forEach(buttons => {
@@ -899,9 +904,8 @@ function projectRemoveMemberHandler() {
 
 function taskRemoveMemberHandler() {
     if (this.status != 200) window.location = '/users';
-    let user = JSON.parse(this.responseText);
 
-    let member = document.querySelector('#task-edit .assigned .user[data-id="' + user.id + '"]');
+    let member = document.querySelector('#task-edit .assigned');
     member.remove();
 }
 
@@ -918,7 +922,7 @@ function projectRemoveCoordinatorHandler() {
     let member = document.querySelector('#project-edit .coordinators .user[data-id="' + userData.id + '"]');
     member.remove();
 
-    let body = document.querySelector('#project-edit .members .content-inside');
+    let body = document.querySelector('#project-edit .members .content-inside .list');
 
     let user = document.createElement('div');
     user.className = ('info-remove user');
@@ -1032,20 +1036,54 @@ function createTaskAssignHandler(event) {
 }
 
 function taskAddedHandler() {
-    const task = JSON.parse(this.responseText);
-    if (this.status === 201) {
+    if(this.status === 500){
+        let message = document.querySelectorAll('#task-create .coordinator-buttons .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+
+        let buttonsDiv = document.querySelector('#task-create .coordinator-buttons');
+        console.log(buttonsDiv);
+        let buttonSave = document.querySelector('#task-create button.btn.save');
+        console.log(buttonSave);
+
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Task creation failed, please check all fields.`;
+
+        buttonsDiv.insertBefore(errorMessage, buttonSave);
+    }
+    else if (this.status === 201) {
+        const task = JSON.parse(this.responseText);
         window.location = '/tasks/' + task.id;
     } else if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
 function taskEditHandler() {
-    const task = JSON.parse(this.responseText);
-    if (this.status === 201 || this.status === 200) {
+    if(this.status === 500){
+        let message = document.querySelectorAll('#task-edit .coordinator-buttons .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+
+        let buttonsDiv = document.querySelector('#task-edit .coordinator-buttons');
+        console.log(buttonsDiv);
+        let buttonSave = document.querySelector('#task-edit button.btn.save');
+        console.log(buttonSave);
+
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Task edit failed, please check all fields.`;
+
+        buttonsDiv.insertBefore(errorMessage, buttonSave);
+    }
+    else if (this.status === 201 || this.status === 200) {
+        const task = JSON.parse(this.responseText);
         window.location = '/tasks/' + task.id;
     } else {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
@@ -1095,7 +1133,7 @@ function ForumMessageAddedHandler() {
     if (this.status === 201) {
         window.location = '/projects/' + message.id_project;
     } else if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
@@ -1157,7 +1195,7 @@ function CommentAddedHandler() {
         scroll.scrollTop = scroll.scrollHeight;
 
     } else if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
@@ -1165,7 +1203,7 @@ function CommentAddedHandler() {
 
 function LabelAddedHandler() {
 
-    let body = document.querySelector('#project-details .labels .content-inside');
+    let body = document.querySelector('#project-details .labels .content-inside .list');
     document.querySelector('#add-label .message-input').value = '';
     let errorMessages = body.querySelector(".label-error");
     if(errorMessages !== null){
@@ -1177,12 +1215,9 @@ function LabelAddedHandler() {
         errorMessage.innerHTML = `Label already exists!`;
         body.appendChild(errorMessage);
     } else if(this.status != 201) {
-        window.location = '/';
+        window.location = '/users';
     } else {
         let label = JSON.parse(this.responseText);
-
-
-        let button = document.querySelector('#project-details .labels .content-inside button');
 
         let labelHTML = document.createElement('div');
 
@@ -1190,7 +1225,10 @@ function LabelAddedHandler() {
         labelHTML.setAttribute('data-id', label.id);
 
         labelHTML.innerHTML = `<span class='label-text'>${label.name}</span>`;
-        body.insertBefore(labelHTML, button);
+        body.appendChild(labelHTML);
+
+        let scroll = document.querySelector('#project-details .labels .content-inside .list');
+        scroll.scrollTop = scroll.scrollHeight;
     }
 }
 
@@ -1198,21 +1236,22 @@ function LabelAssignedHandler() {
     const label = JSON.parse(this.responseText);
     if (this.status === 200) {
         document.querySelector('#assign-label .info-remove.label[data-id="' + label.id + '"]').remove();
-        let body = document.querySelector('#task-details .labels .content-inside');
-        let button = document.querySelector('#task-details .labels .content-inside button');
+        let body = document.querySelector('#task-details .labels .content-inside .list');
         let labelHTML = document.createElement('div');
         labelHTML.className = ('label-info');
         labelHTML.setAttribute('data-id', label.id);
-        labelHTML.innerHTML = `<span class='label-text'>${label.name}</span>`;
-        body.insertBefore(labelHTML, button);
+        labelHTML.innerHTML = `<span class='label-text' >${label.name}</span>`;
+        body.appendChild(labelHTML);
+        let scroll = document.querySelector('#task-details .labels .content-inside .list');
+        scroll.scrollTop = scroll.scrollHeight;
     } else {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
 function LabelDeletedHandler() {
     if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
     let label = JSON.parse(this.responseText);
     document.querySelector('#project-edit .labels .info-remove.label[data-id="' + label + '"]').remove();
@@ -1220,10 +1259,14 @@ function LabelDeletedHandler() {
 
 function LabelDeletedTaskHandler() {
     if (this.status !== 200) {
-        window.location = '/';
+        window.location = '/users';
     }
-    let label = JSON.parse(this.responseText);
-    document.querySelector('#task-edit .labels .content .info-remove.label[data-id="' + label + '"]').remove();
+    let response = JSON.parse(this.responseText);
+
+    document.querySelector('#task-edit .labels .content-inside .info-remove.label[data-id="' + response[0] + '"]').remove();
+    if (response[1].length === 1) {
+        document.querySelector('#task-edit .labels').remove();
+    }
 }
 
 /*--------------User------------*/
@@ -1233,15 +1276,16 @@ function userEditHandler() {
     if (this.status === 200) {
         window.location = '/users/' + user.id + '/profile';
     } else if (this.status !== 201) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
 function userDeletedHandler() {
-    if (this.status === 200) {
-        window.location = '/';
-    } else {
+    if (this.status !== 200) {
         alert("Error deleting account");
+    }else {
+        const user = JSON.parse(this.responseText);
+        window.location = '/users/' + user.id + '/profile';
     }
 
 }
@@ -1252,7 +1296,7 @@ function sendEmailHandler() {
     if (this.status === 200) {
         window.location = '/contact';
     } else if (this.status !== 201) {
-        window.location = '/';
+        window.location = '/users';
     }
 }
 
@@ -1309,7 +1353,7 @@ function adminUserSearchChangeHandler() {
 }
 
 function userBlockHandler() {
-    if (this.status != 200) window.location = '/';
+    if (this.status != 200) window.location = '/users';
 
     let user = JSON.parse(this.responseText);
     const data = document.querySelector('#admin article.user[data-id="' + user.id + '"] div');
@@ -1340,9 +1384,9 @@ function notificationHandler() {
     const id = JSON.parse(this.responseText);
     if (this.status === 200) {
         window.location = '/projects/' + id;
-    } else if (this.status !== 500) {
-        window.location = '/';
+    } else if (this.status !== 200) {
+        window.location = '/users';
     }
 }
 
-addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();addEventListeners();
+addEventListeners();

@@ -11,7 +11,7 @@
         </div>
 
         <div class="registerInfo">
-            <label for="name" style="display:none">Name</label>
+            <label for="name" >Name</label>
           <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Name" required autofocus>
           @if ($errors->has('name'))
             <span class="error">
@@ -19,7 +19,7 @@
             </span>
           @endif
 
-          <label for="email" style="display:none">Email</label>
+          <label for="email" >Email</label>
           <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
           @if ($errors->has('email'))
             <span class="error">
@@ -27,7 +27,7 @@
             </span>
           @endif
 
-          <label for="password" style="display:none">Password</label>
+          <label for="password" >Password</label>
           <input id="password" type="password" name="password"  placeholder="Password" required>
           @if ($errors->has('password'))
             <span class="error">
@@ -35,7 +35,7 @@
             </span>
           @endif
 
-          <label for="password-confirm" style="display:none">Password Confirm</label>
+          <label for="password-confirm" >Password Confirm</label>
           <input id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm password" required>
         </div>
 

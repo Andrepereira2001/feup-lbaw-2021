@@ -602,6 +602,10 @@
     width: 300px;
 }
 
+#register .registerInfo label {
+    height: 10px;
+}
+
 #forgotPassword .sendEmail input {
     border-radius: 3px;
     border-color: transparent;

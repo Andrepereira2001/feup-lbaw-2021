@@ -20,7 +20,9 @@ $projectColor = "{$project->color}cc";
         <form class="edit">
 
             <div class="info-created">
-                <input class="name-proj" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
+                <div class="title-input">
+                    <input class="name-proj" type="text" placeholder="Project Name..." name="name" value="{{$project->name}}">
+                </div>
                 <input class="description-proj" type="text" placeholder="Add a description..." name="description" value="{{$project->description}}">
                 <input class="color" type="color" name="color" value={{$project->color}}>
             </div>
@@ -28,7 +30,9 @@ $projectColor = "{$project->color}cc";
             <div class="coordinators">
                 <span class="section-title">Coordinators</span>
                 <div class="content-inside">
-                  @each('partials.user_decrease', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
+                    <div class="list">
+                        @each('partials.user_decrease', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
+                    </div>
                 </div>
             </div>
 
@@ -36,7 +40,9 @@ $projectColor = "{$project->color}cc";
                 <div class="members">
                     <span class="section-title">Members</span>
                     <div class="content-inside">
-                        @each('partials.user_remove', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+                        <div class="list">
+                            @each('partials.user_remove', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+                        </div>
                     </div>
                 </div>
             @endif
@@ -45,7 +51,9 @@ $projectColor = "{$project->color}cc";
                 <div class="labels">
                     <span class="section-title">Labels</span>
                     <div class="content-inside">
-                        @each('partials.label_remove', $project->labels()->orderBy('id')->get(), 'label')
+                        <div class="list">
+                            @each('partials.label_remove', $project->labels()->orderBy('id')->get(), 'label')
+                        </div>
                     </div>
                 </div>
             @endif

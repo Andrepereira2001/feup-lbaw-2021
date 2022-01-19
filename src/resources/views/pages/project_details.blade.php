@@ -30,25 +30,29 @@
     @include('partials.popup',['name' => "delete-project", 'title' => "Are you sure you want to delete project?",'project_id' => $project->id])
 
     <div id="sidenav" class="sidenav">
-        <div id="sidenavleft" class="{{$selected}}">
+        <div class="sidenavleft {{$selected}}">
             <a  href="/projects/{{$project->id}}/details" id="view">Project Details
             <img alt="Details" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
-        <div id="sidenavleft" class="sidenavleft">
+        <div class="sidenavleft">
             <a href="/projects/{{$project->id}}" id="notification">Project Page
             <img alt="Project" src={{ asset('img/arrow.png') }} class="arrow"></a>
         </div>
     </div>
 
     <div class="info-created">
-        <h1 class="name-proj">{{ $project->name }}</h1>
+        <div class="title-input">
+            <h1 class="name-proj">{{ $project->name }}</h1>
+        </div>
         <span>{{ $project->description }}</span>
     </div>
 
     <div class="coordinators">
       <span class="section-title">Coordinators</span>
       <div class="content-inside">
-        @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
+        <div class="list">
+            @each('partials.user', $project->users()->wherePivot("role","Coordinator")->orderBy('id')->get()  , 'user')
+        </div>
         @if ($isCoordinator && $project->archived_at == null)
             <button type="button" class="add" data-toggle="modal" data-target="#add-coordinator"><img alt="Add Coordinator" src={{ asset('img/add.png') }} width="30px"></button>
         @endif
@@ -59,7 +63,9 @@
         <div class="members">
             <span class="section-title">Members</span>
             <div class="content-inside">
-                @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+                <div class="list">
+                    @each('partials.user', $project->users()->wherePivot("role","Member")->orderBy('id')->get() , 'user')
+                </div>
                 @if($isCoordinator && $project->archived_at == null)
                     <button type="button" class="add" data-toggle="modal" data-target="#invite-member"><img alt="Invite Member" src={{ asset('img/add.png') }} width="30px"></button>
                 @endif
@@ -71,7 +77,9 @@
         <div class="labels">
             <span class="section-title">Labels<img alt="Help" src={{asset("./img/help.png")}} width="20"><span class="help-labels">You can define labels inside your project, so that the project members can identify tasks by a meaningful label that describes a group of tasks.</span></span>
             <div class="content-inside">
-                @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
+                <div class="list">
+                    @each('partials.label', $project->labels()->orderBy('id')->get(), 'label')
+                </div>
                 @if($isCoordinator && $project->archived_at == null)
                     <button type="button" class="add" data-toggle="modal" data-target="#add-label"><img alt="Add Labels" src={{ asset('img/add.png') }} width="30px"></button>
                 @endif
@@ -91,8 +99,6 @@
                 <button type="button" class="btn leave" data-toggle="modal" data-target="#leave-project">Leave</button>
             @endif
         @endif
-
-
     </div>
 
   </section>

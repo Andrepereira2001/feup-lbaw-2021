@@ -6,9 +6,15 @@
     $projectColor = "{$task->project->color}cc";
 ?>
 
+<?php
+    $date = "";
+    if($task->due_date != null)
+        $date =substr($task->due_date, 0, 10);
+?>
+
 <style>
 
-    #task-edit.id-{{$task->id}} .content{
+    #task-edit.id-{{$task->id}} .content-inside {
         border-color: {{$projectColor}};
     }
 
@@ -21,13 +27,15 @@
     <section id="task-edit" class="id-{{$task->id}}" data-id={{$task->id}} >
         <form class="edit">
             <div class="info-created">
-                <input class="name" type="text" placeholder="Task ..." name="name" size="30" value="{{$task->name}}">
+                <div class="title-input">
+                    <input class="name-proj" type="text" placeholder="Task ..." name="name" size="30" value="{{$task->name}}">
+                </div>
                 <div class="box-descript">
-                    <input class="description" type="text" placeholder="Add a description..." name="description" value="{{$task->description}}">
+                    <input class="description-proj" type="text" placeholder="Add a description..." name="description" value="{{$task->description}}">
                     <div class="config">
                         <div class="due-date">
                             <span>Due Date:</span>
-                            <input class="date" type="date" name="date" value="{{$task->due_date}}">
+                            <input class="date" type="date" name="date" value="{{$date}}">
                         </div>
                         <div class="priority">
                             <span>Priority:</span>
@@ -36,28 +44,21 @@
                     </div>
                 </div>
             </div>
-            <div class="task assigned">
-                <span>Assigned To</span>
-                <div class="content">
-                  @each('partials.user_remove', $task->user()->get(), 'user')
-                </div>
-            </div>
-            @if (!empty($task->labels()->orderBy('id')->get()[0]))
-                <div class="task labels">
-                    <span>Labels</span>
-                    <div class="content">
-                        @each('partials.label_remove', $task->labels()->orderBy('id')->get() , 'label')
+            @if (!empty($task->user()->get()[0]) != null)
+                <div class="task assigned">
+                    <span class="section-title">Assigned To</span>
+                    <div class="content-inside">
+                        @each('partials.user_remove', $task->user()->get(), 'user')
                     </div>
                 </div>
             @endif
-
-            @if (!empty($task->taskComments()->orderBy('id')->get()[0]))
-                <div class="task comments">
-                    <span>Comments</span>
-                    <div class="content">
-                        <ul class="forum">
-                            @each('partials.comment', $task->taskComments()->orderBy('id')->get(), 'comment')
-                        </ul>
+            @if (!empty($task->labels()->orderBy('id')->get()[0]))
+                <div class="labels">
+                    <span class="section-title">Labels</span>
+                    <div class="content-inside">
+                        <div class="list">
+                            @each('partials.label_remove', $task->labels()->orderBy('id')->get() , 'label')
+                        </div>
                     </div>
                 </div>
             @endif

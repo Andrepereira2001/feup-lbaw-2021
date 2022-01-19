@@ -1,4 +1,4 @@
-@if($forumMessage->id_user == Auth::user()->id)
+@if(Auth::user() != null && $forumMessage->id_user == Auth::user()->id)
     <li class="forumMessage2">
         <div class="message2">
             <span class="content2">{{ $forumMessage->content }}</span>

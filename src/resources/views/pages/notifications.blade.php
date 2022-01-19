@@ -9,19 +9,19 @@
     @include('partials.popup_delete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     <article class="user" data-id="{{$user->id}}">
         <div id="sidenav" class="sidenav">
-            <div id="sidenavleft" class="sidenavleft">
+            <div class="sidenavleft">
                 <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
                 <img alt="Profile" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
-            <div id="sidenavleft" class="{{$selected}}">
+            <div class="sidenavleft {{$selected}}">
                 <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
                 <img alt="Notifications" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
-            <div id="sidenavleft" class="sidenavleft">
+            <div class="sidenavleft">
                 <a data-toggle="modal" data-target="#delete">Delete Profile
                 <img alt="Delete" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
-            <div id="sidenavleft" class="sidenavleft">
+            <div class="sidenavleft">
                 <a data-toggle="modal" data-target="#logout">Logout
                 <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>

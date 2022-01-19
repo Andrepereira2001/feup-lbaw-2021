@@ -25,6 +25,9 @@ class TaskController extends Controller
       $project = Project::find($task->id_project);
 
       if(!Auth::guard('admin')->user()){
+        if(!Auth::check()){
+            return redirect('/login');
+        }
         $this->authorize('member', $project);
       }
 
@@ -122,6 +125,9 @@ class TaskController extends Controller
 
         $task = Task::find($id);
         if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
             $this->authorize('member', Project::find($task->project->id));
         }
 
@@ -143,7 +149,11 @@ class TaskController extends Controller
             }
         }
 
-        if($request->userId){
+        if($request->userId == -1){
+            $task->id_user = NULL;
+        }
+
+        else if ($request->userId) {
             $task->id_user = $request->userId;
         }
 

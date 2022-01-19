@@ -4,7 +4,7 @@
     <section id="task-create">
         @include('partials.add_popup',['name' => "assign-member", 'title' => "Assign member",'project_id' => $project->id, 'users' => $project->users()->get()])
         <form class="create">
-            <div class="info">
+            <div class="info-created">
                 <input class="project-id" name="project-id" value={{ $project->id }}>
                 <input class="name" type="text" placeholder="Task Name..." name="name">
                 <div class="box-descript">
@@ -30,10 +30,10 @@
                 </div>
             </div>
             <div class="coordinator-buttons">
-                <button class="save" type="submit">Save</button>
-                <a href="/projects/{{ $project->id }}" class="cancel">Cancel</a>
+                <button class="btn save" type="submit">Save</button>
+                <a href="/projects/{{ $project->id }}" class="btn cancel">Cancel</a>
             </div>
         </form>
     </section>
 @endsection
-}
+

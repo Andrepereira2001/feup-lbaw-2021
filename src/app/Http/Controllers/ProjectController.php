@@ -26,6 +26,9 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
             $this->authorize('show', $project);
         }
 
@@ -57,6 +60,9 @@ class ProjectController extends Controller
         $isCoordinator = false;
 
         if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
             $this->authorize('member', $project);
             $isCoordinator = !Auth::user()->projects()->wherePivot("id_project",$project->id)->wherePivot("role","Coordinator")->get()->isEmpty();
         }

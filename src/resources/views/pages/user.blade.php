@@ -10,26 +10,26 @@
     <article class="user">
         @if (Auth::user() && Auth::user()->id == $user->id)
             <div id="sidenav" class="sidenav">
-                <div id="sidenavleft" class="{{$selected}}">
+                <div class="sidenavleft {{$selected}}">
                     <a  href="/users/{{$user->id}}/profile" id="view">{{$view}} Profile
                     <img alt="Profile" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
-                <div id="sidenavleft" class="sidenavleft">
+                <div class="sidenavleft">
                     <a href="/users/{{$user->id}}/notifications" id="notification">Notifications
                     <img alt="Notifications" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
-                <div id="sidenavleft" class="sidenavleft">
+                <div class="sidenavleft">
                     <a data-toggle="modal" data-target="#delete-user">Delete Profile
                     <img alt="Delete Account" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
-                <div id="sidenavleft" class="sidenavleft">
+                <div class="sidenavleft">
                     <a data-toggle="modal" data-target="#logout">Logout
                     <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>
             </div>
         @elseif (Auth::guard('admin')->user())
             <div id="sidenav" class="sidenav">
-                <div id="sidenavleft" class="sidenavleft">
+                <div class="sidenavleft">
                     <a data-toggle="modal" data-target="#delete-user">Delete Profile
                     <img alt="Delete" src={{ asset('img/arrow.png') }} class="arrow"></a>
                 </div>

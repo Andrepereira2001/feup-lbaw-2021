@@ -37,7 +37,7 @@ CREATE TABLE Users (
     image_path             TEXT NOT NULL DEFAULT './img/default',
     remember_token         TEXT,
     blocked                BOOLEAN NOT NULL DEFAULT false
-    
+
 );
 
 CREATE TABLE Admin (
@@ -445,14 +445,15 @@ CREATE TRIGGER notification_finished_task
 CREATE FUNCTION assign_task() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-        WITH notification_id AS (INSERT INTO Notification (content, id_project)
-        VALUES ('New task ' || NEW.task_number || ' assigned to you!', NEW.id_project)
-        RETURNING id)
+        IF NEW.id_user IS NOT NULL THEN
+            WITH notification_id AS (INSERT INTO Notification (content, id_project)
+            VALUES ('New task ' || NEW.task_number || ' assigned to you!', NEW.id_project)
+            RETURNING id)
 
-        INSERT INTO Seen (seen, id_user, id_notification)
-        SELECT False, NEW.id_user, notification_id.id
-        FROM notification_id;
-
+            INSERT INTO Seen (seen, id_user, id_notification)
+            SELECT False, NEW.id_user, notification_id.id
+            FROM notification_id;
+        END IF;
 
         RETURN NEW;
 END

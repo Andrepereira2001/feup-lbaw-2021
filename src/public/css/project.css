@@ -33,7 +33,6 @@
 #projects .order button:hover {
     background: linear-gradient(180deg, rgba(196, 196, 196, 0) -210.81%, #C4C4C4 305.41%);
     box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 10px rgb(0 0 0 / 25%);
-    ;
 }
 
 #projects .order div {
@@ -519,13 +518,6 @@
     padding: 0px 10px;
 }
 
-#project-details .add {
-    all: unset;
-    align-self: end;
-    margin: 10px;
-    cursor: pointer;
-}
-
 
 /* project-create */
 
@@ -550,6 +542,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto auto;
+}
+
+#project-edit input {
+    border-radius: 6px;
+    border: 0px solid white;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
 }
 
 .coordinators {
@@ -578,12 +576,15 @@
     flex-flow: column;
     justify-content: start;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 4px 4px rgb(0 0 0 / 25%);
+    max-height: 216px;
+}
+
+.list {
     overflow-y: auto;
-    max-height: 310px;
 }
 
 .labels .content-inside {
-    max-height: 666px !important;
+    max-height: 475px;
 }
 
 .label-text {
@@ -625,17 +626,38 @@
     outline: none;
 }
 
+#task-edit .name-proj,
+#project-edit .name-proj {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
 .name-proj {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.4);
     font-size: 2.3em;
-    padding: 0px 10px;
+    line-height: 1.2;
+    width: 100%;
 }
 
 .description-proj {
+    margin: 10px 20px;
     background-color: transparent;
-    margin: 0px 10px 0px 10px;
 }
+
+#task-edit .name-proj,
+#project-edit .name-proj,
+#project-edit .description-proj,
+#task-edit .description-proj {
+    border-radius: 6px;
+    border: 0px solid white;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+}
+
+
+/* #task-details .name-proj {
+    border-radius: 6px;
+    border: 0px solid white;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+} */
 
 .section-title {
     padding-left: 10px;

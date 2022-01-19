@@ -4,11 +4,11 @@
     @else
         <div class="block">
     @endif
-        <div class="data">
+        <div class="user-info">
             @if($user->image_path != "./img/default")
                 <img src="{{asset($user->image_path)}}" alt="User image" width="70" class="profilePhoto" >
             @else
-                <span class="profilePhoto"></span>
+                <span class="span profilePhoto"></span>
             @endif
 
             <a href="/users/{{$user->id}}/profile">{{ $user->name }}</a>

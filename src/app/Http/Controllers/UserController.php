@@ -24,6 +24,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
             $this->authorize('show',$user);
         }
 
@@ -36,6 +39,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
             $this->authorize('self', $user);
         }
         $fname = strtok($user->name, " ");
@@ -76,7 +82,6 @@ class UserController extends Controller
         Auth::logout();
       }
 
-
       $user->delete();
 
       return $user;
@@ -116,6 +121,7 @@ class UserController extends Controller
             $users->where('name', 'ILIKE', "%${search}%")->orderBy('name', 'asc');
         }
 
+        $users->where('name','!=','Anonymous');
 
       return $users->get();
     }

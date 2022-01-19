@@ -6,7 +6,7 @@
 
 <section id="projects">
     <form class="search-tab">
-        <div class="order">
+        <fieldset class="order">
             <div>
                 <label for = "search"> <img alt="Search" src={{ asset('img/lupa.png') }} > </label>
                 <input type="text" id="search" class="search" name="search" placeholder="Search for Project" value="{{$search}}"/>
@@ -23,8 +23,8 @@
             </div>
 
             <button type="submit" >Search</button>
-        </div>
-        <div class="filters">
+        </fieldset>
+        <fieldset class="filters">
             <div>
                 <input type = "checkbox" id = "favourite" name = "filters[]" class="favourite" value = "favourite" {{$favourite}}/>
                 <label for = "favourite"> Favourite </label>
@@ -41,7 +41,7 @@
                 <input type = "checkbox" id = "archived" name = "filters[]" value = "archived" {{$archived}}/>
                 <label for = "archived"> Archived </label>
             </div>
-        </div>
+        </fieldset>
         <div class="projets-display">
             <a href="/projects">
                 <article class="project create">

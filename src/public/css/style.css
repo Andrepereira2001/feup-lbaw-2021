@@ -52,8 +52,8 @@ main>header .smallIcon {
 
 main>header span {
     font-size: 30px;
-    text-decoration: none;
     color: white;
+    text-decoration: none;
     font-weight: bold;
 }
 
@@ -76,7 +76,7 @@ footer section {
 }
 
 input[type="color"] {
-    border-radius: 100%;
+    border-radius: 100% !important;
     width: 30px;
     height: 30px;
     padding: 0;
@@ -88,10 +88,12 @@ input[type="color"] {
     background: #c1c1c1;
     border-radius: 6px;
 }
+
 ::-webkit-scrollbar {
     border-radius: 20px;
     width: 12px;
 }
+
 ::-webkit-scrollbar-track {
     background-color: #f1f1f1;
     border-radius: 6px;
@@ -101,6 +103,7 @@ input[type="color"] {
     padding-bottom: 40px;
 }
 
+
 /* NavBar */
 
 #sidenav {
@@ -109,7 +112,7 @@ input[type="color"] {
     flex-flow: column;
 }
 
-#sidenavleft {
+.sidenavleft {
     padding: 25px 0;
     display: flex;
     flex-flow: row;
@@ -118,7 +121,7 @@ input[type="color"] {
     border-right: 1px solid grey;
 }
 
-#sidenavleft a {
+.sidenavleft a {
     position: absolute;
     padding: 12px;
     width: 140px;
@@ -130,7 +133,7 @@ input[type="color"] {
     cursor: pointer;
 }
 
-#sidenavleft:hover {
+.sidenavleft:hover {
     background-color: rgba(165, 176, 175, 0.3);
 }
 
@@ -147,12 +150,15 @@ input[type="color"] {
     opacity: 90%;
 }
 
+
 /* User generals */
 
 .profilePhoto {
     border-radius: 50%;
     width: 55px;
     height: 55px;
+    max-width: 55px;
+    max-height: 55px;
     background-color: #62D2C5;
     display: flex;
     align-items: center;
@@ -195,6 +201,7 @@ input[type="color"] {
     position: relative;
     width: 130px;
 }
+
 
 /* Buttons */
 
@@ -241,4 +248,29 @@ input[type="color"] {
 .leave,
 .complete {
     background-color: #C86660;
+}
+
+.add {
+    all: unset;
+    align-self: end;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification-number {
+    color: white;
+    background-color: #C86660;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    font-size: x-small;
+    font-weight: normal;
+    text-align: center;
+    position: absolute;
+    left: 12px;
+    bottom: 14px;
 }

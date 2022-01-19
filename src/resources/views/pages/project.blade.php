@@ -56,7 +56,7 @@
         <ul class="forum">
             @each('partials.forumMessage', $forumMessages, 'forumMessage')
         </ul>
-        @if($project->archived_at == null)
+        @if(Auth::user() != null && $project->archived_at == null)
             <form class="new-message" data-id={{ Auth::user()->id}}>
                 <input type="text" class="message-input" name="content" placeholder="Message">
                 <button class="submit" type="submit"><img alt="Send message" src={{ asset('img/send.png') }}></button>

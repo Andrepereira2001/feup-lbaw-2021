@@ -5,7 +5,9 @@
           <h5 class="modal-title">{{$title}}</h5>
         </div>
         <div class="modal-body">
+          <div class="all-labels">
             @each('partials.label_add', $notAssigned, 'label')
+          </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn close" data-dismiss="modal">Close</button>

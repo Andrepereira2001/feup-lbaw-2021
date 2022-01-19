@@ -103,13 +103,18 @@ class LabelController extends Controller
     if(!Auth::guard('admin')->user()){
       $this->authorize('member', Project::find($label->id_project));
     }
-    error_log("autorizei");
 
-    //$participation = Participation::where('id_project', $id)->where('id_user', Auth::user()->id)->first();
     $taskLabel = TaskLabel::where('id_task', $request->taskId)->where('id_label', $label->id)->first();
-    error_log("$taskLabel _____________________________________________________________________");
+
+
+    $all = TaskLabel::where('id_task', $request->taskId)->get();
+
     $taskLabel->delete();
 
-    return $id;
+    error_log($all);
+
+    error_log($all);
+
+    return [$id, $all];
   }
 }
