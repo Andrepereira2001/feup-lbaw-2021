@@ -22,8 +22,15 @@ class NotificationController extends Controller
      */
     public function list($id)
     {
-        Auth::check();
         $user = User::find($id);
+
+        if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
+            $this->authorize('self', $user);
+        }
+
         $notifications = $user->notifications();
 
         return view('pages.user', ['notifications' => $notifications, 'view' => "View"]);
@@ -31,9 +38,15 @@ class NotificationController extends Controller
 
     public function showNotifications($id)
     {
-        Auth::check();
-
         $user = User::find($id);
+
+        if(!Auth::guard('admin')->user()){
+            if(!Auth::check()){
+                return redirect('/login');
+            }
+            $this->authorize('self', $user);
+        }
+
 
         $notifications = $user->notifications();
         $notifications = $notifications->orderBy("created_at", "DESC")->get();

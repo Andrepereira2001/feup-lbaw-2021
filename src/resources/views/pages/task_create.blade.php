@@ -6,7 +6,7 @@
         <form class="create">
             <div class="info-created">
                 <input class="project-id" name="project-id" value={{ $project->id }}>
-                <input class="name" type="text" placeholder="Task Name..." name="name">
+                <input class="name" type="text" placeholder="Task Name...*" name="name">
                 <div class="box-descript">
                     <input class="description" type="text" placeholder="Add a description..." name="description">
                     <div class="config">
@@ -25,7 +25,6 @@
                 <span>Assigned To</span>
                 <input type="hidden" name="user-id[]">
                 <div class="content">
-                    {{-- @include('partials.user', ['user' => $user]) --}}
                     <button type="button" class="add" data-toggle="modal" data-target="#assign-member"><img alt="Assign Member" src={{ asset('img/add.png') }}></button>
                 </div>
             </div>

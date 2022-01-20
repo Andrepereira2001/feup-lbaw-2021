@@ -10,7 +10,7 @@
                 <input class= "search" type="text" data-id={{$project_id}} name="search" placeholder="Search for User"/>
             </div>
             <div class="all-users">
-                @each('partials.user_invite', $users, 'user')
+                @each('partials.user_invite', $users->where('name','!=','Anonymous'), 'user')
             </div>
         </div>
         <div class="modal-footer">

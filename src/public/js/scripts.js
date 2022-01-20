@@ -247,20 +247,19 @@ function sendCreateProjectRequest(event) {
     let color = this.querySelector('input[name=color]').value;
     if (name == '') {
 
-        let message = document.querySelectorAll('#project-create form .buttons .error-messages');
+        let message = document.querySelectorAll('#project-create .coordinator-buttons .error-messages');
         [].forEach.call(message, function(mes) {
             mes.remove();
         });
-        console.log("project does not have a name");
-        let buttonsDiv = document.querySelector('#project-create form .buttons');
-        let buttonSave = document.querySelector('#project-create form .buttons button.save');
+        let buttonsDiv = document.querySelector('#project-create .coordinator-buttons');
+        let buttonSave = document.querySelector('#project-create .coordinator-buttons button.save');
 
         let errorMessage = document.createElement('span');
         errorMessage.className = ('error-messages')
-        errorMessage.innerHTML = `Project does not have a name!`;
+        errorMessage.innerHTML = `Project name is required!`;
 
         buttonsDiv.insertBefore(errorMessage, buttonSave);
-    } else if (name != '') {
+    } else {
         sendAjaxRequest('post', '/projects/', { name, description, color }, projectAddedHandler);
     }
 
@@ -290,7 +289,6 @@ function sendFavouriteRequest(event) {
 function sendArchivedRequest(event) {
     event.preventDefault();
     let id = this.closest('article').getAttribute('data-id');
-    console.log(id);
     sendAjaxRequest('post', '/api/projects/' + id + '/archive', null, projectArchiveHandler);
 }
 
@@ -387,17 +385,17 @@ function sendCreateTaskRequest(event) {
     let users = this.querySelectorAll("input[name='user-id[]']");
 
     if (name == '') {
-        let message = document.querySelectorAll('#task-create form .buttons .error-messages');
+        let message = document.querySelectorAll('#task-create .coordinator-buttons .error-messages');
         [].forEach.call(message, function(mes) {
             mes.remove();
         });
-        console.log("project does not have a name");
-        let buttonsDiv = document.querySelector('#task-create form .buttons');
-        let buttonSave = document.querySelector('#task-create form .buttons button.save');
+        let buttonsDiv = document.querySelector('#task-create .coordinator-buttons');
+        let buttonSave = document.querySelector('#task-create .coordinator-buttons .btn.save');
+        console.log(buttonsDiv, buttonSave);
 
         let errorMessage = document.createElement('span');
         errorMessage.className = ('error-messages')
-        errorMessage.innerHTML = `Task does not have a name!`;
+        errorMessage.innerHTML = `Task name is required!`;
 
         buttonsDiv.insertBefore(errorMessage, buttonSave);
     } else {
@@ -549,13 +547,20 @@ function sendEditUserRequest(event) {
     let email = this.querySelector('input[name=email]').value;
     let password = this.querySelector('input[name=password]').value;
     let cpassword = this.querySelector('input[name=cPassword]').value;
-    if (password == cpassword) {
+    if (password == cpassword && password.length > 5) {
 
         if (sendAjaxRequest('post', '/users/' + id + '/update', { name, email, password }, userEditHandler)) {
-            this.querySelector('#error').style.display = "flex";
+            this.querySelector('.error-messages').style.display = "flex";
+        }
+    } else if (password.length < 6) {
+
+        if (sendAjaxRequest('post', '/users/' + id + '/update', { name, email, password }, userEditHandler)) {
+            this.querySelector('.error-messages').innerText = "Your password must be at least 6 characters"
+            this.querySelector('.error-messages').style.display = "flex";
         }
     } else {
-        this.querySelector('#error').style.display = "flex";
+        this.querySelector('.error-messages').innerText = "Invalid credentials"
+        this.querySelector('.error-messages').style.display = "flex";
     }
 }
 
@@ -652,7 +657,19 @@ function seeNotification(event) {
 
 function participationDeletedHandler() {
     if (this.status == 406) {
-        alert("Last coordinator! Can't leave project.")
+        let message = document.querySelectorAll('#project-details .coordinator-buttons .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+
+        let buttonsDiv = document.querySelector('#project-details .coordinator-buttons');
+        let buttonSave = document.querySelector('#project-details .btn.edit');
+
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Last coordinator can´t leave project.`;
+
+        buttonsDiv.insertBefore(errorMessage, buttonSave);
     } else if (this.status == 200) {
         window.location = '/users';
     } else {
@@ -829,7 +846,6 @@ function projectUserAddSearchChangeHandler() {
 }
 
 function sendInviteHandler() {
-    console.log("testing")
     let body = document.querySelector('#project-details #invite-member .modal-body');
     let errorMessages = body.querySelector(".invite-error");
     if (errorMessages !== null) {
@@ -911,7 +927,18 @@ function taskRemoveMemberHandler() {
 
 function projectRemoveCoordinatorHandler() {
     if (this.status === 406) {
-        alert("Last coordinator! Can't leave project.")
+        let message = document.querySelectorAll('#project-edit .content-inside .error-messages');
+        [].forEach.call(message, function(mes) {
+            mes.remove();
+        });
+
+        let buttonsDiv = document.querySelector('#project-edit .coordinators .content-inside');
+        let errorMessage = document.createElement('span');
+        errorMessage.className = ('error-messages')
+        errorMessage.innerHTML = `Last coordinator can't be demoted.`;
+        errorMessage.style.alignSelf = "center";
+        buttonsDiv.appendChild(errorMessage);
+
     } else if (this.status !== 200) {
         alert("Error: Can't leave project");
         window.location = '/users';
@@ -927,8 +954,7 @@ function projectRemoveCoordinatorHandler() {
     let user = document.createElement('div');
     user.className = ('info-remove user');
     user.setAttribute('data-id', userData.id);
-    console.log(userData);
-    console.log(user);
+
     if (userData.image_path !== "./img/default") {
         user.innerHTML = `
             <div class="user-info">
@@ -944,10 +970,6 @@ function projectRemoveCoordinatorHandler() {
             </div>
             <button type="button" class="btn remove" data-id=${user.id}>Remove</button>`;
     }
-    // user.innerHTML = `
-    //     <span class="profilePhoto"></span>
-    //     <a href="/users/${userData.id}/profile">${userData.name}</a>
-    //     <button type="button" class="btn remove" data-id=${userData.id}>Remove</button>`;
 
     body.appendChild(user);
 }
@@ -1043,9 +1065,7 @@ function taskAddedHandler() {
         });
 
         let buttonsDiv = document.querySelector('#task-create .coordinator-buttons');
-        console.log(buttonsDiv);
         let buttonSave = document.querySelector('#task-create button.btn.save');
-        console.log(buttonSave);
 
         let errorMessage = document.createElement('span');
         errorMessage.className = ('error-messages')
@@ -1069,9 +1089,7 @@ function taskEditHandler() {
         });
 
         let buttonsDiv = document.querySelector('#task-edit .coordinator-buttons');
-        console.log(buttonsDiv);
         let buttonSave = document.querySelector('#task-edit button.btn.save');
-        console.log(buttonSave);
 
         let errorMessage = document.createElement('span');
         errorMessage.className = ('error-messages')
@@ -1140,15 +1158,12 @@ function ForumMessageAddedHandler() {
 /*--------------Task Comment------------*/
 
 function CommentAddedHandler() {
-    console.log(this.status);
     const status = JSON.parse(this.responseText);
     const user = status[1];
     const message = status[0];
-    console.log(user, message);
     var currentdate = new Date();
     if (this.status === 200) {
         let body = document.querySelector('#task-details .task.comments .forum');
-        console.log(body);
         let comment = document.createElement('li');
         comment.className = ('comment');
 
@@ -1205,14 +1220,15 @@ function LabelAddedHandler() {
 
     let body = document.querySelector('#project-details .labels .content-inside .list');
     document.querySelector('#add-label .message-input').value = '';
-    let errorMessages = body.querySelector(".label-error");
+    let errorMessages = body.querySelector(".error-messages");
     if(errorMessages !== null){
         errorMessages.remove();
     }
     if(this.status === 200){
         errorMessage = document.createElement('span');
-        errorMessage.className = ('label-error');
+        errorMessage.className = ('error-messages');
         errorMessage.innerHTML = `Label already exists!`;
+        errorMessage.style.marginLeft = "10px";
         body.appendChild(errorMessage);
     } else if(this.status != 201) {
         window.location = '/users';
@@ -1253,8 +1269,11 @@ function LabelDeletedHandler() {
     if (this.status !== 200) {
         window.location = '/users';
     }
-    let label = JSON.parse(this.responseText);
-    document.querySelector('#project-edit .labels .info-remove.label[data-id="' + label + '"]').remove();
+    let response = JSON.parse(this.responseText);
+    document.querySelector('#project-edit .labels .info-remove.label[data-id="' + response[0] + '"]').remove();
+    if (response[1].length === 1) {
+        document.querySelector('#project-edit .labels').remove();
+    }
 }
 
 function LabelDeletedTaskHandler() {
@@ -1274,9 +1293,9 @@ function LabelDeletedTaskHandler() {
 function userEditHandler() {
     const user = JSON.parse(this.responseText);
     if (this.status === 200) {
-        window.location = '/users/' + user.id + '/profile';
-    } else if (this.status !== 201) {
-        window.location = '/users';
+         window.location = '/users/' + user.id + '/profile';
+    } else if (this.status !== 200) {
+         window.location = '/users';
     }
 }
 
@@ -1319,33 +1338,34 @@ function adminUserSearchChangeHandler() {
         if (user.blocked) {
             userDisplay.innerHTML = `
                 <div class="unblock">
-                    <div class="data">
-                        <span class="profilePhoto"></span>
-
-                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    <div class="user-info">
                     </div>
-
                     <div class="buttons">
                             <button type="button" class="btn">Unblock</button>
                     </div>
-                </div>
-            `;
-
+                </div>`;
         } else {
             userDisplay.innerHTML = `
                 <div class="block">
-                    <div class="data">
-                        <span class="profilePhoto"></span>
-
-                        <a href="/users/${user.id}/profile">${user.name}</a>
+                    <div class="user-info">
                     </div>
-
                     <div class="buttons">
                             <button type="button" class="btn">Block</button>
                     </div>
                 </div>
             `;
         }
+
+        let userInfo = userDisplay.querySelector(".user-info");
+
+        if (user.image_path !== "./img/default") {
+            userInfo.innerHTML = `<img src='/${user.image_path}' alt="User image" width="55px" class="profilePhoto" ></img>
+            <a href="/users/${user.id}/profile">${user.name}</a>`;
+        } else {
+            userInfo.innerHTML = `<span class="span profilePhoto">${user.name[0]}</span>
+            <a href="/users/${user.id}/profile">${user.name}</a>`;
+        }
+
         userDisplay.querySelector("button").addEventListener('click', sendUserBlockRequest);
 
         body.appendChild(userDisplay);

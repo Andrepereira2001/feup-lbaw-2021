@@ -274,3 +274,11 @@ input[type="color"] {
     left: 12px;
     bottom: 14px;
 }
+
+.required {
+    color: grey;
+}
+
+.error-messages {
+    color: #C86660;
+}

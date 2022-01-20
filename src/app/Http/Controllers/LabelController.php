@@ -93,8 +93,11 @@ class LabelController extends Controller
         $this->authorize('coordinator', Project::find($label->id_project));
     }
 
+    $all = Label::where('id_project', $label->id_project)->get();
+
     $label->delete();
-    return $id;
+
+    return [$id, $all];
   }
 
 
@@ -110,10 +113,6 @@ class LabelController extends Controller
     $all = TaskLabel::where('id_task', $request->taskId)->get();
 
     $taskLabel->delete();
-
-    error_log($all);
-
-    error_log($all);
 
     return [$id, $all];
   }

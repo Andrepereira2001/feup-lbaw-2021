@@ -24,8 +24,6 @@ Route::delete('users/{id}', 'UserController@delete');
 Route::get('users/{id}/profile', 'UserController@show'); //view user profile
 Route::get('users/{id}/update', 'UserController@edit')->name('update'); //user edit profile form
 Route::post('users/{id}/update', 'UserController@update'); //user update profile form
-Route::get('users/{id}/notifications', 'NotificationController@showNotifications');
-Route::post('users/{id}/notifications', 'NotificationController@seen');
 Route::get('recoverPassword', 'Auth\LoginController@forgotPassword')->name('recoverPassword'); //recover password form
 Route::post('recoverPassword', 'Auth\LoginController@recoverPassword'); //recover password action
 Route::get('resetPassword/{token}', 'Auth\LoginController@showResetPassword'); //reset password form
@@ -51,7 +49,6 @@ Route::post('projects/{id}/edit', 'ProjectController@edit'); //edit page
 Route::post('/api/projects/{id}/favourite', 'ProjectController@favourite');
 Route::post('/api/projects/{id}/archive', 'ProjectController@archive');
 Route::delete('/api/projects/{id}/decreaseParticipation', 'ProjectController@decreaseParticipation');
-
 Route::post('api/projects/addCoordinator', 'ProjectController@addCoordinator');
 
 // (M03) Tasks, Comments and Labels
@@ -64,14 +61,14 @@ Route::post('tasks/{id}/edit', 'TaskController@edit'); //edit task
 Route::post('tasks/{id}/complete', 'TaskController@complete'); //complete task
 Route::post('tasks/{id}/clone', 'TaskController@clone'); //complete task
 Route::post('comments', 'TaskCommentController@create'); //create task comment
+
+
+
+// (M04) Forum and Labels
 Route::post('labels', 'LabelController@create'); //create label
 Route::post('labels/assign', 'LabelController@assignToTask'); //create label
 Route::delete('labels/{id}', 'LabelController@delete'); //delete label
 Route::delete('tasks/labels/{id}', 'LabelController@deleteFromTask'); //delete label
-
-
-
-// (M04) Forum
 Route::post('messages', 'ForumMessageController@create'); //create a message
 
 
@@ -80,8 +77,8 @@ Route::post('api/invites/search', 'InviteController@search'); //search for invit
 Route::post('api/invites', 'InviteController@create'); //create invite
 Route::post('api/invites/{id}/accept', 'InviteController@accept'); //accept invite
 Route::delete('api/invites/{id}','InviteController@delete'); // delete invite
-
-
+Route::get('users/{id}/notifications', 'NotificationController@showNotifications');
+Route::post('users/{id}/notifications', 'NotificationController@seen');
 
 // (M06) Administration
 Route::get('admin/projects', 'AdminController@showProjects'); //admin page

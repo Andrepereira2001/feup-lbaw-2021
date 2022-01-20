@@ -14,7 +14,7 @@
 
 #user .userInfo,
 #user-edit .userInfo,
-#notifications .notifications-info {
+.notifications-info {
     z-index: 10;
     display: flex;
     box-sizing: inherit;
@@ -26,12 +26,28 @@
 }
 
 #user .info,
-#user-edit .info {
+#user-edit .writtenInfo {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin: 3% auto;
+    width: 100%;
+}
+
+#user-edit .info {
+    width: 400px;
+}
+
+#user-edit .eye {
+    position: relative;
+}
+
+#user-edit .eye-img {
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+    right: 16px;
+    opacity: 60%;
 }
 
 #user .profilePhoto,
@@ -40,14 +56,10 @@
     height: 150px;
     max-width: 150px;
     max-height: 150px;
-    background-color: #62D2C5;
-    border: 0px;
-    border-radius: 100%;
     font-size: 60px
 }
 
-#user .writtenInfo,
-#user-edit .writtenInfo {
+#user .writtenInfo {
     margin-top: 30px;
     width: 350px;
 }
@@ -76,7 +88,8 @@
     font-size: small;
 }
 
-#user input {
+#user input,
+#user-edit input {
     color: #383838;
     background-color: #F2FEFD;
     border-radius: 9px;
@@ -84,21 +97,12 @@
     height: 40px;
     font-size: medium;
     padding: 0 10px;
-}
-
-#user-edit input {
-    color: #383838;
-    background-color: #F2FEFD;
-    border-radius: 9px;
-    border: transparent;
-    height: 40px;
-    font-size: medium;
-    padding: 0 10px;
     margin-bottom: 10px;
 }
 
-#user .full input {
-    width: 170px;
+#user .full input,
+#user-edit .full {
+    width: 100%;
 }
 
 #user .full1 input {
@@ -110,27 +114,16 @@
     outline-color: #C0F2EC;
 }
 
+.writtenInfo section {
+    gap: 10px;
+}
+
 #user .editIcon {
     float: right;
     width: 10%;
     cursor: pointer;
     margin-top: 10px;
 }
-
-
-/* #user-edit .eye {
-    position: relative;
-} */
-
-
-/* #user-edit i {
-    position: absolute;
-    cursor: pointer;
-    top: 13px;
-    right: 12px;
-    opacity: 60%;
-    z-index: 23645px;
-} */
 
 #user-edit .userIcon {
     position: relative;
@@ -141,9 +134,9 @@
 
 #user-edit .editIconBlue {
     position: absolute;
-    width: 25%;
-    right: 0;
-    bottom: 0;
+    width: 45px;
+    left: 227px;
+    top: 109px;
     cursor: pointer;
 }
 
@@ -162,11 +155,10 @@
     width: 180px;
 }
 
-#user-edit #error {
+#user-edit .error-messages {
     margin-bottom: 20px;
     display: none;
     font-size: small;
-    color: red;
 }
 
 #photo .modal-body {
@@ -182,6 +174,10 @@
 }
 
 #photo .colors {
+    margin-top: 30px;
+}
+
+#photo .userIcon {
     margin-top: 30px;
 }
 
@@ -224,6 +220,7 @@
     border: 2px solid black;
     border-color: #C0F2EC;
     border-radius: 10px;
+    width: 130px;
 }
 
 #notifications .notification {
@@ -231,6 +228,7 @@
     flex-flow: column;
     justify-content: center;
     align-items: start;
+    width: 150px;
 }
 
 #notifications .content {
@@ -256,6 +254,17 @@
     width: 55%;
     margin-bottom: 25px;
     margin-left: 5px;
+}
+
+#notifications article.notification .link:hover>.square,
+#notifications article.notification .square:hover {
+    height: 58px;
+    width: 75px;
+}
+
+#notifications article.notification .link:hover>.not-content,
+#notifications article.notification .not-content:hover {
+    font-size: large;
 }
 
 #notifications .accept {

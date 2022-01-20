@@ -5,7 +5,6 @@
 @section('content')
 
 <section id="user-edit">
-    <i class="icon-eye-open"></i>
     @include('partials.popup_logout',['name' => "logout", 'title' => "Are you sure you want to logout?"])
     @include('partials.popup_delete',['name' => "delete", 'title' => "Are you sure you want to delete your profile?", 'message' => "Once you delete it, you can't go back", 'id' => $user->id])
     @include('partials.popup_photo',['name' => "photo", 'title' => "Are you sure you want to logout?", 'id' => $user->id])
@@ -28,7 +27,7 @@
                 <img alt="Logout" src={{ asset('img/arrow.png') }} class="arrow"></a>
             </div>
         </div>
-        <div class="userInfo" id="edit">
+        <div class="userInfo">
             <form class="info">
                 <a class="userIcon">
                     @if($user->image_path != "./img/default")
@@ -38,12 +37,12 @@
                     @endif
                     <img alt="Edit image" src={{ asset('img/editBlue.png') }} data-toggle="modal" data-target="#photo" class="editIconBlue">
                 </a>
-                <section class="Info">
-                    <div>
+                <section class="writtenInfo">
+                    <div class="full">
                         <label for="name">Name</label>
-                        <input class="focusName" id="name" type="text" name="name" value="{{$user->name}}"/>
+                        <input id="name" type="text" name="name" value="{{$user->name}}"/>
                     </div>
-                    <div>
+                    <div class="full">
                         <label for="email">Email</label>
                         <input id="email" type="text" name="email" value="{{$user->email}}">
                         @if ($errors->has('email'))
@@ -52,25 +51,24 @@
                             </span>
                         @endif
                     </div>
-                    <div class="pass">
+                    <div class="full pass">
                         <label for="password">Password</label>
                         <div class="eye">
-                            <input id="password" type="password" name="password">
-                            <i class="far fa-eye" id="togglePassword" onmousedown ="document.getElementById('password').type='text';" onmouseup="document.getElementById('password').type='password';"></i>
+                            <input class="full" id="password" type="password" name="password">
+                            <img class="password eye-img" src={{ asset('img/eye.png') }} width="25" onmousedown ="document.getElementById('password').type='text'" onmouseup="document.getElementById('password').type='password'"/>
                         </div>
 
                     </div>
-                    <div class="pass">
+                    <div class="full pass">
                         <label for="cPassword">Confirm Password</label>
                         <div class="eye">
-                            <input id="cPassword" type="password" name="cPassword">
-                            <i class="bi bi-eye"></i>
-                            <i class="far fa-eye" id="togglePassword"  onmousedown ="document.getElementById('cPassword').type='text';" onmouseup="document.getElementById('cPassword').type='password';" ></i>
+                            <input class="full" id="cPassword" type="password" name="cPassword">
+                            <img class="cPassword eye-img" src={{ asset('img/eye.png') }} width="25" onmousedown ="document.getElementById('cPassword').type='text'" onmouseup="document.getElementById('cPassword').type='password'"/>
                         </div>
                     </div>
                 </section>
                 <div class="submitEdit">
-                    <span id="error">Error, change the data and try again</span>
+                    <span class="error-messages">Error, change the data and try again</span>
                     <div class="editButtons">
                         <button class="btn save" type="submit">Save</button>
                         <a class="btn cancel" href="/users/{{$user->id}}/profile">Cancel</a>

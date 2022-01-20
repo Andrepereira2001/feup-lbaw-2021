@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if(session()->has('jsAlert'))
+{{-- @if(session()->has('jsAlert'))
      <script>
     var msg = '{{Session::get('jsAlert')}}';
     var exist = '{{Session::has('jsAlert')}}';
@@ -10,7 +10,7 @@
       alert(msg);
     }
   </script>
-@endif
+@endif --}}
 
 <div class="logo1">
     <img alt="Logo" src={{"./img/logo_sem_letras.png"}} class="logo" >
@@ -32,15 +32,23 @@
         </div>
 
         <div class="loginPassword">
-            <input id="password" type="password" name="password" placeholder="Password" required>
-            <label for="password"><img alt="Password" src={{"./img/loginPassword.png"}} class="loginPasswordImg" ></label>
+            <div>
+                <input id="password" type="password" name="password" placeholder="Password" required>
+                <label for="password"><img alt="Password" src={{"./img/loginPassword.png"}} class="loginPasswordImg" ></label>
 
-        @if ($errors->has('password'))
-            <span class="error">
-                {{ $errors->first('password') }}
-            </span>
-        @endif
+                @if ($errors->has('password'))
+                    <span class="error">
+                        {{ $errors->first('password') }}
+                    </span>
+                @endif
+            </div>
+            @if(session()->has('jsAlert'))
+                <span class="credentials error-messages">
+                    {{Session::get('jsAlert')}}
+                </span>
+            @endif
         </div>
+
 
         <div class="loginArea">
             <button type="submit" class="loginButton">

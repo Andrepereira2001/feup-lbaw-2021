@@ -12,7 +12,6 @@
       <h1 class="title">Contact Us</h1>
     </div>
   </div>
-  <div class="line"></div>
   <div class="form">
     <form  method="GET" action="{{ action('NonAuthController@sendEmail') }}" id="contact-form">
       <div class="name-email">
@@ -30,7 +29,7 @@
         <textarea type="text" class="message-textbox" id="message" name="message"  maxlength="1000" form="contact-form"></textarea>
       </div>
       <div class="submit">
-        <input class="submit-button" type="submit" name="submit" value="Send">
+        <button class="btn confirm submit-button" type="submit">Send</button>
       </div>
     </form>
   </div>

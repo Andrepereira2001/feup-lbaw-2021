@@ -12,7 +12,6 @@
       <h1 class="title">Services</h1>
     </div>
   </div>
-  <div class="line"></div>
   <div class="enumeration">
     <div class="box"><img alt="Blue Box" src={{ asset('img/blue_project_box.png') }} width="65px"><span class="description"> At toEaseManage, all users can create or be part of many projects.</span></div>
     <div class="box"><img alt="Blue Box" src={{ asset('img/blue_project_box.png') }} width="65px"><span class="description"> With the task labeling and assignement system, it’s easy to have a properly organized teamwork.</span></div>

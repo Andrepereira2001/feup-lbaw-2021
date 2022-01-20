@@ -57,9 +57,6 @@
             </a>
         </section>
         @elseif (Auth::guard('admin')->check())
-          <script>
-            document.getElementById("header").style.borderBottom = "6px solid #A1A1A1";
-          </script>
           <a class="logout" href="{{ url('/logout') }}">Logout</a>
         @endif
       </header>
