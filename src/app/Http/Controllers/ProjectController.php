@@ -340,10 +340,6 @@ class ProjectController extends Controller
                                         ->where('id_user', $user_id)
                                         ->first();
 
-        if(!Auth::guard('admin')->user()){
-            $this->authorize('coordinator', Project::find($id));
-        }
-
         if($participation->role == "Coordinator"){
             if(Participation::where('id_project', $id)->where("id_user", '!=', $user_id)->where("role","Coordinator")->first()){
                 $participation->role = "Member";

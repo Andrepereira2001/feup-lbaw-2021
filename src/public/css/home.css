@@ -52,7 +52,8 @@
 }
 
 #home .title {
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     margin: 20px 0px 50px 0px;
     background-color: #F6F6F6;
     border-radius: 15px;
@@ -63,7 +64,7 @@
 }
 
 #home .title span {
-    font-size: 20px;
+    font-size: large;
     font-weight: bold;
     text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
@@ -140,7 +141,8 @@
 
 #home .opinion img {
     border-radius: 20px;
-    width: 180px;
+    max-width: 180px;
+    width: 20%;
     box-shadow: 0 0 10px rgb(0 0 0 / 25%)
 }
 
@@ -158,8 +160,9 @@
     border-radius: 20px;
     margin: 0.5em 3em 0.5em 3em;
     padding: 1.5em 1rem 1.5em 1rem;
-    width: 600px;
+    max-width: 600px;
     font-size: large;
+    width: 70%;
 }
 
 #home .opinion-text {
@@ -548,9 +551,14 @@
 
 .logo {
     margin: 78px auto;
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     grid-row: 1/2;
     grid-column: 1/2;
+}
+
+.logo img {
+    width: 100%;
 }
 
 #login,
