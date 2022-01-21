@@ -54,7 +54,7 @@ CREATE TABLE Admin (
 CREATE TABLE Project (
     id                     SERIAL PRIMARY KEY,
     name                   TEXT NOT NULL,
-    description            TEXT,
+    description            TEXT DEFAULT ' ',
     color                  TEXT DEFAULT '#595656',
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     archived_at            TIMESTAMP,
@@ -73,7 +73,7 @@ CREATE TABLE Participation (
 CREATE TABLE Task (
     id                     SERIAL PRIMARY KEY,
     name                   TEXT NOT NULL,
-    description            TEXT DEFAULT '',
+    description            TEXT DEFAULT ' ',
     priority               INTEGER,
     created_at             TIMESTAMP NOT NULL DEFAULT now(),
     finished_at            TIMESTAMP,
@@ -224,14 +224,14 @@ BEGIN
  IF TG_OP = 'INSERT' THEN
         NEW.tsvectors = (
          setweight(to_tsvector('english', NEW.name), 'A') ||
-         setweight(to_tsvector('english', NEW.description), 'C')
+         setweight(to_tsvector('english', coalesce(NEW.description, '')), 'C')
         );
  END IF;
  IF TG_OP = 'UPDATE' THEN
          IF (NEW.name <> OLD.name OR NEW.description <> OLD.description) THEN
            NEW.tsvectors = (
              setweight(to_tsvector('english', NEW.name), 'A') ||
-             setweight(to_tsvector('english', NEW.description), 'C')
+             setweight(to_tsvector('english', coalesce(NEW.description, '')), 'C')
            );
          END IF;
  END IF;
@@ -255,14 +255,14 @@ BEGIN
  IF TG_OP = 'INSERT' THEN
         NEW.tsvectors = (
          setweight(to_tsvector('english', NEW.name), 'A') ||
-         setweight(to_tsvector('english', NEW.description), 'C')
+         setweight(to_tsvector('english', coalesce(NEW.description, '')), 'C')
         );
  END IF;
  IF TG_OP = 'UPDATE' THEN
          IF (NEW.name <> OLD.name OR NEW.description <> OLD.description) THEN
            NEW.tsvectors = (
              setweight(to_tsvector('english', NEW.name), 'A') ||
-             setweight(to_tsvector('english', NEW.description), 'C')
+             setweight(to_tsvector('english', coalesce(NEW.description, '')), 'C')
            );
          END IF;
  END IF;

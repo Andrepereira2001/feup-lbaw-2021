@@ -17,7 +17,7 @@
     <div class="content">
         @if($project->pivot !== null && $project->pivot->role == "Coordinator"  && $project->archived_at == null)
             <img alt="Help" src={{asset("./img/help.png")}} width="20" class="help">
-        <span class="help-labels">You should archive the projects, where your are coordinator, when the project has finished, so that the information is mantained for future consultation, but no one can make any changes.</span>
+        <span class="help-labels">You should archive the projects, where you are coordinator, when the project has finished, so that the information is mantained for future consultation, but no one can make any changes.</span>
             <a href="#" class="archive"><img alt="Not Archived" src={{ asset('img/cardboard-box.png') }} width="20"></a>
         @elseif($project->pivot !== null && $project->pivot->role == "Coordinator" && $project->archived_at != null)
             <a href="#"><img alt="Archived" src={{ asset('img/cardboard-box-filled.png') }} width="20"></a>

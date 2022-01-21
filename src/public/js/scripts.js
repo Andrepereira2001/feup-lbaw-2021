@@ -81,7 +81,7 @@ function addEventListeners() {
         val.addEventListener('click', createTaskAssignHandler);
     });
 
-    let taskAssignMember = document.querySelectorAll('#assign-member .confirm');
+    let taskAssignMember = document.querySelectorAll('#task-edit #assign-member .confirm');
     [].forEach.call(taskAssignMember, function(val) {
         val.addEventListener('click', taskAssignMemberHandler);
     });
@@ -384,14 +384,13 @@ function sendCreateTaskRequest(event) {
     let dueDate = this.querySelector('input[name=date]').value;
     let users = this.querySelectorAll("input[name='user-id[]']");
 
-    if (name == '') {
+    if (name === '') {
         let message = document.querySelectorAll('#task-create .coordinator-buttons .error-messages');
         [].forEach.call(message, function(mes) {
             mes.remove();
         });
         let buttonsDiv = document.querySelector('#task-create .coordinator-buttons');
         let buttonSave = document.querySelector('#task-create .coordinator-buttons .btn.save');
-        console.log(buttonsDiv, buttonSave);
 
         let errorMessage = document.createElement('span');
         errorMessage.className = ('error-messages')
@@ -813,7 +812,7 @@ function projectCoordinatorAddSearchChangeHandler() {
         }
 
         let add = add_coordinator.querySelector('button.confirm');
-        add.addEventListener('click', createTaskAssignHandler);
+        add.addEventListener('click', addCoordinatorRequest);
 
         body.appendChild(add_coordinator);
 
@@ -1090,7 +1089,7 @@ function taskAddedHandler() {
     }
     else if (this.status === 201) {
         const task = JSON.parse(this.responseText);
-        window.location = '/tasks/' + task.id;
+        //window.location = '/tasks/' + task.id;
     } else if (this.status !== 200) {
         window.location = '/users';
     }

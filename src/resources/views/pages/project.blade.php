@@ -23,6 +23,8 @@
 
   </style>
 
+  {{$tasksTodo}}
+
   <section id="project" class="id-{{$project->id}}" data-id={{$project->id}}>
     <div class="title-box">
       <h1><span>{{ $project->name }}</span></h1>
