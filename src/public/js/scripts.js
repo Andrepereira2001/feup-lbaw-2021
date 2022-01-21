@@ -573,7 +573,22 @@ function sendDeleteUserRequest(event) {
 
 function changePhotoUpload(event) {
     var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
+    if(output == null) {
+        const userIcon = document.querySelector('#photo .userIcon');
+        userIcon.querySelector('span').remove();
+
+        const img = document.createElement('img');
+        img.setAttribute('id',"outpup");
+        img.setAttribute('alt',"User image");
+        img.setAttribute('width',"55");
+        img.setAttribute('class',"profilePhoto");
+        img.src = URL.createObjectURL(event.target.files[0]);
+
+        userIcon.appendChild(img);
+
+    }else {
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
 }
 
 /*--------------Invite------------*/
