@@ -254,16 +254,23 @@ paths:
                 302Error:
                   description: Failed authentication. Redirect to login form.
                   value: /recoverPassword
+    /resetPassword/{token}:
+      get:
+        operationId: R113
+        summary: 'R113: Reset password Form'
+        description: 'Provide reset password form. Access: AUTH_USR'
+        tags:
+          - 'M01: Authentication and Individual Profile'
+        parameters:
+          - in: path
+            name: token
+            schema:
+              type: string
+            required: true
+        responses:
+          '200':
+            description: OK. Show reset password UI
   /resetPassword:
-    get:
-      operationId: R113
-      summary: 'R113: Reset password Form'
-      description: 'Provide reset password form. Access: AUTH_USR'
-      tags:
-        - 'M01: Authentication and Individual Profile'
-      responses:
-        '200':
-          description: OK. Show reset password UI
     post:
       operationId: R114
       summary: 'R114: Reset password Action'
@@ -305,43 +312,27 @@ paths:
       description: 'Searches for users and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M01: Authentication and Individual Profile'
-      parameters:
-        - in: query
-          name: search_string
-          description: String to use for full-text search
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: inProject
-          description: Id of the project participating
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: notInProject
-          description: Id of the project users don't participate
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: member
-          description: Boolean with the membership flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: coordinator
-          description: Boolean with the coordinator flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: blocked
-          description: Boolean with the blocked flag value
-          schema:
-            type: boolean
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                blocked:
+                  type: boolean
+                coordinator:
+                  type: boolean
+                member:
+                  type: boolean
+                search_string:
+                  type: string 
+                inProject:
+                  type: integer 
+                notInProject:
+                  type: integer
       responses:
         '200':
           description: Success
@@ -378,43 +369,33 @@ paths:
       description: 'Upload an user image and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M01: Authentication and Individual Profile'
-      parameters:
-        - in: path
-          name: id
-          description: id of the user
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: image
-          description: Image to be uploaded
-          schema:
-            type: Blob
-          required: false
-        - in: query
-          name: color
-          description: Image color to be uploaded
-          schema:
-            type: string
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                image:
+                  type: blob
+                color:
+                  type: string
+              required: 
+                - id
       responses:
         '200':
           description: Success
   
   /api/projects:
-    get:
+    post:
       operationId: R201
       summary: 'R201: Search Projects API'
       description: 'Searches for projects and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M02: Project'
       parameters:
-        - in: query
-          name: user_id
-          description: Id of the user
-          schema:
-            type: integer
-          required: false
         - in: query
           name: search_string
           description: String to use for full-text search
@@ -427,30 +408,23 @@ paths:
           schema:
             type: string
           required: false
-        - in: query
-          name: favourite
-          description: Boolean with the favourite flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: coordinator
-          description: Boolean with the coordinator flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: member
-          description: Boolean with the member flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: archived
-          description: Boolean with the archived flag value
-          schema:
-            type: boolean
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                favourite:
+                  type: boolean
+                coordinator:
+                  type: boolean
+                member:
+                  type: boolean
+                archived:
+                  type: boolean 
       responses:
         '200':
           description: Success
@@ -743,43 +717,27 @@ paths:
       description: 'Searches for tasks and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M03: Tasks and Comments'
-      parameters:
-        - in: query
-          name: project_id
-          description: Id of the project
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: user_id
-          description: Id of the user
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: search_string
-          description: String to use for full-text search
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: finished
-          description: Boolean with the finished flag value
-          schema:
-            type: boolean
-          required: true
-        - in: query
-          name: priority
-          description: Integer with the priority value
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: order
-          description: String with the ordering atribute
-          schema:
-            type: string
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                project_id:
+                  type: integer
+                user_id:
+                  type: integer
+                search_string:
+                  type: string
+                finished:
+                  type: boolean
+                priority:
+                  type: integer
+                order:
+                  type: string 
+              required: 
+                - finished
       responses:
         '200':
           description: Success
@@ -1140,12 +1098,15 @@ paths:
           schema:
             type: string
           required: true
-        - in: query
-          name: id_task
-          description: Id of the task
-          schema:
-            type: integer
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_task:
+                  type: integer
       responses:
         '200':
           description: Ok. Label assignment deleted.
