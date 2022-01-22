@@ -1394,6 +1394,7 @@ paths:
                 302Error:
                   description: Failed block. Redirect to admin page.
                   value: /admin
+  
   /:
     get:
       operationId: R701
@@ -1471,16 +1472,6 @@ paths:
       responses:
         '200':
           description: OK. Show service page UI
-  /404:
-    get:
-      operationId: R706
-      summary: 'R706: Errro page'
-      description: 'Provide erro page. Access: PUB'
-      tags:
-        - 'M07: Static Pages'
-      responses:
-        '200':
-          description: OK. Show erro page UI
   /blocked:
     get:
       operationId: R707
