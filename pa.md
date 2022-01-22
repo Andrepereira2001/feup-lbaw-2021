@@ -13,11 +13,11 @@ This artefact has the final version of product developed. All features implement
 
 ### 2. Usage
 
-> URL to the product: http://lbaw21gg.lbaw.fe.up.pt  
+URL to the product: http://lbaw2102.lbaw.fe.up.pt  
 
 #### 2.1. Administration Credentials
 
-> Administration URL: URL  
+Administration URL: http://lbaw2102.lbaw.fe.up.pt
 
 | Email | Password |
 | ----- | -------- |

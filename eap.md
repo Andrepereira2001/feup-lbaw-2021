@@ -1870,7 +1870,10 @@ The code is available at: https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102
 ## Revision history
 
 Changes made to the first submission:
-1. - 
+
+22/01/20221
+
+1. Ymal and routes were fixed and some were added to the final product in A9. 
 
 ***
 GROUP2102, 03/01/2021

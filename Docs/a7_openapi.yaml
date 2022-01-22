@@ -1470,7 +1470,6 @@ paths:
       responses:
         '200':
           description: Ok. Show user notifications Page UI
-  /users/{id}/notifications:
     post:
       operationId: R506
       summary: 'R506: See notification'

@@ -252,7 +252,7 @@ Changes made to the first submission:
 6. Search in project wireframe
 
 17/01/2022
-1. Added user stories of labels
+1. Added user stories of labels. 
 
 ---
 
