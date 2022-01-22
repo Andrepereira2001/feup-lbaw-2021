@@ -303,16 +303,23 @@ paths:
                 302Error:
                   description: Failed authentication. Redirect to login form.
                   value: /recoverPassword
+    /resetPassword/{token}:
+      get:
+        operationId: R113
+        summary: 'R113: Reset password Form'
+        description: 'Provide reset password form. Access: AUTH_USR'
+        tags:
+          - 'M01: Authentication and Individual Profile'
+        parameters:
+          - in: path
+            name: token
+            schema:
+              type: string
+            required: true
+        responses:
+          '200':
+            description: OK. Show reset password UI
   /resetPassword:
-    get:
-      operationId: R113
-      summary: 'R113: Reset password Form'
-      description: 'Provide reset password form. Access: AUTH_USR'
-      tags:
-        - 'M01: Authentication and Individual Profile'
-      responses:
-        '200':
-          description: OK. Show reset password UI
     post:
       operationId: R114
       summary: 'R114: Reset password Action'
@@ -348,49 +355,33 @@ paths:
                   description: Failed authentication. Redirect to home page.
                   value: /
   /api/users:
-    get:
+    post:
       operationId: R115
       summary: 'R115: Search Users API'
       description: 'Searches for users and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M01: Authentication and Individual Profile'
-      parameters:
-        - in: query
-          name: search_string
-          description: String to use for full-text search
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: inProject
-          description: Id of the project participating
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: notInProject
-          description: Id of the project users don't participate
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: member
-          description: Boolean with the membership flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: coordinator
-          description: Boolean with the coordinator flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: blocked
-          description: Boolean with the blocked flag value
-          schema:
-            type: boolean
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                blocked:
+                  type: boolean
+                coordinator:
+                  type: boolean
+                member:
+                  type: boolean
+                search_string:
+                  type: string 
+                inProject:
+                  type: integer 
+                notInProject:
+                  type: integer
       responses:
         '200':
           description: Success
@@ -420,20 +411,40 @@ paths:
                     name: Mahalia Ferries
                     image_path: ./img/default
                     blocked: false
+  /api/users/{id}/uploadImage:
+    post:
+      operationId: R116
+      summary: 'R116: Upload User Image '
+      description: 'Upload an user image and returns the results as JSON. Access: AUTH_USR.'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                image:
+                  type: blob
+                color:
+                  type: string
+              required: 
+                - id
+      responses:
+        '200':
+          description: Success
+  
   /api/projects:
-    get:
+    post:
       operationId: R201
       summary: 'R201: Search Projects API'
       description: 'Searches for projects and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M02: Project'
       parameters:
-        - in: query
-          name: user_id
-          description: Id of the user
-          schema:
-            type: integer
-          required: false
         - in: query
           name: search_string
           description: String to use for full-text search
@@ -446,30 +457,23 @@ paths:
           schema:
             type: string
           required: false
-        - in: query
-          name: favourite
-          description: Boolean with the favourite flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: coordinator
-          description: Boolean with the coordinator flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: member
-          description: Boolean with the member flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: archived
-          description: Boolean with the archived flag value
-          schema:
-            type: boolean
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                favourite:
+                  type: boolean
+                coordinator:
+                  type: boolean
+                member:
+                  type: boolean
+                archived:
+                  type: boolean 
       responses:
         '200':
           description: Success
@@ -700,10 +704,10 @@ paths:
                 302Error:
                   description: Failed favourite. Redirect to project page.
                   value: /users
-  /api/projects/{id}/leave:
-    post:
+  /api/projects/{id}/decreaseParticipation:
+    delete:
       operationId: R211
-      summary: 'R211: Leave project'
+      summary: 'R211: Decreases the participation role project'
       description: 'Leave project. Access: MEMB, COOR'
       tags:
         - 'M02: Project'
@@ -722,55 +726,67 @@ paths:
                 type: string
               examples:
                 302Success:
-                  description: Successfull leave. Redirect to user page
+                  description: Successfull decrease participation. Redirect to user page
                   value: /users
                 302Error:
-                  description: Failed favourite. Redirect to user page.
+                  description: Failed decrease participation. Redirect to user page.
+                  value: /users 
+  /api/projects/{id}/archive:
+    post:
+      operationId: R212
+      summary: 'R212: Archive project'
+      description: 'Archive project. Access: COOR'
+      tags:
+        - 'M02: Project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '302':
+          description: Redirect after archive coordinator.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull Archive. Redirect to project page
                   value: /users
+                302Error:
+                  description: Failed Archive. Redirect to project page.
+                  value: /users
+  
   /api/tasks:
-    get:
+    post:
       operationId: R301
       summary: 'R301: Search Tasks API'
       description: 'Searches for tasks and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M03: Tasks and Comments'
-      parameters:
-        - in: query
-          name: project_id
-          description: Id of the project
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: user_id
-          description: Id of the user
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: search_string
-          description: String to use for full-text search
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: finished
-          description: Boolean with the finished flag value
-          schema:
-            type: boolean
-          required: true
-        - in: query
-          name: priority
-          description: Integer with the priority value
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: order
-          description: String with the ordering atribute
-          schema:
-            type: string
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                project_id:
+                  type: integer
+                user_id:
+                  type: integer
+                search_string:
+                  type: string
+                finished:
+                  type: boolean
+                priority:
+                  type: integer
+                order:
+                  type: string 
+              required: 
+                - finished
       responses:
         '200':
           description: Success
@@ -943,7 +959,7 @@ paths:
       summary: 'R307: Complete task'
       description: 'Complete task. Access: MEMB, COOR'
       tags:
-        - 'M03: Project'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -981,7 +997,7 @@ paths:
       summary: 'R308: Clone task'
       description: 'Clone task. Access: MEMB, COOR'
       tags:
-        - 'M03: Project'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -1040,54 +1056,14 @@ paths:
                 302Error:
                   description: Failed creation. Redirect to task form.
                   value: /tasks/{id}
-  /comments/{id}:
+
+  /labels/assign:
     post:
-      operationId: R310
-      summary: 'R310: Edit task comment'
-      description: 'Edit individual task comment. Access: OWN'
-      tags:
-        - 'M03: Tasks and Comments'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                content:
-                  type: string
-      responses:
-        '200':
-          description: Ok. Task comment updated.
-    delete:
-      operationId: R311
-      summary: 'R311: Delete task comment'
-      description: 'Delete task comment from service. Access: OWN, ADMIN'
-      tags:
-        - 'M03: Tasks and Comments'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: Ok. Comment deleted
-  /tasks/labels:
-    post:
-      operationId: R312
-      summary: 'R312: Assign label to task'
+      operationId: R401
+      summary: 'R401: Assign label to task'
       description: 'Processe the label assignment to task submission. Access: MEMB, COOR'
       tags:
-        - 'M03: Tasks and Comments'
+        - 'M04: Project Forum and Labels'
       requestBody:
         required: true
         content:
@@ -1116,38 +1092,88 @@ paths:
                 302Error:
                   description: Failed assignment. Redirect to task form.
                   value: /tasks/{id}
+  /tasks/labels/{id}:
     delete:
-      operationId: R313
-      summary: 'R313: Delete label assignment'
+      operationId: R402
+      summary: 'R402: Delete label assignment'
       description: 'Delete label assignment from service. Access: COOR, MEMB'
       tags:
-        - 'M03: Tasks and Comments'
+        - 'M04: Project Forum and Labels'
       parameters: 
-        - in: query
-          name: id_task
-          description: Id of the task
-          schema:
-            type: integer
-          required: false
-        - in: query
-          name: id_label
+        - in: path
+          name: id
           description: id of the label
           schema:
             type: string
-          required: false
-        - in: query
-          name: id_task_label
-          description: id of the task_label
-          schema:
-            type: string
-          required: false
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_task:
+                  type: integer
       responses:
         '200':
           description: Ok. Label assignment deleted.
+  /labels:
+    post:
+      operationId: R404
+      summary: 'R404: Create label'
+      description: 'Processe the label creation form submission. Access: MEMB, COOR'
+      tags:
+        - 'M04: Project Forum and Labels'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                id_project:
+                  type: integer
+              required:
+                - name
+                - id_project
+      responses:
+        '302':
+          description: Redirect after processing the label creation form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull creation. Redirect to project page
+                  value: /projects/{id}
+                302Error:
+                  description: Failed creation. Redirect to project form.
+                  value: /projects/{id}
+  /labels/{id}:
+    delete:
+      operationId: R405
+      summary: 'R405: Delete label'
+      description: 'Delete label from service. Access: COOR, ADMIN'
+      tags:
+        - 'M04: Project Forum and Labels'
+        - 'M06: Administration'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok. Label deleted
   /messages:
     post:
-      operationId: R401
-      summary: '401: Create message'
+      operationId: R406
+      summary: '406: Create message'
       description: 'Processe the message creation form submission. Access: MEMB, COOR'
       tags:
         - 'M04: Project Forum and Labels'
@@ -1182,192 +1208,28 @@ paths:
                 302Error:
                   description: Failed creation. Redirect to project form.
                   value: /project/{id}
-  /messages/{id}:
+
+  /api/invites/search:
     post:
-      operationId: R402
-      summary: 'R402: Edit forum message'
-      description: 'Edit individual forum message. Access: OWN'
-      tags:
-        - 'M04: Project Forum and Labels'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                content:
-                  type: string
-      responses:
-        '200':
-          description: Ok. Task message updated.
-    delete:
-      operationId: R403
-      summary: 'R403: Delete Forum message'
-      description: 'Delete forum message from service. Access: OWN, ADMIN'
-      tags:
-        - 'M04: Project Forum and Labels'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: Ok. Message deleted
-  /api/labels:
-    get:
-      operationId: R404
-      summary: 'R404: Search Labels API'
-      description: 'Searches for Labels and returns the results as JSON. Access: AUTH_USR.'
-      tags:
-        - 'M04: Project Forum and Labels'
-      parameters:
-        - in: query
-          name: project_id
-          description: Id of the project
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: name
-          description: Name of the label
-          schema:
-            type: string
-          required: false
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    id_project:
-                      type: integer
-                example:
-                  - id: 4
-                    content: Epoxy Flooring
-                    id_project: 4
-  /labels:
-    get:
-      operationId: R405
-      summary: 'R405: Labels creation Form'
-      description: 'Provide labels creation form. Access: MEMB, COOR'
-      tags:
-        - 'M04: Project Forum and Labels'
-      responses:
-        '200':
-          description: OK. Show labels creation UI
-    post:
-      operationId: R406
-      summary: 'R406: Create label'
-      description: 'Processe the label creation form submission. Access: MEMB, COOR'
-      tags:
-        - 'M04: Project Forum and Labels'
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                id_project:
-                  type: integer
-              required:
-                - name
-                - id_project
-      responses:
-        '302':
-          description: Redirect after processing the label creation form.
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: Successfull creation. Redirect to project page
-                  value: /projects/{id}
-                302Error:
-                  description: Failed creation. Redirect to project form.
-                  value: /projects/{id}
-  /labels/{id}:
-    post:
-      operationId: R407
-      summary: 'R407: Edit label'
-      description: 'Edit individual label. Access: COOR'
-      tags:
-        - 'M04: Project Forum and Labels'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-      responses:
-        '200':
-          description: Ok. Label updated.
-    delete:
-      operationId: R408
-      summary: 'R408: Delete label'
-      description: 'Delete label from service. Access: COOR, ADMIN'
-      tags:
-        - 'M04: Project Forum and Labels'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: Ok. Label deleted
-  /api/invites/:
-    get:
       operationId: R501
       summary: 'R501: Search Invites API'
       description: 'Searches for Invites and returns the results as JSON. Access: AUTH_USR.'
       tags:
         - 'M05: Invites and Notifications'
-      parameters:
-        - in: query
-          name: id_user
-          description: Id of the user
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: id_project
-          description: Name of the project
-          schema:
-            type: string
-          required: false
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_project:
+                  type: integer
+                id_user:
+                  type: integer
+              required:
+                - id_project
+                - id_user
       responses:
         '200':
           description: Success
@@ -1391,6 +1253,7 @@ paths:
                     content: '2020-03-12'
                     id_user: 21
                     id_project: 1
+  /api/invites/:
     post:
       operationId: R502
       summary: 'R502: Create invite'
@@ -1452,11 +1315,11 @@ paths:
                 302Error:
                   description: Failed accept. Redirect to user page.
                   value: /users/{id}
-  /api/invites/{id}/reject:
-    post:
+  /api/invites/{id}/:
+    delete:
       operationId: R504
-      summary: 'R504: Reject invite'
-      description: 'Reject invite of user. Access: OWN'
+      summary: 'R504: Delete invite'
+      description: 'Delete invite of user. Access: OWN'
       tags:
         - 'M05: Invites and Notifications'
       parameters:
@@ -1467,63 +1330,34 @@ paths:
           required: true
       responses:
         '302':
-          description: Redirect after reject the invite.
+          description: Redirect after Delete the invite.
           headers:
             Location:
               schema:
                 type: string
               examples:
                 302Success:
-                  description: Successfull reject. Redirect to user page
-                  value: /users/{id}
+                  description: Successfull Delete. Redirect to user page
+                  value: /users/{id}/profile
                 302Error:
-                  description: Failed reject. Redirect to user page.
-                  value: /users/{id}
-  /api/notifications:
+                  description: Failed Delete. Redirect to user page.
+                  value: /users/{id}/profile
+  /users/{id}/notifications:
     get:
       operationId: R505
-      summary: 'R505: Search Notifications API'
-      description: >-
-        Searches for Notifications and returns the results as JSON. Access:
-        AUTH_USR.
+      summary: 'R505: Shows the user Notifications page'
+      description: "Shows the if user notifactions. Access: AUTH_USR."
       tags:
         - 'M05: Invites and Notifications'
       parameters:
-        - in: query
-          name: id_user
-          description: Id of the user
+        - in: path
+          name: id
           schema:
             type: integer
           required: true
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    content:
-                      type: string
-                    created_at:
-                      type: string
-                    id_project:
-                      type: integer
-                    seen:
-                      type: boolean
-                    id_user:
-                      type: integer
-                example:
-                  - id: 1
-                    content: Invite to a new project!
-                    id_project: 1
-                    seen: false
-                    id_user: 21
-  /api/notifications/{user_id}/{notification_id}:
+          description: Ok. Show user notifications Page UI
     post:
       operationId: R506
       summary: 'R506: See notification'
@@ -1532,15 +1366,21 @@ paths:
         - 'M05: Invites and Notifications'
       parameters:
         - in: path
-          name: user_id
+          name: id
           schema:
             type: integer
           required: true
-        - in: path
-          name: notification_id
-          schema:
-            type: integer
-          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                notification_id:
+                  type: integer
+              required:
+                - notification_id
       responses:
         '302':
           description: Redirect after see the invite.
@@ -1555,6 +1395,7 @@ paths:
                 302Error:
                   description: Failed seen. Redirect to user page.
                   value: /users/{id}
+ 
   /admin:
     get:
       operationId: R601
@@ -1602,33 +1443,7 @@ paths:
                 302Error:
                   description: Failed block. Redirect to admin page.
                   value: /admin
-  /api/unblock/{user_id}:
-    post:
-      operationId: R604
-      summary: 'R604: Unblock User'
-      description: 'Unblock user of the webservice. Access: ADMIN'
-      tags:
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: user_id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '302':
-          description: Redirect after unblocking user.
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: Successfull unblocked. Redirect to admin page
-                  value: /admin
-                302Error:
-                  description: Failed unblock. Redirect to admin page.
-                  value: /admin
+  
   /:
     get:
       operationId: R701
@@ -1706,16 +1521,54 @@ paths:
       responses:
         '200':
           description: OK. Show service page UI
-  /404:
+  /blocked:
     get:
-      operationId: R706
-      summary: 'R706: Errro page'
-      description: 'Provide erro page. Access: PUB'
+      operationId: R707
+      summary: 'R707: Blocked page'
+      description: 'Provide blocked page. Access: PUB'
       tags:
         - 'M07: Static Pages'
       responses:
         '200':
-          description: OK. Show erro page UI
+          description: OK. Show blocked page UI
+  /contact/sendEmail:
+    post:
+      operationId: R708
+      summary: 'R708: Send Project'
+      description: 'Processe the email form submission. Access: Pub'
+      tags:
+        - 'M07: Static Pages'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                message:
+                  type: string
+              required:
+                - name
+                - email
+                - message
+      responses:
+        '302':
+          description: Redirect after processing the email send form.
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: Successfull send. Redirect to project page
+                  value: /
+                302Error:
+                  description: Failed sent. Redirect to login form.
+                  value: /
 ```
 ---
 
@@ -1873,7 +1726,7 @@ Changes made to the first submission:
 
 22/01/20221
 
-1. Ymal and routes were fixed and some were added to the final product in A9. 
+1. Ymal and routes were fixed and some were added to match the final product in A9. 
 
 ***
 GROUP2102, 03/01/2021
