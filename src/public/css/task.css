@@ -258,9 +258,7 @@
 
 .due-date input {
     all: unset;
-    box-shadow: 0;
     color: #212529;
-    font-weight: medium;
     font-size: medium;
     display: flex;
     flex-direction: row-reverse;
