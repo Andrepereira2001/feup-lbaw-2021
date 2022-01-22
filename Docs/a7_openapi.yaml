@@ -952,7 +952,7 @@ paths:
       summary: 'R307: Complete task'
       description: 'Complete task. Access: MEMB, COOR'
       tags:
-        - 'M03:  Tasks and Comments'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
