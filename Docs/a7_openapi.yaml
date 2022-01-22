@@ -711,7 +711,7 @@ paths:
                   value: /users
   
   /api/tasks:
-    get:
+    post:
       operationId: R301
       summary: 'R301: Search Tasks API'
       description: 'Searches for tasks and returns the results as JSON. Access: AUTH_USR.'
@@ -1007,49 +1007,8 @@ paths:
                 302Error:
                   description: Failed creation. Redirect to task form.
                   value: /tasks/{id}
-  /comments/{id}:
-    post:
-      operationId: R310
-      summary: 'R310: Edit task comment'
-      description: 'Edit individual task comment. Access: OWN'
-      tags:
-        - 'M03: Tasks and Comments'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                content:
-                  type: string
-      responses:
-        '200':
-          description: Ok. Task comment updated.
-    delete:
-      operationId: R311
-      summary: 'R311: Delete task comment'
-      description: 'Delete task comment from service. Access: OWN, ADMIN'
-      tags:
-        - 'M03: Tasks and Comments'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: Ok. Comment deleted
 
-  /tasks/assign:
+  /labels/assign:
     post:
       operationId: R401
       summary: 'R401: Assign label to task'
@@ -1110,46 +1069,6 @@ paths:
       responses:
         '200':
           description: Ok. Label assignment deleted.
-  /api/labels:
-    get:
-      operationId: R403
-      summary: 'R403: Search Labels API'
-      description: 'Searches for Labels and returns the results as JSON. Access: AUTH_USR.'
-      tags:
-        - 'M04: Project Forum and Labels'
-      parameters:
-        - in: query
-          name: project_id
-          description: Id of the project
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: name
-          description: Name of the label
-          schema:
-            type: string
-          required: false
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    id_project:
-                      type: integer
-                example:
-                  - id: 4
-                    content: Epoxy Flooring
-                    id_project: 4
   /labels:
     post:
       operationId: R404
@@ -1240,47 +1159,6 @@ paths:
                 302Error:
                   description: Failed creation. Redirect to project form.
                   value: /project/{id}
-  /messages/{id}:
-    post:
-      operationId: R407
-      summary: 'R407: Edit forum message'
-      description: 'Edit individual forum message. Access: OWN'
-      tags:
-        - 'M04: Project Forum and Labels'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                content:
-                  type: string
-      responses:
-        '200':
-          description: Ok. Task message updated.
-    delete:
-      operationId: R408
-      summary: 'R408: Delete Forum message'
-      description: 'Delete forum message from service. Access: OWN, ADMIN'
-      tags:
-        - 'M04: Project Forum and Labels'
-        - 'M06: Administration'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: Ok. Message deleted
 
   /api/invites/search:
     post:
@@ -1443,11 +1321,17 @@ paths:
           schema:
             type: integer
           required: true
-        - in: query
-          name: notification_id
-          schema:
-            type: integer
-          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                notification_id:
+                  type: integer
+              required:
+                - notification_id
       responses:
         '302':
           description: Redirect after see the invite.
