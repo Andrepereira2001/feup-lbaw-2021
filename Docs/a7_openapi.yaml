@@ -952,7 +952,7 @@ paths:
       summary: 'R307: Complete task'
       description: 'Complete task. Access: MEMB, COOR'
       tags:
-        - 'M03: Project'
+        - 'M03:  Tasks and Comments'
       parameters:
         - in: path
           name: id
@@ -990,7 +990,7 @@ paths:
       summary: 'R308: Clone task'
       description: 'Clone task. Access: MEMB, COOR'
       tags:
-        - 'M03: Project'
+        - 'M03: Tasks and Comments'
       parameters:
         - in: path
           name: id
