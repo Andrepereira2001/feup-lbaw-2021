@@ -54,7 +54,7 @@ In the following tables we present the user stories for the actors described abo
 | - | - | - | - |
 | US0.1 | See Home | high | As a User, I want to access the home page, so that I can see a brief presentation of the website |
 | US0.2 | See About | high | As a User, I want to access the about page, so that I can see a complete description of the website as well as its creators |
-| US0.3 | Consult Contacts | medium | As a User, I want to access contacts, so that I can come in touch with the platform creators |
+| US0.3 | Contact Team | medium | As a User, I want to access contacts or contact the team, so that I can come in touch with the platform creators |
 | US0.4 | Consult Services | medium | As a User, I want to access the services information, so that I can see the website’s services |
 > Table 2: User User Stories
 
@@ -67,6 +67,7 @@ In the following tables we present the user stories for the actors described abo
 | US1.2 | Sign-up | high | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system |
 | US1.3 | OAuth API Sign-up | very low | As a Visitor, I want to register a new account linked to my Google account, so that I do not need to create a whole new account to use the platform  |
 | US1.4 | OAuth API Sign-in | very low | As a Visitor, I want to sign-in through my Google account, so that I can authenticate myself into the system |
+| US1.5 | Reset Password | high | As a Visitor, I want to reset my password if I forgot it for example, so that I can have access to the platform again |
 > Table 3: Visitor User Stories
 
 #### 2.2. AuthUser
@@ -107,6 +108,7 @@ In the following tables we present the user stories for the actors described abo
 | US3.12 | Post messages to Project Forum | medium | As a Member, I want to be able to publish messages, so that I can participate in any forum discussion |
 | US3.13 | View Project Timeline | medium | As a Member, I want to be able to see project tasks done, so that I can have more understanding about the development of the project|
 | US3.14 | Assign Label to Task | low | As a Member, I want to assign labels of my project to a task, so that I can identify the tasks with labels |
+| US3.15 | Delete Label from Task | low | As a Member, I want to delete labels from tasks, so that I can conclude that that label does not make any sense with the task involved |
 > Table 5: Member User Stories
 
 #### 2.4. Coordinator
@@ -254,6 +256,8 @@ Changes made to the first submission:
 17/01/2022
 1. Added user stories of labels. 
 
+23/01/2022
+1. Added user story of reset password
 ---
 
 This component, ER, was completed by every member of the group and each one of us contributed to diferent parts of the three Artifacts. Therefore, everyone edited the present document. 

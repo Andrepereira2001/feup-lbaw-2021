@@ -552,7 +552,6 @@ function sendEditUserRequest(event) {
             this.querySelector('.error-messages').style.display = "flex";
         }
     } else if (password.length < 6) {
-
         if (sendAjaxRequest('post', '/users/' + id + '/update', { name, email, password }, userEditHandler)) {
             this.querySelector('.error-messages').innerText = "Your password must be at least 6 characters"
             this.querySelector('.error-messages').style.display = "flex";
@@ -572,20 +571,20 @@ function sendDeleteUserRequest(event) {
 
 function changePhotoUpload(event) {
     var output = document.getElementById('output');
-    if(output == null) {
+    if (output == null) {
         const userIcon = document.querySelector('#photo .userIcon');
         userIcon.querySelector('span').remove();
 
         const img = document.createElement('img');
-        img.setAttribute('id',"outpup");
-        img.setAttribute('alt',"User image");
-        img.setAttribute('width',"55");
-        img.setAttribute('class',"profilePhoto");
+        img.setAttribute('id', "outpup");
+        img.setAttribute('alt', "User image");
+        img.setAttribute('width', "55");
+        img.setAttribute('class', "profilePhoto");
         img.src = URL.createObjectURL(event.target.files[0]);
 
         userIcon.appendChild(img);
 
-    }else {
+    } else {
         output.src = URL.createObjectURL(event.target.files[0]);
     }
 }
