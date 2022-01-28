@@ -37,10 +37,10 @@ Administration URL: http://lbaw2102.lbaw.fe.up.pt
 ### 3. Application Help
 
 Contextual help was implemented in our project with the addition of small question marks that can be hovered to give extra information about a certain button action. 
-![Archive exemple](../Docs/contextual-help1.png)
+![Archive exemple](./Docs/contextual-help1.png)
 
 Aditionaly error messages are presented to the user if some invalid action is made.
-![Invalid task creation](../Docs/error-messages.png)
+![Invalid task creation](./Docs/error-messages.png)
 
 ### 4. Input Validation
 
@@ -48,29 +48,29 @@ In our project we use both client-side and server-side validation for example wh
 
 In our blade.php we have created a date type input:
 
-![html validation](../Docs/dateValidationHTML.png)
+![html validation](./Docs/dateValidationHTML.png)
 
 In the controller we are verifing the existance of a data attribute: 
 
-![php validation](../Docs/dateValidationPHP.png)
+![php validation](./Docs/dateValidationPHP.png)
 
 In our database we check if the given date is valid in that context: 
 
-![postgres validation](../Docs/dateValidationSQL.png)
+![postgres validation](./Docs/dateValidationSQL.png)
 
 ### 5. Check Accessibility and Usability
 
 The usability and accessibility tests were done following the checklists provided below. Plase check the two links in case of doubts. 
 
-Accessibility: [link to the checklist](../Docs/acessibilidade-sapo.pdf)
+Accessibility: [link to the checklist](./Docs/acessibilidade-sapo.pdf)
 
-Usability: [link to the checklist](../Docs/usabilidade-sapo.pdf)
+Usability: [link to the checklist](./Docs/usabilidade-sapo.pdf)
 
 ### 6. HTML & CSS Validation
    
-HTML: [link](../Docs/toEaseManageHTML.pdf) to the html validation pdf that concatenates the validation to the pages of the web application with https://validator.w3.org/nu/. 
+HTML: [link](./Docs/toEaseManageHTML.pdf) to the html validation pdf that concatenates the validation to the pages of the web application with https://validator.w3.org/nu/ 
 
-CSS: [link](../Docs/toEaseManageCss.pdf) to the css validation
+CSS: [link](./Docs/toEaseManageCss.pdf) to the css validation
 
 ### 7. Revisions to the Project
 
@@ -82,7 +82,7 @@ In EAP the yaml document was review and edited to be in agreement with the reque
 
 #### 8.1. Libraries Used
 
-In our project we use [Bootstrap](https://getbootstrap.com/), to implement our popups. The usage of this library can be seen when the pop up is [created](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/partials/popup_delete.blade.php), [declared](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/pages/user.blade.php#L9) and [toggled](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/partials/popup_delete.blade.php).
+In our project we use [Bootstrap](https://getbootstrap.com/), to implement our popups. The usage of this library can be seen when the pop up is [created](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/partials/popup_delete.blade.php), [declared](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/pages/user.blade.php#L9) and [toggled](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/pages/user.blade.php#L22-23).
 
 #### 8.2 User Stories
 
@@ -159,20 +159,13 @@ URL to the product: http://lbaw2102.lbaw.fe.up.pt
 
 ### 2. Video presentation
 
-> Screenshot of the video plus the link to the lbaw21gg.mp4 file  
-
 toEaseManage Home Page
-![link](../Docs/toEaseManageCss.pdf) 
+![HomePage](./Docs/homePage.png) 
 
 toEaseManage Project Page
-![link](../Docs/toEaseManageCss.pdf)
-
+![ProjecPage](./Docs/projectPage.png)
 
 Video Link: [here](https://drive.google.com/file/d/1viz5Zm4sYsBQ5r1ImrFswNIL61Xn3inm/view?usp=sharing).
-
-
-
-> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
 
 ---
 ***
