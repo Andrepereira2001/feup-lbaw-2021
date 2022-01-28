@@ -81,7 +81,7 @@ function addEventListeners() {
         val.addEventListener('click', createTaskAssignHandler);
     });
 
-    let taskAssignMember = document.querySelectorAll('#task-edit #assign-member .confirm');
+    let taskAssignMember = document.querySelectorAll('#task-details #assign-member .confirm');
     [].forEach.call(taskAssignMember, function(val) {
         val.addEventListener('click', taskAssignMemberHandler);
     });
@@ -1088,7 +1088,7 @@ function taskAddedHandler() {
     }
     else if (this.status === 201) {
         const task = JSON.parse(this.responseText);
-        //window.location = '/tasks/' + task.id;
+        window.location = '/tasks/' + task.id;
     } else if (this.status !== 200) {
         window.location = '/users';
     }

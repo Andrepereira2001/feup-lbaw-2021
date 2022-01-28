@@ -8,7 +8,7 @@ This artefact has the final version of product developed. All features implement
 
 ### 1. Installation
 
-> Link to the release with the final version of the source code in the group's git repository.  
+Source code final release can be seen [here](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/tree/master/src)
 
 In order to test our docker image locally the following comand must be executed: 
 ```
@@ -44,8 +44,6 @@ Aditionaly error messages are presented to the user if some invalid action is ma
 
 ### 4. Input Validation
 
-> Describe how input data was validated, and provide examples to scenarios using both client-side and server-side validation.
-
 In our project we use both client-side and server-side validation for example while receiving date inputs from the user:
 
 In our blade.php we have created a date type input:
@@ -69,11 +67,10 @@ Accessibility: [link to the checklist](../Docs/acessibilidade-sapo.pdf)
 Usability: [link to the checklist](../Docs/usabilidade-sapo.pdf)
 
 ### 6. HTML & CSS Validation
+   
+HTML: [link](../Docs/toEaseManageHTML.pdf) to the html validation pdf that concatenates the validation to the pages of the web application with https://validator.w3.org/nu/. 
 
-> Provide the results of the validation of the HTML and CSS code using the following tools. Include the results as PDF files in the group's repository. Add individual links to those files here.
->   
-> HTML: https://validator.w3.org/nu/  
-> CSS: [link to the css validation](../Docs/toEaseManageCss-sapo.pdf)  
+CSS: [link](../Docs/toEaseManageCss.pdf) to the css validation
 
 ### 7. Revisions to the Project
 
@@ -85,18 +82,9 @@ In EAP the yaml document was review and edited to be in agreement with the reque
 
 #### 8.1. Libraries Used
 
-> Include reference to all the libraries and frameworks used in the product.  
-> Include library name and reference, description of the use, and link to the example where it's used in the product.  
-
-In our project we use [Bootstrap](https://getbootstrap.com/), to implement our popups. The usage of this library can be seen here:
+In our project we use [Bootstrap](https://getbootstrap.com/), to implement our popups. The usage of this library can be seen when the pop up is [created](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/partials/popup_delete.blade.php), [declared](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/pages/user.blade.php#L9) and [toggled](https://git.fe.up.pt/lbaw/lbaw2122/lbaw2102/-/blob/master/src/resources/views/partials/popup_delete.blade.php).
 
 #### 8.2 User Stories
-
-> This subsection should include all high and medium priority user stories, sorted by order of implementation. Implementation should be sequential according to the order identified below. 
->
-> If there are new user stories, also include them in this table. 
-> The owner of the user story should have the name in **bold**.
-> This table should be updated when a user story is completed and another one started. 
 
 | US Identifier | Name    | Module | Priority                       | Team Members               | State  |
 | - | - | - | - | - | - |
@@ -158,36 +146,38 @@ In our project we use [Bootstrap](https://getbootstrap.com/), to implement our p
 
 ## A10: Presentation
  
-> This artefact corresponds to the presentation of the product.
+In this artefact we will leave some information about the presentation of the product as well as a small video demonstrating the main features.
 
 ### 1. Product presentation
 
-> Brief presentation of the product and its main features (2 paragraphs max).  
->
-> URL to the product: http://lbaw21gg.lbaw.fe.up.pt  
->
-> Slides used during the presentation should be added, as a PDF file, to the group's repository and linked to here.
+toEaseManage is a web application that helps project management. The website is for everyone, it can be used personally, for business, school, or even among friends. This is a tool that can be used by teams in every project areas, by allowing the creation of a project, assigning teams and tasks and enabling discussion in a forum inside a project. A project is formed by a project coordinator and a group of project members. The coordinator is responsible for inviting members to his project as well as assigning a new coordinators. Every team member is able to create, assign and complete tasks, as well as, to usufruit of the project discussion forum.
+
+This plataform will allow multiple project work, since you can work simultaneously in different projects and be either member ou project coordinator in different ones. Each project will have a variety of tasks with its main goal, description, due-to date, comments and members assigned to it, that can check the task when done. Futhermore, each project will also have a specific discussion forum to discuss project ideas. 
+
+URL to the product: http://lbaw2102.lbaw.fe.up.pt  
 
 
 ### 2. Video presentation
 
 > Screenshot of the video plus the link to the lbaw21gg.mp4 file  
 
-> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
-> - The video must not exceed 2 minutes.
-> - Include a link to the video on the Google Drive folder.
+toEaseManage Home Page
+![link](../Docs/toEaseManageCss.pdf) 
 
+toEaseManage Project Page
+![link](../Docs/toEaseManageCss.pdf)
+
+
+Video Link: [here](https://drive.google.com/file/d/1viz5Zm4sYsBQ5r1ImrFswNIL61Xn3inm/view?usp=sharing).
+
+
+
+> - Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing "Videos folder"). You need to use a Google U.Porto account to upload the video.   
 
 ---
-
-## Revision history
-
-Changes made to the first submission:
-
-
 ***
 
-GROUP2102, 22/02/2022
+GROUP2102, 28/02/2022
 
 * André Pereira, up201905650@up.pt
 * Beatriz Lopes dos Santos, up201906888@up.pt
